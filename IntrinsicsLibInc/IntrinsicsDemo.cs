@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.Intrinsics;
@@ -152,6 +153,44 @@ namespace IntrinsicsLib {
         private static readonly Vector128<ulong> srcT_128_ulong = Vector128.Create(ulong.MaxValue, 0);
         private static readonly Vector256<ulong> srcT_256_ulong = Vector256.Create(ulong.MinValue, ulong.MaxValue, 0, 1);
 
+        // srcQ: Element value is sequential.
+        private static readonly Vector64<float> srcQ_64_float = Vector64.Create(0f, 1f);
+        private static readonly Vector128<float> srcQ_128_float = Vector128.Create(0f, 1f, 2f, 3f);
+        private static readonly Vector256<float> srcQ_256_float = Vector256.Create(0f, 1f, 2f, 3f, 4f, 5f, 6f, 7f);
+        private static readonly Vector64<double> srcQ_64_double = Vector64.Create(0.0);
+        private static readonly Vector128<double> srcQ_128_double = Vector128.Create(0.0, 1.0);
+        private static readonly Vector256<double> srcQ_256_double = Vector256.Create(0.0, 1.0, 2.0, 3.0);
+        private static readonly Vector64<sbyte> srcQ_64_sbyte = Vector64.Create((sbyte)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector128<sbyte> srcQ_128_sbyte = Vector128.Create((sbyte)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        private static readonly Vector256<sbyte> srcQ_256_sbyte = Vector256.Create((sbyte)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31);
+        private static readonly Vector64<short> srcQ_64_short = Vector64.Create((short)0, 1, 2, 3);
+        private static readonly Vector128<short> srcQ_128_short = Vector128.Create((short)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector256<short> srcQ_256_short = Vector256.Create((short)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        private static readonly Vector64<int> srcQ_64_int = Vector64.Create((int)0, 1);
+        private static readonly Vector128<int> srcQ_128_int = Vector128.Create((int)0, 1, 2, 3);
+        private static readonly Vector256<int> srcQ_256_int = Vector256.Create((int)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector64<long> srcQ_64_long = Vector64.Create((long)0);
+        private static readonly Vector128<long> srcQ_128_long = Vector128.Create((long)0, 1);
+        private static readonly Vector256<long> srcQ_256_long = Vector256.Create((long)0, 1, 2, 3);
+        private static readonly Vector64<byte> srcQ_64_byte = Vector64.Create((byte)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector128<byte> srcQ_128_byte = Vector128.Create((byte)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        private static readonly Vector256<byte> srcQ_256_byte = Vector256.Create((byte)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31);
+        private static readonly Vector64<ushort> srcQ_64_ushort = Vector64.Create((ushort)0, 1, 2, 3);
+        private static readonly Vector128<ushort> srcQ_128_ushort = Vector128.Create((ushort)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector256<ushort> srcQ_256_ushort = Vector256.Create((ushort)0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        private static readonly Vector64<uint> srcQ_64_uint = Vector64.Create((uint)0, 1);
+        private static readonly Vector128<uint> srcQ_128_uint = Vector128.Create((uint)0, 1, 2, 3);
+        private static readonly Vector256<uint> srcQ_256_uint = Vector256.Create((uint)0, 1, 2, 3, 4, 5, 6, 7);
+        private static readonly Vector64<ulong> srcQ_64_ulong = Vector64.Create((ulong)0);
+        private static readonly Vector128<ulong> srcQ_128_ulong = Vector128.Create((ulong)0, 1);
+        private static readonly Vector256<ulong> srcQ_256_ulong = Vector256.Create((ulong)0, 1, 2, 3);
+
+        // srcArray: array.
+        private const int srcArraySize = 256;
+        private static readonly float[] srcArray_float = Enumerable.Range(0, srcArraySize).Select(x => (float)x).ToArray();
+        private static readonly double[] srcArray_double = Enumerable.Range(0, srcArraySize).Select(x => (double)x).ToArray();
+        private static readonly int[] srcArray_int = Enumerable.Range(0, srcArraySize).Select(x => (int)x).ToArray();
+        private static readonly long[] srcArray_long = Enumerable.Range(0, srcArraySize).Select(x => (long)x).ToArray();
         #endregion // #region Fields
 
         /// <summary>
