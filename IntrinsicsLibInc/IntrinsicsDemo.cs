@@ -216,6 +216,7 @@ namespace IntrinsicsLib {
 #if (NET47 || NET462 || NET461 || NET46 || NET452 || NET451 || NET45 || NET40 || NET35 || NET20) || (NETSTANDARD1_0)
 #else
             tw.WriteLine(indent + string.Format("RuntimeInformation.FrameworkDescription:\t{0}", System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription));
+            tw.WriteLine(indent + string.Format("RuntimeInformation.OSArchitecture:\t{0}", System.Runtime.InteropServices.RuntimeInformation.OSArchitecture));
 #endif
             tw.WriteLine(indent + string.Format("BitConverter.IsLittleEndian:\t{0}", BitConverter.IsLittleEndian));
             tw.WriteLine(indent + string.Format("IntPtr.Size:\t{0}", IntPtr.Size));
@@ -241,6 +242,7 @@ namespace IntrinsicsLib {
         public static void Run(TextWriter tw, string indent) {
             RunBaseInfo(tw, indent);
             RunX86(tw, indent);
+            RunArm(tw, indent);
         }
 
         /// <summary>
