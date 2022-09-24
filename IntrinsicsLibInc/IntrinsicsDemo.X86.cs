@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
@@ -14,8 +15,69 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public static void RunX86(TextWriter tw, string indent) {
+#if NET5_0_OR_GREATER
+            bool isSupported = X86Base.IsSupported;
+#else
+            bool isSupported = Sse.IsSupported;
+#endif
+            if (!isSupported) return;
+            RunX86Supported(tw, indent);
             RunX86Avx(tw, indent);
             RunX86Avx2(tw, indent);
+        }
+
+        /// <summary>
+        /// Run x86 Supported. https://learn.microsoft.com/zh-cn/dotnet/api/system.runtime.intrinsics.x86?view=net-7.0
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        public static void RunX86Supported(TextWriter tw, string indent) {
+            if (null == tw) return;
+            if (null == indent) indent = "";
+            tw.WriteLine();
+            tw.WriteLine(indent + "[Intrinsics.X86]");
+            WriteLineFormat(tw, indent, "Aes.IsSupported:\t{0}", Aes.IsSupported);
+            WriteLineFormat(tw, indent, "Aes.X64.IsSupported:\t{0}", Aes.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Avx.IsSupported:\t{0}", Avx.IsSupported);
+            WriteLineFormat(tw, indent, "Avx.X64.IsSupported:\t{0}", Avx.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Avx2.IsSupported:\t{0}", Avx2.IsSupported);
+            WriteLineFormat(tw, indent, "Avx2.X64.IsSupported:\t{0}", Avx2.X64.IsSupported);
+#if NET6_0_OR_GREATER
+            WriteLineFormat(tw, indent, "AvxVnni.IsSupported:\t{0}", AvxVnni.IsSupported);
+            WriteLineFormat(tw, indent, "AvxVnni.X64.IsSupported:\t{0}", AvxVnni.X64.IsSupported);
+#endif
+            WriteLineFormat(tw, indent, "Bmi1.IsSupported:\t{0}", Bmi1.IsSupported);
+            WriteLineFormat(tw, indent, "Bmi1.X64.IsSupported:\t{0}", Bmi1.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Bmi2.IsSupported:\t{0}", Bmi2.IsSupported);
+            WriteLineFormat(tw, indent, "Bmi2.X64.IsSupported:\t{0}", Bmi2.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Fma.IsSupported:\t{0}", Fma.IsSupported);
+            WriteLineFormat(tw, indent, "Fma.X64.IsSupported:\t{0}", Fma.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Lzcnt.IsSupported:\t{0}", Lzcnt.IsSupported);
+            WriteLineFormat(tw, indent, "Lzcnt.X64.IsSupported:\t{0}", Lzcnt.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Pclmulqdq.IsSupported:\t{0}", Pclmulqdq.IsSupported);
+            WriteLineFormat(tw, indent, "Pclmulqdq.X64.IsSupported:\t{0}", Pclmulqdq.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Popcnt.IsSupported:\t{0}", Popcnt.IsSupported);
+            WriteLineFormat(tw, indent, "Popcnt.X64.IsSupported:\t{0}", Popcnt.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Sse.IsSupported:\t{0}", Sse.IsSupported);
+            WriteLineFormat(tw, indent, "Sse.X64.IsSupported:\t{0}", Sse.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Sse2.IsSupported:\t{0}", Sse2.IsSupported);
+            WriteLineFormat(tw, indent, "Sse2.X64.IsSupported:\t{0}", Sse2.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Sse3.IsSupported:\t{0}", Sse3.IsSupported);
+            WriteLineFormat(tw, indent, "Sse3.X64.IsSupported:\t{0}", Sse3.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Sse41.IsSupported:\t{0}", Sse41.IsSupported);
+            WriteLineFormat(tw, indent, "Sse41.X64.IsSupported:\t{0}", Sse41.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Sse42.IsSupported:\t{0}", Sse42.IsSupported);
+            WriteLineFormat(tw, indent, "Sse42.X64.IsSupported:\t{0}", Sse42.X64.IsSupported);
+            WriteLineFormat(tw, indent, "Ssse3.IsSupported:\t{0}", Ssse3.IsSupported);
+            WriteLineFormat(tw, indent, "Ssse3.X64.IsSupported:\t{0}", Ssse3.X64.IsSupported);
+#if NET5_0_OR_GREATER
+            WriteLineFormat(tw, indent, "X86Base.IsSupported:\t{0}", X86Base.IsSupported);
+            WriteLineFormat(tw, indent, "X86Base.X64.IsSupported:\t{0}", X86Base.X64.IsSupported);
+#endif
+#if NET7_0_OR_GREATER
+            WriteLineFormat(tw, indent, "X86Serialize.IsSupported:\t{0}", X86Serialize.IsSupported);
+            WriteLineFormat(tw, indent, "X86Serialize.X64.IsSupported:\t{0}", X86Serialize.X64.IsSupported);
+#endif
         }
 
         /// <summary>
@@ -26,7 +88,7 @@ namespace IntrinsicsLib {
         public unsafe static void RunX86Avx(TextWriter tw, string indent) {
             if (null == tw) return;
             if (null == indent) indent = "";
-            string indentNext = indent + "\t";
+            string indentNext = indent + IndentNextSeparator;
             if (Avx.IsSupported) {
                 tw.WriteLine();
             }
@@ -104,6 +166,7 @@ namespace IntrinsicsLib {
             foreach(byte control in new byte[] { 1, 3, 0xCB }) {
                 WriteLineFormat(tw, indent, "Blend - control={0} (0x{0:X}):", control);
                 WriteLineFormat(tw, indentNext, "Blend(srcT_256_double, src1_256_double, control):\t{0}", Avx.Blend(srcT_256_double, src1_256_double, control));
+                //Debugger.Break();
                 WriteLineFormat(tw, indentNext, "Blend(srcT_256_double, src2_256_double, control):\t{0}", Avx.Blend(srcT_256_double, src2_256_double, control));
                 WriteLineFormat(tw, indentNext, "Blend(srcT_256_float, src1_256_float, control):\t{0}", Avx.Blend(srcT_256_float, src1_256_float, control));
                 WriteLineFormat(tw, indentNext, "Blend(srcT_256_float, src2_256_float, control):\t{0}", Avx.Blend(srcT_256_float, src2_256_float, control));
@@ -1206,7 +1269,7 @@ namespace IntrinsicsLib {
         public unsafe static void RunX86Avx2(TextWriter tw, string indent) {
             if (null == tw) return;
             if (null == indent) indent = "";
-            string indentNext = indent + "\t";
+            string indentNext = indent + IndentNextSeparator;
             if (Avx.IsSupported) {
                 tw.WriteLine();
             }
@@ -2398,6 +2461,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "ShiftLeftLogical - count={0} (0x{0:X}):", count);
                 WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)));
                 WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ushort, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ushort, count));
+                //Debugger.Break();
                 WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_uint, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_uint, count));
                 WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ulong, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ulong, count));
                 WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_short, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_short, count));
@@ -2682,6 +2746,7 @@ namespace IntrinsicsLib {
             // Shuffle int - control: Reverse order based on 128 bits.
             WriteLineFormat(tw, indent, "Shuffle(srcT_256_int, 0b0001_1011):\t{0}", Avx2.Shuffle(srcT_256_int, 0b0001_1011));
             WriteLineFormat(tw, indent, "Shuffle(srcT_256_uint, 0b0001_1011):\t{0}", Avx2.Shuffle(srcT_256_uint, 0b0001_1011));
+            //Debugger.Break();
 
             // ShuffleHigh(Vector256<Int16>, Byte)	__m256i _mm256_shufflehi_epi16 (__m256i a, const int imm8)
             // VPSHUFHW ymm, ymm/m256, imm8

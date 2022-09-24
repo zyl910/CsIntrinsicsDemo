@@ -12,6 +12,8 @@ namespace IntrinsicsLib {
     /// Demo for Intrinsics function and Vector types (内在函数及向量类型的Demo).
     /// </summary>
     public partial class IntrinsicsDemo {
+        /// <summary>Indent next separator.</summary>
+        public static readonly string IndentNextSeparator = "\t";
 
         /// <summary>
         /// Is release make.
@@ -442,9 +444,9 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public static void RunBaseInfo(TextWriter tw, string indent) {
-            tw.WriteLine(indent + "[BaseInfo]");
 
             // srcT
+            tw.WriteLine(indent + "[Vector samples]");
             WriteLineFormat(tw, indent, "src1_64_float:\t{0}", src1_64_float);
             //WriteLineFormat(tw, indent, "src1_128_float:\t{0}", src1_128_float);
             //WriteLineFormat(tw, indent, "src1_256_float:\t{0}", src1_256_float);
