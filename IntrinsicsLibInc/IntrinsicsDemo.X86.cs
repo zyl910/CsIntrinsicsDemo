@@ -92,7 +92,7 @@ namespace IntrinsicsLib {
             if (Avx.IsSupported) {
                 tw.WriteLine();
             }
-            tw.WriteLine(indent + string.Format("Avx.IsSupported:\t{0}", Avx.IsSupported));
+            tw.WriteLine(indent + string.Format("-- Avx.IsSupported:\t{0}", Avx.IsSupported));
             if (!Avx.IsSupported) {
                 return;
             }
@@ -1273,7 +1273,7 @@ namespace IntrinsicsLib {
             if (Avx.IsSupported) {
                 tw.WriteLine();
             }
-            tw.WriteLine(indent + string.Format("Avx2.IsSupported:\t{0}", Avx2.IsSupported));
+            tw.WriteLine(indent + string.Format("-- Avx2.IsSupported:\t{0}", Avx2.IsSupported));
             if (!Avx2.IsSupported) {
                 return;
             }
