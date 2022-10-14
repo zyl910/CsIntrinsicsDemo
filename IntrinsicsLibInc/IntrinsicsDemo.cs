@@ -191,6 +191,7 @@ namespace IntrinsicsLib {
         private const int srcArraySize = 256;
         private static readonly float[] srcArray_float = Enumerable.Range(0, srcArraySize).Select(x => (float)x).ToArray();
         private static readonly double[] srcArray_double = Enumerable.Range(0, srcArraySize).Select(x => (double)x).ToArray();
+        private static readonly byte[] srcArray_byte = Enumerable.Range(0, srcArraySize*4).Select(x => (byte)x).ToArray();
         private static readonly int[] srcArray_int = Enumerable.Range(0, srcArraySize).Select(x => (int)x).ToArray();
         private static readonly long[] srcArray_long = Enumerable.Range(0, srcArraySize).Select(x => (long)x).ToArray();
         #endregion // #region Fields

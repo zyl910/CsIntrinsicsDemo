@@ -1925,13 +1925,36 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(double)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(double)));
                 WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_long, sizeof(double)):\t{0}", Avx2.GatherVector128(p, srcQ_128_long, sizeof(double)));
             }
-            fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(int)));
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, sizeof(int)));
-            }
             fixed (float* p = &srcArray_float[0]) {
                 WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(float)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(float)));
                 WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, sizeof(float)):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, sizeof(float)));
+            }
+            fixed (int* p = &srcArray_int[0]) {
+                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, sizeof(int)));
+                try {
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), sizeof(int)));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), sizeof(int)));
+                } catch (Exception ex) {
+                    WriteLineFormat(tw, indent, "GatherVector128 fail by srcArray_int! {0}", ex.Message);
+                }
+            }
+            fixed (byte* p0 = &srcArray_byte[0]) {
+                int* p = (int*)p0;
+                try {
+                    WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, 1):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, 1));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, 1):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, 1));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1));
+                    Vector128<int> vByteMask = Vector128.Create((int)0xFF);
+                    WriteLineFormat(tw, indent, "GatherVector128 - vByteMask:\t{0}", vByteMask);
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, srcQ_128_int, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, srcQ_128_int, 1)));
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, srcQ_256_long, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, srcQ_256_long, 1)));
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1)));
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1)));
+                } catch (Exception ex) {
+                    WriteLineFormat(tw, indent, "GatherVector128 fail by srcArray_byte! {0}", ex.Message);
+                }
             }
 
             // GatherVector256(Double*, Vector128<Int32>, Byte)	__m256d _mm256_i32gather_pd (double const* base_addr, __m128i vindex, const int scale)
