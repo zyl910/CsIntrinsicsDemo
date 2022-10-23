@@ -692,19 +692,19 @@ namespace IntrinsicsLib {
 #endif // NET6_0_OR_GREATER
 
             // -- Methods --
-#region Methods
+            #region Methods
             //Debugger.Break();
             //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
-            WriteLineFormat(tw, indent, "Abs(srcT_float):\t{0}", Vector.Abs(srcT_float));
-            WriteLineFormat(tw, indent, "Abs(srcT_double):\t{0}", Vector.Abs(srcT_double));
-            WriteLineFormat(tw, indent, "Abs(srcT_sbyte):\t{0}", Vector.Abs(srcT_sbyte));
-            WriteLineFormat(tw, indent, "Abs(srcT_byte):\t{0}", Vector.Abs(srcT_byte));
-            WriteLineFormat(tw, indent, "Abs(srcT_short):\t{0}", Vector.Abs(srcT_short));
-            WriteLineFormat(tw, indent, "Abs(srcT_ushort):\t{0}", Vector.Abs(srcT_ushort));
-            WriteLineFormat(tw, indent, "Abs(srcT_int):\t{0}", Vector.Abs(srcT_int));
-            WriteLineFormat(tw, indent, "Abs(srcT_uint):\t{0}", Vector.Abs(srcT_uint));
-            WriteLineFormat(tw, indent, "Abs(srcT_long):\t{0}", Vector.Abs(srcT_long));
-            WriteLineFormat(tw, indent, "Abs(srcT_ulong):\t{0}", Vector.Abs(srcT_ulong));
+            WriteLineFormat(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
 
 //            //Add<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the sum of each pair of elements from two given vectors.
 //            WriteLineFormat(tw, indent, "Add(srcT, src1):\t{0}", Vector.Add(srcT, src1));
