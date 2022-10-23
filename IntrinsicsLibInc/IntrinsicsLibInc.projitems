@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vectors.cs" />
   </ItemGroup>
 </Project>

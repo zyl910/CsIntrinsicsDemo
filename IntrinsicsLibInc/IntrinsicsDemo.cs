@@ -205,7 +205,7 @@ namespace IntrinsicsLib {
         private static readonly Vector<ushort> srcT_ushort = CreateVectorUseRotate<ushort>(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
         private static readonly Vector<int> srcT_int = CreateVectorUseRotate<int>(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
         private static readonly Vector<uint> srcT_uint = CreateVectorUseRotate<uint>(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
-        private static readonly Vector<long> srcT_long = CreateVectorUseRotate<long>(long.MinValue, long.MaxValue, -1, 0);
+        private static readonly Vector<long> srcT_long = CreateVectorUseRotate<long>(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
         private static readonly Vector<ulong> srcT_ulong = CreateVectorUseRotate<ulong>(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
 
 
@@ -262,11 +262,13 @@ namespace IntrinsicsLib {
             Assembly assembly;
             //assembly = typeof(Vector4).GetTypeInfo().Assembly;
             //tw.WriteLine(string.Format("Vector4.Assembly:\t{0}", assembly));
+#pragma warning disable SYSLIB0012 // Type or member is obsolete
             //tw.WriteLine(string.Format("Vector4.Assembly.CodeBase:\t{0}", assembly.CodeBase));
             assembly = typeof(Vector<float>).GetTypeInfo().Assembly;
             tw.WriteLine(string.Format("Vector<T>.Assembly.CodeBase:\t{0}", assembly.CodeBase));
             assembly = typeof(Vector128<float>).GetTypeInfo().Assembly;
             tw.WriteLine(string.Format("Vector128<T>.Assembly.CodeBase:\t{0}", assembly.CodeBase));
+#pragma warning restore SYSLIB0012 // Type or member is obsolete
         }
 
         /// <summary>
@@ -291,6 +293,50 @@ namespace IntrinsicsLib {
             RunVector64(tw, indent);
             RunVector128(tw, indent);
             RunVector256(tw, indent);
+        }
+
+        /// <summary>
+        /// Get hex string.
+        /// </summary>
+        /// <typeparam name="T">Vector value type.</typeparam>
+        /// <param name="src">Source value.</param>
+        /// <param name="separator">The separator.</param>
+        /// <param name="noFixEndian">No fix endian.</param>
+        /// <returns>Returns hex string.</returns>
+        private static string GetHex<T>(Vector<T> src, string separator, bool noFixEndian) where T : struct {
+            Vector<byte> list = Vector.AsVectorByte(src);
+            int unitCount = Vector<T>.Count;
+            int unitSize = Vector<byte>.Count / unitCount;
+            bool fixEndian = false;
+            if (!noFixEndian && BitConverter.IsLittleEndian) fixEndian = true;
+            StringBuilder sb = new StringBuilder();
+            if (fixEndian) {
+                // IsLittleEndian.
+                for (int i = 0; i < unitCount; ++i) {
+                    if ((i > 0)) {
+                        if (!string.IsNullOrEmpty(separator)) {
+                            sb.Append(separator);
+                        }
+                    }
+                    int idx = unitSize * (i + 1) - 1;
+                    for (int j = 0; j < unitSize; ++j) {
+                        byte by = list[idx];
+                        --idx;
+                        sb.Append(by.ToString("X2"));
+                    }
+                }
+            } else {
+                for (int i = 0; i < Vector<byte>.Count; ++i) {
+                    byte by = list[i];
+                    if ((i > 0) && (0 == i % unitSize)) {
+                        if (!string.IsNullOrEmpty(separator)) {
+                            sb.Append(separator);
+                        }
+                    }
+                    sb.Append(by.ToString("X2"));
+                }
+            }
+            return sb.ToString();
         }
 
         /// <summary>
@@ -429,6 +475,22 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
+        /// WriteLine with format by Vector.
+        /// </summary>
+        /// <typeparam name="T">Vector value type.</typeparam>
+        /// <param name="tw">The TextWriter.</param>
+        /// <param name="indent">The indent.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="src">Source value</param>
+        private static void WriteLineFormat<T>(TextWriter tw, string indent, string format, Vector<T> src) where T : struct {
+            if (null == tw) return;
+            string line = indent + string.Format(format, src);
+            string hex = GetHex(src, " ", false);
+            line += "\t# (" + hex + ")";
+            tw.WriteLine(line);
+        }
+
+        /// <summary>
         /// WriteLine with format by Vector64.
         /// </summary>
         /// <typeparam name="T">Vector value type.</typeparam>
@@ -552,8 +614,44 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "srcT_128_ulong:\t{0}", srcT_128_ulong);
             WriteLineFormat(tw, indent, "srcT_256_ulong:\t{0}", srcT_256_ulong);
 
+            // Vectors<T> .
+            RunBaseVectors<float>(tw, indent);
+            RunBaseVectors<double>(tw, indent);
+            RunBaseVectors<sbyte>(tw, indent);
+            RunBaseVectors<byte>(tw, indent);
+            RunBaseVectors<short>(tw, indent);
+            RunBaseVectors<ushort>(tw, indent);
+            RunBaseVectors<int>(tw, indent);
+            RunBaseVectors<uint>(tw, indent);
+            RunBaseVectors<long>(tw, indent);
+            RunBaseVectors<ulong>(tw, indent);
+
             // done.
             tw.WriteLine();
+        }
+
+        /// <summary>
+        /// Run base - <see cref="Vectors{T}"/>
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        public static void RunBaseVectors<T>(TextWriter tw, string indent) where T:struct {
+            tw.WriteLine(indent + string.Format("-- Vectors<{0}>, Vector<{0}>.Count={1} --", typeof(T).Name, Vector<T>.Count));
+            tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vectors<T>.SignBits, Vectors<T>.ExponentBits, Vectors<T>.MantissaBits));
+            WriteLineFormat(tw, indent, "SignMask:\t{0}", Vectors<T>.SignMask);
+            WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Vectors<T>.ExponentMask);
+            WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Vectors<T>.MantissaMask);
+            WriteLineFormat(tw, indent, "MaxValue:\t{0}", Vectors<T>.MaxValue);
+            WriteLineFormat(tw, indent, "MinValue:\t{0}", Vectors<T>.MinValue);
+            WriteLineFormat(tw, indent, "AllOnes:\t{0}", Vectors<T>.AllOnes);
+            WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
+            WriteLineFormat(tw, indent, "E:\t{0}", Vectors<T>.E);
+            WriteLineFormat(tw, indent, "Pi:\t{0}", Vectors<T>.Pi);
+            WriteLineFormat(tw, indent, "Tau:\t{0}", Vectors<T>.Tau);
+            WriteLineFormat(tw, indent, "V0:\t{0}", Vectors<T>.V0);
+            WriteLineFormat(tw, indent, "V1:\t{0}", Vectors<T>.V1);
+            WriteLineFormat(tw, indent, "V_1:\t{0}", Vectors<T>.V_1);
         }
 
         /// <summary>
