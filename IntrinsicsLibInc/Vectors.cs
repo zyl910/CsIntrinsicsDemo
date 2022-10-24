@@ -251,41 +251,6 @@ namespace IntrinsicsLib {
             V_4 = CreateByDouble(-4);
         }
 
-        private static Vector<T> GetSerial() {
-            T[] arr = new T[Vector<T>.Count];
-            for (int i = 0; i < Vector<T>.Count; ++i) {
-                arr[i] = ElementByDouble(i);
-            }
-            Vector<T> rt = new Vector<T>(arr);
-            return rt;
-        }
-
-        private static Vector<T> GetDemo() {
-            if (typeof(T) == typeof(Single)) {
-                return (Vector<T>)(object)Vectors<Single>.CreateUseRotate(float.MinValue, float.PositiveInfinity, float.NaN, -1.2f, 0f, 1f, 2f, 4f);
-            } else if (typeof(T) == typeof(Double)) {
-                return (Vector<T>)(object)Vectors<Double>.CreateUseRotate(double.MinValue, double.PositiveInfinity, -1.2, 0);
-            } else if (typeof(T) == typeof(SByte)) {
-                return (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(sbyte.MinValue, sbyte.MaxValue, -1, 0, 1, 2, 3, 64);
-            } else if (typeof(T) == typeof(Int16)) {
-                return (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(short.MinValue, short.MaxValue, -1, 0, 1, 2, 3, 16384);
-            } else if (typeof(T) == typeof(Int32)) {
-                return (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
-            } else if (typeof(T) == typeof(Int64)) {
-                return (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
-            } else if (typeof(T) == typeof(Byte)) {
-                return (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(byte.MinValue, byte.MaxValue, 0, 1, 2, 3, 4, 128);
-            } else if (typeof(T) == typeof(UInt16)) {
-                return (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
-            } else if (typeof(T) == typeof(UInt32)) {
-                return (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
-            } else if (typeof(T) == typeof(UInt64)) {
-                return (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
-            } else {
-                return GetSerial();
-            }
-        }
-
         /// <summary>
         /// Convert double to element type value.
         /// </summary>
@@ -342,6 +307,49 @@ namespace IntrinsicsLib {
             }
             Vector<T> rt = new Vector<T>(arr);
             return rt;
+        }
+
+        /// <summary>
+        /// Get serial value.
+        /// </summary>
+        /// <returns>Return serial value.</returns>
+        private static Vector<T> GetSerial() {
+            T[] arr = new T[Vector<T>.Count];
+            for (int i = 0; i < Vector<T>.Count; ++i) {
+                arr[i] = ElementByDouble(i);
+            }
+            Vector<T> rt = new Vector<T>(arr);
+            return rt;
+        }
+
+        /// <summary>
+        /// Get demo value.
+        /// </summary>
+        /// <returns>Return demo value.</returns>
+        private static Vector<T> GetDemo() {
+            if (typeof(T) == typeof(Single)) {
+                return (Vector<T>)(object)Vectors<Single>.CreateUseRotate(float.MinValue, float.PositiveInfinity, float.NaN, -1.2f, 0f, 1f, 2f, 4f);
+            } else if (typeof(T) == typeof(Double)) {
+                return (Vector<T>)(object)Vectors<Double>.CreateUseRotate(double.MinValue, double.PositiveInfinity, -1.2, 0);
+            } else if (typeof(T) == typeof(SByte)) {
+                return (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(sbyte.MinValue, sbyte.MaxValue, -1, 0, 1, 2, 3, 64);
+            } else if (typeof(T) == typeof(Int16)) {
+                return (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(short.MinValue, short.MaxValue, -1, 0, 1, 2, 3, 16384);
+            } else if (typeof(T) == typeof(Int32)) {
+                return (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
+            } else if (typeof(T) == typeof(Int64)) {
+                return (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
+            } else if (typeof(T) == typeof(Byte)) {
+                return (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(byte.MinValue, byte.MaxValue, 0, 1, 2, 3, 4, 128);
+            } else if (typeof(T) == typeof(UInt16)) {
+                return (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
+            } else if (typeof(T) == typeof(UInt32)) {
+                return (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
+            } else if (typeof(T) == typeof(UInt64)) {
+                return (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
+            } else {
+                return GetSerial();
+            }
         }
 
     }

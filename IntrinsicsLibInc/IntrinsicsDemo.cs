@@ -615,16 +615,28 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "srcT_256_ulong:\t{0}", srcT_256_ulong);
 
             // Vectors<T> .
-            RunBaseVectors<float>(tw, indent);
-            RunBaseVectors<double>(tw, indent);
-            RunBaseVectors<sbyte>(tw, indent);
-            RunBaseVectors<byte>(tw, indent);
-            RunBaseVectors<short>(tw, indent);
-            RunBaseVectors<ushort>(tw, indent);
-            RunBaseVectors<int>(tw, indent);
-            RunBaseVectors<uint>(tw, indent);
-            RunBaseVectors<long>(tw, indent);
-            RunBaseVectors<ulong>(tw, indent);
+            RunInfoVectors<float>(tw, indent);
+            RunInfoVectors<double>(tw, indent);
+            RunInfoVectors<sbyte>(tw, indent);
+            RunInfoVectors<byte>(tw, indent);
+            RunInfoVectors<short>(tw, indent);
+            RunInfoVectors<ushort>(tw, indent);
+            RunInfoVectors<int>(tw, indent);
+            RunInfoVectors<uint>(tw, indent);
+            RunInfoVectors<long>(tw, indent);
+            RunInfoVectors<ulong>(tw, indent);
+
+            // Vector256s<T> .
+            RunInfoVector256s<float>(tw, indent);
+            RunInfoVector256s<double>(tw, indent);
+            RunInfoVector256s<sbyte>(tw, indent);
+            RunInfoVector256s<byte>(tw, indent);
+            RunInfoVector256s<short>(tw, indent);
+            RunInfoVector256s<ushort>(tw, indent);
+            RunInfoVector256s<int>(tw, indent);
+            RunInfoVector256s<uint>(tw, indent);
+            RunInfoVector256s<long>(tw, indent);
+            RunInfoVector256s<ulong>(tw, indent);
 
             // done.
             tw.WriteLine();
@@ -636,7 +648,7 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        public static void RunBaseVectors<T>(TextWriter tw, string indent) where T:struct {
+        public static void RunInfoVectors<T>(TextWriter tw, string indent) where T:struct {
             tw.WriteLine(indent + string.Format("-- Vectors<{0}>, Vector<{0}>.Count={1} --", typeof(T).Name, Vector<T>.Count));
             tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vectors<T>.SignBits, Vectors<T>.ExponentBits, Vectors<T>.MantissaBits));
             WriteLineFormat(tw, indent, "SignMask:\t{0}", Vectors<T>.SignMask);
@@ -646,12 +658,38 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "MinValue:\t{0}", Vectors<T>.MinValue);
             WriteLineFormat(tw, indent, "AllOnes:\t{0}", Vectors<T>.AllOnes);
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
+            WriteLineFormat(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);
             WriteLineFormat(tw, indent, "E:\t{0}", Vectors<T>.E);
             WriteLineFormat(tw, indent, "Pi:\t{0}", Vectors<T>.Pi);
             WriteLineFormat(tw, indent, "Tau:\t{0}", Vectors<T>.Tau);
             WriteLineFormat(tw, indent, "V0:\t{0}", Vectors<T>.V0);
             WriteLineFormat(tw, indent, "V1:\t{0}", Vectors<T>.V1);
             WriteLineFormat(tw, indent, "V_1:\t{0}", Vectors<T>.V_1);
+        }
+
+        /// <summary>
+        /// Run base - <see cref="Vector256s{T}"/>
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        public static void RunInfoVector256s<T>(TextWriter tw, string indent) where T : struct {
+            tw.WriteLine(indent + string.Format("-- Vector256s<{0}>, Vector256<{0}>.Count={1} --", typeof(T).Name, Vector256<T>.Count));
+            tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vector256s<T>.SignBits, Vector256s<T>.ExponentBits, Vector256s<T>.MantissaBits));
+            WriteLineFormat(tw, indent, "SignMask:\t{0}", Vector256s<T>.SignMask);
+            WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Vector256s<T>.ExponentMask);
+            WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Vector256s<T>.MantissaMask);
+            WriteLineFormat(tw, indent, "MaxValue:\t{0}", Vector256s<T>.MaxValue);
+            WriteLineFormat(tw, indent, "MinValue:\t{0}", Vector256s<T>.MinValue);
+            WriteLineFormat(tw, indent, "AllOnes:\t{0}", Vector256s<T>.AllOnes);
+            WriteLineFormat(tw, indent, "Serial:\t{0}", Vector256s<T>.Serial);
+            WriteLineFormat(tw, indent, "Demo:\t{0}", Vector256s<T>.Demo);
+            WriteLineFormat(tw, indent, "E:\t{0}", Vector256s<T>.E);
+            WriteLineFormat(tw, indent, "Pi:\t{0}", Vector256s<T>.Pi);
+            WriteLineFormat(tw, indent, "Tau:\t{0}", Vector256s<T>.Tau);
+            WriteLineFormat(tw, indent, "V0:\t{0}", Vector256s<T>.V0);
+            WriteLineFormat(tw, indent, "V1:\t{0}", Vector256s<T>.V1);
+            WriteLineFormat(tw, indent, "V_1:\t{0}", Vector256s<T>.V_1);
         }
 
         /// <summary>
