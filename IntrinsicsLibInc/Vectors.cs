@@ -114,7 +114,7 @@ namespace IntrinsicsLib {
                     NaN = (Vector<T>)(object)(new Vector<Single>(Single.NaN));
                     NegativeInfinity = (Vector<T>)(object)(new Vector<Single>(Single.NegativeInfinity));
                     PositiveInfinity = (Vector<T>)(object)(new Vector<Single>(Single.PositiveInfinity));
-                    Single full = BitConverter.Int32BitsToSingle(-1);
+                    Single full = BitConverter.Int32BitsToSingle(~0);
                     XyXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0, 0, 0);
@@ -134,7 +134,7 @@ namespace IntrinsicsLib {
                     NaN = (Vector<T>)(object)(new Vector<Double>(Double.NaN));
                     NegativeInfinity = (Vector<T>)(object)(new Vector<Double>(Double.NegativeInfinity));
                     PositiveInfinity = (Vector<T>)(object)(new Vector<Double>(Double.PositiveInfinity));
-                    Double full = BitConverter.Int64BitsToDouble(-1);
+                    Double full = BitConverter.Int64BitsToDouble(~0L);
                     XyXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0, 0, 0);
@@ -154,7 +154,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    SByte full = -1;
+                    SByte full = ~0;
                     XyXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0, 0, 0);
@@ -174,7 +174,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    Int16 full = -1;
+                    Int16 full = ~0;
                     XyXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0, 0, 0);
@@ -194,7 +194,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    Int32 full = -1;
+                    Int32 full = ~0;
                     XyXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0, 0, 0);
@@ -214,7 +214,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    Int64 full = -1L;
+                    Int64 full = ~0L;
                     XyXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0, 0, 0);
@@ -234,7 +234,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    Byte full = (Byte)(-1);
+                    Byte full = (Byte)(~0);
                     XyXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0, 0, 0);
@@ -254,7 +254,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    UInt16 full = (UInt16)(-1);
+                    UInt16 full = (UInt16)(~0);
                     XyXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0, 0, 0);
@@ -274,7 +274,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    UInt32 full = (UInt32)(-1);
+                    UInt32 full = (UInt32)(~0);
                     XyXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0, 0, 0);
@@ -294,7 +294,7 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
-                    UInt64 full = (UInt64)(-1L);
+                    UInt64 full = (UInt64)(~0L);
                     XyXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0);
                     XyYMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, full);
                     XyzwXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0, 0, 0);
