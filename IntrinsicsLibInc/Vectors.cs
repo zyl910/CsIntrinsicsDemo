@@ -55,11 +55,24 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> Tau;
         // -- Specified value --
         /// <summary>All bit is 1.</summary>
-        public static readonly Vector<T> AllOnes;
+        public static readonly Vector<T> AllBitsSet;
         /// <summary>Serial Value. e.g. 0,1,2,3...</summary>
         public static readonly Vector<T> Serial;
         /// <summary>Demo Value. It is a value constructed for testing purposes. It is characterized by different element values, and contains a minimum value, a maximum value.</summary>
         public static readonly Vector<T> Demo;
+        // -- Xyzw --
+        /// <summary>Xy - X mask. For a 2-element group, select the mask of the 0th element.</summary>
+        public static readonly Vector<T> XyXMask;
+        /// <summary>Xy - Y mask. For a 2-element group, select the mask of the 1st element.</summary>
+        public static readonly Vector<T> XyYMask;
+        /// <summary>Xyzw - X mask. For a 4-element group, select the mask of the 0th element. Alias has `RgbaRMask`.</summary>
+        public static readonly Vector<T> XyzwXMask;
+        /// <summary>Xyzw - Y mask. For a 4-element group, select the mask of the 1th element. Alias has `RgbaGMask`.</summary>
+        public static readonly Vector<T> XyzwYMask;
+        /// <summary>Xyzw - Z mask. For a 4-element group, select the mask of the 2th element. Alias has `RgbaBMask`.</summary>
+        public static readonly Vector<T> XyzwZMask;
+        /// <summary>Xyzw - W mask. For a 4-element group, select the mask of the 3th element. Alias has `RgbaAMask`.</summary>
+        public static readonly Vector<T> XyzwWMask;
         // -- Zero or positive number --
         /// <summary>Value 0 .</summary>
         public static readonly Vector<T> V0;
@@ -101,6 +114,13 @@ namespace IntrinsicsLib {
                     NaN = (Vector<T>)(object)(new Vector<Single>(Single.NaN));
                     NegativeInfinity = (Vector<T>)(object)(new Vector<Single>(Single.NegativeInfinity));
                     PositiveInfinity = (Vector<T>)(object)(new Vector<Single>(Single.PositiveInfinity));
+                    Single full = BitConverter.Int32BitsToSingle(-1);
+                    XyXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Double)) {
                     SignBits = 1;
                     ExponentBits = 11;
@@ -114,6 +134,13 @@ namespace IntrinsicsLib {
                     NaN = (Vector<T>)(object)(new Vector<Double>(Double.NaN));
                     NegativeInfinity = (Vector<T>)(object)(new Vector<Double>(Double.NegativeInfinity));
                     PositiveInfinity = (Vector<T>)(object)(new Vector<Double>(Double.PositiveInfinity));
+                    Double full = BitConverter.Int64BitsToDouble(-1);
+                    XyXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(SByte)) {
                     SignBits = 1;
                     ExponentBits = 0;
@@ -127,6 +154,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    SByte full = -1;
+                    XyXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int16)) {
                     SignBits = 1;
                     ExponentBits = 0;
@@ -140,6 +174,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    Int16 full = -1;
+                    XyXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int32)) {
                     SignBits = 1;
                     ExponentBits = 0;
@@ -153,6 +194,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    Int32 full = -1;
+                    XyXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int64)) {
                     SignBits = 1;
                     ExponentBits = 0;
@@ -166,6 +214,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    Int64 full = -1L;
+                    XyXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Byte)) {
                     SignBits = 0;
                     ExponentBits = 0;
@@ -179,6 +234,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    Byte full = (Byte)(-1);
+                    XyXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt16)) {
                     SignBits = 0;
                     ExponentBits = 0;
@@ -192,6 +254,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    UInt16 full = (UInt16)(-1);
+                    XyXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt32)) {
                     SignBits = 0;
                     ExponentBits = 0;
@@ -205,6 +274,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    UInt32 full = (UInt32)(-1);
+                    XyXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt64)) {
                     SignBits = 0;
                     ExponentBits = 0;
@@ -218,6 +294,13 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                    UInt64 full = (UInt64)(-1L);
+                    XyXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, 0, 0, full);
                 }
                 MantissaShift = 0;
                 ExponentShift = MantissaShift + MantissaBits;
@@ -236,7 +319,7 @@ namespace IntrinsicsLib {
 #endif // NET5_0_OR_GREATER
             // -- Math shift --
             // -- Specified value --
-            AllOnes = ~Vector<T>.Zero;
+            AllBitsSet = ~Vector<T>.Zero;
             Serial = GetSerial();
             Demo = GetDemo();
             // -- Positive number --

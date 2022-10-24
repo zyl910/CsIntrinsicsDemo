@@ -58,7 +58,7 @@ namespace IntrinsicsLib {
         public static readonly Vector256<T> Tau;
         // -- Specified value --
         /// <summary>All bit is 1.</summary>
-        public static readonly Vector256<T> AllOnes;
+        public static readonly Vector256<T> AllBitsSet;
         /// <summary>Serial Value. e.g. 0,1,2,3...</summary>
         public static readonly Vector256<T> Serial;
         /// <summary>Demo Value. It is a value constructed for testing purposes. It is characterized by different element values, and contains a minimum value, a maximum value.</summary>
@@ -239,7 +239,7 @@ namespace IntrinsicsLib {
 #endif // NET5_0_OR_GREATER
             // -- Math shift --
             // -- Specified value --
-            AllOnes = OnesComplement(Vector256<T>.Zero);
+            AllBitsSet = OnesComplement(Vector256<T>.Zero);
             Serial = GetSerial();
             Demo = GetDemo();
             // -- Positive number --
