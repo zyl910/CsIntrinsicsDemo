@@ -98,7 +98,7 @@ namespace IntrinsicsLib {
             for(int i=0; i<cnt; ++i) {
                 arr[i] = values[i];
             }
-            return new Vector<T>(arr);
+            return Vectors.Create<T>(arr);
 #endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 #endif // NETCOREAPP3_0_OR_GREATER
         }
@@ -128,7 +128,7 @@ namespace IntrinsicsLib {
         /// <param name="src">Source value.</param>
         /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
         public static Vector<T> CreateByDouble<T>(double src) where T : struct {
-            return new Vector<T>(TraitsUtil.GetByDouble<T>(src));
+            return Vectors.Create<T>(TraitsUtil.GetByDouble<T>(src));
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace IntrinsicsLib {
                 ++idx;
                 if (idx >= idxEnd) idx = index;
             }
-            Vector<T> rt = new Vector<T>(arr);
+            Vector<T> rt = Vectors.Create<T>(arr);
             return rt;
         }
 
@@ -166,6 +166,16 @@ namespace IntrinsicsLib {
         /// <seealso cref="Vector{T}(T[], int)"/>
         public static Vector<T> CreateRotate<T>(params T[] values) where T : struct {
             return CreateRotate<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Computes the ones-complement (~) of a vector.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="src">The vector whose ones-complement is to be computed.</param>
+        /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/>.</returns>
+        public static Vector<T> OnesComplement<T>(Vector<T> src) where T : struct {
+            return ~src;
         }
 
     }
@@ -271,291 +281,233 @@ namespace IntrinsicsLib {
                     SignBits = 1;
                     ExponentBits = 8;
                     MantissaBits = 23;
-                    SignMask = (Vector<T>)(object)(new Vector<Single>(BitConverter.Int32BitsToSingle((Int32)0x80000000)));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Single>(BitConverter.Int32BitsToSingle((Int32)0x7F800000)));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Single>(BitConverter.Int32BitsToSingle((Int32)0x007FFFFF)));
-                    Epsilon = (Vector<T>)(object)(new Vector<Single>(Single.Epsilon));
-                    MaxValue = (Vector<T>)(object)(new Vector<Single>(Single.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Single>(Single.MinValue));
-                    NaN = (Vector<T>)(object)(new Vector<Single>(Single.NaN));
-                    NegativeInfinity = (Vector<T>)(object)(new Vector<Single>(Single.NegativeInfinity));
-                    PositiveInfinity = (Vector<T>)(object)(new Vector<Single>(Single.PositiveInfinity));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Single>(BitConverter.Int32BitsToSingle((Int32)0x80000000)));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Single>(BitConverter.Int32BitsToSingle((Int32)0x7F800000)));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Single>(BitConverter.Int32BitsToSingle((Int32)0x007FFFFF)));
+                    Epsilon = (Vector<T>)(object)(Vectors.Create<Single>(Single.Epsilon));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Single>(Single.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Single>(Single.MinValue));
+                    NaN = (Vector<T>)(object)(Vectors.Create<Single>(Single.NaN));
+                    NegativeInfinity = (Vector<T>)(object)(Vectors.Create<Single>(Single.NegativeInfinity));
+                    PositiveInfinity = (Vector<T>)(object)(Vectors.Create<Single>(Single.PositiveInfinity));
                     Single full = BitConverter.Int32BitsToSingle(~0);
-                    XyXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Single>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Double)) {
                     SignBits = 1;
                     ExponentBits = 11;
                     MantissaBits = 52;
-                    SignMask = (Vector<T>)(object)(new Vector<Double>(BitConverter.Int64BitsToDouble((Int64)0x8000000000000000L)));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Double>(BitConverter.Int64BitsToDouble((Int64)0x7FF0000000000000L)));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Double>(BitConverter.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL)));
-                    Epsilon = (Vector<T>)(object)(new Vector<Double>(Double.Epsilon));
-                    MaxValue = (Vector<T>)(object)(new Vector<Double>(Double.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Double>(Double.MinValue));
-                    NaN = (Vector<T>)(object)(new Vector<Double>(Double.NaN));
-                    NegativeInfinity = (Vector<T>)(object)(new Vector<Double>(Double.NegativeInfinity));
-                    PositiveInfinity = (Vector<T>)(object)(new Vector<Double>(Double.PositiveInfinity));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Double>(BitConverter.Int64BitsToDouble((Int64)0x8000000000000000L)));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Double>(BitConverter.Int64BitsToDouble((Int64)0x7FF0000000000000L)));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Double>(BitConverter.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL)));
+                    Epsilon = (Vector<T>)(object)(Vectors.Create<Double>(Double.Epsilon));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Double>(Double.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Double>(Double.MinValue));
+                    NaN = (Vector<T>)(object)(Vectors.Create<Double>(Double.NaN));
+                    NegativeInfinity = (Vector<T>)(object)(Vectors.Create<Double>(Double.NegativeInfinity));
+                    PositiveInfinity = (Vector<T>)(object)(Vectors.Create<Double>(Double.PositiveInfinity));
                     Double full = BitConverter.Int64BitsToDouble(~0L);
-                    XyXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Double>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(SByte)) {
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 7;
-                    SignMask = (Vector<T>)(object)(new Vector<SByte>((SByte)0x80));
-                    ExponentMask = (Vector<T>)(object)(new Vector<SByte>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<SByte>((SByte)0x7F));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<SByte>((SByte)0x80));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<SByte>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<SByte>((SByte)0x7F));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<SByte>(SByte.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<SByte>(SByte.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<SByte>(SByte.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<SByte>(SByte.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     SByte full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int16)) {
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 15;
-                    SignMask = (Vector<T>)(object)(new Vector<Int16>((Int16)0x8000));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Int16>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Int16>((Int16)0x7FFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Int16>((Int16)0x8000));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Int16>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Int16>((Int16)0x7FFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<Int16>(Int16.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Int16>(Int16.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Int16>(Int16.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Int16>(Int16.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     Int16 full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int32)) {
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 31;
-                    SignMask = (Vector<T>)(object)(new Vector<Int32>((Int32)0x80000000));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Int32>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Int32>((Int32)0x7FFFFFFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Int32>((Int32)0x80000000));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Int32>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Int32>((Int32)0x7FFFFFFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<Int32>(Int32.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Int32>(Int32.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Int32>(Int32.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Int32>(Int32.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     Int32 full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int64)) {
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 63;
-                    SignMask = (Vector<T>)(object)(new Vector<Int64>((Int64)0x8000000000000000L));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Int64>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Int64>((Int64)0x7FFFFFFFFFFFFFFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Int64>((Int64)0x8000000000000000L));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Int64>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Int64>((Int64)0x7FFFFFFFFFFFFFFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<Int64>(Int64.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Int64>(Int64.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Int64>(Int64.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Int64>(Int64.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     Int64 full = ~0L;
-                    XyXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Byte)) {
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 8;
-                    SignMask = (Vector<T>)(object)(new Vector<Byte>(0));
-                    ExponentMask = (Vector<T>)(object)(new Vector<Byte>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<Byte>((Byte)0xFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<Byte>(0));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<Byte>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<Byte>((Byte)0xFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<Byte>(Byte.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<Byte>(Byte.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<Byte>(Byte.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<Byte>(Byte.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     Byte full = (Byte)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt16)) {
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 16;
-                    SignMask = (Vector<T>)(object)(new Vector<UInt16>(0));
-                    ExponentMask = (Vector<T>)(object)(new Vector<UInt16>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<UInt16>((UInt16)0xFFFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<UInt16>(0));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<UInt16>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<UInt16>((UInt16)0xFFFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<UInt16>(UInt16.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<UInt16>(UInt16.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<UInt16>(UInt16.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<UInt16>(UInt16.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     UInt16 full = (UInt16)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt32)) {
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 32;
-                    SignMask = (Vector<T>)(object)(new Vector<UInt32>(0));
-                    ExponentMask = (Vector<T>)(object)(new Vector<UInt32>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<UInt32>((UInt32)0xFFFFFFFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<UInt32>(0));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<UInt32>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<UInt32>((UInt32)0xFFFFFFFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<UInt32>(UInt32.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<UInt32>(UInt32.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<UInt32>(UInt32.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<UInt32>(UInt32.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     UInt32 full = (UInt32)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt64)) {
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 64;
-                    SignMask = (Vector<T>)(object)(new Vector<UInt64>(0));
-                    ExponentMask = (Vector<T>)(object)(new Vector<UInt64>(0));
-                    MantissaMask = (Vector<T>)(object)(new Vector<UInt64>((UInt64)0xFFFFFFFFFFFFFFFF));
+                    SignMask = (Vector<T>)(object)(Vectors.Create<UInt64>(0));
+                    ExponentMask = (Vector<T>)(object)(Vectors.Create<UInt64>(0));
+                    MantissaMask = (Vector<T>)(object)(Vectors.Create<UInt64>((UInt64)0xFFFFFFFFFFFFFFFF));
                     Epsilon = V0;
-                    MaxValue = (Vector<T>)(object)(new Vector<UInt64>(UInt64.MaxValue));
-                    MinValue = (Vector<T>)(object)(new Vector<UInt64>(UInt64.MinValue));
+                    MaxValue = (Vector<T>)(object)(Vectors.Create<UInt64>(UInt64.MaxValue));
+                    MinValue = (Vector<T>)(object)(Vectors.Create<UInt64>(UInt64.MinValue));
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
                     UInt64 full = (UInt64)(~0L);
-                    XyXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(0, 0, 0, full);
+                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(full, 0);
+                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, full);
+                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(full, 0, 0, 0);
+                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, full, 0, 0);
+                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, 0, full, 0);
+                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, 0, 0, full);
                 }
                 MantissaShift = 0;
                 ExponentShift = MantissaShift + MantissaBits;
                 SignShift = ExponentShift + ExponentBits;
-                NonSignMask = ~SignMask;
-                NonExponentMask = ~ExponentMask;
-                NonMantissaMask = ~MantissaMask;
+                NonSignMask = Vectors.OnesComplement(SignMask);
+                NonExponentMask = Vectors.OnesComplement(ExponentMask);
+                NonMantissaMask = Vectors.OnesComplement(MantissaMask);
             }
             // -- Math --
-            E = CreateByDouble(Math.E);
-            Pi = CreateByDouble(Math.PI);
+            E = Vectors.CreateByDouble<T>(Math.E);
+            Pi = Vectors.CreateByDouble<T>(Math.PI);
 #if NET5_0_OR_GREATER
-            Tau = CreateByDouble(Math.Tau);
+            Tau = Vectors.CreateByDouble<T>(Math.Tau);
 #else
             Tau = CreateByDouble(Math.PI * 2);
 #endif // NET5_0_OR_GREATER
             // -- Math shift --
             // -- Specified value --
-            AllBitsSet = ~Vector<T>.Zero;
+            AllBitsSet = Vectors.OnesComplement(Vector<T>.Zero);
             Serial = GetSerial();
             Demo = GetDemo();
             // -- Positive number --
-            V1 = CreateByDouble(1);
-            V2 = CreateByDouble(2);
-            V3 = CreateByDouble(3);
-            V4 = CreateByDouble(4);
+            V1 = Vectors.CreateByDouble<T>(1);
+            V2 = Vectors.CreateByDouble<T>(2);
+            V3 = Vectors.CreateByDouble<T>(3);
+            V4 = Vectors.CreateByDouble<T>(4);
             // -- Negative number  --
-            V_1 = CreateByDouble(-1);
-            V_2 = CreateByDouble(-2);
-            V_3 = CreateByDouble(-3);
-            V_4 = CreateByDouble(-4);
-        }
-
-        /// <summary>
-        /// Convert double to element type value.
-        /// </summary>
-        /// <param name="src">Source value.</param>
-        /// <returns>Return value.</returns>
-        public static T ElementByDouble(double src) {
-            if (typeof(T) == typeof(Single)) {
-                return (T)(object)(Single)src;
-            } else if (typeof(T) == typeof(Double)) {
-                return (T)(object)src;
-            } else if (typeof(T) == typeof(SByte)) {
-                return (T)(object)(SByte)src;
-            } else if (typeof(T) == typeof(Int16)) {
-                return (T)(object)(Int16)src;
-            } else if (typeof(T) == typeof(Int32)) {
-                return (T)(object)(Int32)src;
-            } else if (typeof(T) == typeof(Int64)) {
-                return (T)(object)(Int64)src;
-            } else if (typeof(T) == typeof(Byte)) {
-                return (T)(object)(Byte)src;
-            } else if (typeof(T) == typeof(UInt16)) {
-                return (T)(object)(UInt16)src;
-            } else if (typeof(T) == typeof(UInt32)) {
-                return (T)(object)(UInt32)src;
-            } else if (typeof(T) == typeof(UInt64)) {
-                return (T)(object)(UInt64)src;
-            } else {
-                return (T)Convert.ChangeType(src, typeof(T));
-            }
-        }
-
-        /// <summary>
-        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double type.
-        /// </summary>
-        /// <param name="src"></param>
-        /// <returns></returns>
-        public static Vector<T> CreateByDouble(double src) {
-            return new Vector<T>(TraitsUtil.GetByDouble<T>(src));
-        }
-
-        /// <summary>
-        /// Create <see cref="Vector{T}"/> use rotate.
-        /// </summary>
-        /// <param name="list">Source value list.</param>
-        /// <returns>Returns <see cref="Vector{T}"/>.</returns>
-        public static Vector<T> CreateUseRotate(params T[] list) {
-            if (null == list || list.Length <= 0) return Vector<T>.Zero;
-            T[] arr = new T[Vector<T>.Count];
-            int idx = 0;
-            for (int i = 0; i < arr.Length; ++i) {
-                arr[i] = list[idx];
-                ++idx;
-                if (idx >= list.Length) idx = 0;
-            }
-            Vector<T> rt = new Vector<T>(arr);
-            return rt;
+            V_1 = Vectors.CreateByDouble<T>(-1);
+            V_2 = Vectors.CreateByDouble<T>(-2);
+            V_3 = Vectors.CreateByDouble<T>(-3);
+            V_4 = Vectors.CreateByDouble<T>(-4);
         }
 
         /// <summary>
@@ -565,9 +517,9 @@ namespace IntrinsicsLib {
         private static Vector<T> GetSerial() {
             T[] arr = new T[Vector<T>.Count];
             for (int i = 0; i < Vector<T>.Count; ++i) {
-                arr[i] = ElementByDouble(i);
+                arr[i] = TraitsUtil.GetByDouble<T>(i);
             }
-            Vector<T> rt = new Vector<T>(arr);
+            Vector<T> rt = Vectors.Create<T>(arr);
             return rt;
         }
 
@@ -576,26 +528,26 @@ namespace IntrinsicsLib {
         /// </summary>
         /// <returns>Return demo value.</returns>
         private static Vector<T> GetDemo() {
-            if (typeof(T) == typeof(Single)) {
-                return (Vector<T>)(object)Vectors<Single>.CreateUseRotate(float.MinValue, float.PositiveInfinity, float.NaN, -1.2f, 0f, 1f, 2f, 4f);
-            } else if (typeof(T) == typeof(Double)) {
-                return (Vector<T>)(object)Vectors<Double>.CreateUseRotate(double.MinValue, double.PositiveInfinity, -1.2, 0);
-            } else if (typeof(T) == typeof(SByte)) {
-                return (Vector<T>)(object)Vectors<SByte>.CreateUseRotate(sbyte.MinValue, sbyte.MaxValue, -1, 0, 1, 2, 3, 64);
-            } else if (typeof(T) == typeof(Int16)) {
-                return (Vector<T>)(object)Vectors<Int16>.CreateUseRotate(short.MinValue, short.MaxValue, -1, 0, 1, 2, 3, 16384);
-            } else if (typeof(T) == typeof(Int32)) {
-                return (Vector<T>)(object)Vectors<Int32>.CreateUseRotate(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
-            } else if (typeof(T) == typeof(Int64)) {
-                return (Vector<T>)(object)Vectors<Int64>.CreateUseRotate(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
-            } else if (typeof(T) == typeof(Byte)) {
-                return (Vector<T>)(object)Vectors<Byte>.CreateUseRotate(byte.MinValue, byte.MaxValue, 0, 1, 2, 3, 4, 128);
-            } else if (typeof(T) == typeof(UInt16)) {
-                return (Vector<T>)(object)Vectors<UInt16>.CreateUseRotate(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
-            } else if (typeof(T) == typeof(UInt32)) {
-                return (Vector<T>)(object)Vectors<UInt32>.CreateUseRotate(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
-            } else if (typeof(T) == typeof(UInt64)) {
-                return (Vector<T>)(object)Vectors<UInt64>.CreateUseRotate(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
+            if (typeof(T) == typeof(float)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<float>(float.MinValue, float.PositiveInfinity, float.NaN, -1.2f, 0f, 1f, 2f, 4f);
+            } else if (typeof(T) == typeof(double)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<double>(double.MinValue, double.PositiveInfinity, -1.2, 0);
+            } else if (typeof(T) == typeof(sbyte)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<sbyte>(sbyte.MinValue, sbyte.MaxValue, -1, 0, 1, 2, 3, 64);
+            } else if (typeof(T) == typeof(short)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<short>(short.MinValue, short.MaxValue, -1, 0, 1, 2, 3, 16384);
+            } else if (typeof(T) == typeof(int)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<int>(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
+            } else if (typeof(T) == typeof(long)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<long>(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
+            } else if (typeof(T) == typeof(byte)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<byte>(byte.MinValue, byte.MaxValue, 0, 1, 2, 3, 4, 128);
+            } else if (typeof(T) == typeof(ushort)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<ushort>(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
+            } else if (typeof(T) == typeof(uint)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<uint>(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
+            } else if (typeof(T) == typeof(ulong)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<ulong>(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
             } else {
                 return GetSerial();
             }
