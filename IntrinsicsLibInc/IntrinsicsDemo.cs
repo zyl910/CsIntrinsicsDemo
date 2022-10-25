@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 using System.Text;
 
@@ -277,9 +278,13 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public static void Run(TextWriter tw, string indent) {
-            RunCommon(tw, indent);
-            //RunX86(tw, indent);
-            //RunArm(tw, indent);
+            try {
+                RunCommon(tw, indent);
+                //RunX86(tw, indent);
+                //RunArm(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -556,6 +561,23 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public static void RunBaseInfo(TextWriter tw, string indent) {
+            // Test Vectors .
+            double[] arr = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+            byte[] arrByte = { byte.MinValue, byte.MaxValue, 0, 1 };
+            //tw.WriteLine(Vectors.Create<Byte>(null)); // ArgumentNullException
+            //tw.WriteLine(Vectors.Create(arrByte)); // IndexOutOfRangeException
+            WriteLineFormat(tw, indent, "Create by T[]:\t{0}", Vectors.Create(arr));
+            var parr = new ReadOnlySpan<double>(arr);
+            WriteLineFormat(tw, indent, "Create by ReadOnlySpan<T>:\t{0}", Vectors.Create(parr));
+            if (true) {
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+                var parr2 = MemoryMarshal.AsBytes(parr);
+                WriteLineFormat(tw, indent, "Create by ReadOnlySpan<byte>:\t{0}", Vectors.Create<double>(parr2));
+#else
+#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            }
+            WriteLineFormat(tw, indent, "Vectors.CreateRotate(arrByte):\t{0}", Vectors.CreateRotate(arrByte));
+            tw.WriteLine();
 
             // srcT
             tw.WriteLine(indent + "[Vector samples]");

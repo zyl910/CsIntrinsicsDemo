@@ -2,8 +2,174 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics;
 
 namespace IntrinsicsLib {
+
+    /// <summary>
+    /// Methods of <see cref="Vector{T}"/> .
+    /// </summary>
+    public static class Vectors {
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> instance with all elements initialized to the specified value.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="value">The value that all elements will be initialized to.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        /// <seealso cref="Vector{T}(T)"/>
+        public static Vector<T> Create<T>(T value) where T : struct {
+            return new Vector<T>(value);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a given array.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(T[])"/>
+        public static Vector<T> Create<T>(T[] values) where T:struct {
+            return new Vector<T>(values);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
+        /// <param name="index">The starting index position from which to create the vector.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(T[], int)"/>
+        public static Vector<T> Create<T>(T[] values, int index) where T : struct {
+            return new Vector<T>(values, index);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a given read-only span of bytes.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">A read-only span of bytes that contains the values to add to the vector.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(ReadOnlySpan{byte})"/>
+        public static Vector<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
+#if NETCOREAPP3_0_OR_GREATER
+            return new Vector<T>(values);
+#else
+            if (null== values) throw new ArgumentNullException(nameof(values));
+            if (values.Length < Vector<byte>.Count) {
+                throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
+            }
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            return Unsafe.ReadUnaligned<Vector<T>>(ref MemoryMarshal.GetReference(values)); // Only .NET Core 2.1+, .NET Standard 2.1+ .
+#else
+            unsafe {
+                fixed (byte* p = values) {
+                    return *(Vector<T>*)(void*)p;
+                }
+            }
+#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#endif // NETCOREAPP3_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="ReadOnlySpan{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as a read-only span of objects of type <typeparamref name="T"/>.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(ReadOnlySpan{T})"/>
+        public static Vector<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
+#if NETCOREAPP3_0_OR_GREATER
+            return new Vector<T>(values);
+#else
+            if (null == values) throw new ArgumentNullException(nameof(values));
+            if (values.Length < Vector<T>.Count) {
+                throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
+            }
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
+#else
+            //return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref TraitsUtil.GetReference(values))); // CS8329	Cannot use method 'TraitsUtil.GetReference<T>(ReadOnlySpan<T>)' as a ref or out value because it is a readonly variable.
+            int cnt = Vector<T>.Count;
+            T[] arr = new T[cnt];
+            for(int i=0; i<cnt; ++i) {
+                arr[i] = values[i];
+            }
+            return new Vector<T>(arr);
+#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#endif // NETCOREAPP3_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Span{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as a span of objects of type <typeparamref name="T"/>.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(Span{T})"/>
+        public static Vector<T> Create<T>(Span<T> values) where T : struct {
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            return new Vector<T>(values);
+#else
+            if (null == values) throw new ArgumentNullException(nameof(values));
+            if (values.Length < Vector<T>.Count) {
+                throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
+            }
+            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref TraitsUtil.GetReference(values)));
+#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double type.
+        /// </summary>
+        /// <param name="src">Source value.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        public static Vector<T> CreateByDouble<T>(double src) where T : struct {
+            return new Vector<T>(TraitsUtil.GetByDouble<T>(src));
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
+        /// <param name="index">The starting index position from which to create the vector.</param>
+        /// <param name="length">The rotation length of the element.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(T[], int)"/>
+        public static Vector<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
+            T[] arr = new T[Vector<T>.Count];
+            int idxEnd = index + length;
+            int idx = index;
+            if (null == values || values.Length <= 0) return Vector<T>.Zero;
+            if (index < 0 || idxEnd > values.Length) {
+                throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
+            }
+            for (int i = 0; i < arr.Length; ++i) {
+                arr[i] = values[idx];
+                ++idx;
+                if (idx >= idxEnd) idx = index;
+            }
+            Vector<T> rt = new Vector<T>(arr);
+            return rt;
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given array.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector{T}(T[], int)"/>
+        public static Vector<T> CreateRotate<T>(params T[] values) where T : struct {
+            return CreateRotate<T>(values, 0, values.Length);
+        }
+
+    }
+
     /// <summary>
     /// Constants of <see cref="Vector{T}"/> .
     /// </summary>
@@ -371,7 +537,7 @@ namespace IntrinsicsLib {
         /// <param name="src"></param>
         /// <returns></returns>
         public static Vector<T> CreateByDouble(double src) {
-            return new Vector<T>(ElementByDouble(src));
+            return new Vector<T>(TraitsUtil.GetByDouble<T>(src));
         }
 
         /// <summary>
