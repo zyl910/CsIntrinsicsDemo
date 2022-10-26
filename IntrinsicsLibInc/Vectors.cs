@@ -186,6 +186,8 @@ namespace IntrinsicsLib {
     /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
     public static class Vectors<T> where T:struct {
         // -- Number struct --
+        /// <summary>Element byte size.</summary>
+        public static readonly int ElementSize;
         /// <summary>Sign bit size. When the type is an unsigned number, the value is 0.</summary>
         public static readonly int SignBits;
         /// <summary>Exponent bit size. When the type is an integer, the value is 0.</summary>
@@ -208,13 +210,13 @@ namespace IntrinsicsLib {
         public static readonly T ElementExponentMask;
         /// <summary>(Element) Mantissa mask.</summary>
         public static readonly T ElementMantissaMask;
-        ///// <summary>(Element) Non-sign mask.</summary>
-        //public static readonly T ElementNonSignMask;
-        ///// <summary>(Element) Non-exponent mask.</summary>
-        //public static readonly T ElementNonExponentMask;
-        ///// <summary>(Element) Non-mantissa mask.</summary>
-        //public static readonly T ElementNonMantissaMask;
-        /// <summary>(Element) Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 0.</summary>
+        /// <summary>(Element) Non-sign mask.</summary>
+        public static readonly T ElementNonSignMask;
+        /// <summary>(Element) Non-exponent mask.</summary>
+        public static readonly T ElementNonExponentMask;
+        /// <summary>(Element) Non-mantissa mask.</summary>
+        public static readonly T ElementNonMantissaMask;
+        /// <summary>(Element) Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
         public static readonly T ElementEpsilon;
         /// <summary>(Element) Represents the largest possible value.</summary>
         public static readonly T ElementMaxValue;
@@ -277,6 +279,14 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> XyzwZMask;
         /// <summary>Xyzw - W mask. For a 4-element group, select the mask of the 3th element. Alias has `RgbaAMask`.</summary>
         public static readonly Vector<T> XyzwWMask;
+        /// <summary>Xyzw - Not X mask. For a 4-element group, not select the mask of the 0th element. Alias has `RgbaNotRMask`.</summary>
+        public static readonly Vector<T> XyzwNotXMask;
+        /// <summary>Xyzw - Not Y mask. For a 4-element group, not select the mask of the 1th element. Alias has `RgbaNotGMask`.</summary>
+        public static readonly Vector<T> XyzwNotYMask;
+        /// <summary>Xyzw - Not Z mask. For a 4-element group, not select the mask of the 2th element. Alias has `RgbaNotBMask`.</summary>
+        public static readonly Vector<T> XyzwNotZMask;
+        /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element. Alias has `RgbaNotAMask`.</summary>
+        public static readonly Vector<T> XyzwNotWMask;
         // -- Zero or positive number --
         /// <summary>Value 0 .</summary>
         public static readonly Vector<T> V0;
@@ -307,6 +317,7 @@ namespace IntrinsicsLib {
             // -- Number struct --
             unchecked {
                 if (typeof(T) == typeof(Single)) {
+                    ElementSize = sizeof(Single);
                     SignBits = 1;
                     ExponentBits = 8;
                     MantissaBits = 23;
@@ -314,20 +325,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x80000000);
                     ElementExponentMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x7F800000);
                     ElementMantissaMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x007FFFFF);
+                    ElementNonSignMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x80000000);
+                    ElementNonExponentMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x7F800000);
+                    ElementNonMantissaMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x007FFFFF);
                     ElementEpsilon = (T)(object)Single.Epsilon;
                     ElementMaxValue = (T)(object)Single.MaxValue;
                     ElementMinValue = (T)(object)Single.MinValue;
                     ElementNaN = (T)(object)Single.NaN;
                     ElementNegativeInfinity = (T)(object)Single.NegativeInfinity;
                     ElementPositiveInfinity = (T)(object)Single.PositiveInfinity;
-                    Single full = BitConverter.Int32BitsToSingle(~0);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Double)) {
+                    ElementSize = sizeof(Double);
                     SignBits = 1;
                     ExponentBits = 11;
                     MantissaBits = 52;
@@ -335,20 +343,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x8000000000000000L);
                     ElementExponentMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x7FF0000000000000L);
                     ElementMantissaMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL);
+                    ElementNonSignMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x8000000000000000L);
+                    ElementNonExponentMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x7FF0000000000000L);
+                    ElementNonMantissaMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x000FFFFFFFFFFFFFL);
                     ElementEpsilon = (T)(object)Double.Epsilon;
                     ElementMaxValue = (T)(object)Double.MaxValue;
                     ElementMinValue = (T)(object)Double.MinValue;
                     ElementNaN = (T)(object)Double.NaN;
                     ElementNegativeInfinity = (T)(object)Double.NegativeInfinity;
                     ElementPositiveInfinity = (T)(object)Double.PositiveInfinity;
-                    Double full = BitConverter.Int64BitsToDouble(~0L);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate(0, 0, 0, full);
                 } else if (typeof(T) == typeof(SByte)) {
+                    ElementSize = sizeof(SByte);
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 7;
@@ -356,20 +361,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(SByte)(0x80);
                     ElementExponentMask = (T)(object)(SByte)(0);
                     ElementMantissaMask = (T)(object)(SByte)(0x7F);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(SByte)(~0x80);
+                    ElementNonExponentMask = (T)(object)(SByte)(~0);
+                    ElementNonMantissaMask = (T)(object)(SByte)(~0x7F);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)SByte.MaxValue;
                     ElementMinValue = (T)(object)SByte.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    SByte full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<SByte>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int16)) {
+                    ElementSize = sizeof(Int16);
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 15;
@@ -377,20 +379,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Int16)(0x8000);
                     ElementExponentMask = (T)(object)(Int16)(0);
                     ElementMantissaMask = (T)(object)(Int16)(0x7FFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(Int16)(~0x8000);
+                    ElementNonExponentMask = (T)(object)(Int16)(~0);
+                    ElementNonMantissaMask = (T)(object)(Int16)(~0x7FFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int16.MaxValue;
                     ElementMinValue = (T)(object)Int16.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    Int16 full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int16>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int32)) {
+                    ElementSize = sizeof(Int32);
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 31;
@@ -398,20 +397,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Int32)(0x80000000);
                     ElementExponentMask = (T)(object)(Int32)(0);
                     ElementMantissaMask = (T)(object)(Int32)(0x7FFFFFFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(Int32)(0x80000000);
+                    ElementNonExponentMask = (T)(object)(Int32)(0);
+                    ElementNonMantissaMask = (T)(object)(Int32)(0x7FFFFFFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int32.MaxValue;
                     ElementMinValue = (T)(object)Int32.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    Int32 full = ~0;
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int32>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Int64)) {
+                    ElementSize = sizeof(Int64);
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 63;
@@ -419,20 +415,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Int64)(0x8000000000000000L);
                     ElementExponentMask = (T)(object)(Int64)(0);
                     ElementMantissaMask = (T)(object)(Int64)(0x7FFFFFFFFFFFFFFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(Int64)(0x8000000000000000L);
+                    ElementNonExponentMask = (T)(object)(Int64)(0);
+                    ElementNonMantissaMask = (T)(object)(Int64)(0x7FFFFFFFFFFFFFFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int64.MaxValue;
                     ElementMinValue = (T)(object)Int64.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    Int64 full = ~0L;
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Int64>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(Byte)) {
+                    ElementSize = sizeof(Byte);
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 8;
@@ -440,20 +433,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Byte)(0);
                     ElementExponentMask = (T)(object)(Byte)(0);
                     ElementMantissaMask = (T)(object)(Byte)(0xFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(Byte)(0);
+                    ElementNonExponentMask = (T)(object)(Byte)(0);
+                    ElementNonMantissaMask = (T)(object)(Byte)(0xFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Byte.MaxValue;
                     ElementMinValue = (T)(object)Byte.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    Byte full = (Byte)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<Byte>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt16)) {
+                    ElementSize = sizeof(UInt16);
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 16;
@@ -461,20 +451,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(UInt16)(0);
                     ElementExponentMask = (T)(object)(UInt16)(0);
                     ElementMantissaMask = (T)(object)(UInt16)(0xFFFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(UInt16)(0);
+                    ElementNonExponentMask = (T)(object)(UInt16)(0);
+                    ElementNonMantissaMask = (T)(object)(UInt16)(0xFFFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt16.MaxValue;
                     ElementMinValue = (T)(object)UInt16.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    UInt16 full = (UInt16)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt16>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt32)) {
+                    ElementSize = sizeof(UInt32);
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 32;
@@ -482,20 +469,17 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(UInt32)(0);
                     ElementExponentMask = (T)(object)(UInt32)(0);
                     ElementMantissaMask = (T)(object)(UInt32)(0xFFFFFFFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(UInt32)(0);
+                    ElementNonExponentMask = (T)(object)(UInt32)(0);
+                    ElementNonMantissaMask = (T)(object)(UInt32)(0xFFFFFFFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt32.MaxValue;
                     ElementMinValue = (T)(object)UInt32.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    UInt32 full = (UInt32)(~0);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt32>(0, 0, 0, full);
                 } else if (typeof(T) == typeof(UInt64)) {
+                    ElementSize = sizeof(UInt64);
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 64;
@@ -503,19 +487,15 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(UInt64)(0);
                     ElementExponentMask = (T)(object)(UInt64)(0);
                     ElementMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFF);
-                    ElementEpsilon = ElementZero;
+                    ElementNonSignMask = (T)(object)(UInt64)(0);
+                    ElementNonExponentMask = (T)(object)(UInt64)(0);
+                    ElementNonMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFF);
+                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt64.MaxValue;
                     ElementMinValue = (T)(object)UInt64.MinValue;
                     ElementNaN = ElementZero;
                     ElementNegativeInfinity = ElementZero;
                     ElementPositiveInfinity = ElementZero;
-                    UInt64 full = (UInt64)(~0L);
-                    XyXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(full, 0);
-                    XyYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, full);
-                    XyzwXMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(full, 0, 0, 0);
-                    XyzwYMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, full, 0, 0);
-                    XyzwZMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, 0, full, 0);
-                    XyzwWMask = (Vector<T>)(object)Vectors.CreateRotate<UInt64>(0, 0, 0, full);
                 }
             }
             MantissaShift = 0;
@@ -546,6 +526,21 @@ namespace IntrinsicsLib {
             AllBitsSet = Vectors.OnesComplement(Vector<T>.Zero);
             Serial = GetSerial();
             Demo = GetDemo();
+            // -- Xyzw --
+            if (true) {
+                T o = ElementZero;
+                T f = ElementAllBitsSet;
+                XyXMask = Vectors.CreateRotate<T>(f, o);
+                XyYMask = Vectors.CreateRotate<T>(o, f);
+                XyzwXMask = Vectors.CreateRotate<T>(f, o, o, o);
+                XyzwYMask = Vectors.CreateRotate<T>(o, f, o, o);
+                XyzwZMask = Vectors.CreateRotate<T>(o, o, f, o);
+                XyzwWMask = Vectors.CreateRotate<T>(o, o, o, f);
+                XyzwNotXMask = Vectors.OnesComplement(XyzwXMask);
+                XyzwNotYMask = Vectors.OnesComplement(XyzwYMask);
+                XyzwNotZMask = Vectors.OnesComplement(XyzwZMask);
+                XyzwNotWMask = Vectors.OnesComplement(XyzwWMask);
+            }
             // -- Positive number --
             V1 = Vectors.CreateByDouble<T>(1);
             V2 = Vectors.CreateByDouble<T>(2);
@@ -576,26 +571,26 @@ namespace IntrinsicsLib {
         /// </summary>
         /// <returns>Return demo value.</returns>
         private static Vector<T> GetDemo() {
-            if (typeof(T) == typeof(float)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<float>(float.MinValue, float.PositiveInfinity, float.NaN, -1.2f, 0f, 1f, 2f, 4f);
-            } else if (typeof(T) == typeof(double)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<double>(double.MinValue, double.PositiveInfinity, -1.2, 0);
-            } else if (typeof(T) == typeof(sbyte)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<sbyte>(sbyte.MinValue, sbyte.MaxValue, -1, 0, 1, 2, 3, 64);
-            } else if (typeof(T) == typeof(short)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<short>(short.MinValue, short.MaxValue, -1, 0, 1, 2, 3, 16384);
-            } else if (typeof(T) == typeof(int)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<int>(int.MinValue, int.MaxValue, -1, 0, 1, 2, 3, 32768);
-            } else if (typeof(T) == typeof(long)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<long>(long.MinValue, long.MaxValue, -1, 0, 1, 2, 3);
-            } else if (typeof(T) == typeof(byte)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<byte>(byte.MinValue, byte.MaxValue, 0, 1, 2, 3, 4, 128);
-            } else if (typeof(T) == typeof(ushort)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<ushort>(ushort.MinValue, ushort.MaxValue, 0, 1, 2, 3, 4, 32768);
-            } else if (typeof(T) == typeof(uint)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<uint>(uint.MinValue, uint.MaxValue, 0, 1, 2, 3, 4, 65536);
-            } else if (typeof(T) == typeof(ulong)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<ulong>(ulong.MinValue, ulong.MaxValue, 0, 1, 2, 3);
+            if (typeof(T) == typeof(Single)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<Single>(Single.MinValue, Single.PositiveInfinity, Single.NaN, -1.2f, 0f, 1f, 2f, 4f);
+            } else if (typeof(T) == typeof(Double)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<double>(Double.MinValue, Double.PositiveInfinity, -1.2, 0);
+            } else if (typeof(T) == typeof(SByte)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<SByte>(SByte.MinValue, SByte.MaxValue, -1, 0, 1, 2, 3, 64);
+            } else if (typeof(T) == typeof(Int16)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<Int16>(Int16.MinValue, Int16.MaxValue, -1, 0, 1, 2, 3, 16384);
+            } else if (typeof(T) == typeof(Int32)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<Int32>(Int32.MinValue, Int32.MaxValue, -1, 0, 1, 2, 3, 32768);
+            } else if (typeof(T) == typeof(Int64)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<Int64>(Int64.MinValue, Int64.MaxValue, -1, 0, 1, 2, 3);
+            } else if (typeof(T) == typeof(Byte)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<Byte>(Byte.MinValue, Byte.MaxValue, 0, 1, 2, 3, 4, 128);
+            } else if (typeof(T) == typeof(UInt16)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<UInt16>(UInt16.MinValue, UInt16.MaxValue, 0, 1, 2, 3, 4, 32768);
+            } else if (typeof(T) == typeof(UInt32)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
+            } else if (typeof(T) == typeof(UInt64)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
             } else {
                 return GetSerial();
             }
