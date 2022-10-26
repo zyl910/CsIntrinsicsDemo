@@ -42,6 +42,7 @@ namespace IntrinsicsLib {
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
         /// <param name="index">The starting index position from which to create the vector.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
         /// <seealso cref="Vector{T}(T[], int)"/>
         public static Vector<T> Create<T>(T[] values, int index) where T : struct {
             return new Vector<T>(values, index);
@@ -53,6 +54,7 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">A read-only span of bytes that contains the values to add to the vector.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{byte})"/>
         public static Vector<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
@@ -80,6 +82,7 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as a read-only span of objects of type <typeparamref name="T"/>.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{T})"/>
         public static Vector<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
@@ -109,6 +112,7 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as a span of objects of type <typeparamref name="T"/>.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
         /// <seealso cref="Vector{T}(Span{T})"/>
         public static Vector<T> Create<T>(Span<T> values) where T : struct {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
@@ -123,15 +127,6 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double type.
-        /// </summary>
-        /// <param name="src">Source value.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
-        public static Vector<T> CreateByDouble<T>(double src) where T : struct {
-            return Vectors.Create<T>(TraitsUtil.GetByDouble<T>(src));
-        }
-
-        /// <summary>
         /// Rotate creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
@@ -139,7 +134,7 @@ namespace IntrinsicsLib {
         /// <param name="index">The starting index position from which to create the vector.</param>
         /// <param name="length">The rotation length of the element.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <seealso cref="Vector{T}(T[], int)"/>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
         public static Vector<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
             T[] arr = new T[Vector<T>.Count];
             int idxEnd = index + length;
@@ -163,9 +158,65 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <seealso cref="Vector{T}(T[], int)"/>
         public static Vector<T> CreateRotate<T>(params T[] values) where T : struct {
             return CreateRotate<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/>.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index)`, `index` is element index.</param>
+        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/>.</returns>
+        public static Vector<T> CreateByFunc<T>(Func<int, T> func) where T : struct {
+            if (null == func) throw new ArgumentNullException(nameof(func));
+            T[] arr = new T[Vector<T>.Count];
+            for(int i=0; i < Vector<T>.Count; ++i) {
+                arr[i] = func(i);
+            }
+            Vector<T> rt = Vectors.Create<T>(arr);
+            return rt;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <typeparam name="TUserdata">Type of <paramref name="userdata"/>.</typeparam>
+        /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index, TUserdata userdata)`, `index` is element index.</param>
+        /// <param name="userdata">The userdata.</param>
+        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.</returns>
+        public static Vector<T> CreateByFunc<T, TUserdata>(Func<int, TUserdata, T> func, TUserdata userdata) where T : struct {
+            if (null == func) throw new ArgumentNullException(nameof(func));
+            T[] arr = new T[Vector<T>.Count];
+            for (int i = 0; i < Vector<T>.Count; ++i) {
+                arr[i] = func(i, userdata);
+            }
+            Vector<T> rt = Vectors.Create<T>(arr);
+            return rt;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double type.
+        /// </summary>
+        /// <param name="src">Source value.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        public static Vector<T> CreateByDouble<T>(double src) where T : struct {
+            return Vectors.Create<T>(TraitsUtil.GetByDouble<T>(src));
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Vector{T}"/> from double value `for` loop.
+        /// </summary>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        /// <param name="start">Start value.</param>
+        /// <param name="step">Step value.</param>
+        /// <returns>A new <see cref="Vector{T}"/> from double value `for` loop.</returns>
+        public static Vector<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
+            return Vectors.CreateByFunc<T>(delegate (int index) {
+                double src = start + step * index;
+                return TraitsUtil.GetByDouble<T>(src);
+            });
         }
 
         /// <summary>
@@ -558,12 +609,7 @@ namespace IntrinsicsLib {
         /// </summary>
         /// <returns>Return serial value.</returns>
         private static Vector<T> GetSerial() {
-            T[] arr = new T[Vector<T>.Count];
-            for (int i = 0; i < Vector<T>.Count; ++i) {
-                arr[i] = TraitsUtil.GetByDouble<T>(i);
-            }
-            Vector<T> rt = Vectors.Create<T>(arr);
-            return rt;
+            return Vectors.CreateByDoubleLoop<T>(0, 1);
         }
 
         /// <summary>
@@ -592,7 +638,7 @@ namespace IntrinsicsLib {
             } else if (typeof(T) == typeof(UInt64)) {
                 return (Vector<T>)(object)Vectors.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
             } else {
-                return GetSerial();
+                return Serial; // GetSerial();
             }
         }
 
