@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
+using System.Collections;
 
 namespace IntrinsicsLib {
 
@@ -220,6 +221,15 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
+        /// Creates a <see cref="Vector{T}"/> whose components are of a specified bits.
+        /// </summary>
+        /// <param name="src">Source value.</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        public static Vector<T> CreateByBits<T>(Int64 src) where T : struct {
+            return Vectors.Create<T>(TraitsUtil.GetByBits<T>(src));
+        }
+
+        /// <summary>
         /// Computes the ones-complement (~) of a vector.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
@@ -291,7 +301,7 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> NonExponentMask;
         /// <summary>Non-mantissa mask.</summary>
         public static readonly Vector<T> NonMantissaMask;
-        /// <summary>Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
         public static readonly Vector<T> Epsilon;
         /// <summary>Represents the largest possible value.</summary>
         public static readonly Vector<T> MaxValue;
@@ -338,6 +348,23 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element. Alias has `RgbaNotAMask`.</summary>
         public static readonly Vector<T> XyzwNotWMask;
+        // -- Mask --
+        /// <summary>Serial bit pos mask. e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        public static readonly Vector<T> MaskBitPosSerial;
+        /// <summary>Serial bits mask. e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        public static readonly Vector<T> MaskBitsSerial;
+        /// <summary>1 bits mask.</summary>
+        public static readonly Vector<T> MaskBits1;
+        /// <summary>2 bits mask.</summary>
+        public static readonly Vector<T> MaskBits2;
+        /// <summary>4 bits mask.</summary>
+        public static readonly Vector<T> MaskBits4;
+        /// <summary>8 bits mask.</summary>
+        public static readonly Vector<T> MaskBits8;
+        /// <summary>16 bits mask.</summary>
+        public static readonly Vector<T> MaskBits16;
+        /// <summary>32 bits mask.</summary>
+        public static readonly Vector<T> MaskBits32;
         // -- Zero or positive number --
         /// <summary>Value 0 .</summary>
         public static readonly Vector<T> V0;
@@ -448,9 +475,9 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Int32)(0x80000000);
                     ElementExponentMask = (T)(object)(Int32)(0);
                     ElementMantissaMask = (T)(object)(Int32)(0x7FFFFFFF);
-                    ElementNonSignMask = (T)(object)(Int32)(0x80000000);
-                    ElementNonExponentMask = (T)(object)(Int32)(0);
-                    ElementNonMantissaMask = (T)(object)(Int32)(0x7FFFFFFF);
+                    ElementNonSignMask = (T)(object)(Int32)(~0x80000000);
+                    ElementNonExponentMask = (T)(object)(Int32)(~0);
+                    ElementNonMantissaMask = (T)(object)(Int32)(~0x7FFFFFFF);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int32.MaxValue;
                     ElementMinValue = (T)(object)Int32.MinValue;
@@ -466,9 +493,9 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Int64)(0x8000000000000000L);
                     ElementExponentMask = (T)(object)(Int64)(0);
                     ElementMantissaMask = (T)(object)(Int64)(0x7FFFFFFFFFFFFFFF);
-                    ElementNonSignMask = (T)(object)(Int64)(0x8000000000000000L);
-                    ElementNonExponentMask = (T)(object)(Int64)(0);
-                    ElementNonMantissaMask = (T)(object)(Int64)(0x7FFFFFFFFFFFFFFF);
+                    ElementNonSignMask = (T)(object)(Int64)(~0x8000000000000000L);
+                    ElementNonExponentMask = (T)(object)(Int64)(~0);
+                    ElementNonMantissaMask = (T)(object)(Int64)(~0x7FFFFFFFFFFFFFFF);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int64.MaxValue;
                     ElementMinValue = (T)(object)Int64.MinValue;
@@ -484,9 +511,9 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(Byte)(0);
                     ElementExponentMask = (T)(object)(Byte)(0);
                     ElementMantissaMask = (T)(object)(Byte)(0xFF);
-                    ElementNonSignMask = (T)(object)(Byte)(0);
-                    ElementNonExponentMask = (T)(object)(Byte)(0);
-                    ElementNonMantissaMask = (T)(object)(Byte)(0xFF);
+                    ElementNonSignMask = (T)(object)(Byte)(~0);
+                    ElementNonExponentMask = (T)(object)(Byte)(~0);
+                    ElementNonMantissaMask = (T)(object)(Byte)(~0xFF);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Byte.MaxValue;
                     ElementMinValue = (T)(object)Byte.MinValue;
@@ -502,9 +529,9 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(UInt16)(0);
                     ElementExponentMask = (T)(object)(UInt16)(0);
                     ElementMantissaMask = (T)(object)(UInt16)(0xFFFF);
-                    ElementNonSignMask = (T)(object)(UInt16)(0);
-                    ElementNonExponentMask = (T)(object)(UInt16)(0);
-                    ElementNonMantissaMask = (T)(object)(UInt16)(0xFFFF);
+                    ElementNonSignMask = (T)(object)(UInt16)(~0);
+                    ElementNonExponentMask = (T)(object)(UInt16)(~0);
+                    ElementNonMantissaMask = (T)(object)(UInt16)(~0xFFFF);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt16.MaxValue;
                     ElementMinValue = (T)(object)UInt16.MinValue;
@@ -520,9 +547,9 @@ namespace IntrinsicsLib {
                     ElementSignMask = (T)(object)(UInt32)(0);
                     ElementExponentMask = (T)(object)(UInt32)(0);
                     ElementMantissaMask = (T)(object)(UInt32)(0xFFFFFFFF);
-                    ElementNonSignMask = (T)(object)(UInt32)(0);
-                    ElementNonExponentMask = (T)(object)(UInt32)(0);
-                    ElementNonMantissaMask = (T)(object)(UInt32)(0xFFFFFFFF);
+                    ElementNonSignMask = (T)(object)(UInt32)(~0);
+                    ElementNonExponentMask = (T)(object)(UInt32)(~0);
+                    ElementNonMantissaMask = (T)(object)(UInt32)(~0xFFFFFFFF);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt32.MaxValue;
                     ElementMinValue = (T)(object)UInt32.MinValue;
@@ -537,10 +564,10 @@ namespace IntrinsicsLib {
                     ElementAllBitsSet = (T)(object)(UInt64)(~0);
                     ElementSignMask = (T)(object)(UInt64)(0);
                     ElementExponentMask = (T)(object)(UInt64)(0);
-                    ElementMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFF);
-                    ElementNonSignMask = (T)(object)(UInt64)(0);
-                    ElementNonExponentMask = (T)(object)(UInt64)(0);
-                    ElementNonMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFF);
+                    ElementMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFFL);
+                    ElementNonSignMask = (T)(object)(UInt64)(~0L);
+                    ElementNonExponentMask = (T)(object)(UInt64)(~0L);
+                    ElementNonMantissaMask = (T)(object)(UInt64)(~0xFFFFFFFFFFFFFFFFL);
                     ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt64.MaxValue;
                     ElementMinValue = (T)(object)UInt64.MinValue;
@@ -592,6 +619,23 @@ namespace IntrinsicsLib {
                 XyzwNotZMask = Vectors.OnesComplement(XyzwZMask);
                 XyzwNotWMask = Vectors.OnesComplement(XyzwWMask);
             }
+            // -- Mask --
+            int bitLen = ElementSize * 8;
+            MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                int m = index % bitLen;
+                long n = 1L << m;
+                return TraitsUtil.GetByBits<T>(n);
+            });
+            MaskBitsSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                int m = index % bitLen + 1;
+                return TraitsUtil.GetBitsMask<T>(0, m);
+            });
+            MaskBits1 = Vectors.CreateByBits<T>(0x1);
+            MaskBits2 = Vectors.CreateByBits<T>(0x3);
+            MaskBits4 = Vectors.CreateByBits<T>(0xF);
+            MaskBits8 = Vectors.CreateByBits<T>(0xFF);
+            MaskBits16 = Vectors.CreateByBits<T>(0xFFFF);
+            MaskBits32 = Vectors.CreateByBits<T>(0xFFFFFFFF);
             // -- Positive number --
             V1 = Vectors.CreateByDouble<T>(1);
             V2 = Vectors.CreateByDouble<T>(2);

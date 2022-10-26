@@ -717,6 +717,8 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "XyzwNotYMask:\t{0}", Vectors<T>.XyzwNotYMask);
             WriteLineFormat(tw, indent, "XyzwNotZMask:\t{0}", Vectors<T>.XyzwNotZMask);
             WriteLineFormat(tw, indent, "XyzwNotWMask:\t{0}", Vectors<T>.XyzwNotWMask);
+            WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vectors<T>.MaskBitsSerial);
             WriteLineFormat(tw, indent, "V0:\t{0}", Vectors<T>.V0);
             WriteLineFormat(tw, indent, "V1:\t{0}", Vectors<T>.V1);
             WriteLineFormat(tw, indent, "V_1:\t{0}", Vectors<T>.V_1);
