@@ -6,125 +6,125 @@ using System.Runtime.InteropServices;
 namespace IntrinsicsLib {
 
     /// <summary>
-    /// Methods of <see cref="Vector256{T}"/> .
+    /// Methods of <see cref="Vector64{T}"/> .
     /// </summary>
-    public static class Vector256s {
+    public static class Vector64s {
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> instance with all elements initialized to the specified value.
+        /// Creates a new <see cref="Vector64{T}"/> instance with all elements initialized to the specified value.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="value">The value that all elements will be initialized to.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with all elements initialized to value.</returns>
-        /// <seealso cref="Vector256{T}(T)"/>
-        public static Vector256<T> Create<T>(T value) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> with all elements initialized to value.</returns>
+        /// <seealso cref="Vector64{T}(T)"/>
+        public static Vector64<T> Create<T>(T value) where T : struct {
 #if NET7_0_OR_GREATER
-            return Vector256.Create(value);
+            return Vector64.Create(value);
 #else
-            return Vector256.Create((dynamic)value);
+            return Vector64.Create((dynamic)value);
 #endif
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a given array.
+        /// Creates a new <see cref="Vector64{T}"/> from a given array.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <seealso cref="Vector256{T}(T[])"/>
-        public static Vector256<T> Create<T>(T[] values) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <seealso cref="Vector64{T}(T[])"/>
+        public static Vector64<T> Create<T>(T[] values) where T : struct {
 #if NET7_0_OR_GREATER
-            return Vector256.Create(values);
+            return Vector64.Create(values);
 #else
             return Create(values, 0);
 #endif
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a given array starting at a specified index position.
+        /// Creates a new <see cref="Vector64{T}"/> from a given array starting at a specified index position.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
         /// <param name="index">The starting index position from which to create the vector.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
-        /// <seealso cref="Vector256{T}(T[], int)"/>
-        public static Vector256<T> Create<T>(T[] values, int index) where T : struct {
+        /// <seealso cref="Vector64{T}(T[], int)"/>
+        public static Vector64<T> Create<T>(T[] values, int index) where T : struct {
 #if NET7_0_OR_GREATER
-            return Vector256.Create(values, index);
+            return Vector64.Create(values, index);
 #else
             if (null == values) throw new ArgumentNullException(nameof(values));
-            int idxEnd = index + Vector256<T>.Count;
+            int idxEnd = index + Vector64<T>.Count;
             if (index < 0 || idxEnd > values.Length) {
                 throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
             }
-            return Unsafe.ReadUnaligned<Vector256<T>>(ref Unsafe.As<T, byte>(ref values[index]));
+            return Unsafe.ReadUnaligned<Vector64<T>>(ref Unsafe.As<T, byte>(ref values[index]));
 #endif
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a given read-only span of bytes.
+        /// Creates a new <see cref="Vector64{T}"/> from a given read-only span of bytes.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">A read-only span of bytes that contains the values to add to the vector.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
-        /// <seealso cref="Vector256{T}(ReadOnlySpan{byte})"/>
-        public static Vector256<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
-            if (values.Length < Vector256<byte>.Count) {
+        /// <seealso cref="Vector64{T}(ReadOnlySpan{byte})"/>
+        public static Vector64<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
+            if (values.Length < Vector64<byte>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-            return Unsafe.ReadUnaligned<Vector256<T>>(ref MemoryMarshal.GetReference(values));
+            return Unsafe.ReadUnaligned<Vector64<T>>(ref MemoryMarshal.GetReference(values));
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a from the given <see cref="ReadOnlySpan{T}"/>.
+        /// Creates a new <see cref="Vector64{T}"/> from a from the given <see cref="ReadOnlySpan{T}"/>.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as a read-only span of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
-        /// <seealso cref="Vector256{T}(ReadOnlySpan{T})"/>
-        public static Vector256<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
+        /// <seealso cref="Vector64{T}(ReadOnlySpan{T})"/>
+        public static Vector64<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
 #if NET7_0_OR_GREATER
-            return Vector256.Create(values);
+            return Vector64.Create(values);
 #else
-            if (values.Length < Vector256<T>.Count) {
+            if (values.Length < Vector64<T>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-            return Unsafe.ReadUnaligned<Vector256<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
+            return Unsafe.ReadUnaligned<Vector64<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
 #endif // NET7_0_OR_GREATER
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a from the given <see cref="Span{T}"/>.
+        /// Creates a new <see cref="Vector64{T}"/> from a from the given <see cref="Span{T}"/>.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as a span of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
-        /// <seealso cref="Vector256{T}(Span{T})"/>
-        public static Vector256<T> Create<T>(Span<T> values) where T : struct {
-            if (values.Length < Vector256<byte>.Count) {
+        /// <seealso cref="Vector64{T}(Span{T})"/>
+        public static Vector64<T> Create<T>(Span<T> values) where T : struct {
+            if (values.Length < Vector64<byte>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-            return Unsafe.ReadUnaligned<Vector256<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
+            return Unsafe.ReadUnaligned<Vector64<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector256{T}"/> from a given array starting at a specified index position.
+        /// Rotate creates a new <see cref="Vector64{T}"/> from a given array starting at a specified index position.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
         /// <param name="index">The starting index position from which to create the vector.</param>
         /// <param name="length">The rotation length of the element.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
-        public static Vector256<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
-            T[] arr = new T[Vector256<T>.Count];
+        public static Vector64<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
+            T[] arr = new T[Vector64<T>.Count];
             int idxEnd = index + length;
             int idx = index;
-            if (null == values || values.Length <= 0) return Vector256<T>.Zero;
+            if (null == values || values.Length <= 0) return Vector64<T>.Zero;
             if (index < 0 || idxEnd > values.Length) {
                 throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
             }
@@ -133,71 +133,71 @@ namespace IntrinsicsLib {
                 ++idx;
                 if (idx >= idxEnd) idx = index;
             }
-            Vector256<T> rt = Create(arr);
+            Vector64<T> rt = Create(arr);
             return rt;
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector256{T}"/> from a given array.
+        /// Rotate creates a new <see cref="Vector64{T}"/> from a given array.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        public static Vector256<T> CreateRotate<T>(params T[] values) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        public static Vector64<T> CreateRotate<T>(params T[] values) where T : struct {
             return CreateRotate<T>(values, 0, values.Length);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a from the given <see cref="Func{T, TResult}"/>.
+        /// Creates a new <see cref="Vector64{T}"/> from a from the given <see cref="Func{T, TResult}"/>.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index)`, `index` is element index.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> from a from the given <see cref="Func{T, TResult}"/>.</returns>
-        public static Vector256<T> CreateByFunc<T>(Func<int, T> func) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> from a from the given <see cref="Func{T, TResult}"/>.</returns>
+        public static Vector64<T> CreateByFunc<T>(Func<int, T> func) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
-            T[] arr = new T[Vector256<T>.Count];
-            for (int i = 0; i < Vector256<T>.Count; ++i) {
+            T[] arr = new T[Vector64<T>.Count];
+            for (int i = 0; i < Vector64<T>.Count; ++i) {
                 arr[i] = func(i);
             }
-            Vector256<T> rt = Create(arr);
+            Vector64<T> rt = Create(arr);
             return rt;
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector256{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.
+        /// Creates a new <see cref="Vector64{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <typeparam name="TUserdata">Type of <paramref name="userdata"/>.</typeparam>
         /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index, TUserdata userdata)`, `index` is element index.</param>
         /// <param name="userdata">The userdata.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.</returns>
-        public static Vector256<T> CreateByFunc<T, TUserdata>(Func<int, TUserdata, T> func, TUserdata userdata) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.</returns>
+        public static Vector64<T> CreateByFunc<T, TUserdata>(Func<int, TUserdata, T> func, TUserdata userdata) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
-            T[] arr = new T[Vector256<T>.Count];
-            for (int i = 0; i < Vector256<T>.Count; ++i) {
+            T[] arr = new T[Vector64<T>.Count];
+            for (int i = 0; i < Vector64<T>.Count; ++i) {
                 arr[i] = func(i, userdata);
             }
-            Vector256<T> rt = Create(arr);
+            Vector64<T> rt = Create(arr);
             return rt;
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector256{T}"/> whose components are of a specified double type.
+        /// Creates a <see cref="Vector64{T}"/> whose components are of a specified double type.
         /// </summary>
         /// <param name="src">Source value.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with all elements initialized to value.</returns>
-        public static Vector256<T> CreateByDouble<T>(double src) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> with all elements initialized to value.</returns>
+        public static Vector64<T> CreateByDouble<T>(double src) where T : struct {
             return Create(TraitsUtil.GetByDouble<T>(src));
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector256{T}"/> from double value `for` loop.
+        /// Creates a <see cref="Vector64{T}"/> from double value `for` loop.
         /// </summary>
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="start">Start value.</param>
         /// <param name="step">Step value.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> from double value `for` loop.</returns>
-        public static Vector256<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> from double value `for` loop.</returns>
+        public static Vector64<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
             return CreateByFunc<T>(delegate (int index) {
                 double src = start + step * index;
                 return TraitsUtil.GetByDouble<T>(src);
@@ -205,11 +205,11 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector256{T}"/> whose components are of a specified bits.
+        /// Creates a <see cref="Vector64{T}"/> whose components are of a specified bits.
         /// </summary>
         /// <param name="src">Source value.</param>
-        /// <returns>A new <see cref="Vector256{T}"/> with all elements initialized to value.</returns>
-        public static Vector256<T> CreateByBits<T>(Int64 src) where T : struct {
+        /// <returns>A new <see cref="Vector64{T}"/> with all elements initialized to value.</returns>
+        public static Vector64<T> CreateByBits<T>(Int64 src) where T : struct {
             return Create<T>(TraitsUtil.GetByBits<T>(src));
         }
 
@@ -219,7 +219,7 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
         /// <param name="src">The vector whose ones-complement is to be computed.</param>
         /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/>.</returns>
-        public static Vector256<T> OnesComplement<T>(Vector256<T> src) where T : struct {
+        public static Vector64<T> OnesComplement<T>(Vector64<T> src) where T : struct {
 #if NET7_0_OR_GREATER
             return ~src;
 #else
@@ -237,10 +237,10 @@ namespace IntrinsicsLib {
     }
 
     /// <summary>
-    /// Constants of <see cref="Vector256{T}"/> .
+    /// Constants of <see cref="Vector64{T}"/> .
     /// </summary>
     /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-    public static class Vector256s<T> where T : struct {
+    public static class Vector64s<T> where T : struct {
         // -- Number struct --
         /// <summary>Element byte size.</summary>
         public static readonly int ElementSize;
@@ -285,141 +285,141 @@ namespace IntrinsicsLib {
         /// <summary>(Element) Represents positive infinity. When the type is an integer, the value is 0.</summary>
         public static readonly T ElementPositiveInfinity;
         /// <summary>Sign mask.</summary>
-        public static readonly Vector256<T> SignMask;
+        public static readonly Vector64<T> SignMask;
         /// <summary>Exponent mask.</summary>
-        public static readonly Vector256<T> ExponentMask;
+        public static readonly Vector64<T> ExponentMask;
         /// <summary>Mantissa mask.</summary>
-        public static readonly Vector256<T> MantissaMask;
+        public static readonly Vector64<T> MantissaMask;
         /// <summary>Non-sign mask.</summary>
-        public static readonly Vector256<T> NonSignMask;
+        public static readonly Vector64<T> NonSignMask;
         /// <summary>Non-exponent mask.</summary>
-        public static readonly Vector256<T> NonExponentMask;
+        public static readonly Vector64<T> NonExponentMask;
         /// <summary>Non-mantissa mask.</summary>
-        public static readonly Vector256<T> NonMantissaMask;
+        public static readonly Vector64<T> NonMantissaMask;
         /// <summary>Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
-        public static readonly Vector256<T> Epsilon;
+        public static readonly Vector64<T> Epsilon;
         /// <summary>Represents the largest possible value.</summary>
-        public static readonly Vector256<T> MaxValue;
+        public static readonly Vector64<T> MaxValue;
         /// <summary>Represents the smallest possible value.</summary>
-        public static readonly Vector256<T> MinValue;
+        public static readonly Vector64<T> MinValue;
         /// <summary>Represents not a number (NaN). When the type is an integer, the value is 0.</summary>
-        public static readonly Vector256<T> NaN;
+        public static readonly Vector64<T> NaN;
         /// <summary>Represents negative infinity. When the type is an integer, the value is 0.</summary>
-        public static readonly Vector256<T> NegativeInfinity;
+        public static readonly Vector64<T> NegativeInfinity;
         /// <summary>Represents positive infinity. When the type is an integer, the value is 0.</summary>
-        public static readonly Vector256<T> PositiveInfinity;
+        public static readonly Vector64<T> PositiveInfinity;
         // -- Math --
         /// <summary>Represents the natural logarithmic base, specified by the constant, e.</summary>
-        public static readonly Vector256<T> E;
+        public static readonly Vector64<T> E;
         /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π.</summary>
-        public static readonly Vector256<T> Pi;
+        public static readonly Vector64<T> Pi;
         /// <summary>Represents the number of radians in one turn, specified by the constant, τ.</summary>
-        public static readonly Vector256<T> Tau;
+        public static readonly Vector64<T> Tau;
         // -- Specified value --
         /// <summary>All bit is 1.</summary>
-        public static readonly Vector256<T> AllBitsSet;
+        public static readonly Vector64<T> AllBitsSet;
         /// <summary>Serial Value. e.g. 0,1,2,3...</summary>
-        public static readonly Vector256<T> Serial;
+        public static readonly Vector64<T> Serial;
         /// <summary>Demo Value. It is a value constructed for testing purposes. It is characterized by different element values, and contains a minimum value, a maximum value.</summary>
-        public static readonly Vector256<T> Demo;
+        public static readonly Vector64<T> Demo;
         // -- Xyzw --
         /// <summary>Xy - X mask. For a 2-element group, select the mask of the 0th element.</summary>
-        public static readonly Vector256<T> XyXMask;
+        public static readonly Vector64<T> XyXMask;
         /// <summary>Xy - Y mask. For a 2-element group, select the mask of the 1st element.</summary>
-        public static readonly Vector256<T> XyYMask;
+        public static readonly Vector64<T> XyYMask;
         /// <summary>Xyzw - X mask. For a 4-element group, select the mask of the 0th element. Alias has `RgbaRMask`.</summary>
-        public static readonly Vector256<T> XyzwXMask;
+        public static readonly Vector64<T> XyzwXMask;
         /// <summary>Xyzw - Y mask. For a 4-element group, select the mask of the 1th element. Alias has `RgbaGMask`.</summary>
-        public static readonly Vector256<T> XyzwYMask;
+        public static readonly Vector64<T> XyzwYMask;
         /// <summary>Xyzw - Z mask. For a 4-element group, select the mask of the 2th element. Alias has `RgbaBMask`.</summary>
-        public static readonly Vector256<T> XyzwZMask;
+        public static readonly Vector64<T> XyzwZMask;
         /// <summary>Xyzw - W mask. For a 4-element group, select the mask of the 3th element. Alias has `RgbaAMask`.</summary>
-        public static readonly Vector256<T> XyzwWMask;
+        public static readonly Vector64<T> XyzwWMask;
         /// <summary>Xyzw - Not X mask. For a 4-element group, not select the mask of the 0th element. Alias has `RgbaNotRMask`.</summary>
-        public static readonly Vector256<T> XyzwNotXMask;
+        public static readonly Vector64<T> XyzwNotXMask;
         /// <summary>Xyzw - Not Y mask. For a 4-element group, not select the mask of the 1th element. Alias has `RgbaNotGMask`.</summary>
-        public static readonly Vector256<T> XyzwNotYMask;
+        public static readonly Vector64<T> XyzwNotYMask;
         /// <summary>Xyzw - Not Z mask. For a 4-element group, not select the mask of the 2th element. Alias has `RgbaNotBMask`.</summary>
-        public static readonly Vector256<T> XyzwNotZMask;
+        public static readonly Vector64<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element. Alias has `RgbaNotAMask`.</summary>
-        public static readonly Vector256<T> XyzwNotWMask;
+        public static readonly Vector64<T> XyzwNotWMask;
         // -- Mask --
         /// <summary>Serial bit pos mask. e.g. 1, 2, 4, 8, 0x10 ...</summary>
-        public static readonly Vector256<T> MaskBitPosSerial;
+        public static readonly Vector64<T> MaskBitPosSerial;
         /// <summary>Serial bits mask. e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
-        public static readonly Vector256<T> MaskBitsSerial;
+        public static readonly Vector64<T> MaskBitsSerial;
         /// <summary>1 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits1;
+        public static readonly Vector64<T> MaskBits1;
         /// <summary>2 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits2;
+        public static readonly Vector64<T> MaskBits2;
         /// <summary>4 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits4;
+        public static readonly Vector64<T> MaskBits4;
         /// <summary>8 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits8;
+        public static readonly Vector64<T> MaskBits8;
         /// <summary>16 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits16;
+        public static readonly Vector64<T> MaskBits16;
         /// <summary>32 bits mask.</summary>
-        public static readonly Vector256<T> MaskBits32;
+        public static readonly Vector64<T> MaskBits32;
         // -- Zero or positive number --
         /// <summary>Value 0 .</summary>
-        public static readonly Vector256<T> V0;
+        public static readonly Vector64<T> V0;
         /// <summary>Value 1 .</summary>
-        public static readonly Vector256<T> V1;
+        public static readonly Vector64<T> V1;
         /// <summary>Value 2 .</summary>
-        public static readonly Vector256<T> V2;
+        public static readonly Vector64<T> V2;
         /// <summary>Value 3 .</summary>
-        public static readonly Vector256<T> V3;
+        public static readonly Vector64<T> V3;
         /// <summary>Value 4 .</summary>
-        public static readonly Vector256<T> V4;
+        public static readonly Vector64<T> V4;
         /// <summary>Value 5 .</summary>
-        public static readonly Vector256<T> V5;
+        public static readonly Vector64<T> V5;
         /// <summary>Value 6 .</summary>
-        public static readonly Vector256<T> V6;
+        public static readonly Vector64<T> V6;
         /// <summary>Value 7 .</summary>
-        public static readonly Vector256<T> V7;
+        public static readonly Vector64<T> V7;
         /// <summary>Value 8 .</summary>
-        public static readonly Vector256<T> V8;
+        public static readonly Vector64<T> V8;
         /// <summary>Value 127 (SByte.MaxValue).</summary>
-        public static readonly Vector256<T> V127;
+        public static readonly Vector64<T> V127;
         /// <summary>Value 255 (Byte.MaxValue).</summary>
-        public static readonly Vector256<T> V255;
+        public static readonly Vector64<T> V255;
         /// <summary>Value 32767 (Int16.MaxValue) .</summary>
-        public static readonly Vector256<T> V32767;
+        public static readonly Vector64<T> V32767;
         /// <summary>Value 65535 (UInt16.MaxValue) .</summary>
-        public static readonly Vector256<T> V65535;
+        public static readonly Vector64<T> V65535;
         /// <summary>Value 2147483647 (Int32.MaxValue) .</summary>
-        public static readonly Vector256<T> V2147483647;
+        public static readonly Vector64<T> V2147483647;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
-        public static readonly Vector256<T> V4294967295;
+        public static readonly Vector64<T> V4294967295;
         // -- Negative number  --
         /// <summary>Value -1 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
-        public static readonly Vector256<T> V_1;
+        public static readonly Vector64<T> V_1;
         /// <summary>Value -2 .</summary>
-        public static readonly Vector256<T> V_2;
+        public static readonly Vector64<T> V_2;
         /// <summary>Value -3 .</summary>
-        public static readonly Vector256<T> V_3;
+        public static readonly Vector64<T> V_3;
         /// <summary>Value -4 .</summary>
-        public static readonly Vector256<T> V_4;
+        public static readonly Vector64<T> V_4;
         /// <summary>Value -5 .</summary>
-        public static readonly Vector256<T> V_5;
+        public static readonly Vector64<T> V_5;
         /// <summary>Value -6 .</summary>
-        public static readonly Vector256<T> V_6;
+        public static readonly Vector64<T> V_6;
         /// <summary>Value -7 .</summary>
-        public static readonly Vector256<T> V_7;
+        public static readonly Vector64<T> V_7;
         /// <summary>Value -8 .</summary>
-        public static readonly Vector256<T> V_8;
+        public static readonly Vector64<T> V_8;
         /// <summary>Value -128 (SByte.MinValue).</summary>
-        public static readonly Vector256<T> V_128;
+        public static readonly Vector64<T> V_128;
         /// <summary>Value -32768 (Int16.MinValue) .</summary>
-        public static readonly Vector256<T> V_32768;
+        public static readonly Vector64<T> V_32768;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
-        public static readonly Vector256<T> V_2147483648;
+        public static readonly Vector64<T> V_2147483648;
 
         /// <summary>
         /// Static constructor.
         /// </summary>
-        static Vector256s() {
-            V0 = Vector256<T>.Zero;
+        static Vector64s() {
+            V0 = Vector64<T>.Zero;
             ElementZero = default;
             // -- Number struct --
             unchecked {
@@ -608,125 +608,125 @@ namespace IntrinsicsLib {
             MantissaShift = 0;
             ExponentShift = MantissaShift + MantissaBits;
             SignShift = ExponentShift + ExponentBits;
-            SignMask = Vector256s.Create(ElementSignMask);
-            ExponentMask = Vector256s.Create(ElementExponentMask);
-            MantissaMask = Vector256s.Create(ElementMantissaMask);
-            Epsilon = Vector256s.Create(ElementEpsilon);
-            MaxValue = Vector256s.Create(ElementMaxValue);
-            MinValue = Vector256s.Create(ElementMinValue);
-            NaN = Vector256s.Create(ElementNaN);
-            NegativeInfinity = Vector256s.Create(ElementNegativeInfinity);
-            PositiveInfinity = Vector256s.Create(ElementPositiveInfinity);
-            NonSignMask = Vector256s.OnesComplement(SignMask);
-            NonExponentMask = Vector256s.OnesComplement(ExponentMask);
-            NonMantissaMask = Vector256s.OnesComplement(MantissaMask);
+            SignMask = Vector64s.Create(ElementSignMask);
+            ExponentMask = Vector64s.Create(ElementExponentMask);
+            MantissaMask = Vector64s.Create(ElementMantissaMask);
+            Epsilon = Vector64s.Create(ElementEpsilon);
+            MaxValue = Vector64s.Create(ElementMaxValue);
+            MinValue = Vector64s.Create(ElementMinValue);
+            NaN = Vector64s.Create(ElementNaN);
+            NegativeInfinity = Vector64s.Create(ElementNegativeInfinity);
+            PositiveInfinity = Vector64s.Create(ElementPositiveInfinity);
+            NonSignMask = Vector64s.OnesComplement(SignMask);
+            NonExponentMask = Vector64s.OnesComplement(ExponentMask);
+            NonMantissaMask = Vector64s.OnesComplement(MantissaMask);
             // -- Math --
-            E = Vector256s.CreateByDouble<T>(Math.E);
-            Pi = Vector256s.CreateByDouble<T>(Math.PI);
+            E = Vector64s.CreateByDouble<T>(Math.E);
+            Pi = Vector64s.CreateByDouble<T>(Math.PI);
 #if NET5_0_OR_GREATER
-            Tau = Vector256s.CreateByDouble<T>(Math.Tau);
+            Tau = Vector64s.CreateByDouble<T>(Math.Tau);
 #else
         Tau = CreateByDouble(Math.PI * 2);
 #endif // NET5_0_OR_GREATER
             // -- Math shift --
             // -- Specified value --
-            AllBitsSet = Vector256s.OnesComplement(Vector256<T>.Zero);
+            AllBitsSet = Vector64s.OnesComplement(Vector64<T>.Zero);
             Serial = GetSerial();
             Demo = GetDemo();
             // -- Xyzw --
             if (true) {
                 T o = ElementZero;
                 T f = ElementAllBitsSet;
-                XyXMask = Vector256s.CreateRotate<T>(f, o);
-                XyYMask = Vector256s.CreateRotate<T>(o, f);
-                XyzwXMask = Vector256s.CreateRotate<T>(f, o, o, o);
-                XyzwYMask = Vector256s.CreateRotate<T>(o, f, o, o);
-                XyzwZMask = Vector256s.CreateRotate<T>(o, o, f, o);
-                XyzwWMask = Vector256s.CreateRotate<T>(o, o, o, f);
-                XyzwNotXMask = Vector256s.OnesComplement(XyzwXMask);
-                XyzwNotYMask = Vector256s.OnesComplement(XyzwYMask);
-                XyzwNotZMask = Vector256s.OnesComplement(XyzwZMask);
-                XyzwNotWMask = Vector256s.OnesComplement(XyzwWMask);
+                XyXMask = Vector64s.CreateRotate<T>(f, o);
+                XyYMask = Vector64s.CreateRotate<T>(o, f);
+                XyzwXMask = Vector64s.CreateRotate<T>(f, o, o, o);
+                XyzwYMask = Vector64s.CreateRotate<T>(o, f, o, o);
+                XyzwZMask = Vector64s.CreateRotate<T>(o, o, f, o);
+                XyzwWMask = Vector64s.CreateRotate<T>(o, o, o, f);
+                XyzwNotXMask = Vector64s.OnesComplement(XyzwXMask);
+                XyzwNotYMask = Vector64s.OnesComplement(XyzwYMask);
+                XyzwNotZMask = Vector64s.OnesComplement(XyzwZMask);
+                XyzwNotWMask = Vector64s.OnesComplement(XyzwWMask);
             }
             // -- Mask --
             int bitLen = ElementSize * 8;
-            MaskBitPosSerial = Vector256s.CreateByFunc<T>(delegate (int index) {
+            MaskBitPosSerial = Vector64s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen;
                 long n = 1L << m;
                 return TraitsUtil.GetByBits<T>(n);
             });
-            MaskBitsSerial = Vector256s.CreateByFunc<T>(delegate (int index) {
+            MaskBitsSerial = Vector64s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen + 1;
                 return TraitsUtil.GetBitsMask<T>(0, m);
             });
-            MaskBits1 = Vector256s.CreateByBits<T>(0x1);
-            MaskBits2 = Vector256s.CreateByBits<T>(0x3);
-            MaskBits4 = Vector256s.CreateByBits<T>(0xF);
-            MaskBits8 = Vector256s.CreateByBits<T>(0xFF);
-            MaskBits16 = Vector256s.CreateByBits<T>(0xFFFF);
-            MaskBits32 = Vector256s.CreateByBits<T>(0xFFFFFFFF);
+            MaskBits1 = Vector64s.CreateByBits<T>(0x1);
+            MaskBits2 = Vector64s.CreateByBits<T>(0x3);
+            MaskBits4 = Vector64s.CreateByBits<T>(0xF);
+            MaskBits8 = Vector64s.CreateByBits<T>(0xFF);
+            MaskBits16 = Vector64s.CreateByBits<T>(0xFFFF);
+            MaskBits32 = Vector64s.CreateByBits<T>(0xFFFFFFFF);
             // -- Positive number --
-            V1 = Vector256s.CreateByDouble<T>(1);
-            V2 = Vector256s.CreateByDouble<T>(2);
-            V3 = Vector256s.CreateByDouble<T>(3);
-            V4 = Vector256s.CreateByDouble<T>(4);
-            V5 = Vector256s.CreateByDouble<T>(5);
-            V6 = Vector256s.CreateByDouble<T>(6);
-            V7 = Vector256s.CreateByDouble<T>(7);
-            V8 = Vector256s.CreateByDouble<T>(8);
-            V127 = Vector256s.CreateByDouble<T>(127);
-            V255 = Vector256s.CreateByDouble<T>(255);
-            V32767 = Vector256s.CreateByDouble<T>(32767);
-            V65535 = Vector256s.CreateByDouble<T>(65535);
-            V2147483647 = Vector256s.CreateByDouble<T>(2147483647);
-            V4294967295 = Vector256s.CreateByDouble<T>(4294967295);
+            V1 = Vector64s.CreateByDouble<T>(1);
+            V2 = Vector64s.CreateByDouble<T>(2);
+            V3 = Vector64s.CreateByDouble<T>(3);
+            V4 = Vector64s.CreateByDouble<T>(4);
+            V5 = Vector64s.CreateByDouble<T>(5);
+            V6 = Vector64s.CreateByDouble<T>(6);
+            V7 = Vector64s.CreateByDouble<T>(7);
+            V8 = Vector64s.CreateByDouble<T>(8);
+            V127 = Vector64s.CreateByDouble<T>(127);
+            V255 = Vector64s.CreateByDouble<T>(255);
+            V32767 = Vector64s.CreateByDouble<T>(32767);
+            V65535 = Vector64s.CreateByDouble<T>(65535);
+            V2147483647 = Vector64s.CreateByDouble<T>(2147483647);
+            V4294967295 = Vector64s.CreateByDouble<T>(4294967295);
             // -- Negative number  --
-            V_1 = Vector256s.CreateByDouble<T>(-1);
-            V_2 = Vector256s.CreateByDouble<T>(-2);
-            V_3 = Vector256s.CreateByDouble<T>(-3);
-            V_4 = Vector256s.CreateByDouble<T>(-4);
-            V_5 = Vector256s.CreateByDouble<T>(-5);
-            V_6 = Vector256s.CreateByDouble<T>(-6);
-            V_7 = Vector256s.CreateByDouble<T>(-7);
-            V_8 = Vector256s.CreateByDouble<T>(-8);
-            V_128 = Vector256s.CreateByDouble<T>(-128);
-            V_32768 = Vector256s.CreateByDouble<T>(-32768);
-            V_2147483648 = Vector256s.CreateByDouble<T>(-2147483648);
+            V_1 = Vector64s.CreateByDouble<T>(-1);
+            V_2 = Vector64s.CreateByDouble<T>(-2);
+            V_3 = Vector64s.CreateByDouble<T>(-3);
+            V_4 = Vector64s.CreateByDouble<T>(-4);
+            V_5 = Vector64s.CreateByDouble<T>(-5);
+            V_6 = Vector64s.CreateByDouble<T>(-6);
+            V_7 = Vector64s.CreateByDouble<T>(-7);
+            V_8 = Vector64s.CreateByDouble<T>(-8);
+            V_128 = Vector64s.CreateByDouble<T>(-128);
+            V_32768 = Vector64s.CreateByDouble<T>(-32768);
+            V_2147483648 = Vector64s.CreateByDouble<T>(-2147483648);
         }
 
         /// <summary>
         /// Get serial value.
         /// </summary>
         /// <returns>Return serial value.</returns>
-        private static Vector256<T> GetSerial() {
-            return Vector256s.CreateByDoubleLoop<T>(0, 1);
+        private static Vector64<T> GetSerial() {
+            return Vector64s.CreateByDoubleLoop<T>(0, 1);
         }
 
         /// <summary>
         /// Get demo value.
         /// </summary>
         /// <returns>Return demo value.</returns>
-        private static Vector256<T> GetDemo() {
+        private static Vector64<T> GetDemo() {
             if (typeof(T) == typeof(Single)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<Single>(Single.MinValue, Single.PositiveInfinity, Single.NaN, -1.2f, 0f, 1f, 2f, 4f);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<Single>(Single.MinValue, Single.PositiveInfinity, Single.NaN, -1.2f, 0f, 1f, 2f, 4f);
             } else if (typeof(T) == typeof(Double)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<double>(Double.MinValue, Double.PositiveInfinity, -1.2, 0);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<double>(Double.MinValue, Double.PositiveInfinity, -1.2, 0);
             } else if (typeof(T) == typeof(SByte)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<SByte>(SByte.MinValue, SByte.MaxValue, -1, 0, 1, 2, 3, 64);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<SByte>(SByte.MinValue, SByte.MaxValue, -1, 0, 1, 2, 3, 64);
             } else if (typeof(T) == typeof(Int16)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<Int16>(Int16.MinValue, Int16.MaxValue, -1, 0, 1, 2, 3, 16384);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<Int16>(Int16.MinValue, Int16.MaxValue, -1, 0, 1, 2, 3, 16384);
             } else if (typeof(T) == typeof(Int32)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<Int32>(Int32.MinValue, Int32.MaxValue, -1, 0, 1, 2, 3, 32768);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<Int32>(Int32.MinValue, Int32.MaxValue, -1, 0, 1, 2, 3, 32768);
             } else if (typeof(T) == typeof(Int64)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<Int64>(Int64.MinValue, Int64.MaxValue, -1, 0, 1, 2, 3);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<Int64>(Int64.MinValue, Int64.MaxValue, -1, 0, 1, 2, 3);
             } else if (typeof(T) == typeof(Byte)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<Byte>(Byte.MinValue, Byte.MaxValue, 0, 1, 2, 3, 4, 128);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<Byte>(Byte.MinValue, Byte.MaxValue, 0, 1, 2, 3, 4, 128);
             } else if (typeof(T) == typeof(UInt16)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<UInt16>(UInt16.MinValue, UInt16.MaxValue, 0, 1, 2, 3, 4, 32768);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt16>(UInt16.MinValue, UInt16.MaxValue, 0, 1, 2, 3, 4, 32768);
             } else if (typeof(T) == typeof(UInt32)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
             } else if (typeof(T) == typeof(UInt64)) {
-                return (Vector256<T>)(object)Vector256s.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
+                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
             } else {
                 return Serial; // GetSerial();
             }
