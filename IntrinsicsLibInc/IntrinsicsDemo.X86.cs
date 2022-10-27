@@ -26,6 +26,7 @@ namespace IntrinsicsLib {
             // Avx
             RunX86Avx(tw, indent);
             RunX86Avx2(tw, indent);
+            RunX86Fma(tw, indent);
         }
 
         /// <summary>

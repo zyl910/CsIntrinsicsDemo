@@ -1199,7 +1199,7 @@ namespace IntrinsicsLib {
             if (null == tw) return;
             if (null == indent) indent = "";
             string indentNext = indent + IndentNextSeparator;
-            if (Avx.IsSupported) {
+            if (Avx2.IsSupported) {
                 tw.WriteLine();
             }
             tw.WriteLine(indent + string.Format("-- Avx2.IsSupported:\t{0}", Avx2.IsSupported));
@@ -2927,6 +2927,258 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "Xor(srcT_256_short, src2_256_short):\t{0}", Avx2.Xor(srcT_256_short, src2_256_short));
             WriteLineFormat(tw, indent, "Xor(srcT_256_int, src2_256_int):\t{0}", Avx2.Xor(srcT_256_int, src2_256_int));
             WriteLineFormat(tw, indent, "Xor(srcT_256_long, src2_256_long):\t{0}", Avx2.Xor(srcT_256_long, src2_256_long));
+
+        }
+
+        /// <summary>
+        /// Run x86 Fma. https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.intrinsics.x86.avx2?view=net-7.0
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        public unsafe static void RunX86Fma(TextWriter tw, string indent) {
+            if (null == tw) return;
+            if (null == indent) indent = "";
+            string indentNext = indent + IndentNextSeparator;
+            if (Fma.IsSupported) {
+                tw.WriteLine();
+            }
+            tw.WriteLine(indent + string.Format("-- Fma.IsSupported:\t{0}", Fma.IsSupported));
+            if (!Fma.IsSupported) {
+                return;
+            }
+
+            // MultiplyAdd(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmadd_pd (__m128d a, __m128d b, __m128d c)
+            // VFMADDPD xmm, xmm, xmm/m128
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, add the intermediate result to packed elements in c, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	dst[i+63:i] := (a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // ENDFOR
+            // MultiplyAdd(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmadd_ps (__m128 a, __m128 b, __m128 c)
+            // VFMADDPS xmm, xmm, xmm/m128
+            // Description
+            // Multiply packed single-precision (32-bit) floating-point elements in a and b, add the intermediate result to packed elements in c, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	i := j*32
+            // 	dst[i+31:i] := (a[i+31:i] * b[i+31:i]) + c[i+31:i]
+            // ENDFOR
+            // MultiplyAdd(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fmadd_pd (__m256d a, __m256d b, __m256d c)
+            // VFMADDPD ymm, ymm, ymm/m256
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, add the intermediate result to packed elements in c, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	i := j*64
+            // 	dst[i+63:i] := (a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // ENDFOR
+            // MultiplyAdd(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fmadd_ps (__m256 a, __m256 b, __m256 c)
+            // VFMADDPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplyAdd(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplyAdd(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAdd(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplyAdd(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAdd(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplyAdd(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAdd(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplyAdd(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplyAddNegated(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fnmadd_pd (__m128d a, __m128d b, __m128d c)
+            // VFNMADDPD xmm, xmm, xmm/m128
+            // Description
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, add the negated intermediate result to packed elements in c, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	dst[i+63:i] := -(a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // ENDFOR	
+            // MultiplyAddNegated(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fnmadd_ps (__m128 a, __m128 b, __m128 c)
+            // VFNMADDPS xmm, xmm, xmm/m128
+            // MultiplyAddNegated(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fnmadd_pd (__m256d a, __m256d b, __m256d c)
+            // VFNMADDPD ymm, ymm, ymm/m256
+            // MultiplyAddNegated(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fnmadd_ps (__m256 a, __m256 b, __m256 c)
+            // VFNMADDPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplyAddNegated(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplyAddNegated(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddNegated(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplyAddNegated(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddNegated(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplyAddNegated(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddNegated(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplyAddNegated(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplyAddNegatedScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fnmadd_sd (__m128d a, __m128d b, __m128d c)
+            // VFNMADDSD xmm, xmm, xmm/m64
+            // Multiply the lower double-precision (64-bit) floating-point elements in a and b, and add the negated intermediate result to the lower element in c. Store the result in the lower element of dst, and copy the upper element from a to the upper element of dst.
+            // Operation
+            // dst[63:0] := -(a[63:0] * b[63:0]) + c[63:0]
+            // dst[127:64] := a[127:64]
+            // MultiplyAddNegatedScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fnmadd_ss (__m128 a, __m128 b, __m128 c)
+            // VFNMADDSS xmm, xmm, xmm/m32
+            // Multiply the lower single-precision (32-bit) floating-point elements in a and b, and add the negated intermediate result to the lower element in c. Store the result in the lower element of dst, and copy the upper 3 packed elements from a to the upper elements of dst.
+            // Operation
+            // dst[31:0] := -(a[31:0] * b[31:0]) + c[31:0]
+            // dst[127:32] := a[127:32]
+            WriteLineFormat(tw, indent, "MultiplyAddNegatedScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplyAddNegatedScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddNegatedScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplyAddNegatedScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+
+            // MultiplyAddScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmadd_sd (__m128d a, __m128d b, __m128d c)
+            // VFMADDSS xmm, xmm, xmm/m64
+            // Multiply the lower double-precision (64-bit) floating-point elements in a and b, and add the intermediate result to the lower element in c. Store the result in the lower element of dst, and copy the upper element from a to the upper element of dst.
+            // Operation
+            // dst[63:0] := (a[63:0] * b[63:0]) + c[63:0]
+            // dst[127:64] := a[127:64]
+            // MultiplyAddScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmadd_ss (__m128 a, __m128 b, __m128 c)
+            // VFMADDSS xmm, xmm, xmm/m32
+            WriteLineFormat(tw, indent, "MultiplyAddScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplyAddScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplyAddScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+
+            // MultiplyAddSubtract(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmaddsub_pd (__m128d a, __m128d b, __m128d c)
+            // VFMADDSUBPD xmm, xmm, xmm/m128
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, alternatively add and subtract packed elements in c to/from the intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	IF ((j & 1) == 0) 
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) - c[i+63:i]
+            // 	ELSE
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // 	FI
+            // ENDFOR
+            // MultiplyAddSubtract(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmaddsub_ps (__m128 a, __m128 b, __m128 c)
+            // VFMADDSUBPS xmm, xmm, xmm/m128
+            // Multiply packed single-precision (32-bit) floating-point elements in a and b, alternatively add and subtract packed elements in c to/from the intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	i := j*32
+            // 	IF ((j & 1) == 0) 
+            // 		dst[i+31:i] := (a[i+31:i] * b[i+31:i]) - c[i+31:i]
+            // 	ELSE
+            // 		dst[i+31:i] := (a[i+31:i] * b[i+31:i]) + c[i+31:i]
+            // 	FI
+            // ENDFOR
+            // dst[MAX:128] := 0
+            // MultiplyAddSubtract(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fmaddsub_pd (__m256d a, __m256d b, __m256d c)
+            // VFMADDSUBPD ymm, ymm, ymm/m256
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, alternatively add and subtract packed elements in c to/from the intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	i := j*64
+            // 	IF ((j & 1) == 0) 
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) - c[i+63:i]
+            // 	ELSE
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // 	FI
+            // ENDFOR
+            // MultiplyAddSubtract(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fmaddsub_ps (__m256 a, __m256 b, __m256 c)
+            // VFMADDSUBPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplyAddSubtract(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplyAddSubtract(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddSubtract(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplyAddSubtract(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddSubtract(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplyAddSubtract(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplyAddSubtract(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplyAddSubtract(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplySubtract(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmsub_pd (__m128d a, __m128d b, __m128d c)
+            // VFMSUBPS xmm, xmm, xmm/m128
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, subtract packed elements in c from the intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	dst[i+63:i] := (a[i+63:i] * b[i+63:i]) - c[i+63:i]
+            // ENDFOR
+            // MultiplySubtract(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmsub_ps (__m128 a, __m128 b, __m128 c)
+            // VFMSUBPS xmm, xmm, xmm/m128
+            // MultiplySubtract(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fmsub_pd (__m256d a, __m256d b, __m256d c)
+            // VFMSUBPD ymm, ymm, ymm/m256
+            // MultiplySubtract(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fmsub_ps (__m256 a, __m256 b, __m256 c)
+            // VFMSUBPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplySubtract(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtract(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtract(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtract(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtract(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplySubtract(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtract(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplySubtract(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplySubtractAdd(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmsubadd_pd (__m128d a, __m128d b, __m128d c)
+            // VFMSUBADDPD xmm, xmm, xmm/m128
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, alternatively subtract and add packed elements in c from/to the intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	IF ((j & 1) == 0) 
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) + c[i+63:i]
+            // 	ELSE
+            // 		dst[i+63:i] := (a[i+63:i] * b[i+63:i]) - c[i+63:i]
+            // 	FI
+            // ENDFOR
+            // MultiplySubtractAdd(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmsubadd_ps (__m128 a, __m128 b, __m128 c)
+            // VFMSUBADDPS xmm, xmm, xmm/m128
+            // MultiplySubtractAdd(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fmsubadd_pd (__m256d a, __m256d b, __m256d c)
+            // VFMSUBADDPD ymm, ymm, ymm/m256
+            // MultiplySubtractAdd(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fmsubadd_ps (__m256 a, __m256 b, __m256 c)
+            // VFMSUBADDPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplySubtractAdd(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtractAdd(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractAdd(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtractAdd(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractAdd(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplySubtractAdd(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractAdd(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplySubtractAdd(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplySubtractNegated(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fnmsub_pd (__m128d a, __m128d b, __m128d c)
+            // VFNMSUBPD xmm, xmm, xmm/m128
+            // Multiply packed double-precision (64-bit) floating-point elements in a and b, subtract packed elements in c from the negated intermediate result, and store the results in dst.
+            // Operation
+            // FOR j := 0 to 1
+            // 	i := j*64
+            // 	dst[i+63:i] := -(a[i+63:i] * b[i+63:i]) - c[i+63:i]
+            // ENDFOR	
+            // MultiplySubtractNegated(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fnmsub_ps (__m128 a, __m128 b, __m128 c)
+            // VFNMSUBPS xmm, xmm, xmm/m128
+            // MultiplySubtractNegated(Vector256<Double>, Vector256<Double>, Vector256<Double>)	
+            // __m256d _mm256_fnmsub_pd (__m256d a, __m256d b, __m256d c)
+            // VFNMSUBPD ymm, ymm, ymm/m256
+            // MultiplySubtractNegated(Vector256<Single>, Vector256<Single>, Vector256<Single>)	
+            // __m256 _mm256_fnmsub_ps (__m256 a, __m256 b, __m256 c)
+            // VFNMSUBPS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplySubtractNegated(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtractNegated(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractNegated(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtractNegated(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractNegated(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1):\t{0}", Fma.MultiplySubtractNegated(Vector256s<Double>.Serial, Vector256s<Double>.V2, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractNegated(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1):\t{0}", Fma.MultiplySubtractNegated(Vector256s<Single>.Serial, Vector256s<Single>.V2, Vector256s<Single>.V1));
+
+            // MultiplySubtractNegatedScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fnmsub_sd (__m128d a, __m128d b, __m128d c)
+            // VFNMSUBSD xmm, xmm, xmm/m64
+            // Multiply the lower double-precision (64-bit) floating-point elements in a and b, and subtract the lower element in c from the negated intermediate result. Store the result in the lower element of dst, and copy the upper element from a to the upper element of dst.
+            // Operation
+            // dst[63:0] := -(a[63:0] * b[63:0]) - c[63:0]
+            // dst[127:64] := a[127:64]
+            // MultiplySubtractNegatedScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fnmsub_ss (__m128 a, __m128 b, __m128 c)
+            // VFNMSUBSS xmm, xmm, xmm/m32
+            WriteLineFormat(tw, indent, "MultiplySubtractNegatedScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtractNegatedScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractNegatedScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtractNegatedScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
+
+            // MultiplySubtractScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>)	
+            // __m128d _mm_fmsub_sd (__m128d a, __m128d b, __m128d c)
+            // VFMSUBSD xmm, xmm, xmm/m64
+            // MultiplySubtractScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>)	
+            // __m128 _mm_fmsub_ss (__m128 a, __m128 b, __m128 c)
+            // VFMSUBSS xmm, xmm, xmm/m32
+            WriteLineFormat(tw, indent, "MultiplySubtractScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtractScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
+            WriteLineFormat(tw, indent, "MultiplySubtractScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtractScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
 
         }
 
