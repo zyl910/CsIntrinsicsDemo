@@ -376,15 +376,49 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> V3;
         /// <summary>Value 4 .</summary>
         public static readonly Vector<T> V4;
+        /// <summary>Value 5 .</summary>
+        public static readonly Vector<T> V5;
+        /// <summary>Value 6 .</summary>
+        public static readonly Vector<T> V6;
+        /// <summary>Value 7 .</summary>
+        public static readonly Vector<T> V7;
+        /// <summary>Value 8 .</summary>
+        public static readonly Vector<T> V8;
+        /// <summary>Value 127 (SByte.MaxValue).</summary>
+        public static readonly Vector<T> V127;
+        /// <summary>Value 255 (Byte.MaxValue).</summary>
+        public static readonly Vector<T> V255;
+        /// <summary>Value 32767 (Int16.MaxValue) .</summary>
+        public static readonly Vector<T> V32767;
+        /// <summary>Value 65535 (UInt16.MaxValue) .</summary>
+        public static readonly Vector<T> V65535;
+        /// <summary>Value 2147483647 (Int32.MaxValue) .</summary>
+        public static readonly Vector<T> V2147483647;
+        /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
+        public static readonly Vector<T> V4294967295;
         // -- Negative number  --
         /// <summary>Value -1 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
         public static readonly Vector<T> V_1;
-        /// <summary>Value -2 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
+        /// <summary>Value -2 .</summary>
         public static readonly Vector<T> V_2;
-        /// <summary>Value -3 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
+        /// <summary>Value -3 .</summary>
         public static readonly Vector<T> V_3;
-        /// <summary>Value -4 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
+        /// <summary>Value -4 .</summary>
         public static readonly Vector<T> V_4;
+        /// <summary>Value -5 .</summary>
+        public static readonly Vector<T> V_5;
+        /// <summary>Value -6 .</summary>
+        public static readonly Vector<T> V_6;
+        /// <summary>Value -7 .</summary>
+        public static readonly Vector<T> V_7;
+        /// <summary>Value -8 .</summary>
+        public static readonly Vector<T> V_8;
+        /// <summary>Value -128 (SByte.MinValue).</summary>
+        public static readonly Vector<T> V_128;
+        /// <summary>Value -32768 (Int16.MinValue) .</summary>
+        public static readonly Vector<T> V_32768;
+        /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
+        public static readonly Vector<T> V_2147483648;
 
         /// <summary>
         /// Static constructor.
@@ -641,11 +675,28 @@ namespace IntrinsicsLib {
             V2 = Vectors.CreateByDouble<T>(2);
             V3 = Vectors.CreateByDouble<T>(3);
             V4 = Vectors.CreateByDouble<T>(4);
+            V5 = Vectors.CreateByDouble<T>(5);
+            V6 = Vectors.CreateByDouble<T>(6);
+            V7 = Vectors.CreateByDouble<T>(7);
+            V8 = Vectors.CreateByDouble<T>(8);
+            V127 = Vectors.CreateByDouble<T>(127);
+            V255 = Vectors.CreateByDouble<T>(255);
+            V32767 = Vectors.CreateByDouble<T>(32767);
+            V65535 = Vectors.CreateByDouble<T>(65535);
+            V2147483647 = Vectors.CreateByDouble<T>(2147483647);
+            V4294967295 = Vectors.CreateByDouble<T>(4294967295);
             // -- Negative number  --
             V_1 = Vectors.CreateByDouble<T>(-1);
             V_2 = Vectors.CreateByDouble<T>(-2);
             V_3 = Vectors.CreateByDouble<T>(-3);
             V_4 = Vectors.CreateByDouble<T>(-4);
+            V_5 = Vectors.CreateByDouble<T>(-5);
+            V_6 = Vectors.CreateByDouble<T>(-6);
+            V_7 = Vectors.CreateByDouble<T>(-7);
+            V_8 = Vectors.CreateByDouble<T>(-8);
+            V_128 = Vectors.CreateByDouble<T>(-128);
+            V_32768 = Vectors.CreateByDouble<T>(-32768);
+            V_2147483648 = Vectors.CreateByDouble<T>(-2147483648);
         }
 
         /// <summary>
