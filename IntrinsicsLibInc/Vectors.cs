@@ -61,7 +61,6 @@ namespace IntrinsicsLib {
 #if NETCOREAPP3_0_OR_GREATER
             return new Vector<T>(values);
 #else
-            if (null== values) throw new ArgumentNullException(nameof(values));
             if (values.Length < Vector<byte>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
@@ -89,7 +88,6 @@ namespace IntrinsicsLib {
 #if NETCOREAPP3_0_OR_GREATER
             return new Vector<T>(values);
 #else
-            if (null == values) throw new ArgumentNullException(nameof(values));
             if (values.Length < Vector<T>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
@@ -119,7 +117,6 @@ namespace IntrinsicsLib {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             return new Vector<T>(values);
 #else
-            if (null == values) throw new ArgumentNullException(nameof(values));
             if (values.Length < Vector<T>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
@@ -149,7 +146,7 @@ namespace IntrinsicsLib {
                 ++idx;
                 if (idx >= idxEnd) idx = index;
             }
-            Vector<T> rt = Vectors.Create<T>(arr);
+            Vector<T> rt = Create(arr);
             return rt;
         }
 
@@ -175,7 +172,7 @@ namespace IntrinsicsLib {
             for(int i=0; i < Vector<T>.Count; ++i) {
                 arr[i] = func(i);
             }
-            Vector<T> rt = Vectors.Create<T>(arr);
+            Vector<T> rt = Create(arr);
             return rt;
         }
 
@@ -193,7 +190,7 @@ namespace IntrinsicsLib {
             for (int i = 0; i < Vector<T>.Count; ++i) {
                 arr[i] = func(i, userdata);
             }
-            Vector<T> rt = Vectors.Create<T>(arr);
+            Vector<T> rt = Create(arr);
             return rt;
         }
 
@@ -203,7 +200,7 @@ namespace IntrinsicsLib {
         /// <param name="src">Source value.</param>
         /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
         public static Vector<T> CreateByDouble<T>(double src) where T : struct {
-            return Vectors.Create<T>(TraitsUtil.GetByDouble<T>(src));
+            return Create(TraitsUtil.GetByDouble<T>(src));
         }
 
         /// <summary>
@@ -214,7 +211,7 @@ namespace IntrinsicsLib {
         /// <param name="step">Step value.</param>
         /// <returns>A new <see cref="Vector{T}"/> from double value `for` loop.</returns>
         public static Vector<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
-            return Vectors.CreateByFunc<T>(delegate (int index) {
+            return CreateByFunc(delegate (int index) {
                 double src = start + step * index;
                 return TraitsUtil.GetByDouble<T>(src);
             });
@@ -226,7 +223,7 @@ namespace IntrinsicsLib {
         /// <param name="src">Source value.</param>
         /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
         public static Vector<T> CreateByBits<T>(Int64 src) where T : struct {
-            return Vectors.Create<T>(TraitsUtil.GetByBits<T>(src));
+            return Create(TraitsUtil.GetByBits<T>(src));
         }
 
         /// <summary>
