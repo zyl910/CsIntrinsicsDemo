@@ -27,6 +27,7 @@ namespace IntrinsicsLib {
             RunX86Avx(tw, indent);
             RunX86Avx2(tw, indent);
             RunX86Fma(tw, indent);
+            RunX86AvxVnni(tw, indent);
         }
 
         /// <summary>
@@ -76,11 +77,11 @@ namespace IntrinsicsLib {
 #if NET5_0_OR_GREATER
             WriteLineFormat(tw, indent, "X86Base.IsSupported:\t{0}", X86Base.IsSupported);
             WriteLineFormat(tw, indent, "X86Base.X64.IsSupported:\t{0}", X86Base.X64.IsSupported);
-#endif
+#endif // NET5_0_OR_GREATER
 #if NET7_0_OR_GREATER
             WriteLineFormat(tw, indent, "X86Serialize.IsSupported:\t{0}", X86Serialize.IsSupported);
             WriteLineFormat(tw, indent, "X86Serialize.X64.IsSupported:\t{0}", X86Serialize.X64.IsSupported);
-#endif
+#endif // NET7_0_OR_GREATER
         }
     }
 }

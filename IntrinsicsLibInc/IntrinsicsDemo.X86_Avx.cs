@@ -2931,11 +2931,11 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Run x86 Fma. https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.intrinsics.x86.avx2?view=net-7.0
+        /// Run x86 Fma. https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.intrinsics.x86.fma?view=net-7.0
         /// </summary>
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
-        public unsafe static void RunX86Fma(TextWriter tw, string indent) {
+        public static void RunX86Fma(TextWriter tw, string indent) {
             if (null == tw) return;
             if (null == indent) indent = "";
             string indentNext = indent + IndentNextSeparator;
@@ -3180,6 +3180,103 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "MultiplySubtractScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1):\t{0}", Fma.MultiplySubtractScalar(Vector128s<Double>.Serial, Vector128s<Double>.V2, Vector128s<Double>.V1));
             WriteLineFormat(tw, indent, "MultiplySubtractScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1):\t{0}", Fma.MultiplySubtractScalar(Vector128s<Single>.Serial, Vector128s<Single>.V2, Vector128s<Single>.V1));
 
+        }
+
+        /// <summary>
+        /// Run x86 AvxVnni. https://learn.microsoft.com/en-us/dotnet/api/system.runtime.intrinsics.x86.avxvnni?view=net-7.0
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        public static void RunX86AvxVnni(TextWriter tw, string indent) {
+#if NET6_0_OR_GREATER
+            if (null == tw) return;
+            if (null == indent) indent = "";
+            string indentNext = indent + IndentNextSeparator;
+            if (AvxVnni.IsSupported) { // CA2252	Using 'IsSupported' requires opting into preview features. See https://aka.ms/dotnet-warnings/preview-features for more information.
+                tw.WriteLine();
+            }
+            tw.WriteLine(indent + string.Format("-- AvxVnni.IsSupported:\t{0}", AvxVnni.IsSupported));
+            if (!AvxVnni.IsSupported) {
+                return;
+            }
+
+            // MultiplyWideningAndAdd(Vector128<Int32>, Vector128<Byte>, Vector128<SByte>)	
+            // __m128i _mm_dpbusd_epi32 (__m128i src, __m128i a, __m128i b) VPDPBUSD xmm, xmm, xmm/m128
+            // Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in a with corresponding signed 8-bit integers in b, producing 4 intermediate signed 16-bit results. Sum these 4 results with the corresponding 32-bit integer in src, and store the packed 32-bit results in dst. (将a中4对相邻的无符号8位整数与b中相应的有符号8位整数相乘，产生4个中间的有符号16位结果。将这4个结果与src中相应的32位整数相加，并将打包后的32位结果存储在dst中。)
+            // Operation
+            // FOR j := 0 to 3
+            // 	tmp1.word := Signed(ZeroExtend16(a.byte[4*j]) * SignExtend16(b.byte[4*j]))
+            // 	tmp2.word := Signed(ZeroExtend16(a.byte[4*j+1]) * SignExtend16(b.byte[4*j+1]))
+            // 	tmp3.word := Signed(ZeroExtend16(a.byte[4*j+2]) * SignExtend16(b.byte[4*j+2]))
+            // 	tmp4.word := Signed(ZeroExtend16(a.byte[4*j+3]) * SignExtend16(b.byte[4*j+3]))
+            // 	dst.dword[j] := src.dword[j] + tmp1 + tmp2 + tmp3 + tmp4
+            // ENDFOR
+            // MultiplyWideningAndAdd(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	
+            // __m128i _mm_dpwssd_epi32 (__m128i src, __m128i a, __m128i b) VPDPWSSD xmm, xmm, xmm/m128
+            // Multiply groups of 2 adjacent pairs of signed 16-bit integers in a with corresponding 16-bit integers in b, producing 2 intermediate signed 32-bit results. Sum these 2 results with the corresponding 32-bit integer in src, and store the packed 32-bit results in dst. (将a中相邻的2对有符号的16位整数与b中相应的16位整数相乘，产生2个中间的有符号的32位结果。将这2个结果与src中相应的32位整数相加，并将打包后的32位结果存储在dst中。)
+            // Operation
+            // FOR j := 0 to 3
+            // 	tmp1.dword := SignExtend32(a.word[2*j]) * SignExtend32(b.word[2*j])
+            // 	tmp2.dword := SignExtend32(a.word[2*j+1]) * SignExtend32(b.word[2*j+1])
+            // 	dst.dword[j] := src.dword[j] + tmp1 + tmp2
+            // ENDFOR
+            // MultiplyWideningAndAdd(Vector256<Int32>, Vector256<Byte>, Vector256<SByte>)	
+            // __m256i _mm256_dpbusd_epi32 (__m256i src, __m256i a, __m256i b) VPDPBUSD ymm, ymm, ymm/m256
+            // Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in a with corresponding signed 8-bit integers in b, producing 4 intermediate signed 16-bit results. Sum these 4 results with the corresponding 32-bit integer in src, and store the packed 32-bit results in dst.
+            // Operation
+            // FOR j := 0 to 7
+            // 	tmp1.word := Signed(ZeroExtend16(a.byte[4*j]) * SignExtend16(b.byte[4*j]))
+            // 	tmp2.word := Signed(ZeroExtend16(a.byte[4*j+1]) * SignExtend16(b.byte[4*j+1]))
+            // 	tmp3.word := Signed(ZeroExtend16(a.byte[4*j+2]) * SignExtend16(b.byte[4*j+2]))
+            // 	tmp4.word := Signed(ZeroExtend16(a.byte[4*j+3]) * SignExtend16(b.byte[4*j+3]))
+            // 	dst.dword[j] := src.dword[j] + tmp1 + tmp2 + tmp3 + tmp4
+            // ENDFOR
+            // MultiplyWideningAndAdd(Vector256<Int32>, Vector256<Int16>, Vector256<Int16>)	
+            // __m256i _mm256_dpwssd_epi32 (__m256i src, __m256i a, __m256i b) VPDPWSSD ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAdd(Vector128s<Int32>.V1, Vector128s<Byte>.Serial, Vector128s<SByte>.V2):\t{0}", AvxVnni.MultiplyWideningAndAdd(Vector128s<Int32>.V1, Vector128s<Byte>.Serial, Vector128s<SByte>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAdd(Vector128s<Int32>.V1, Vector128s<Int16>.Serial, Vector128s<Int16>.V2):\t{0}", AvxVnni.MultiplyWideningAndAdd(Vector128s<Int32>.V1, Vector128s<Int16>.Serial, Vector128s<Int16>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAdd(Vector256s<Int32>.V1, Vector256s<Byte>.Serial, Vector256s<SByte>.V2):\t{0}", AvxVnni.MultiplyWideningAndAdd(Vector256s<Int32>.V1, Vector256s<Byte>.Serial, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAdd(Vector256s<Int32>.V1, Vector256s<Int16>.Serial, Vector256s<Int16>.V2):\t{0}", AvxVnni.MultiplyWideningAndAdd(Vector256s<Int32>.V1, Vector256s<Int16>.Serial, Vector256s<Int16>.V2));
+
+            // MultiplyWideningAndAddSaturate(Vector128<Int32>, Vector128<Byte>, Vector128<SByte>)	
+            // __m128i _mm_dpbusds_epi32 (__m128i src, __m128i a, __m128i b) VPDPBUSDS xmm, xmm, xmm/m128
+            // Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in a with corresponding signed 8-bit integers in b, producing 4 intermediate signed 16-bit results. Sum these 4 results with the corresponding 32-bit integer in src using signed saturation, and store the packed 32-bit results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	tmp1.word := Signed(ZeroExtend16(a.byte[4*j]) * SignExtend16(b.byte[4*j]))
+            // 	tmp2.word := Signed(ZeroExtend16(a.byte[4*j+1]) * SignExtend16(b.byte[4*j+1]))
+            // 	tmp3.word := Signed(ZeroExtend16(a.byte[4*j+2]) * SignExtend16(b.byte[4*j+2]))
+            // 	tmp4.word := Signed(ZeroExtend16(a.byte[4*j+3]) * SignExtend16(b.byte[4*j+3]))
+            // 	dst.dword[j] := Saturate32(src.dword[j] + tmp1 + tmp2 + tmp3 + tmp4)
+            // ENDFOR
+            // MultiplyWideningAndAddSaturate(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	
+            // __m128i _mm_dpwssds_epi32 (__m128i src, __m128i a, __m128i b) VPDPWSSDS xmm, xmm, xmm/m128
+            // Multiply groups of 2 adjacent pairs of signed 16-bit integers in a with corresponding 16-bit integers in b, producing 2 intermediate signed 32-bit results. Sum these 2 results with the corresponding 32-bit integer in src using signed saturation, and store the packed 32-bit results in dst.
+            // Operation
+            // FOR j := 0 to 3
+            // 	tmp1.dword := SignExtend32(a.word[2*j]) * SignExtend32(b.word[2*j])
+            // 	tmp2.dword := SignExtend32(a.word[2*j+1]) * SignExtend32(b.word[2*j+1])
+            // 	dst.dword[j] := Saturate32(src.dword[j] + tmp1 + tmp2)
+            // ENDFOR
+            // MultiplyWideningAndAddSaturate(Vector256<Int32>, Vector256<Byte>, Vector256<SByte>)	
+            // __m256i _mm256_dpbusds_epi32 (__m256i src, __m256i a, __m256i b) VPDPBUSDS ymm, ymm, ymm/m256
+            // Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in a with corresponding signed 8-bit integers in b, producing 4 intermediate signed 16-bit results. Sum these 4 results with the corresponding 32-bit integer in src using signed saturation, and store the packed 32-bit results in dst.
+            // Operation
+            // FOR j := 0 to 7
+            // 	tmp1.word := Signed(ZeroExtend16(a.byte[4*j]) * SignExtend16(b.byte[4*j]))
+            // 	tmp2.word := Signed(ZeroExtend16(a.byte[4*j+1]) * SignExtend16(b.byte[4*j+1]))
+            // 	tmp3.word := Signed(ZeroExtend16(a.byte[4*j+2]) * SignExtend16(b.byte[4*j+2]))
+            // 	tmp4.word := Signed(ZeroExtend16(a.byte[4*j+3]) * SignExtend16(b.byte[4*j+3]))
+            // 	dst.dword[j] := Saturate32(src.dword[j] + tmp1 + tmp2 + tmp3 + tmp4)
+            // ENDFOR
+            // MultiplyWideningAndAddSaturate(Vector256<Int32>, Vector256<Int16>, Vector256<Int16>)	
+            // __m256i _mm256_dpwssds_epi32 (__m256i src, __m256i a, __m256i b) VPDPWSSDS ymm, ymm, ymm/m256
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAddSaturate(Vector128s<Int32>.V1, Vector128s<Byte>.Serial, Vector128s<SByte>.V2):\t{0}", AvxVnni.MultiplyWideningAndAddSaturate(Vector128s<Int32>.V1, Vector128s<Byte>.Serial, Vector128s<SByte>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAddSaturate(Vector128s<Int32>.V1, Vector128s<Int16>.Serial, Vector128s<Int16>.V2):\t{0}", AvxVnni.MultiplyWideningAndAddSaturate(Vector128s<Int32>.V1, Vector128s<Int16>.Serial, Vector128s<Int16>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAddSaturate(Vector256s<Int32>.V1, Vector256s<Byte>.Serial, Vector256s<SByte>.V2):\t{0}", AvxVnni.MultiplyWideningAndAddSaturate(Vector256s<Int32>.V1, Vector256s<Byte>.Serial, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "MultiplyWideningAndAddSaturate(Vector256s<Int32>.V1, Vector256s<Int16>.Serial, Vector256s<Int16>.V2):\t{0}", AvxVnni.MultiplyWideningAndAddSaturate(Vector256s<Int32>.V1, Vector256s<Int16>.Serial, Vector256s<Int16>.V2));
+
+#endif // NET6_0_OR_GREATER
         }
 
     }
