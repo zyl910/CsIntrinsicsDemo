@@ -30,10 +30,10 @@ namespace IntrinsicsLib {
             // VADDPD ymm, ymm, ymm/m256
             // Add(Vector256<Single>, Vector256<Single>)	__m256 _mm256_add_ps (__m256 a, __m256 b)
             // VADDPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Add(srcT_256_double, src1_256_double):\t{0}", Avx.Add(srcT_256_double, src1_256_double));
-            WriteLineFormat(tw, indent, "Add(srcT_256_double, src2_256_double):\t{0}", Avx.Add(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Add(srcT_256_float, src1_256_float):\t{0}", Avx.Add(srcT_256_float, src1_256_float));
-            WriteLineFormat(tw, indent, "Add(srcT_256_float, src2_256_float):\t{0}", Avx.Add(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Double>.Demo, Vector256s<Double>.V1):\t{0}", Avx.Add(Vector256s<Double>.Demo, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Add(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Single>.Demo, Vector256s<Single>.V1):\t{0}", Avx.Add(Vector256s<Single>.Demo, Vector256s<Single>.V1));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Add(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // AddSubtract(Vector256<Double>, Vector256<Double>)	__m256d _mm256_addsub_pd (__m256d a, __m256d b)
             // VADDSUBPD ymm, ymm, ymm/m256
@@ -47,28 +47,28 @@ namespace IntrinsicsLib {
             // 		dst[i+31:i] := a[i+31:i] + b[i+31:i]
             // 	FI
             // ENDFOR
-            WriteLineFormat(tw, indent, "AddSubtract(srcT_256_double, src1_256_double):\t{0}", Avx.AddSubtract(srcT_256_double, src1_256_double));
-            WriteLineFormat(tw, indent, "AddSubtract(srcT_256_double, src2_256_double):\t{0}", Avx.AddSubtract(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "AddSubtract(srcT_256_float, src1_256_float):\t{0}", Avx.AddSubtract(srcT_256_float, src1_256_float));
-            WriteLineFormat(tw, indent, "AddSubtract(srcT_256_float, src2_256_float):\t{0}", Avx.AddSubtract(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "AddSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V1):\t{0}", Avx.AddSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "AddSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.AddSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "AddSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V1):\t{0}", Avx.AddSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V1));
+            WriteLineFormat(tw, indent, "AddSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.AddSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // And(Vector256<Double>, Vector256<Double>)	__m256d _mm256_and_pd (__m256d a, __m256d b)
             // VANDPD ymm, ymm, ymm/m256
             // And(Vector256<Single>, Vector256<Single>)	__m256 _mm256_and_ps (__m256 a, __m256 b)
             // VANDPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "And(srcT_256_double, src1_256_double):\t{0}", Avx.And(srcT_256_double, src1_256_double));
-            WriteLineFormat(tw, indent, "And(srcT_256_double, src2_256_double):\t{0}", Avx.And(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "And(srcT_256_float, src1_256_float):\t{0}", Avx.And(srcT_256_float, src1_256_float));
-            WriteLineFormat(tw, indent, "And(srcT_256_float, src2_256_float):\t{0}", Avx.And(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "And(Vector256s<Double>.Demo, Vector256s<Double>.V1):\t{0}", Avx.And(Vector256s<Double>.Demo, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "And(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.And(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<Single>.Demo, Vector256s<Single>.V1):\t{0}", Avx.And(Vector256s<Single>.Demo, Vector256s<Single>.V1));
+            WriteLineFormat(tw, indent, "And(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.And(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // AndNot(Vector256<Double>, Vector256<Double>)	__m256d _mm256_andnot_pd (__m256d a, __m256d b)
             // VANDNPD ymm, ymm, ymm/m256
             // AndNot(Vector256<Single>, Vector256<Single>)	__m256 _mm256_andnot_ps (__m256 a, __m256 b)
             // VANDNPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_double, src1_256_double):\t{0}", Avx.AndNot(srcT_256_double, src1_256_double));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_double, src2_256_double):\t{0}", Avx.AndNot(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_float, src1_256_float):\t{0}", Avx.AndNot(srcT_256_float, src1_256_float));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_float, src2_256_float):\t{0}", Avx.AndNot(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Double>.Demo, Vector256s<Double>.V1):\t{0}", Avx.AndNot(Vector256s<Double>.Demo, Vector256s<Double>.V1));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.AndNot(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Single>.Demo, Vector256s<Single>.V1):\t{0}", Avx.AndNot(Vector256s<Single>.Demo, Vector256s<Single>.V1));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.AndNot(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // Blend(Vector256<Double>, Vector256<Double>, Byte)	__m256d _mm256_blend_pd (__m256d a, __m256d b, const int imm8)
             // VBLENDPD ymm, ymm, ymm/m256, imm8
@@ -94,11 +94,11 @@ namespace IntrinsicsLib {
             // ENDFOR
             foreach (byte control in new byte[] { 1, 3, 0xCB }) {
                 WriteLineFormat(tw, indent, "Blend - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_double, src1_256_double, control):\t{0}", Avx.Blend(srcT_256_double, src1_256_double, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<Double>.Demo, Vector256s<Double>.V1, control):\t{0}", Avx.Blend(Vector256s<Double>.Demo, Vector256s<Double>.V1, control));
                 //Debugger.Break();
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_double, src2_256_double, control):\t{0}", Avx.Blend(srcT_256_double, src2_256_double, control));
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_float, src1_256_float, control):\t{0}", Avx.Blend(srcT_256_float, src1_256_float, control));
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_float, src2_256_float, control):\t{0}", Avx.Blend(srcT_256_float, src2_256_float, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<Double>.Demo, Vector256s<Double>.V2, control):\t{0}", Avx.Blend(Vector256s<Double>.Demo, Vector256s<Double>.V2, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<Single>.Demo, Vector256s<Single>.V1, control):\t{0}", Avx.Blend(Vector256s<Single>.Demo, Vector256s<Single>.V1, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<Single>.Demo, Vector256s<Single>.V2, control):\t{0}", Avx.Blend(Vector256s<Single>.Demo, Vector256s<Single>.V2, control));
             }
 
             // BlendVariable(Vector256<Double>, Vector256<Double>, Vector256<Double>)	__m256d _mm256_blendv_pd (__m256d a, __m256d b, __m256d mask)
@@ -121,10 +121,10 @@ namespace IntrinsicsLib {
             // 		dst[i+31:i] := a[i+31:i]
             // 	FI
             // ENDFOR
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_double, src1_256_double, srcT_256_double):\t{0}", Avx.BlendVariable(srcT_256_double, src1_256_double, srcT_256_double));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_double, src2_256_double, srcT_256_double):\t{0}", Avx.BlendVariable(srcT_256_double, src2_256_double, srcT_256_double));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_float, src1_256_float, srcT_256_float):\t{0}", Avx.BlendVariable(srcT_256_float, src1_256_float, srcT_256_float));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_float, src2_256_float, srcT_256_float):\t{0}", Avx.BlendVariable(srcT_256_float, src2_256_float, srcT_256_float));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Double>.Demo, Vector256s<Double>.V1, Vector256s<Double>.Demo):\t{0}", Avx.BlendVariable(Vector256s<Double>.Demo, Vector256s<Double>.V1, Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Double>.Demo, Vector256s<Double>.V2, Vector256s<Double>.Demo):\t{0}", Avx.BlendVariable(Vector256s<Double>.Demo, Vector256s<Double>.V2, Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Single>.Demo, Vector256s<Single>.V1, Vector256s<Single>.Demo):\t{0}", Avx.BlendVariable(Vector256s<Single>.Demo, Vector256s<Single>.V1, Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Single>.Demo, Vector256s<Single>.V2, Vector256s<Single>.Demo):\t{0}", Avx.BlendVariable(Vector256s<Single>.Demo, Vector256s<Single>.V2, Vector256s<Single>.Demo));
 
             // BroadcastScalarToVector128(Single*)	__m128 _mm_broadcast_ss (float const * mem_addr)
             // VBROADCASTSS xmm, m32
@@ -168,19 +168,19 @@ namespace IntrinsicsLib {
             // dst[127:0] := tmp[127:0]
             // dst[255:128] := tmp[127:0]
             // dst[MAX:256] := 0
-            fixed (void* p = &srcT_128_double) {
-                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&srcT_128_double):\t{0}", Avx.BroadcastVector128ToVector256((double*)p));
+            fixed (void* p = &Vector128s<Double>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&Vector128s<Double>.Demo):\t{0}", Avx.BroadcastVector128ToVector256((double*)p));
             }
-            fixed (void* p = &srcT_128_float) {
-                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&srcT_128_float):\t{0}", Avx.BroadcastVector128ToVector256((float*)p));
+            fixed (void* p = &Vector128s<Single>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&Vector128s<Single>.Demo):\t{0}", Avx.BroadcastVector128ToVector256((float*)p));
             }
 
             // Ceiling(Vector256<Double>)	__m256d _mm256_ceil_pd (__m256d a)
             // VROUNDPD ymm, ymm/m256, imm8(10)
             // Ceiling(Vector256<Single>)	__m256 _mm256_ceil_ps (__m256 a)
             // VROUNDPS ymm, ymm/m256, imm8(10)
-            WriteLineFormat(tw, indent, "Ceiling(srcT_256_double):\t{0}", Avx.Ceiling(srcT_256_double));
-            WriteLineFormat(tw, indent, "Ceiling(srcT_256_float):\t{0}", Avx.Ceiling(srcT_256_float));
+            WriteLineFormat(tw, indent, "Ceiling(Vector256s<Double>.Demo):\t{0}", Avx.Ceiling(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "Ceiling(Vector256s<Single>.Demo):\t{0}", Avx.Ceiling(Vector256s<Single>.Demo));
 
             // Compare(Vector128<Double>, Vector128<Double>, FloatComparisonMode)	__m128d _mm_cmp_pd (__m128d a, __m128d b, const int imm8)
             // VCMPPD xmm, xmm, xmm/m128, imm8
@@ -192,10 +192,10 @@ namespace IntrinsicsLib {
             // VCMPPS ymm, ymm, ymm/m256, imm8
             foreach (FloatComparisonMode mode in new FloatComparisonMode[] { FloatComparisonMode.OrderedEqualNonSignaling, FloatComparisonMode.OrderedLessThanSignaling, FloatComparisonMode.OrderedLessThanOrEqualSignaling }) {
                 WriteLineFormat(tw, indent, "Compare - mode={0} (0x{0:X}):", mode);
-                WriteLineFormat(tw, indentNext, "Compare(srcT_128_double, src0_128_double, mode):\t{0}", Avx.Compare(srcT_128_double, src0_128_double, mode));
-                WriteLineFormat(tw, indentNext, "Compare(srcT_128_float, src0_128_float, mode):\t{0}", Avx.Compare(srcT_128_float, src0_128_float, mode));
-                WriteLineFormat(tw, indentNext, "Compare(srcT_256_double, src0_256_double, mode):\t{0}", Avx.Compare(srcT_256_double, src0_256_double, mode));
-                WriteLineFormat(tw, indentNext, "Compare(srcT_256_float, src0_256_float, mode):\t{0}", Avx.Compare(srcT_256_float, src0_256_float, mode));
+                WriteLineFormat(tw, indentNext, "Compare(Vector128s<Double>.Demo, Vector128s<Double>.V0, mode):\t{0}", Avx.Compare(Vector128s<Double>.Demo, Vector128s<Double>.V0, mode));
+                WriteLineFormat(tw, indentNext, "Compare(Vector128s<Single>.Demo, Vector128s<Single>.V0, mode):\t{0}", Avx.Compare(Vector128s<Single>.Demo, Vector128s<Single>.V0, mode));
+                WriteLineFormat(tw, indentNext, "Compare(Vector256s<Double>.Demo, Vector256s<Double>.V0, mode):\t{0}", Avx.Compare(Vector256s<Double>.Demo, Vector256s<Double>.V0, mode));
+                WriteLineFormat(tw, indentNext, "Compare(Vector256s<Single>.Demo, Vector256s<Single>.V0, mode):\t{0}", Avx.Compare(Vector256s<Single>.Demo, Vector256s<Single>.V0, mode));
             }
 
 #if NET5_0_OR_GREATER
@@ -221,8 +221,8 @@ namespace IntrinsicsLib {
             // The above native signature does not exist. We provide this additional overload for completeness.
             // CompareLessThanOrEqual(Vector256<Single>, Vector256<Single>)	__m256 _mm256_cmple_ps (__m256 a, __m256 b) CMPPS ymm, ymm/m256, imm8(2)
             // The above native signature does not exist. We provide this additional overload for completeness.
-            WriteLineFormat(tw, indent, "CompareLessThan(srcT_256_double, src0_256_double):\t{0}", Avx.CompareLessThan(srcT_256_double, src0_256_double));
-            WriteLineFormat(tw, indent, "CompareLessThan(srcT_256_float, src0_256_float):\t{0}", Avx.CompareLessThan(srcT_256_float, src0_256_float));
+            WriteLineFormat(tw, indent, "CompareLessThan(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Avx.CompareLessThan(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+            WriteLineFormat(tw, indent, "CompareLessThan(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Avx.CompareLessThan(Vector256s<Single>.Demo, Vector256s<Single>.V0));
 
             // CompareNotEqual(Vector256<Double>, Vector256<Double>)	__m256d _mm256_cmpneq_pd (__m256d a, __m256d b) CMPPD ymm, ymm/m256, imm8(4)
             // The above native signature does not exist. We provide this additional overload for completeness.
@@ -273,11 +273,11 @@ namespace IntrinsicsLib {
             // VCVTDQ2PD ymm, xmm/m128
             // ConvertToVector256Double(Vector128<Single>)	__m256d _mm256_cvtps_pd (__m128 a)
             // VCVTPS2PD ymm, xmm/m128
-            WriteLineFormat(tw, indent, "ConvertToVector128Int32(srcT_256_double):\t{0}", Avx.ConvertToVector128Int32(srcT_256_double));
-            WriteLineFormat(tw, indent, "ConvertToVector128Int32WithTruncation(srcT_256_double):\t{0}", Avx.ConvertToVector128Int32WithTruncation(srcT_256_double));
-            WriteLineFormat(tw, indent, "ConvertToVector128Single(srcT_256_double):\t{0}", Avx.ConvertToVector128Single(srcT_256_double));
-            WriteLineFormat(tw, indent, "ConvertToVector256Double(srcT_128_int):\t{0}", Avx.ConvertToVector256Double(srcT_128_int));
-            WriteLineFormat(tw, indent, "ConvertToVector256Double(srcT_128_float):\t{0}", Avx.ConvertToVector256Double(srcT_128_float));
+            WriteLineFormat(tw, indent, "ConvertToVector128Int32(Vector256s<Double>.Demo):\t{0}", Avx.ConvertToVector128Int32(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector128Int32WithTruncation(Vector256s<Double>.Demo):\t{0}", Avx.ConvertToVector128Int32WithTruncation(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector128Single(Vector256s<Double>.Demo):\t{0}", Avx.ConvertToVector128Single(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Double(Vector128s<Int32>.Demo):\t{0}", Avx.ConvertToVector256Double(Vector128s<Int32>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Double(Vector128s<Single>.Demo):\t{0}", Avx.ConvertToVector256Double(Vector128s<Single>.Demo));
 
             // ConvertToVector256Int32(Vector256<Single>)	__m256i _mm256_cvtps_epi32 (__m256 a)
             // VCVTPS2DQ ymm, ymm/m256
@@ -285,16 +285,16 @@ namespace IntrinsicsLib {
             // VCVTTPS2DQ ymm, ymm/m256
             // ConvertToVector256Single(Vector256<Int32>)	__m256 _mm256_cvtepi32_ps (__m256i a)
             // VCVTDQ2PS ymm, ymm/m256
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32(srcT_128_float):\t{0}", Avx.ConvertToVector256Int32(srcT_256_float));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32WithTruncation(srcT_128_float):\t{0}", Avx.ConvertToVector256Int32WithTruncation(srcT_256_float));
-            WriteLineFormat(tw, indent, "ConvertToVector256Single(srcT_128_int):\t{0}", Avx.ConvertToVector256Single(srcT_256_int));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32(Vector128s<Single>.Demo):\t{0}", Avx.ConvertToVector256Int32(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32WithTruncation(Vector256s<Single>.Demo):\t{0}", Avx.ConvertToVector256Int32WithTruncation(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Single(Vector256s<Int32>.Demo):\t{0}", Avx.ConvertToVector256Single(Vector256s<Int32>.Demo));
 
             // Divide(Vector256<Double>, Vector256<Double>)	__m256d _mm256_div_pd (__m256d a, __m256d b)
             // VDIVPD ymm, ymm, ymm/m256
             // Divide(Vector256<Single>, Vector256<Single>)	__m256 _mm256_div_ps (__m256 a, __m256 b)
             // VDIVPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Divide(srcT_256_double, src2_256_double):\t{0}", Avx.Divide(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Divide(srcT_256_float, src2_256_float):\t{0}", Avx.Divide(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Divide(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Divide(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Divide(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Divide(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // DotProduct(Vector256<Single>, Vector256<Single>, Byte)	__m256 _mm256_dp_ps (__m256 a, __m256 b, const int imm8)
             // VDPPS ymm, ymm, ymm/m256, imm8
@@ -325,7 +325,7 @@ namespace IntrinsicsLib {
             // dst[255:128] := DP(a[255:128], b[255:128], imm8[7:0])
             foreach (byte control in new byte[] { 0x81, 0xC1, 0x33 }) {
                 WriteLineFormat(tw, indent, "DotProduct - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "DotProduct(srcT_256_float, src2_256_float, control):\t{0}", Avx.DotProduct(srcT_256_float, src2_256_float, control));
+                WriteLineFormat(tw, indentNext, "DotProduct(Vector256s<Single>.Demo, Vector256s<Single>.V2, control):\t{0}", Avx.DotProduct(Vector256s<Single>.Demo, Vector256s<Single>.V2, control));
             }
 
             // DuplicateEvenIndexed(Vector256<Double>)	__m256d _mm256_movedup_pd (__m256d a)
@@ -357,9 +357,9 @@ namespace IntrinsicsLib {
             // dst[191:160] := a[191:160] 
             // dst[223:192] := a[255:224] 4
             // dst[255:224] := a[255:224]
-            WriteLineFormat(tw, indent, "DuplicateEvenIndexed(srcT_256_double):\t{0}", Avx.DuplicateEvenIndexed(srcT_256_double));
-            WriteLineFormat(tw, indent, "DuplicateEvenIndexed(srcT_256_float):\t{0}", Avx.DuplicateEvenIndexed(srcT_256_float));
-            WriteLineFormat(tw, indent, "DuplicateOddIndexed(srcT_256_float):\t{0}", Avx.DuplicateOddIndexed(srcT_256_float));
+            WriteLineFormat(tw, indent, "DuplicateEvenIndexed(Vector256s<Double>.Demo):\t{0}", Avx.DuplicateEvenIndexed(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "DuplicateEvenIndexed(Vector256s<Single>.Demo):\t{0}", Avx.DuplicateEvenIndexed(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "DuplicateOddIndexed(Vector256s<Single>.Demo):\t{0}", Avx.DuplicateOddIndexed(Vector256s<Single>.Demo));
 
             // ExtractVector128(Vector256<Byte>, Byte)	__m128i _mm256_extractf128_si256 (__m256i a, const int imm8)
             // VEXTRACTF128 xmm/m128, ymm, imm8
@@ -398,17 +398,17 @@ namespace IntrinsicsLib {
             // VEXTRACTF128 xmm/m128, ymm, imm8
             foreach (byte idx in new byte[] { 0, 1 }) {
                 WriteLineFormat(tw, indent, "ExtractVector128 - idx={0} (0x{0:X}):", idx);
-                WriteLineFormat(tw, indentNext, "ExtractVector128(srcT_256_int, idx):\t{0}", Avx.ExtractVector128(srcT_256_int, idx));
-                WriteLineFormat(tw, indentNext, "ExtractVector128(srcT_256_double, idx):\t{0}", Avx.ExtractVector128(srcT_256_double, idx));
-                WriteLineFormat(tw, indentNext, "ExtractVector128(srcT_256_float, idx):\t{0}", Avx.ExtractVector128(srcT_256_float, idx));
+                WriteLineFormat(tw, indentNext, "ExtractVector128(Vector256s<Int32>.Demo, idx):\t{0}", Avx.ExtractVector128(Vector256s<Int32>.Demo, idx));
+                WriteLineFormat(tw, indentNext, "ExtractVector128(Vector256s<Double>.Demo, idx):\t{0}", Avx.ExtractVector128(Vector256s<Double>.Demo, idx));
+                WriteLineFormat(tw, indentNext, "ExtractVector128(Vector256s<Single>.Demo, idx):\t{0}", Avx.ExtractVector128(Vector256s<Single>.Demo, idx));
             }
 
             // Floor(Vector256<Double>)	__m256d _mm256_floor_pd (__m256d a)
             // VROUNDPS ymm, ymm/m256, imm8(9)
             // Floor(Vector256<Single>)	__m256 _mm256_floor_ps (__m256 a)
             // VROUNDPS ymm, ymm/m256, imm8(9)
-            WriteLineFormat(tw, indent, "Floor(srcT_256_double):\t{0}", Avx.Floor(srcT_256_double));
-            WriteLineFormat(tw, indent, "Floor(srcT_256_float):\t{0}", Avx.Floor(srcT_256_float));
+            WriteLineFormat(tw, indent, "Floor(Vector256s<Double>.Demo):\t{0}", Avx.Floor(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "Floor(Vector256s<Single>.Demo):\t{0}", Avx.Floor(Vector256s<Single>.Demo));
 
             // HorizontalAdd(Vector256<Double>, Vector256<Double>)	__m256d _mm256_hadd_pd (__m256d a, __m256d b)
             // VHADDPD ymm, ymm, ymm/m256
@@ -423,8 +423,8 @@ namespace IntrinsicsLib {
             // dst[191:160] := a[255:224] + a[223:192]
             // dst[223:192] := b[191:160] + b[159:128]
             // dst[255:224] := b[255:224] + b[223:192]
-            WriteLineFormat(tw, indent, "HorizontalAdd(srcT_256_double, src2_256_double):\t{0}", Avx.HorizontalAdd(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "HorizontalAdd(srcT_256_float, src2_256_float):\t{0}", Avx.HorizontalAdd(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "HorizontalAdd(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.HorizontalAdd(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "HorizontalAdd(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.HorizontalAdd(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // HorizontalSubtract(Vector256<Double>, Vector256<Double>)	__m256d _mm256_hsub_pd (__m256d a, __m256d b)
             // VHSUBPD ymm, ymm, ymm/m256
@@ -439,8 +439,8 @@ namespace IntrinsicsLib {
             // dst[191:160] := a[223:192] - a[255:224]
             // dst[223:192] := b[159:128] - b[191:160]
             // dst[255:224] := b[223:192] - b[255:224]
-            WriteLineFormat(tw, indent, "HorizontalSubtract(srcT_256_double, src2_256_double):\t{0}", Avx.HorizontalSubtract(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "HorizontalSubtract(srcT_256_float, src2_256_float):\t{0}", Avx.HorizontalSubtract(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "HorizontalSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.HorizontalSubtract(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "HorizontalSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.HorizontalSubtract(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // InsertVector128(Vector256<Byte>, Vector128<Byte>, Byte)	__m256i _mm256_insertf128_si256 (__m256i a, __m128i b, int imm8)
             // VINSERTF128 ymm, ymm, xmm/m128, imm8
@@ -470,9 +470,9 @@ namespace IntrinsicsLib {
             // ESAC
             foreach (byte idx in new byte[] { 0, 1 }) {
                 WriteLineFormat(tw, indent, "InsertVector128 - idx={0} (0x{0:X}):", idx);
-                WriteLineFormat(tw, indentNext, "InsertVector128(srcT_256_int, src2_128_int, idx):\t{0}", Avx.InsertVector128(srcT_256_int, src2_128_int, idx));
-                WriteLineFormat(tw, indentNext, "InsertVector128(srcT_256_double, src2_128_double, idx):\t{0}", Avx.InsertVector128(srcT_256_double, src2_128_double, idx));
-                WriteLineFormat(tw, indentNext, "InsertVector128(srcT_256_float, src2_128_float, idx):\t{0}", Avx.InsertVector128(srcT_256_float, src2_128_float, idx));
+                WriteLineFormat(tw, indentNext, "InsertVector128(Vector256s<Int32>.Demo, Vector128s<Int32>.V2, idx):\t{0}", Avx.InsertVector128(Vector256s<Int32>.Demo, Vector128s<Int32>.V2, idx));
+                WriteLineFormat(tw, indentNext, "InsertVector128(Vector256s<Double>.Demo, Vector128s<Double>.V2, idx):\t{0}", Avx.InsertVector128(Vector256s<Double>.Demo, Vector128s<Double>.V2, idx));
+                WriteLineFormat(tw, indentNext, "InsertVector128(Vector256s<Single>.Demo, Vector128s<Single>.V2, idx):\t{0}", Avx.InsertVector128(Vector256s<Single>.Demo, Vector128s<Single>.V2, idx));
             }
 
             // LoadAlignedVector256(Byte*)	__m256i _mm256_load_si256 (__m256i const * mem_addr)
@@ -550,17 +550,17 @@ namespace IntrinsicsLib {
             // 		dst[i+31:i] := 0
             // 	FI
             // ENDFOR
-            fixed (void* p = &src1_128_double) {
-                WriteLineFormat(tw, indent, "MaskLoad(&src1_128_double, srcT_128_double):\t{0}", Avx.MaskLoad((double*)p, srcT_128_double));
+            fixed (void* p = &Vector128s<Double>.V1) {
+                WriteLineFormat(tw, indent, "MaskLoad(&Vector128s<Double>.V1, Vector128s<Double>.Demo):\t{0}", Avx.MaskLoad((double*)p, Vector128s<Double>.Demo));
             }
-            fixed (void* p = &src1_256_double) {
-                WriteLineFormat(tw, indent, "MaskLoad(&src1_256_double, srcT_256_double):\t{0}", Avx.MaskLoad((double*)p, srcT_256_double));
+            fixed (void* p = &Vector256s<Double>.V1) {
+                WriteLineFormat(tw, indent, "MaskLoad(&Vector256s<Double>.V1, Vector256s<Double>.Demo):\t{0}", Avx.MaskLoad((double*)p, Vector256s<Double>.Demo));
             }
-            fixed (void* p = &src1_128_float) {
-                WriteLineFormat(tw, indent, "MaskLoad(&src1_128_float, srcT_128_float):\t{0}", Avx.MaskLoad((float*)p, srcT_128_float));
+            fixed (void* p = &Vector128s<Single>.V1) {
+                WriteLineFormat(tw, indent, "MaskLoad(&Vector128s<Single>.V1, Vector128s<Single>.Demo):\t{0}", Avx.MaskLoad((float*)p, Vector128s<Single>.Demo));
             }
-            fixed (void* p = &src1_256_float) {
-                WriteLineFormat(tw, indent, "MaskLoad(&src1_256_float, srcT_256_float):\t{0}", Avx.MaskLoad((float*)p, srcT_256_float));
+            fixed (void* p = &Vector256s<Single>.V1) {
+                WriteLineFormat(tw, indent, "MaskLoad(&Vector256s<Single>.V1, Vector256s<Single>.Demo):\t{0}", Avx.MaskLoad((float*)p, Vector256s<Single>.Demo));
             }
 
             // MaskStore(Double*, Vector128<Double>, Vector128<Double>)	void _mm_maskstore_pd (double * mem_addr, __m128i mask, __m128d a)
@@ -571,32 +571,32 @@ namespace IntrinsicsLib {
             // VMASKMOVPS m128, xmm, xmm
             // MaskStore(Single*, Vector256<Single>, Vector256<Single>)	void _mm256_maskstore_ps (float * mem_addr, __m256i mask, __m256 a)
             // VMASKMOVPS m256, ymm, ymm
-            Vector128<double> srcS_128_double = src2_128_double;
-            Avx.MaskStore((double*)&srcS_128_double, srcT_128_double, src1_128_double);
-            WriteLineFormat(tw, indent, "MaskStore((double*)&srcS_128_double, srcT_128_double, src1_128_double):\t{0}", srcS_128_double);
-            Vector256<double> srcS_256_double = src2_256_double;
-            Avx.MaskStore((double*)&srcS_256_double, srcT_256_double, src1_256_double);
-            WriteLineFormat(tw, indent, "MaskStore((double*)&srcS_256_double, srcT_256_double, src1_256_double):\t{0}", srcS_256_double);
-            Vector128<float> srcS_128_float = src2_128_float;
-            Avx.MaskStore((float*)&srcS_128_float, srcT_128_float, src1_128_float);
-            WriteLineFormat(tw, indent, "MaskStore((float*)&srcS_128_float, srcT_128_float, src1_128_float):\t{0}", srcS_128_float);
-            Vector256<float> srcS_256_float = src2_256_float;
-            Avx.MaskStore((float*)&srcS_256_float, srcT_256_float, src1_256_float);
-            WriteLineFormat(tw, indent, "MaskStore((float*)&srcS_256_float, srcT_256_float, src1_256_float):\t{0}", srcS_256_float);
+            Vector128<double> srcS_128_double = Vector128s<Double>.V2;
+            Avx.MaskStore((double*)&srcS_128_double, Vector128s<Double>.Demo, Vector128s<Double>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((double*)&srcS_128_double, Vector128s<Double>.Demo, Vector128s<Double>.V1):\t{0}", srcS_128_double);
+            Vector256<double> srcS_256_double = Vector256s<Double>.V2;
+            Avx.MaskStore((double*)&srcS_256_double, Vector256s<Double>.Demo, Vector256s<Double>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((double*)&srcS_256_double, Vector256s<Double>.Demo, Vector256s<Double>.V1):\t{0}", srcS_256_double);
+            Vector128<float> srcS_128_float = Vector128s<Single>.V2;
+            Avx.MaskStore((float*)&srcS_128_float, Vector128s<Single>.Demo, Vector128s<Single>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((float*)&srcS_128_float, Vector128s<Single>.Demo, Vector128s<Single>.V1):\t{0}", srcS_128_float);
+            Vector256<float> srcS_256_float = Vector256s<Single>.V2;
+            Avx.MaskStore((float*)&srcS_256_float, Vector256s<Single>.Demo, Vector256s<Single>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((float*)&srcS_256_float, Vector256s<Single>.Demo, Vector256s<Single>.V1):\t{0}", srcS_256_float);
 
             // Max(Vector256<Double>, Vector256<Double>)	__m256d _mm256_max_pd (__m256d a, __m256d b)
             // VMAXPD ymm, ymm, ymm/m256
             // Max(Vector256<Single>, Vector256<Single>)	__m256 _mm256_max_ps (__m256 a, __m256 b)
             // VMAXPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Max(srcT_256_double, src2_256_double):\t{0}", Avx.Max(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Max(srcT_256_float, src2_256_float):\t{0}", Avx.Max(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Max(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Max(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Max(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // Min(Vector256<Double>, Vector256<Double>)	__m256d _mm256_min_pd (__m256d a, __m256d b)
             // VMINPD ymm, ymm, ymm/m256
             // Min(Vector256<Single>, Vector256<Single>)	__m256 _mm256_min_ps (__m256 a, __m256 b)
             // VMINPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Min(srcT_256_double, src2_256_double):\t{0}", Avx.Min(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Min(srcT_256_float, src2_256_float):\t{0}", Avx.Min(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Min(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Min(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Min(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // MoveMask(Vector256<Double>)	int _mm256_movemask_pd (__m256d a)
             // VMOVMSKPD reg, ymm
@@ -612,22 +612,22 @@ namespace IntrinsicsLib {
             //	FI
             //ENDFOR
             //dst[MAX:8] := 0
-            WriteLineFormat(tw, indent, "MoveMask(srcT_256_double):\t{0}\t# 0x{0:X}", Avx.MoveMask(srcT_256_double));
-            WriteLineFormat(tw, indent, "MoveMask(srcT_256_float):\t{0}\t# 0x{0:X}", Avx.MoveMask(srcT_256_float));
+            WriteLineFormat(tw, indent, "MoveMask(Vector256s<Double>.Demo):\t{0}\t# 0x{0:X}", Avx.MoveMask(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "MoveMask(Vector256s<Single>.Demo):\t{0}\t# 0x{0:X}", Avx.MoveMask(Vector256s<Single>.Demo));
 
             // Multiply(Vector256<Double>, Vector256<Double>)	__m256d _mm256_mul_pd (__m256d a, __m256d b)
             // VMULPD ymm, ymm, ymm/m256
             // Multiply(Vector256<Single>, Vector256<Single>)	__m256 _mm256_mul_ps (__m256 a, __m256 b)
             // VMULPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Multiply(srcT_256_double, src2_256_double):\t{0}", Avx.Multiply(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Multiply(srcT_256_float, src2_256_float):\t{0}", Avx.Multiply(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Multiply(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Multiply(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Multiply(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Multiply(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // Or(Vector256<Double>, Vector256<Double>)	__m256d _mm256_or_pd (__m256d a, __m256d b)
             // VORPD ymm, ymm, ymm/m256
             // Or(Vector256<Single>, Vector256<Single>)	__m256 _mm256_or_ps (__m256 a, __m256 b)
             // VORPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Or(srcT_256_double, src2_256_double):\t{0}", Avx.Or(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Or(srcT_256_float, src2_256_float):\t{0}", Avx.Or(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Or(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Or(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // Permute(Vector128<Double>, Byte)	__m128d _mm_permute_pd (__m128d a, int imm8)
             // VPERMILPD xmm, xmm, imm8
@@ -684,10 +684,10 @@ namespace IntrinsicsLib {
             // dst[223:192] := SELECT4(a[255:128], imm8[5:4])
             // dst[255:224] := SELECT4(a[255:128], imm8[7:6])
             // Permute - control: Reverse order based on 128 bits.
-            WriteLineFormat(tw, indent, "Permute(srcT_128_double, 0b0000_0001):\t{0}", Avx.Permute(srcT_128_double, 0b0000_0001));
-            WriteLineFormat(tw, indent, "Permute(srcT_128_float,  0b0001_1011):\t{0}", Avx.Permute(srcT_128_float, 0b0001_1011));
-            WriteLineFormat(tw, indent, "Permute(srcT_256_double, 0b0000_0101):\t{0}", Avx.Permute(srcT_256_double, 0b0000_0101));
-            WriteLineFormat(tw, indent, "Permute(srcT_256_float,  0b0001_1011):\t{0}", Avx.Permute(srcT_256_float, 0b0001_1011));
+            WriteLineFormat(tw, indent, "Permute(Vector128s<Double>.Demo, 0b0000_0001):\t{0}", Avx.Permute(Vector128s<Double>.Demo, 0b0000_0001));
+            WriteLineFormat(tw, indent, "Permute(Vector128s<Single>.Demo, 0b0001_1011):\t{0}", Avx.Permute(Vector128s<Single>.Demo, 0b0001_1011));
+            WriteLineFormat(tw, indent, "Permute(Vector256s<Double>.Demo, 0b0000_0101):\t{0}", Avx.Permute(Vector256s<Double>.Demo, 0b0000_0101));
+            WriteLineFormat(tw, indent, "Permute(Vector256s<Single>.Demo, 0b0001_1011):\t{0}", Avx.Permute(Vector256s<Single>.Demo, 0b0001_1011));
 
             // Permute2x128(Vector256<Byte>, Vector256<Byte>, Byte)	__m256i _mm256_permute2f128_si256 (__m256i a, __m256i b, int imm8)
             // VPERM2F128 ymm, ymm, ymm/m256, imm8
@@ -756,9 +756,9 @@ namespace IntrinsicsLib {
             // VPERM2F128 ymm, ymm, ymm/m256, imm8
             foreach (byte control in new byte[] { 0, 1, 2, 3, 0x23, 0xA3, 0x10 }) {
                 WriteLineFormat(tw, indent, "Permute2x128 - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "Permute2x128(srcT_256_int, src2_256_int, control):\t{0}", Avx.Permute2x128(srcT_256_int, src2_256_int, control));
-                WriteLineFormat(tw, indentNext, "Permute2x128(srcT_256_double, src2_256_double, control):\t{0}", Avx.Permute2x128(srcT_256_double, src2_256_double, control));
-                WriteLineFormat(tw, indentNext, "Permute2x128(srcT_256_float, src2_256_float, control):\t{0}", Avx.Permute2x128(srcT_256_float, src2_256_float, control));
+                WriteLineFormat(tw, indentNext, "Permute2x128(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control):\t{0}", Avx.Permute2x128(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control));
+                WriteLineFormat(tw, indentNext, "Permute2x128(Vector256s<Double>.Demo, Vector256s<Double>.V2, control):\t{0}", Avx.Permute2x128(Vector256s<Double>.Demo, Vector256s<Double>.V2, control));
+                WriteLineFormat(tw, indentNext, "Permute2x128(Vector256s<Single>.Demo, Vector256s<Single>.V2, control):\t{0}", Avx.Permute2x128(Vector256s<Single>.Demo, Vector256s<Single>.V2, control));
             }
 
             // PermuteVar(Vector128<Double>, Vector128<Int64>)	__m128d _mm_permutevar_pd (__m128d a, __m128i b)
@@ -813,15 +813,15 @@ namespace IntrinsicsLib {
             // dst[223:192] := SELECT4(a[255:128], b[193:192])
             // dst[255:224] := SELECT4(a[255:128], b[225:224])
             // PermuteVar - control: Reverse order based on 128 bits.
-            WriteLineFormat(tw, indent, "PermuteVar(srcT_128_double, Vector128.Create(2L, 0L)):\t{0}", Avx.PermuteVar(srcT_128_double, Vector128.Create(2L, 0L)));
-            WriteLineFormat(tw, indent, "PermuteVar(srcT_128_float, Vector128.Create(3, 2, 1, 0)):\t{0}", Avx.PermuteVar(srcT_128_float, Vector128.Create(3, 2, 1, 0)));
-            WriteLineFormat(tw, indent, "PermuteVar(srcT_256_double, Vector256.Create(2L, 0L)):\t{0}", Avx.PermuteVar(srcT_256_double, Vector256.Create(2L, 0L, 2L, 0L)));
-            WriteLineFormat(tw, indent, "PermuteVar(srcT_256_float, Vector256.Create(3, 2, 1, 0)):\t{0}", Avx.PermuteVar(srcT_256_float, Vector256.Create(3, 2, 1, 0, 3, 2, 1, 0)));
+            WriteLineFormat(tw, indent, "PermuteVar(Vector128s<Double>.Demo, Vector128.Create(2L, 0L)):\t{0}", Avx.PermuteVar(Vector128s<Double>.Demo, Vector128.Create(2L, 0L)));
+            WriteLineFormat(tw, indent, "PermuteVar(Vector128s<Single>.Demo, Vector128.Create(3, 2, 1, 0)):\t{0}", Avx.PermuteVar(Vector128s<Single>.Demo, Vector128.Create(3, 2, 1, 0)));
+            WriteLineFormat(tw, indent, "PermuteVar(Vector256s<Double>.Demo, Vector256.Create(2L, 0L)):\t{0}", Avx.PermuteVar(Vector256s<Double>.Demo, Vector256.Create(2L, 0L, 2L, 0L)));
+            WriteLineFormat(tw, indent, "PermuteVar(Vector256s<Single>.Demo, Vector256.Create(3, 2, 1, 0)):\t{0}", Avx.PermuteVar(Vector256s<Single>.Demo, Vector256.Create(3, 2, 1, 0, 3, 2, 1, 0)));
 
             // Reciprocal(Vector256<Single>)	__m256 _mm256_rcp_ps (__m256 a)
             // VRCPPS ymm, ymm/m256
             // Compute the approximate reciprocal of packed single-precision (32-bit) floating-point elements in a, and store the results in dst. The maximum relative error for this approximation is less than 1.5*2^-12. (计算a中打包的单精度（32位）浮点元素的近似倒数，并将结果存储在dst中。这个近似值的最大相对误差小于1.5*2^-12。)
-            WriteLineFormat(tw, indent, "Reciprocal(srcT_256_float):\t{0}", Avx.Reciprocal(srcT_256_float));
+            WriteLineFormat(tw, indent, "Reciprocal(Vector256s<Single>.Demo):\t{0}", Avx.Reciprocal(Vector256s<Single>.Demo));
 
             // ReciprocalSqrt(Vector256<Single>)	__m256 _mm256_rsqrt_ps (__m256 a)
             // VRSQRTPS ymm, ymm/m256
@@ -830,7 +830,7 @@ namespace IntrinsicsLib {
             // 	i := j*32
             // 	dst[i+31:i] := (1.0 / SQRT(a[i+31:i]))
             // ENDFOR
-            WriteLineFormat(tw, indent, "ReciprocalSqrt(srcT_256_float):\t{0}", Avx.ReciprocalSqrt(srcT_256_float));
+            WriteLineFormat(tw, indent, "ReciprocalSqrt(Vector256s<Single>.Demo):\t{0}", Avx.ReciprocalSqrt(Vector256s<Single>.Demo));
 
             // RoundCurrentDirection(Vector256<Double>)	__m256d _mm256_round_pd (__m256d a, _MM_FROUND_CUR_DIRECTION)
             // VROUNDPD ymm, ymm/m256, imm8(4)
@@ -852,18 +852,18 @@ namespace IntrinsicsLib {
             // VROUNDPD ymm, ymm/m256, imm8(11)
             // RoundToZero(Vector256<Single>)	__m256 _mm256_round_ps (__m256 a, _MM_FROUND_TO_ZERO | _MM_FROUND_NO_EXC)
             // VROUNDPS ymm, ymm/m256, imm8(11)
-            WriteLineFormat(tw, indent, "RoundCurrentDirection(srcT_256_double):\t{0}", Avx.RoundCurrentDirection(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundCurrentDirection(srcT_256_float):\t{0}", Avx.RoundCurrentDirection(srcT_256_float));
-            WriteLineFormat(tw, indent, "RoundCurrentDirection(srcT_256_double):\t{0}", Avx.RoundCurrentDirection(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundCurrentDirection(srcT_256_float):\t{0}", Avx.RoundCurrentDirection(srcT_256_float));
-            WriteLineFormat(tw, indent, "RoundToNearestInteger(srcT_256_double):\t{0}", Avx.RoundToNearestInteger(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundToNearestInteger(srcT_256_float):\t{0}", Avx.RoundToNearestInteger(srcT_256_float));
-            WriteLineFormat(tw, indent, "RoundToNegativeInfinity(srcT_256_double):\t{0}", Avx.RoundToNegativeInfinity(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundToNegativeInfinity(srcT_256_float):\t{0}", Avx.RoundToNegativeInfinity(srcT_256_float));
-            WriteLineFormat(tw, indent, "RoundToPositiveInfinity(srcT_256_double):\t{0}", Avx.RoundToPositiveInfinity(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundToPositiveInfinity(srcT_256_float):\t{0}", Avx.RoundToPositiveInfinity(srcT_256_float));
-            WriteLineFormat(tw, indent, "RoundToZero(srcT_256_double):\t{0}", Avx.RoundToZero(srcT_256_double));
-            WriteLineFormat(tw, indent, "RoundToZero(srcT_256_float):\t{0}", Avx.RoundToZero(srcT_256_float));
+            WriteLineFormat(tw, indent, "RoundCurrentDirection(Vector256s<Double>.Demo):\t{0}", Avx.RoundCurrentDirection(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundCurrentDirection(Vector256s<Single>.Demo):\t{0}", Avx.RoundCurrentDirection(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "RoundCurrentDirection(Vector256s<Double>.Demo):\t{0}", Avx.RoundCurrentDirection(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundCurrentDirection(Vector256s<Single>.Demo):\t{0}", Avx.RoundCurrentDirection(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "RoundToNearestInteger(Vector256s<Double>.Demo):\t{0}", Avx.RoundToNearestInteger(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundToNearestInteger(Vector256s<Single>.Demo):\t{0}", Avx.RoundToNearestInteger(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "RoundToNegativeInfinity(Vector256s<Double>.Demo):\t{0}", Avx.RoundToNegativeInfinity(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundToNegativeInfinity(Vector256s<Single>.Demo):\t{0}", Avx.RoundToNegativeInfinity(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "RoundToPositiveInfinity(Vector256s<Double>.Demo):\t{0}", Avx.RoundToPositiveInfinity(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundToPositiveInfinity(Vector256s<Single>.Demo):\t{0}", Avx.RoundToPositiveInfinity(Vector256s<Single>.Demo));
+            WriteLineFormat(tw, indent, "RoundToZero(Vector256s<Double>.Demo):\t{0}", Avx.RoundToZero(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "RoundToZero(Vector256s<Single>.Demo):\t{0}", Avx.RoundToZero(Vector256s<Single>.Demo));
 
             // Shuffle(Vector256<Double>, Vector256<Double>, Byte)	__m256d _mm256_shuffle_pd (__m256d a, __m256d b, const int imm8)
             // VSHUFPD ymm, ymm, ymm/m256, imm8
@@ -893,15 +893,15 @@ namespace IntrinsicsLib {
             // dst[223:192] := SELECT4(b[255:128], imm8[5:4])
             // dst[255:224] := SELECT4(b[255:128], imm8[7:6])
             // Shuffle - control: Reverse order based on 128 bits.
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_double):\t{0}", Avx.Shuffle(srcT_256_double, srcT_256_double, 0b0000_0101));
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_float):\t{0}", Avx.Shuffle(srcT_256_float, srcT_256_float, 0b0001_1011));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<Double>.Demo):\t{0}", Avx.Shuffle(Vector256s<Double>.Demo, Vector256s<Double>.Demo, 0b0000_0101));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<Single>.Demo):\t{0}", Avx.Shuffle(Vector256s<Single>.Demo, Vector256s<Single>.Demo, 0b0001_1011));
 
             // Sqrt(Vector256<Double>)	__m256d _mm256_sqrt_pd (__m256d a)
             // VSQRTPD ymm, ymm/m256
             // Sqrt(Vector256<Single>)	__m256 _mm256_sqrt_ps (__m256 a)
             // VSQRTPS ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Sqrt(srcT_256_double):\t{0}", Avx.Sqrt(srcT_256_double));
-            WriteLineFormat(tw, indent, "Sqrt(srcT_256_float):\t{0}", Avx.Sqrt(srcT_256_float));
+            WriteLineFormat(tw, indent, "Sqrt(Vector256s<Double>.Demo):\t{0}", Avx.Sqrt(Vector256s<Double>.Demo));
+            WriteLineFormat(tw, indent, "Sqrt(Vector256s<Single>.Demo):\t{0}", Avx.Sqrt(Vector256s<Single>.Demo));
 
             // Store(Byte*, Vector256<Byte>)	void _mm256_storeu_si256 (__m256i * mem_addr, __m256i a)
             // MOVDQU m256, ymm
@@ -969,8 +969,8 @@ namespace IntrinsicsLib {
             // VSUBPD ymm, ymm, ymm/m256
             // Subtract(Vector256<Single>, Vector256<Single>)	__m256 _mm256_sub_ps (__m256 a, __m256 b)
             // VSUBPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_double, src2_256_double):\t{0}", Avx.Subtract(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_float, src2_256_float):\t{0}", Avx.Subtract(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Subtract(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Subtract(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // TestC(Vector128<Double>, Vector128<Double>)	int _mm_testc_pd (__m128d a, __m128d b)
             // VTESTPD xmm, xmm/m128
@@ -1050,8 +1050,8 @@ namespace IntrinsicsLib {
             // VPTEST ymm, ymm/m256
             // TestC(Vector256<UInt64>, Vector256<UInt64>)	int _mm256_testc_si256 (__m256i a, __m256i b)
             // VPTEST ymm, ymm/m256
-            WriteLineFormat(tw, indent, "TestC(srcT_256_double, src2_256_double):\t{0}", Avx.TestC(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "TestC(srcT_256_float, src2_256_float):\t{0}", Avx.TestC(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "TestC(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.TestC(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "TestC(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.TestC(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // TestNotZAndNotC(Vector128<Double>, Vector128<Double>)	int _mm_testnzc_pd (__m128d a, __m128d b)
             // VTESTPD xmm, xmm/m128
@@ -1095,8 +1095,8 @@ namespace IntrinsicsLib {
             // VPTEST ymm, ymm/m256
             // TestNotZAndNotC(Vector256<UInt64>, Vector256<UInt64>)	int _mm256_testnzc_si256 (__m256i a, __m256i b)
             // VPTEST ymm, ymm/m256
-            WriteLineFormat(tw, indent, "TestNotZAndNotC(srcT_256_double, src2_256_double):\t{0}", Avx.TestNotZAndNotC(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "TestNotZAndNotC(srcT_256_float, src2_256_float):\t{0}", Avx.TestNotZAndNotC(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "TestNotZAndNotC(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.TestNotZAndNotC(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "TestNotZAndNotC(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.TestNotZAndNotC(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // TestZ(Vector128<Double>, Vector128<Double>)	int _mm_testz_pd (__m128d a, __m128d b)
             // VTESTPD xmm, xmm/m128
@@ -1137,8 +1137,8 @@ namespace IntrinsicsLib {
             // VPTEST ymm, ymm/m256
             // TestZ(Vector256<UInt64>, Vector256<UInt64>)	int _mm256_testz_si256 (__m256i a, __m256i b)
             // VPTEST ymm, ymm/m256
-            WriteLineFormat(tw, indent, "TestZ(srcT_256_double, src2_256_double):\t{0}", Avx.TestZ(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "TestZ(srcT_256_float, src2_256_float):\t{0}", Avx.TestZ(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "TestZ(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.TestZ(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "TestZ(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.TestZ(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // UnpackHigh(Vector256<Double>, Vector256<Double>)	__m256d _mm256_unpackhi_pd (__m256d a, __m256d b)
             // VUNPCKHPD ymm, ymm, ymm/m256
@@ -1163,8 +1163,8 @@ namespace IntrinsicsLib {
             // dst[127:0] := INTERLEAVE_HIGH_DWORDS(a[127:0], b[127:0])
             // dst[255:128] := INTERLEAVE_HIGH_DWORDS(a[255:128], b[255:128])
             // dst[MAX:256] := 0
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_double, src2_256_double):\t{0}", Avx.UnpackHigh(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_float, src2_256_float):\t{0}", Avx.UnpackHigh(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.UnpackHigh(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.UnpackHigh(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // UnpackLow(Vector256<Double>, Vector256<Double>)	__m256d _mm256_unpacklo_pd (__m256d a, __m256d b)
             // VUNPCKLPD ymm, ymm, ymm/m256
@@ -1179,15 +1179,15 @@ namespace IntrinsicsLib {
             // dst[127:0] := INTERLEAVE_QWORDS(a[127:0], b[127:0])
             // dst[255:128] := INTERLEAVE_QWORDS(a[255:128], b[255:128])
             // dst[MAX:256] := 0
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_double, src2_256_double):\t{0}", Avx.UnpackLow(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_float, src2_256_float):\t{0}", Avx.UnpackLow(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.UnpackLow(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.UnpackLow(Vector256s<Single>.Demo, Vector256s<Single>.V2));
 
             // Xor(Vector256<Double>, Vector256<Double>)	__m256d _mm256_xor_pd (__m256d a, __m256d b)
             // VXORPS ymm, ymm, ymm/m256
             // Xor(Vector256<Single>, Vector256<Single>)	__m256 _mm256_xor_ps (__m256 a, __m256 b)
             // VXORPS ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Xor(srcT_256_double, src2_256_double):\t{0}", Avx.Xor(srcT_256_double, src2_256_double));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_float, src2_256_float):\t{0}", Avx.Xor(srcT_256_float, src2_256_float));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Avx.Xor(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Avx.Xor(Vector256s<Single>.Demo, Vector256s<Single>.V2));
         }
 
         /// <summary>
@@ -1213,9 +1213,9 @@ namespace IntrinsicsLib {
             // VPABSD ymm, ymm/m256
             // Abs(Vector256<SByte>)	__m256i _mm256_abs_epi8 (__m256i a)
             // VPABSB ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Abs(srcT_256_sbyte):\t{0}", Avx2.Abs(srcT_256_sbyte));
-            WriteLineFormat(tw, indent, "Abs(srcT_256_short):\t{0}", Avx2.Abs(srcT_256_short));
-            WriteLineFormat(tw, indent, "Abs(srcT_256_int):\t{0}", Avx2.Abs(srcT_256_int));
+            WriteLineFormat(tw, indent, "Abs(Vector256s<SByte>.Demo):\t{0}", Avx2.Abs(Vector256s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vector256s<Int16>.Demo):\t{0}", Avx2.Abs(Vector256s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "Abs(Vector256s<Int32>.Demo):\t{0}", Avx2.Abs(Vector256s<Int32>.Demo));
 
             // Add(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_add_epi8 (__m256i a, __m256i b)
             // VPADDB ymm, ymm, ymm/m256
@@ -1233,14 +1233,14 @@ namespace IntrinsicsLib {
             // VPADDD ymm, ymm, ymm/m256
             // Add(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_add_epi64 (__m256i a, __m256i b)
             // VPADDQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Add(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Add(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Add(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Add(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Add(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Add(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "Add(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Add(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Add(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Add(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Add(srcT_256_short, src2_256_short):\t{0}", Avx2.Add(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Add(srcT_256_int, src2_256_int):\t{0}", Avx2.Add(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "Add(srcT_256_long, src2_256_long):\t{0}", Avx2.Add(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Add(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Add(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Add(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Add(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Add(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Add(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Add(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "Add(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Add(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // AddSaturate(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_adds_epu8 (__m256i a, __m256i b)
             // VPADDUSB ymm, ymm, ymm/m256
@@ -1250,10 +1250,10 @@ namespace IntrinsicsLib {
             // VPADDSB ymm, ymm, ymm/m256
             // AddSaturate(Vector256<UInt16>, Vector256<UInt16>)	__m256i _mm256_adds_epu16 (__m256i a, __m256i b)
             // VPADDUSW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "AddSaturate(srcT_256_byte, src2_256_byte):\t{0}", Avx2.AddSaturate(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "AddSaturate(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.AddSaturate(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "AddSaturate(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.AddSaturate(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "AddSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.AddSaturate(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "AddSaturate(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.AddSaturate(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "AddSaturate(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.AddSaturate(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "AddSaturate(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.AddSaturate(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "AddSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.AddSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // AlignRight(Vector256<Byte>, Vector256<Byte>, Byte)	__m256i _mm256_alignr_epi8 (__m256i a, __m256i b, const int count)
             // VPALIGNR ymm, ymm, ymm/m256, imm8
@@ -1279,9 +1279,9 @@ namespace IntrinsicsLib {
             // ENDFOR
             foreach (byte cnt in new byte[] { 0, 1, 2 }) {
                 WriteLineFormat(tw, indent, "AlignRight - cnt={0} (0x{0:X}):", cnt);
-                WriteLineFormat(tw, indentNext, "AlignRight(srcT_256_byte, src2_256_byte, cnt):\t{0}", Avx2.AlignRight(srcT_256_byte, src2_256_byte, cnt));
-                WriteLineFormat(tw, indentNext, "AlignRight(srcT_256_short, src2_256_short, cnt):\t{0}", Avx2.AlignRight(srcT_256_short, src2_256_short, cnt));
-                WriteLineFormat(tw, indentNext, "AlignRight(srcT_256_int, src2_256_int, cnt):\t{0}", Avx2.AlignRight(srcT_256_int, src2_256_int, cnt));
+                WriteLineFormat(tw, indentNext, "AlignRight(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, cnt):\t{0}", Avx2.AlignRight(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, cnt));
+                WriteLineFormat(tw, indentNext, "AlignRight(Vector256s<Int16>.Demo, Vector256s<Int16>.V2, cnt):\t{0}", Avx2.AlignRight(Vector256s<Int16>.Demo, Vector256s<Int16>.V2, cnt));
+                WriteLineFormat(tw, indentNext, "AlignRight(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, cnt):\t{0}", Avx2.AlignRight(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, cnt));
             }
 
             // And(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_and_si256 (__m256i a, __m256i b)
@@ -1300,14 +1300,14 @@ namespace IntrinsicsLib {
             // VPAND ymm, ymm, ymm/m256
             // And(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_and_si256 (__m256i a, __m256i b)
             // VPAND ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "And(srcT_256_byte, src2_256_byte):\t{0}", Avx2.And(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "And(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.And(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "And(srcT_256_uint, src2_256_uint):\t{0}", Avx2.And(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "And(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.And(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "And(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.And(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "And(srcT_256_short, src2_256_short):\t{0}", Avx2.And(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "And(srcT_256_int, src2_256_int):\t{0}", Avx2.And(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "And(srcT_256_long, src2_256_long):\t{0}", Avx2.And(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "And(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.And(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.And(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.And(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.And(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.And(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.And(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.And(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "And(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.And(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // AndNot(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_andnot_si256 (__m256i a, __m256i b)
             // VPANDN ymm, ymm, ymm/m256
@@ -1325,21 +1325,21 @@ namespace IntrinsicsLib {
             // VPANDN ymm, ymm, ymm/m256
             // AndNot(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_andnot_si256 (__m256i a, __m256i b)
             // VPANDN ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_byte, src2_256_byte):\t{0}", Avx2.AndNot(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.AndNot(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_uint, src2_256_uint):\t{0}", Avx2.AndNot(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.AndNot(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.AndNot(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_short, src2_256_short):\t{0}", Avx2.AndNot(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_int, src2_256_int):\t{0}", Avx2.AndNot(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "AndNot(srcT_256_long, src2_256_long):\t{0}", Avx2.AndNot(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.AndNot(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.AndNot(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.AndNot(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.AndNot(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.AndNot(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.AndNot(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.AndNot(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "AndNot(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.AndNot(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // Average(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_avg_epu8 (__m256i a, __m256i b)
             // VPAVGB ymm, ymm, ymm/m256
             // Average(Vector256<UInt16>, Vector256<UInt16>)	__m256i _mm256_avg_epu16 (__m256i a, __m256i b)
             // VPAVGW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Average(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Average(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Average(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Average(srcT_256_ushort, src2_256_ushort));
+            WriteLineFormat(tw, indent, "Average(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Average(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Average(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Average(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
 
             // Blend(Vector128<Int32>, Vector128<Int32>, Byte)	__m128i _mm_blend_epi32 (__m128i a, __m128i b, const int imm8)
             // VPBLENDD xmm, xmm, xmm/m128, imm8
@@ -1383,9 +1383,9 @@ namespace IntrinsicsLib {
             // ENDFOR
             foreach (byte control in new byte[] { 1, 3, 0xCB }) {
                 WriteLineFormat(tw, indent, "Blend - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "Blend(srcT_128_int, src2_128_int, control):\t{0}", Avx2.Blend(srcT_128_int, src2_128_int, control));
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_ushort, src2_256_ushort, control):\t{0}", Avx2.Blend(srcT_256_ushort, src2_256_ushort, control));
-                WriteLineFormat(tw, indentNext, "Blend(srcT_256_int, src2_256_int, control):\t{0}", Avx2.Blend(srcT_256_int, src2_256_int, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector128s<Int32>.Demo, Vector128s<Int32>.V2, control):\t{0}", Avx2.Blend(Vector128s<Int32>.Demo, Vector128s<Int32>.V2, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2, control):\t{0}", Avx2.Blend(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2, control));
+                WriteLineFormat(tw, indentNext, "Blend(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control):\t{0}", Avx2.Blend(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control));
             }
 
             // BlendVariable(Vector256<Byte>, Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_blendv_epi8 (__m256i a, __m256i b, __m256i mask)
@@ -1413,14 +1413,14 @@ namespace IntrinsicsLib {
             // 		dst[i+7:i] := a[i+7:i]
             // 	FI
             // ENDFOR
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_byte, src2_256_byte, srcT_256_byte):\t{0}", Avx2.BlendVariable(srcT_256_byte, src2_256_byte, srcT_256_byte));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_ushort, src2_256_ushort, srcT_256_ushort):\t{0}", Avx2.BlendVariable(srcT_256_ushort, src2_256_ushort, srcT_256_ushort));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_uint, src2_256_uint, srcT_256_uint):\t{0}", Avx2.BlendVariable(srcT_256_uint, src2_256_uint, srcT_256_uint));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_ulong, src2_256_ulong, srcT_256_ulong):\t{0}", Avx2.BlendVariable(srcT_256_ulong, src2_256_ulong, srcT_256_ulong));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_sbyte, src2_256_sbyte, srcT_256_sbyte):\t{0}", Avx2.BlendVariable(srcT_256_sbyte, src2_256_sbyte, srcT_256_sbyte));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_short, src2_256_short, srcT_256_short):\t{0}", Avx2.BlendVariable(srcT_256_short, src2_256_short, srcT_256_short));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_int, src2_256_int, srcT_256_int):\t{0}", Avx2.BlendVariable(srcT_256_int, src2_256_int, srcT_256_int));
-            WriteLineFormat(tw, indent, "BlendVariable(srcT_256_long, src2_256_long, srcT_256_long):\t{0}", Avx2.BlendVariable(srcT_256_long, src2_256_long, srcT_256_long));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, Vector256s<Byte>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, Vector256s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2, Vector256s<UInt16>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2, Vector256s<UInt16>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2, Vector256s<UInt32>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2, Vector256s<UInt32>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2, Vector256s<UInt64>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2, Vector256s<UInt64>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<SByte>.Demo, Vector256s<SByte>.V2, Vector256s<SByte>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<SByte>.Demo, Vector256s<SByte>.V2, Vector256s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Int16>.Demo, Vector256s<Int16>.V2, Vector256s<Int16>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<Int16>.Demo, Vector256s<Int16>.V2, Vector256s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, Vector256s<Int32>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, Vector256s<Int32>.Demo));
+            WriteLineFormat(tw, indent, "BlendVariable(Vector256s<Int64>.Demo, Vector256s<Int64>.V2, Vector256s<Int64>.Demo):\t{0}", Avx2.BlendVariable(Vector256s<Int64>.Demo, Vector256s<Int64>.V2, Vector256s<Int64>.Demo));
 
             // BroadcastScalarToVector128(Byte*)	__m128i _mm_broadcastb_epi8 (__m128i a)
             // VPBROADCASTB xmm, m8
@@ -1458,17 +1458,17 @@ namespace IntrinsicsLib {
             // VPBROADCASTD xmm, xmm
             // BroadcastScalarToVector128(Vector128<UInt64>)	__m128i _mm_broadcastq_epi64 (__m128i a)
             // VPBROADCASTQ xmm, xmm
-            fixed (void* p = &srcT_128_byte) {
-                WriteLineFormat(tw, indent, "BroadcastScalarToVector128(&srcT_128_byte):\t{0}", Avx2.BroadcastScalarToVector128((byte*)p));
+            fixed (void* p = &Vector128s<Byte>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastScalarToVector128(&Vector128s<Byte>.Demo):\t{0}", Avx2.BroadcastScalarToVector128((byte*)p));
             }
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_byte):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_byte));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_ushort):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_ushort));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_uint):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_uint));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_ulong):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_ulong));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_sbyte):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_sbyte));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_short):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_short));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_int):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_int));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(srcT_128_long):\t{0}", Avx2.BroadcastScalarToVector128(srcT_128_long));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<Byte>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<UInt16>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<UInt16>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<UInt32>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<UInt32>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<UInt64>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<UInt64>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<SByte>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<Int16>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<Int32>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<Int32>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector128(Vector128s<Int64>.Demo):\t{0}", Avx2.BroadcastScalarToVector128(Vector128s<Int64>.Demo));
 
             // BroadcastScalarToVector256(Byte*)	__m256i _mm256_broadcastb_epi8 (__m128i a)
             // VPBROADCASTB ymm, m8
@@ -1506,17 +1506,17 @@ namespace IntrinsicsLib {
             // VPBROADCASTD ymm, xmm
             // BroadcastScalarToVector256(Vector128<UInt64>)	__m256i _mm256_broadcastq_epi64 (__m128i a)
             // VPBROADCASTQ ymm, xmm
-            fixed (void* p = &srcT_128_byte) {
-                WriteLineFormat(tw, indent, "BroadcastScalarToVector256(&srcT_128_byte):\t{0}", Avx2.BroadcastScalarToVector256((byte*)p));
+            fixed (void* p = &Vector128s<Byte>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastScalarToVector256(&Vector128s<Byte>.Demo):\t{0}", Avx2.BroadcastScalarToVector256((byte*)p));
             }
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_byte):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_byte));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_ushort):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_ushort));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_uint):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_uint));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_ulong):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_ulong));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_sbyte):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_sbyte));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_short):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_short));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_int):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_int));
-            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(srcT_128_long):\t{0}", Avx2.BroadcastScalarToVector256(srcT_128_long));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<Byte>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<UInt16>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<UInt16>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<UInt32>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<UInt32>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<UInt64>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<UInt64>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<SByte>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<Int16>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<Int32>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<Int32>.Demo));
+            WriteLineFormat(tw, indent, "BroadcastScalarToVector256(Vector128s<Int64>.Demo):\t{0}", Avx2.BroadcastScalarToVector256(Vector128s<Int64>.Demo));
 
             // BroadcastVector128ToVector256(Byte*)	__m256i _mm256_broadcastsi128_si256 (__m128i a)
             // VBROADCASTI128 ymm, m128
@@ -1537,11 +1537,11 @@ namespace IntrinsicsLib {
             // Broadcast 128 bits of integer data from a to all 128-bit lanes in dst.
             // dst[127:0] := a[127:0]
             // dst[255:128] := a[127:0]
-            fixed (void* p = &srcT_128_byte) {
-                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&srcT_128_byte):\t{0}", Avx2.BroadcastVector128ToVector256((byte*)p));
+            fixed (void* p = &Vector128s<Byte>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&Vector128s<Byte>.Demo):\t{0}", Avx2.BroadcastVector128ToVector256((byte*)p));
             }
-            fixed (void* p = &srcT_128_long) {
-                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&srcT_128_long):\t{0}", Avx2.BroadcastVector128ToVector256((long*)p));
+            fixed (void* p = &Vector128s<Int64>.Demo) {
+                WriteLineFormat(tw, indent, "BroadcastVector128ToVector256(&Vector128s<Int64>.Demo):\t{0}", Avx2.BroadcastVector128ToVector256((long*)p));
             }
 
             // CompareEqual(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_cmpeq_epi8 (__m256i a, __m256i b)
@@ -1560,14 +1560,14 @@ namespace IntrinsicsLib {
             // VPCMPEQD ymm, ymm, ymm/m256
             // CompareEqual(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_cmpeq_epi64 (__m256i a, __m256i b)
             // VPCMPEQQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_byte, src2_256_byte):\t{0}", Avx2.CompareEqual(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.CompareEqual(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_uint, src2_256_uint):\t{0}", Avx2.CompareEqual(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.CompareEqual(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.CompareEqual(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_short, src2_256_short):\t{0}", Avx2.CompareEqual(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_int, src2_256_int):\t{0}", Avx2.CompareEqual(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "CompareEqual(srcT_256_long, src2_256_long):\t{0}", Avx2.CompareEqual(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.CompareEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.CompareEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.CompareEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.CompareEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.CompareEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.CompareEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.CompareEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "CompareEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.CompareEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // CompareGreaterThan(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_cmpgt_epi16 (__m256i a, __m256i b)
             // VPCMPGTW ymm, ymm, ymm/m256
@@ -1577,14 +1577,14 @@ namespace IntrinsicsLib {
             // VPCMPGTQ ymm, ymm, ymm/m256
             // CompareGreaterThan(Vector256<SByte>, Vector256<SByte>)	__m256i _mm256_cmpgt_epi8 (__m256i a, __m256i b)
             // VPCMPGTB ymm, ymm, ymm/m256
-            //WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_byte, src2_256_byte):\t{0}", Avx2.CompareGreaterThan(srcT_256_byte, src2_256_byte));
-            //WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.CompareGreaterThan(srcT_256_ushort, src2_256_ushort));
-            //WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_uint, src2_256_uint):\t{0}", Avx2.CompareGreaterThan(srcT_256_uint, src2_256_uint));
-            //WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.CompareGreaterThan(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.CompareGreaterThan(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_short, src2_256_short):\t{0}", Avx2.CompareGreaterThan(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_int, src2_256_int):\t{0}", Avx2.CompareGreaterThan(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "CompareGreaterThan(srcT_256_long, src2_256_long):\t{0}", Avx2.CompareGreaterThan(srcT_256_long, src2_256_long));
+            //WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            //WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            //WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            //WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "CompareGreaterThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.CompareGreaterThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // ConvertToInt32(Vector256<Int32>)	int _mm256_cvtsi256_si32 (__m256i a)
             // MOVD reg/m32, xmm
@@ -1592,8 +1592,8 @@ namespace IntrinsicsLib {
             // MOVD reg/m32, xmm
             // Copy the lower 32-bit integer in a to dst.
             // dst[31:0] := a[31:0]
-            WriteLineFormat(tw, indent, "ConvertToInt32(srcT_256_int):\t{0}", Avx2.ConvertToInt32(srcT_256_int));
-            WriteLineFormat(tw, indent, "ConvertToUInt32(srcT_256_uint):\t{0}", Avx2.ConvertToUInt32(srcT_256_uint));
+            WriteLineFormat(tw, indent, "ConvertToInt32(Vector256s<Int32>.Demo):\t{0}", Avx2.ConvertToInt32(Vector256s<Int32>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToUInt32(Vector256s<UInt32>.Demo):\t{0}", Avx2.ConvertToUInt32(Vector256s<UInt32>.Demo));
 
             // ConvertToVector256Int16(Byte*)	VPMOVZXBW ymm, m128
             // ConvertToVector256Int16(SByte*)	VPMOVSXBW ymm, m128
@@ -1613,8 +1613,8 @@ namespace IntrinsicsLib {
             // 	l := j*16
             // 	dst[l+15:l] := SignExtend16(a[i+7:i])
             // ENDFOR
-            WriteLineFormat(tw, indent, "ConvertToVector256Int16(srcT_128_byte):\t{0}", Avx2.ConvertToVector256Int16(srcT_128_byte));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int16(srcT_128_sbyte):\t{0}", Avx2.ConvertToVector256Int16(srcT_128_sbyte));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int16(Vector128s<Byte>.Demo):\t{0}", Avx2.ConvertToVector256Int16(Vector128s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int16(Vector128s<SByte>.Demo):\t{0}", Avx2.ConvertToVector256Int16(Vector128s<SByte>.Demo));
 
             // ConvertToVector256Int32(Byte*)	VPMOVZXBD ymm, m64
             // ConvertToVector256Int32(Int16*)	VPMOVSXWD ymm, m128
@@ -1640,10 +1640,10 @@ namespace IntrinsicsLib {
             // VPMOVSXBD ymm, xmm/m128
             // ConvertToVector256Int32(Vector128<UInt16>)	__m256i _mm256_cvtepu16_epi32 (__m128i a)
             // VPMOVZXWD ymm, xmm
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32(srcT_128_byte):\t{0}", Avx2.ConvertToVector256Int32(srcT_128_byte));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32(srcT_128_ushort):\t{0}", Avx2.ConvertToVector256Int32(srcT_128_ushort));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32(srcT_128_sbyte):\t{0}", Avx2.ConvertToVector256Int32(srcT_128_sbyte));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int32(srcT_128_short):\t{0}", Avx2.ConvertToVector256Int32(srcT_128_short));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32(Vector128s<Byte>.Demo):\t{0}", Avx2.ConvertToVector256Int32(Vector128s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32(Vector128s<UInt16>.Demo):\t{0}", Avx2.ConvertToVector256Int32(Vector128s<UInt16>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32(Vector128s<SByte>.Demo):\t{0}", Avx2.ConvertToVector256Int32(Vector128s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int32(Vector128s<Int16>.Demo):\t{0}", Avx2.ConvertToVector256Int32(Vector128s<Int16>.Demo));
 
             // ConvertToVector256Int64(Byte*)	VPMOVZXBQ ymm, m32
             // ConvertToVector256Int64(Int16*)	VPMOVSXWQ ymm, m64
@@ -1669,12 +1669,12 @@ namespace IntrinsicsLib {
             // VPMOVZXWQ ymm, xmm
             // ConvertToVector256Int64(Vector128<UInt32>)	__m256i _mm256_cvtepu32_epi64 (__m128i a)
             // VPMOVZXDQ ymm, xmm
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_byte):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_byte));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_ushort):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_ushort));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_uint):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_uint));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_sbyte):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_sbyte));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_short):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_short));
-            WriteLineFormat(tw, indent, "ConvertToVector256Int64(srcT_128_int):\t{0}", Avx2.ConvertToVector256Int64(srcT_128_int));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<Byte>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<UInt16>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<UInt16>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<UInt32>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<UInt32>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<SByte>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<Int16>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "ConvertToVector256Int64(Vector128s<Int32>.Demo):\t{0}", Avx2.ConvertToVector256Int64(Vector128s<Int32>.Demo));
 
             // ExtractVector128(Vector256<Byte>, Byte)	__m128i _mm256_extracti128_si256 (__m256i a, const int imm8)
             // VEXTRACTI128 xmm, ymm, imm8
@@ -1694,8 +1694,8 @@ namespace IntrinsicsLib {
             // VEXTRACTI128 xmm, ymm, imm8
             foreach (byte idx in new byte[] { 0, 1 }) {
                 WriteLineFormat(tw, indent, "ExtractVector128 - idx={0} (0x{0:X}):", idx);
-                WriteLineFormat(tw, indentNext, "ExtractVector128(srcT_256_byte, idx):\t{0}", Avx2.ExtractVector128(srcT_256_byte, idx));
-                WriteLineFormat(tw, indentNext, "ExtractVector128(srcT_256_int, idx):\t{0}", Avx2.ExtractVector128(srcT_256_int, idx));
+                WriteLineFormat(tw, indentNext, "ExtractVector128(Vector256s<Byte>.Demo, idx):\t{0}", Avx2.ExtractVector128(Vector256s<Byte>.Demo, idx));
+                WriteLineFormat(tw, indentNext, "ExtractVector128(Vector256s<Int32>.Demo, idx):\t{0}", Avx2.ExtractVector128(Vector256s<Int32>.Demo, idx));
             }
 
             // GatherMaskVector128(Vector128<Double>, Double*, Vector128<Int32>, Vector128<Double>, Byte)	__m128d _mm_mask_i32gather_pd (__m128d src, double const* base_addr, __m128i vindex, __m128d mask, const int scale)
@@ -1725,8 +1725,8 @@ namespace IntrinsicsLib {
             // 	FI
             // ENDFOR
             fixed (double* p = &srcArray_double[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_double, p, srcQ_128_int, srcT_128_double, sizeof(double)):\t{0}", Avx2.GatherMaskVector128(src2_128_double, p, srcQ_128_int, srcT_128_double, sizeof(double)));
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_double, p, srcQ_128_long, srcT_128_double, sizeof(double)):\t{0}", Avx2.GatherMaskVector128(src2_128_double, p, srcQ_128_long, srcT_128_double, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Double>.V2, p, Vector128s<Int32>.Serial, Vector128s<Double>.Demo, sizeof(double)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Double>.V2, p, Vector128s<Int32>.Serial, Vector128s<Double>.Demo, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Double>.V2, p, Vector128s<Int64>.Serial, Vector128s<Double>.Demo, sizeof(double)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Double>.V2, p, Vector128s<Int64>.Serial, Vector128s<Double>.Demo, sizeof(double)));
             }
 
             // GatherMaskVector128(Vector128<Int32>, Int32*, Vector128<Int32>, Vector128<Int32>, Byte)	__m128i _mm_mask_i32gather_epi32 (__m128i src, int const* base_addr, __m128i vindex, __m128i mask, const int scale)
@@ -1758,9 +1758,9 @@ namespace IntrinsicsLib {
             // 	FI
             // ENDFOR
             fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_int, p, srcQ_128_int, srcT_128_int, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(src2_128_int, p, srcQ_128_int, srcT_128_int, sizeof(int)));
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_int, p, srcQ_128_long, srcT_128_int, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(src2_128_int, p, srcQ_128_long, srcT_128_int, sizeof(int)));
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_int, p, srcQ_256_long, srcT_128_int, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(src2_128_int, p, srcQ_256_long, srcT_128_int, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Int32>.V2, p, Vector128s<Int32>.Serial, Vector128s<Int32>.Demo, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Int32>.V2, p, Vector128s<Int32>.Serial, Vector128s<Int32>.Demo, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Int32>.V2, p, Vector128s<Int64>.Serial, Vector128s<Int32>.Demo, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Int32>.V2, p, Vector128s<Int64>.Serial, Vector128s<Int32>.Demo, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Int32>.V2, p, Vector256s<Int64>.Serial, Vector128s<Int32>.Demo, sizeof(int)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Int32>.V2, p, Vector256s<Int64>.Serial, Vector128s<Int32>.Demo, sizeof(int)));
             }
 
             // GatherMaskVector128(Vector128<Int64>, Int64*, Vector128<Int32>, Vector128<Int64>, Byte)	__m128i _mm_mask_i32gather_epi64 (__m128i src, __int64 const* base_addr, __m128i vindex, __m128i mask, const int scale)
@@ -1774,9 +1774,9 @@ namespace IntrinsicsLib {
             // GatherMaskVector128(Vector128<Single>, Single*, Vector256<Int64>, Vector128<Single>, Byte)	__m128 _mm256_mask_i64gather_ps (__m128 src, float const* base_addr, __m256i vindex, __m128 mask, const int scale)
             // VGATHERQPS xmm, vm32y, xmm
             fixed (float* p = &srcArray_float[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_float, p, srcQ_128_int, srcT_128_float, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(src2_128_float, p, srcQ_128_int, srcT_128_float, sizeof(float)));
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_float, p, srcQ_128_long, srcT_128_float, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(src2_128_float, p, srcQ_128_long, srcT_128_float, sizeof(float)));
-                WriteLineFormat(tw, indent, "GatherMaskVector128(src2_128_float, p, srcQ_256_long, srcT_128_float, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(src2_128_float, p, srcQ_256_long, srcT_128_float, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Single>.V2, p, Vector128s<Int32>.Serial, Vector128s<Single>.Demo, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Single>.V2, p, Vector128s<Int32>.Serial, Vector128s<Single>.Demo, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Single>.V2, p, Vector128s<Int64>.Serial, Vector128s<Single>.Demo, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Single>.V2, p, Vector128s<Int64>.Serial, Vector128s<Single>.Demo, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherMaskVector128(Vector128s<Single>.V2, p, Vector256s<Int64>.Serial, Vector128s<Single>.Demo, sizeof(float)):\t{0}", Avx2.GatherMaskVector128(Vector128s<Single>.V2, p, Vector256s<Int64>.Serial, Vector128s<Single>.Demo, sizeof(float)));
             }
 
             // GatherMaskVector128(Vector128<UInt32>, UInt32*, Vector128<Int32>, Vector128<UInt32>, Byte)	__m128i _mm_mask_i32gather_epi32 (__m128i src, int const* base_addr, __m128i vindex, __m128i mask, const int scale)
@@ -1810,14 +1810,14 @@ namespace IntrinsicsLib {
             // GatherMaskVector256(Vector256<UInt64>, UInt64*, Vector256<Int64>, Vector256<UInt64>, Byte)	__m256i _mm256_mask_i64gather_epi64 (__m256i src, __int64 const* base_addr, __m256i vindex, __m256i mask, const int scale)
             // VPGATHERQQ ymm, vm32y, ymm
             fixed (double* p = &srcArray_double[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector256(src2_256_double, p, srcQ_128_int, srcT_256_double, sizeof(double)):\t{0}", Avx2.GatherMaskVector256(src2_256_double, p, srcQ_128_int, srcT_256_double, sizeof(double)));
-                WriteLineFormat(tw, indent, "GatherMaskVector256(src2_256_double, p, srcQ_256_long, srcT_256_double, sizeof(double)):\t{0}", Avx2.GatherMaskVector256(src2_256_double, p, srcQ_256_long, srcT_256_double, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherMaskVector256(Vector256s<Double>.V2, p, Vector128s<Int32>.Serial, Vector256s<Double>.Demo, sizeof(double)):\t{0}", Avx2.GatherMaskVector256(Vector256s<Double>.V2, p, Vector128s<Int32>.Serial, Vector256s<Double>.Demo, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherMaskVector256(Vector256s<Double>.V2, p, Vector256s<Int64>.Serial, Vector256s<Double>.Demo, sizeof(double)):\t{0}", Avx2.GatherMaskVector256(Vector256s<Double>.V2, p, Vector256s<Int64>.Serial, Vector256s<Double>.Demo, sizeof(double)));
             }
             fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector256(src2_256_int, p, srcQ_256_long, srcT_256_int, sizeof(int)):\t{0}", Avx2.GatherMaskVector256(src2_256_int, p, srcQ_256_int, srcT_256_int, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherMaskVector256(Vector256s<Int32>.V2, p, Vector256s<Int64>.Serial, Vector256s<Int32>.Demo, sizeof(int)):\t{0}", Avx2.GatherMaskVector256(Vector256s<Int32>.V2, p, Vector256s<Int32>.Serial, Vector256s<Int32>.Demo, sizeof(int)));
             }
             fixed (float* p = &srcArray_float[0]) {
-                WriteLineFormat(tw, indent, "GatherMaskVector256(src2_256_float, p, srcQ_256_long, srcT_256_float, sizeof(float)):\t{0}", Avx2.GatherMaskVector256(src2_256_float, p, srcQ_256_int, srcT_256_float, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherMaskVector256(Vector256s<Single>.V2, p, Vector256s<Int64>.Serial, Vector256s<Single>.Demo, sizeof(float)):\t{0}", Avx2.GatherMaskVector256(Vector256s<Single>.V2, p, Vector256s<Int32>.Serial, Vector256s<Single>.Demo, sizeof(float)));
             }
 
             // GatherVector128(Double*, Vector128<Int32>, Byte)	__m128d _mm_i32gather_pd (double const* base_addr, __m128i vindex, const int scale)
@@ -1851,16 +1851,16 @@ namespace IntrinsicsLib {
             // GatherVector128(UInt64*, Vector128<Int64>, Byte)	__m128i _mm_i64gather_epi64 (__int64 const* base_addr, __m128i vindex, const int scale)
             // VPGATHERQQ xmm, vm64x, xmm
             fixed (double* p = &srcArray_double[0]) {
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(double)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(double)));
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_long, sizeof(double)):\t{0}", Avx2.GatherVector128(p, srcQ_128_long, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector128s<Int32>.Serial, sizeof(double)):\t{0}", Avx2.GatherVector128(p, Vector128s<Int32>.Serial, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector128s<Int64>.Serial, sizeof(double)):\t{0}", Avx2.GatherVector128(p, Vector128s<Int64>.Serial, sizeof(double)));
             }
             fixed (float* p = &srcArray_float[0]) {
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(float)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(float)));
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, sizeof(float)):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector128s<Int32>.Serial, sizeof(float)):\t{0}", Avx2.GatherVector128(p, Vector128s<Int32>.Serial, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector256s<Int64>.Serial, sizeof(float)):\t{0}", Avx2.GatherVector128(p, Vector256s<Int64>.Serial, sizeof(float)));
             }
             fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, sizeof(int)));
-                WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, sizeof(int)):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector128s<Int32>.Serial, sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector128s<Int32>.Serial, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherVector128(p, Vector256s<Int64>.Serial, sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector256s<Int64>.Serial, sizeof(int)));
                 try {
                     WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), sizeof(int)));
                     WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), sizeof(int)):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), sizeof(int)));
@@ -1871,14 +1871,14 @@ namespace IntrinsicsLib {
             fixed (byte* p0 = &srcArray_byte[0]) {
                 int* p = (int*)p0;
                 try {
-                    WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_128_int, 1):\t{0}", Avx2.GatherVector128(p, srcQ_128_int, 1));
-                    WriteLineFormat(tw, indent, "GatherVector128(p, srcQ_256_long, 1):\t{0}", Avx2.GatherVector128(p, srcQ_256_long, 1));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector128s<Int32>.Serial, 1):\t{0}", Avx2.GatherVector128(p, Vector128s<Int32>.Serial, 1));
+                    WriteLineFormat(tw, indent, "GatherVector128(p, Vector256s<Int64>.Serial, 1):\t{0}", Avx2.GatherVector128(p, Vector256s<Int64>.Serial, 1));
                     WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1));
                     WriteLineFormat(tw, indent, "GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1):\t{0}", Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1));
                     Vector128<int> vByteMask = Vector128.Create((int)0xFF);
                     WriteLineFormat(tw, indent, "GatherVector128 - vByteMask:\t{0}", vByteMask);
-                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, srcQ_128_int, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, srcQ_128_int, 1)));
-                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, srcQ_256_long, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, srcQ_256_long, 1)));
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector128s<Int32>.Serial, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector128s<Int32>.Serial, 1)));
+                    WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector256s<Int64>.Serial, 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector256s<Int64>.Serial, 1)));
                     WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, 3), 1)));
                     WriteLineFormat(tw, indent, "Avx2.And(vByteMask, GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1)):\t{0}", Avx2.And(vByteMask, Avx2.GatherVector128(p, Vector128.Create((int)0, 1, 0, -1), 1)));
                 } catch (Exception ex) {
@@ -1905,37 +1905,37 @@ namespace IntrinsicsLib {
             // GatherVector256(UInt64*, Vector256<Int64>, Byte)	__m256i _mm256_i64gather_epi64 (__int64 const* base_addr, __m256i vindex, const int scale)
             // VPGATHERQQ ymm, vm64y, ymm
             fixed (double* p = &srcArray_double[0]) {
-                WriteLineFormat(tw, indent, "GatherVector256(p, srcQ_128_int, sizeof(double)):\t{0}", Avx2.GatherVector256(p, srcQ_128_int, sizeof(double)));
-                WriteLineFormat(tw, indent, "GatherVector256(p, srcQ_256_long, sizeof(double)):\t{0}", Avx2.GatherVector256(p, srcQ_256_long, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherVector256(p, Vector128s<Int32>.Serial, sizeof(double)):\t{0}", Avx2.GatherVector256(p, Vector128s<Int32>.Serial, sizeof(double)));
+                WriteLineFormat(tw, indent, "GatherVector256(p, Vector256s<Int64>.Serial, sizeof(double)):\t{0}", Avx2.GatherVector256(p, Vector256s<Int64>.Serial, sizeof(double)));
             }
             fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "GatherVector256(p, srcQ_256_int, sizeof(int)):\t{0}", Avx2.GatherVector256(p, srcQ_256_int, sizeof(int)));
+                WriteLineFormat(tw, indent, "GatherVector256(p, Vector256s<Int32>.Serial, sizeof(int)):\t{0}", Avx2.GatherVector256(p, Vector256s<Int32>.Serial, sizeof(int)));
             }
             fixed (float* p = &srcArray_float[0]) {
-                WriteLineFormat(tw, indent, "GatherVector256(p, srcQ_256_int, sizeof(float)):\t{0}", Avx2.GatherVector256(p, srcQ_256_int, sizeof(float)));
+                WriteLineFormat(tw, indent, "GatherVector256(p, Vector256s<Int32>.Serial, sizeof(float)):\t{0}", Avx2.GatherVector256(p, Vector256s<Int32>.Serial, sizeof(float)));
             }
 
             // HorizontalAdd(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_hadd_epi16 (__m256i a, __m256i b)
             // VPHADDW ymm, ymm, ymm/m256
             // HorizontalAdd(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_hadd_epi32 (__m256i a, __m256i b)
             // VPHADDD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "HorizontalAdd(srcT_256_short, src2_256_short):\t{0}", Avx2.HorizontalAdd(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "HorizontalAdd(srcT_256_int, src2_256_int):\t{0}", Avx2.HorizontalAdd(srcT_256_int, src2_256_int));
+            WriteLineFormat(tw, indent, "HorizontalAdd(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.HorizontalAdd(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "HorizontalAdd(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.HorizontalAdd(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
 
             // HorizontalAddSaturate(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_hadds_epi16 (__m256i a, __m256i b)
             // VPHADDSW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "HorizontalAddSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.HorizontalAddSaturate(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "HorizontalAddSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.HorizontalAddSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // HorizontalSubtract(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_hsub_epi16 (__m256i a, __m256i b)
             // VPHSUBW ymm, ymm, ymm/m256
             // HorizontalSubtract(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_hsub_epi32 (__m256i a, __m256i b)
             // VPHSUBD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "HorizontalSubtract(srcT_256_short, src2_256_short):\t{0}", Avx2.HorizontalSubtract(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "HorizontalSubtract(srcT_256_int, src2_256_int):\t{0}", Avx2.HorizontalSubtract(srcT_256_int, src2_256_int));
+            WriteLineFormat(tw, indent, "HorizontalSubtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.HorizontalSubtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "HorizontalSubtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.HorizontalSubtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
 
             // HorizontalSubtractSaturate(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_hsubs_epi16 (__m256i a, __m256i b)
             // VPHSUBSW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "HorizontalSubtractSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.HorizontalSubtractSaturate(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "HorizontalSubtractSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.HorizontalSubtractSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // InsertVector128(Vector256<Byte>, Vector128<Byte>, Byte)	__m256i _mm256_inserti128_si256 (__m256i a, __m128i b, const int imm8)
             // VINSERTI128 ymm, ymm, xmm, imm8
@@ -1955,8 +1955,8 @@ namespace IntrinsicsLib {
             // VINSERTI128 ymm, ymm, xmm, imm8
             foreach (byte idx in new byte[] { 0, 1 }) {
                 WriteLineFormat(tw, indent, "InsertVector128 - idx={0} (0x{0:X}):", idx);
-                WriteLineFormat(tw, indentNext, "InsertVector128(srcT_256_byte, src2_128_byte, idx):\t{0}", Avx2.InsertVector128(srcT_256_byte, src2_128_byte, idx));
-                WriteLineFormat(tw, indentNext, "InsertVector128(srcT_256_int, src2_128_int, idx):\t{0}", Avx2.InsertVector128(srcT_256_int, src2_128_int, idx));
+                WriteLineFormat(tw, indentNext, "InsertVector128(Vector256s<Byte>.Demo, Vector128s<Byte>.V2, idx):\t{0}", Avx2.InsertVector128(Vector256s<Byte>.Demo, Vector128s<Byte>.V2, idx));
+                WriteLineFormat(tw, indentNext, "InsertVector128(Vector256s<Int32>.Demo, Vector128s<Int32>.V2, idx):\t{0}", Avx2.InsertVector128(Vector256s<Int32>.Demo, Vector128s<Int32>.V2, idx));
             }
 
             // LoadAlignedVector256NonTemporal(Byte*)	__m256i _mm256_stream_load_si256 (__m256i const* mem_addr)
@@ -2019,12 +2019,12 @@ namespace IntrinsicsLib {
             // 	FI
             // ENDFOR
             fixed (int* p = &srcArray_int[0]) {
-                WriteLineFormat(tw, indent, "MaskLoad(p, srcT_128_int):\t{0}", Avx2.MaskLoad(p, srcT_128_int));
-                WriteLineFormat(tw, indent, "MaskLoad(p, srcT_256_int):\t{0}", Avx2.MaskLoad(p, srcT_256_int));
+                WriteLineFormat(tw, indent, "MaskLoad(p, Vector128s<Int32>.Demo):\t{0}", Avx2.MaskLoad(p, Vector128s<Int32>.Demo));
+                WriteLineFormat(tw, indent, "MaskLoad(p, Vector256s<Int32>.Demo):\t{0}", Avx2.MaskLoad(p, Vector256s<Int32>.Demo));
             }
             fixed (long* p = &srcArray_long[0]) {
-                WriteLineFormat(tw, indent, "MaskLoad(p, srcT_128_long):\t{0}", Avx2.MaskLoad(p, srcT_128_long));
-                WriteLineFormat(tw, indent, "MaskLoad(p, srcT_256_long):\t{0}", Avx2.MaskLoad(p, srcT_256_long));
+                WriteLineFormat(tw, indent, "MaskLoad(p, Vector128s<Int64>.Demo):\t{0}", Avx2.MaskLoad(p, Vector128s<Int64>.Demo));
+                WriteLineFormat(tw, indent, "MaskLoad(p, Vector256s<Int64>.Demo):\t{0}", Avx2.MaskLoad(p, Vector256s<Int64>.Demo));
             }
 
             // MaskStore(Int32*, Vector128<Int32>, Vector128<Int32>)	void _mm_maskstore_epi32 (int* mem_addr, __m128i mask, __m128i a)
@@ -2062,18 +2062,18 @@ namespace IntrinsicsLib {
             // 		MEM[mem_addr+i+63:mem_addr+i] := a[i+63:i]
             // 	FI
             // ENDFOR
-            Vector128<int> srcS_128_int = src2_128_int;
-            Avx2.MaskStore((int*)&srcS_128_int, srcT_128_int, src1_128_int);
-            WriteLineFormat(tw, indent, "MaskStore((int*)&srcS_128_int, srcT_128_int, src1_128_int):\t{0}", srcS_128_int);
-            Vector256<int> srcS_256_int = src2_256_int;
-            Avx2.MaskStore((int*)&srcS_256_int, srcT_256_int, src1_256_int);
-            WriteLineFormat(tw, indent, "MaskStore((int*)&srcS_256_int, srcT_256_int, src1_256_int):\t{0}", srcS_256_int);
-            Vector128<ulong> srcS_128_ulong = src2_128_ulong;
-            Avx2.MaskStore((ulong*)&srcS_128_ulong, srcT_128_ulong, src1_128_ulong);
-            WriteLineFormat(tw, indent, "MaskStore((ulong*)&srcS_128_ulong, srcT_128_ulong, src1_128_ulong):\t{0}", srcS_128_ulong);
-            Vector256<ulong> srcS_256_ulong = src2_256_ulong;
-            Avx2.MaskStore((ulong*)&srcS_256_ulong, srcT_256_ulong, src1_256_ulong);
-            WriteLineFormat(tw, indent, "MaskStore((ulong*)&srcS_256_ulong, srcT_256_ulong, src1_256_ulong):\t{0}", srcS_256_ulong);
+            Vector128<int> srcS_128_int = Vector128s<Int32>.V2;
+            Avx2.MaskStore((int*)&srcS_128_int, Vector128s<Int32>.Demo, Vector128s<Int32>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((int*)&srcS_128_int, Vector128s<Int32>.Demo, Vector128s<Int32>.V1):\t{0}", srcS_128_int);
+            Vector256<int> srcS_256_int = Vector256s<Int32>.V2;
+            Avx2.MaskStore((int*)&srcS_256_int, Vector256s<Int32>.Demo, Vector256s<Int32>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((int*)&srcS_256_int, Vector256s<Int32>.Demo, Vector256s<Int32>.V1):\t{0}", srcS_256_int);
+            Vector128<ulong> srcS_128_ulong = Vector128s<UInt64>.V2;
+            Avx2.MaskStore((ulong*)&srcS_128_ulong, Vector128s<UInt64>.Demo, Vector128s<UInt64>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((ulong*)&srcS_128_ulong, Vector128s<UInt64>.Demo, Vector128s<UInt64>.V1):\t{0}", srcS_128_ulong);
+            Vector256<ulong> srcS_256_ulong = Vector256s<UInt64>.V2;
+            Avx2.MaskStore((ulong*)&srcS_256_ulong, Vector256s<UInt64>.Demo, Vector256s<UInt64>.V1);
+            WriteLineFormat(tw, indent, "MaskStore((ulong*)&srcS_256_ulong, Vector256s<UInt64>.Demo, Vector256s<UInt64>.V1):\t{0}", srcS_256_ulong);
 
             // Max(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_max_epu8 (__m256i a, __m256i b)
             // VPMAXUB ymm, ymm, ymm/m256
@@ -2087,14 +2087,14 @@ namespace IntrinsicsLib {
             // VPMAXUW ymm, ymm, ymm/m256
             // Max(Vector256<UInt32>, Vector256<UInt32>)	__m256i _mm256_max_epu32 (__m256i a, __m256i b)
             // VPMAXUD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Max(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Max(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Max(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Max(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Max(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Max(srcT_256_uint, src2_256_uint));
-            //WriteLineFormat(tw, indent, "Max(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Max(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Max(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Max(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Max(srcT_256_short, src2_256_short):\t{0}", Avx2.Max(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Max(srcT_256_int, src2_256_int):\t{0}", Avx2.Max(srcT_256_int, src2_256_int));
-            //WriteLineFormat(tw, indent, "Max(srcT_256_long, src2_256_long):\t{0}", Avx2.Max(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Max(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Max(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Max(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Max(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            //WriteLineFormat(tw, indent, "Max(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Max(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Max(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Max(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Max(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Max(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            //WriteLineFormat(tw, indent, "Max(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Max(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // Min(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_min_epu8 (__m256i a, __m256i b)
             // VPMINUB ymm, ymm, ymm/m256
@@ -2108,14 +2108,14 @@ namespace IntrinsicsLib {
             // VPMINUW ymm, ymm, ymm/m256
             // Min(Vector256<UInt32>, Vector256<UInt32>)	__m256i _mm256_min_epu32 (__m256i a, __m256i b)
             // VPMINUD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Min(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Min(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Min(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Min(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Min(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Min(srcT_256_uint, src2_256_uint));
-            //WriteLineFormat(tw, indent, "Min(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Min(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Min(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Min(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Min(srcT_256_short, src2_256_short):\t{0}", Avx2.Min(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Min(srcT_256_int, src2_256_int):\t{0}", Avx2.Min(srcT_256_int, src2_256_int));
-            //WriteLineFormat(tw, indent, "Min(srcT_256_long, src2_256_long):\t{0}", Avx2.Min(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Min(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Min(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Min(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Min(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            //WriteLineFormat(tw, indent, "Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Min(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Min(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Min(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Min(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            //WriteLineFormat(tw, indent, "Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // MoveMask(Vector256<Byte>)	int _mm256_movemask_epi8 (__m256i a)
             // VPMOVMSKB reg, ymm
@@ -2126,8 +2126,8 @@ namespace IntrinsicsLib {
             // 	i := j*8
             // 	dst[j] := a[i+7]
             // ENDFOR
-            WriteLineFormat(tw, indent, "MoveMask(srcT_256_byte):\t{0}\t# 0x{0:X8}", Avx2.MoveMask(srcT_256_byte));
-            WriteLineFormat(tw, indent, "MoveMask(srcT_256_sbyte):\t{0}\t# 0x{0:X8}", Avx2.MoveMask(srcT_256_sbyte));
+            WriteLineFormat(tw, indent, "MoveMask(Vector256s<Byte>.Demo):\t{0}\t# 0x{0:X8}", Avx2.MoveMask(Vector256s<Byte>.Demo));
+            WriteLineFormat(tw, indent, "MoveMask(Vector256s<SByte>.Demo):\t{0}\t# 0x{0:X8}", Avx2.MoveMask(Vector256s<SByte>.Demo));
 
             // MultipleSumAbsoluteDifferences(Vector256<Byte>, Vector256<Byte>, Byte)	__m256i _mm256_mpsadbw_epu8 (__m256i a, __m256i b, const int imm8)
             // VMPSADBW ymm, ymm, ymm/m256, imm8
@@ -2149,7 +2149,7 @@ namespace IntrinsicsLib {
             for (byte i = 0; i < 8; ++i) {
                 byte mask = (byte)((i << 3) | i);
                 string key = string.Format("0x{0:X2}", mask);
-                WriteLineFormat(tw, indent, "MultipleSumAbsoluteDifferences(srcT_256_byte, srcQ_256_byte, " + key + "):\t{0}", Avx2.MultipleSumAbsoluteDifferences(srcT_256_byte, srcQ_256_byte, mask));
+                WriteLineFormat(tw, indent, "MultipleSumAbsoluteDifferences(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial, " + key + "):\t{0}", Avx2.MultipleSumAbsoluteDifferences(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial, mask));
             }
 
             // Multiply(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_mul_epi32 (__m256i a, __m256i b)
@@ -2161,8 +2161,8 @@ namespace IntrinsicsLib {
             // 	i := j*64
             // 	dst[i+63:i] := a[i+31:i] * b[i+31:i]
             // ENDFOR
-            WriteLineFormat(tw, indent, "Multiply(srcT_256_int, src2_256_int):\t{0}", Avx2.Multiply(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "Multiply(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Multiply(srcT_256_uint, src2_256_uint));
+            WriteLineFormat(tw, indent, "Multiply(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Multiply(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "Multiply(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Multiply(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
 
             // MultiplyAddAdjacent(Vector256<Byte>, Vector256<SByte>)	__m256i _mm256_maddubs_epi16 (__m256i a, __m256i b)
             // VPMADDUBSW ymm, ymm, ymm/m256
@@ -2178,11 +2178,11 @@ namespace IntrinsicsLib {
             // 	i := j*32
             // 	dst[i+31:i] := SignExtend32(a[i+31:i+16]*b[i+31:i+16]) + SignExtend32(a[i+15:i]*b[i+15:i])
             // ENDFOR
-            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(srcT_256_byte, src2_256_sbyte):\t{0}", Avx2.MultiplyAddAdjacent(srcT_256_byte, src2_256_sbyte));
-            //WriteLineFormat(tw, indent, "MultiplyAddAdjacent(srcT_256_byte, src2_256_byte.AsSByte()):\t{0}", Avx2.MultiplyAddAdjacent(srcT_256_byte, src2_256_byte.AsSByte()));
-            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(src2_256_sbyte, srcT_256_sbyte):\t{0}", Avx2.MultiplyAddAdjacent(src2_256_byte, srcT_256_sbyte));
-            //WriteLineFormat(tw, indent, "MultiplyAddAdjacent(src2_256_sbyte, srcT_256_byte.AsSByte()):\t{0}", Avx2.MultiplyAddAdjacent(src2_256_byte, srcT_256_byte.AsSByte()));
-            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(srcT_256_short, src2_256_short):\t{0}", Avx2.MultiplyAddAdjacent(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(Vector256s<Byte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.MultiplyAddAdjacent(Vector256s<Byte>.Demo, Vector256s<SByte>.V2));
+            //WriteLineFormat(tw, indent, "MultiplyAddAdjacent(Vector256s<Byte>.Demo, Vector256s<Byte>.V2.AsSByte()):\t{0}", Avx2.MultiplyAddAdjacent(Vector256s<Byte>.Demo, Vector256s<Byte>.V2.AsSByte()));
+            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(Vector256s<SByte>.V2, Vector256s<SByte>.Demo):\t{0}", Avx2.MultiplyAddAdjacent(Vector256s<Byte>.V2, Vector256s<SByte>.Demo));
+            //WriteLineFormat(tw, indent, "MultiplyAddAdjacent(Vector256s<SByte>.V2, Vector256s<Byte>.Demo.AsSByte()):\t{0}", Avx2.MultiplyAddAdjacent(Vector256s<Byte>.V2, Vector256s<Byte>.Demo.AsSByte()));
+            WriteLineFormat(tw, indent, "MultiplyAddAdjacent(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.MultiplyAddAdjacent(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // MultiplyHigh(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_mulhi_epi16 (__m256i a, __m256i b)
             // VPMULHW ymm, ymm, ymm/m256
@@ -2200,8 +2200,8 @@ namespace IntrinsicsLib {
             // 	tmp[31:0] := a[i+15:i] * b[i+15:i]
             // 	dst[i+15:i] := tmp[31:16]
             // ENDFOR
-            WriteLineFormat(tw, indent, "MultiplyHigh(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.MultiplyHigh(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "MultiplyHigh(srcT_256_short, src2_256_short):\t{0}", Avx2.MultiplyHigh(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "MultiplyHigh(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.MultiplyHigh(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "MultiplyHigh(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.MultiplyHigh(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // MultiplyHighRoundScale(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_mulhrs_epi16 (__m256i a, __m256i b)
             // VPMULHRSW ymm, ymm, ymm/m256
@@ -2211,7 +2211,7 @@ namespace IntrinsicsLib {
             // 	tmp[31:0] := ((SignExtend32(a[i+15:i]) * SignExtend32(b[i+15:i])) >> 14) + 1
             // 	dst[i+15:i] := tmp[16:1]
             // ENDFOR
-            WriteLineFormat(tw, indent, "MultiplyHighRoundScale(srcT_256_short, src2_256_short):\t{0}", Avx2.MultiplyHighRoundScale(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "MultiplyHighRoundScale(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.MultiplyHighRoundScale(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // MultiplyLow(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_mullo_epi16 (__m256i a, __m256i b)
             // VPMULLW ymm, ymm, ymm/m256
@@ -2227,10 +2227,10 @@ namespace IntrinsicsLib {
             // VPMULLW ymm, ymm, ymm/m256
             // MultiplyLow(Vector256<UInt32>, Vector256<UInt32>)	__m256i _mm256_mullo_epi32 (__m256i a, __m256i b)
             // VPMULLD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "MultiplyLow(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.MultiplyLow(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "MultiplyLow(srcT_256_short, src2_256_short):\t{0}", Avx2.MultiplyLow(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "MultiplyLow(srcT_256_uint, src2_256_uint):\t{0}", Avx2.MultiplyLow(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "MultiplyLow(srcT_256_int, src2_256_int):\t{0}", Avx2.MultiplyLow(srcT_256_int, src2_256_int));
+            WriteLineFormat(tw, indent, "MultiplyLow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.MultiplyLow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "MultiplyLow(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.MultiplyLow(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "MultiplyLow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.MultiplyLow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "MultiplyLow(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.MultiplyLow(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
 
             // Or(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_or_si256 (__m256i a, __m256i b)
             // VPOR ymm, ymm, ymm/m256
@@ -2248,28 +2248,28 @@ namespace IntrinsicsLib {
             // VPOR ymm, ymm, ymm/m256
             // Or(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_or_si256 (__m256i a, __m256i b)
             // VPOR ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Or(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Or(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Or(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Or(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Or(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Or(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "Or(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Or(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Or(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Or(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Or(srcT_256_short, src2_256_short):\t{0}", Avx2.Or(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Or(srcT_256_int, src2_256_int):\t{0}", Avx2.Or(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "Or(srcT_256_long, src2_256_long):\t{0}", Avx2.Or(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Or(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Or(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Or(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Or(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Or(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Or(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Or(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "Or(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Or(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // PackSignedSaturate(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_packs_epi16 (__m256i a, __m256i b)
             // VPACKSSWB ymm, ymm, ymm/m256
             // PackSignedSaturate(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_packs_epi32 (__m256i a, __m256i b)
             // VPACKSSDW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "PackSignedSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.PackSignedSaturate(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "PackSignedSaturate(srcT_256_int, src2_256_int):\t{0}", Avx2.PackSignedSaturate(srcT_256_int, src2_256_int));
+            WriteLineFormat(tw, indent, "PackSignedSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.PackSignedSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "PackSignedSaturate(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.PackSignedSaturate(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
 
             // PackUnsignedSaturate(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_packus_epi16 (__m256i a, __m256i b)
             // VPACKUSWB ymm, ymm, ymm/m256
             // PackUnsignedSaturate(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_packus_epi32 (__m256i a, __m256i b)
             // VPACKUSDW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "PackUnsignedSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.PackUnsignedSaturate(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "PackUnsignedSaturate(srcT_256_int, src2_256_int):\t{0}", Avx2.PackUnsignedSaturate(srcT_256_int, src2_256_int));
+            WriteLineFormat(tw, indent, "PackUnsignedSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.PackUnsignedSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "PackUnsignedSaturate(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.PackUnsignedSaturate(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
 
             // Permute2x128(Vector256<Byte>, Vector256<Byte>, Byte)	__m256i _mm256_permute2x128_si256 (__m256i a, __m256i b, const int imm8)
             // VPERM2I128 ymm, ymm, ymm/m256, imm8
@@ -2304,8 +2304,8 @@ namespace IntrinsicsLib {
             // VPERM2I128 ymm, ymm, ymm/m256, imm8
             foreach (byte control in new byte[] { 0, 1, 2, 3, 0x23, 0xA3, 0x10 }) {
                 WriteLineFormat(tw, indent, "Permute2x128 - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "Permute2x128(srcT_256_byte, src2_256_byte, control):\t{0}", Avx2.Permute2x128(srcT_256_byte, src2_256_byte, control));
-                WriteLineFormat(tw, indentNext, "Permute2x128(srcT_256_int, src2_256_int, control):\t{0}", Avx2.Permute2x128(srcT_256_int, src2_256_int, control));
+                WriteLineFormat(tw, indentNext, "Permute2x128(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, control):\t{0}", Avx2.Permute2x128(Vector256s<Byte>.Demo, Vector256s<Byte>.V2, control));
+                WriteLineFormat(tw, indentNext, "Permute2x128(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control):\t{0}", Avx2.Permute2x128(Vector256s<Int32>.Demo, Vector256s<Int32>.V2, control));
             }
 
             // Permute4x64(Vector256<Double>, Byte)	__m256d _mm256_permute4x64_pd (__m256d a, const int imm8)
@@ -2344,8 +2344,8 @@ namespace IntrinsicsLib {
             // dst[255:192] := SELECT4(a[255:0], imm8[7:6])
             foreach (byte control in new byte[] { 0, 1, 2, 3, 0x23, 0xA3, 0x10 }) {
                 WriteLineFormat(tw, indent, "Permute4x64 - control={0} (0x{0:X}):", control);
-                WriteLineFormat(tw, indentNext, "Permute4x64(srcT_256_double, control):\t{0}", Avx2.Permute4x64(srcT_256_double, control));
-                WriteLineFormat(tw, indentNext, "Permute4x64(srcT_256_long, control):\t{0}", Avx2.Permute4x64(srcT_256_long, control));
+                WriteLineFormat(tw, indentNext, "Permute4x64(Vector256s<Double>.Demo, control):\t{0}", Avx2.Permute4x64(Vector256s<Double>.Demo, control));
+                WriteLineFormat(tw, indentNext, "Permute4x64(Vector256s<Int64>.Demo, control):\t{0}", Avx2.Permute4x64(Vector256s<Int64>.Demo, control));
             }
 
             // PermuteVar8x32(Vector256<Int32>, Vector256<Int32>)	__m256i _mm256_permutevar8x32_epi32 (__m256i a, __m256i idx)
@@ -2360,12 +2360,12 @@ namespace IntrinsicsLib {
             // VPERMPS ymm, ymm/m256, ymm
             // PermuteVar8x32(Vector256<UInt32>, Vector256<UInt32>)	__m256i _mm256_permutevar8x32_epi32 (__m256i a, __m256i idx)
             // VPERMD ymm, ymm/m256, ymm
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_float, srcQ_256_int):\t{0}", Avx2.PermuteVar8x32(srcT_256_float, srcQ_256_int));
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_int, srcQ_256_int):\t{0}", Avx2.PermuteVar8x32(srcT_256_int, srcQ_256_int));
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_uint, srcQ_256_uint):\t{0}", Avx2.PermuteVar8x32(srcT_256_uint, srcQ_256_uint));
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_float, src1_256_int):\t{0}", Avx2.PermuteVar8x32(srcT_256_float, src1_256_int));
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_int, src1_256_int):\t{0}", Avx2.PermuteVar8x32(srcT_256_int, src1_256_int));
-            WriteLineFormat(tw, indent, "PermuteVar8x32(srcT_256_uint, src1_256_uint):\t{0}", Avx2.PermuteVar8x32(srcT_256_uint, src1_256_uint));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.Serial));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.Serial));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.V1));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.V1));
+            WriteLineFormat(tw, indent, "PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V1));
 
             // ShiftLeftLogical(Vector256<Int16>, Byte)	__m256i _mm256_slli_epi16 (__m256i a, int imm8)
             // VPSLLW ymm, ymm, imm8
@@ -2411,14 +2411,14 @@ namespace IntrinsicsLib {
             // VPSLLQ ymm, ymm, xmm/m128
             foreach (byte count in new byte[] { 1 }) {
                 WriteLineFormat(tw, indent, "ShiftLeftLogical - count={0} (0x{0:X}):", count);
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ushort, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ushort, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<UInt16>.Demo, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftLeftLogical(Vector256s<UInt16>.Demo, Vector128.CreateScalar((ushort)count)));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<UInt16>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<UInt16>.Demo, count));
                 //Debugger.Break();
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_uint, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_uint, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_ulong, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_ulong, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_short, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_short, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_int, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_int, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(srcT_256_long, count):\t{0}", Avx2.ShiftLeftLogical(srcT_256_long, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<UInt32>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<UInt32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<UInt64>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<UInt64>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<Int16>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<Int16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<Int32>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<Int32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical(Vector256s<Int64>.Demo, count):\t{0}", Avx2.ShiftLeftLogical(Vector256s<Int64>.Demo, count));
             }
 
             // ShiftLeftLogical128BitLane(Vector256<Byte>, Byte)	__m256i _mm256_bslli_epi128 (__m256i a, const int imm8)
@@ -2446,14 +2446,14 @@ namespace IntrinsicsLib {
             // VPSLLDQ ymm, ymm, imm8
             foreach (byte count in new byte[] { 1, 15 }) {
                 WriteLineFormat(tw, indent, "ShiftLeftLogical128BitLane - count={0} (0x{0:X}):", count);
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_byte, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_byte, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_ushort, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_ushort, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_uint, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_uint, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_ulong, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_ulong, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_sbyte, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_sbyte, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_short, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_short, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_int, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_int, count));
-                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(srcT_256_long, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(srcT_256_long, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<Byte>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<Byte>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<UInt16>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<UInt16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<UInt32>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<UInt32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<UInt64>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<UInt64>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<SByte>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<SByte>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<Int16>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<Int16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<Int32>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<Int32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftLeftLogical128BitLane(Vector256s<Int64>.Demo, count):\t{0}", Avx2.ShiftLeftLogical128BitLane(Vector256s<Int64>.Demo, count));
             }
 
             // ShiftLeftLogicalVariable(Vector128<Int32>, Vector128<UInt32>)	__m128i _mm_sllv_epi32 (__m128i a, __m128i count)
@@ -2483,8 +2483,8 @@ namespace IntrinsicsLib {
             // 		dst[i+63:i] := 0
             // 	FI
             // ENDFOR
-            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(src2_128_int, srcQ_128_uint):\t{0}", Avx2.ShiftLeftLogicalVariable(src2_128_int, srcQ_128_uint));
-            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(src2_128_long, srcQ_128_ulong):\t{0}", Avx2.ShiftLeftLogicalVariable(src2_128_long, srcQ_128_ulong));
+            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial):\t{0}", Avx2.ShiftLeftLogicalVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(Vector128s<Int64>.V2, Vector128s<UInt64>.Serial):\t{0}", Avx2.ShiftLeftLogicalVariable(Vector128s<Int64>.V2, Vector128s<UInt64>.Serial));
 
             // ShiftLeftLogicalVariable(Vector256<Int32>, Vector256<UInt32>)	__m256i _mm256_sllv_epi32 (__m256i a, __m256i count)
             // VPSLLVD ymm, ymm, ymm/m256
@@ -2503,8 +2503,8 @@ namespace IntrinsicsLib {
             // 		dst[i+63:i] := 0
             // 	FI
             // ENDFOR
-            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(src2_256_int, srcQ_256_uint):\t{0}", Avx2.ShiftLeftLogicalVariable(src2_256_int, srcQ_256_uint));
-            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(src2_256_long, srcQ_256_ulong):\t{0}", Avx2.ShiftLeftLogicalVariable(src2_256_long, srcQ_256_ulong));
+            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial):\t{0}", Avx2.ShiftLeftLogicalVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "ShiftLeftLogicalVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial):\t{0}", Avx2.ShiftLeftLogicalVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial));
 
             // ShiftRightArithmetic(Vector256<Int16>, Byte)	__m256i _mm256_srai_epi16 (__m256i a, int imm8)
             // VPSRAW ymm, ymm, imm8
@@ -2535,10 +2535,10 @@ namespace IntrinsicsLib {
             // VPSRAD ymm, ymm, xmm/m128
             foreach (byte count in new byte[] { 1 }) {
                 WriteLineFormat(tw, indent, "ShiftRightArithmetic - count={0} (0x{0:X}):", count);
-                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(srcT_256_ushort, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftRightArithmetic(srcT_256_short, Vector128.CreateScalar((short)count)));
-                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(srcT_256_short, count):\t{0}", Avx2.ShiftRightArithmetic(srcT_256_short, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(srcT_256_int, count):\t{0}", Avx2.ShiftRightArithmetic(srcT_256_int, count));
-                //WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(srcT_256_long, count):\t{0}", Avx2.ShiftRightArithmetic(srcT_256_long, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(Vector256s<UInt16>.Demo, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftRightArithmetic(Vector256s<Int16>.Demo, Vector128.CreateScalar((short)count)));
+                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(Vector256s<Int16>.Demo, count):\t{0}", Avx2.ShiftRightArithmetic(Vector256s<Int16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(Vector256s<Int32>.Demo, count):\t{0}", Avx2.ShiftRightArithmetic(Vector256s<Int32>.Demo, count));
+                //WriteLineFormat(tw, indentNext, "ShiftRightArithmetic(Vector256s<Int64>.Demo, count):\t{0}", Avx2.ShiftRightArithmetic(Vector256s<Int64>.Demo, count));
             }
 
             // ShiftRightArithmeticVariable(Vector128<Int32>, Vector128<UInt32>)	__m128i _mm_srav_epi32 (__m128i a, __m128i count)
@@ -2555,10 +2555,10 @@ namespace IntrinsicsLib {
             // dst[MAX:128] := 0
             // ShiftRightArithmeticVariable(Vector256<Int32>, Vector256<UInt32>)	__m256i _mm256_srav_epi32 (__m256i a, __m256i count)
             // VPSRAVD ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(src2_128_int, srcQ_128_uint):\t{0}", Avx2.ShiftRightArithmeticVariable(src2_128_int, srcQ_128_uint));
-            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(src2_256_int, srcQ_256_uint):\t{0}", Avx2.ShiftRightArithmeticVariable(src2_256_int, srcQ_256_uint));
-            //WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(src2_256_long, srcQ_256_ulong):\t{0}", Avx2.ShiftRightArithmeticVariable(src2_256_long, srcQ_256_ulong));
-            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(srcT_256_int, srcQ_256_uint):\t{0}", Avx2.ShiftRightArithmeticVariable(srcT_256_int, srcQ_256_uint));
+            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial):\t{0}", Avx2.ShiftRightArithmeticVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial):\t{0}", Avx2.ShiftRightArithmeticVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial));
+            //WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial):\t{0}", Avx2.ShiftRightArithmeticVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial));
+            WriteLineFormat(tw, indent, "ShiftRightArithmeticVariable(Vector256s<Int32>.Demo, Vector256s<UInt32>.Serial):\t{0}", Avx2.ShiftRightArithmeticVariable(Vector256s<Int32>.Demo, Vector256s<UInt32>.Serial));
 
             // ShiftRightLogical(Vector256<Int16>, Byte)	__m256i _mm256_srli_epi16 (__m256i a, int imm8)
             // VPSRLW ymm, ymm, imm8
@@ -2586,13 +2586,13 @@ namespace IntrinsicsLib {
             // VPSRLQ ymm, ymm, xmm/m128
             foreach (byte count in new byte[] { 1 }) {
                 WriteLineFormat(tw, indent, "ShiftRightLogical - count={0} (0x{0:X}):", count);
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftRightLogical(srcT_256_ushort, Vector128.CreateScalar((ushort)count)));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_ushort, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_ushort, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_uint, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_uint, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_ulong, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_ulong, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_short, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_short, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_int, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_int, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical(srcT_256_long, count):\t{0}", Avx2.ShiftRightLogical(srcT_256_long, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<UInt16>.Demo, Vector128.CreateScalar((ushort)count)):\t{0}", Avx2.ShiftRightLogical(Vector256s<UInt16>.Demo, Vector128.CreateScalar((ushort)count)));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<UInt16>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<UInt16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<UInt32>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<UInt32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<UInt64>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<UInt64>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<Int16>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<Int16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<Int32>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<Int32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical(Vector256s<Int64>.Demo, count):\t{0}", Avx2.ShiftRightLogical(Vector256s<Int64>.Demo, count));
             }
 
             // ShiftRightLogical128BitLane(Vector256<Byte>, Byte)	__m256i _mm256_bsrli_epi128 (__m256i a, const int imm8)
@@ -2620,14 +2620,14 @@ namespace IntrinsicsLib {
             // VPSRLDQ ymm, ymm, imm8
             foreach (byte count in new byte[] { 1, 15 }) {
                 WriteLineFormat(tw, indent, "ShiftRightLogical128BitLane - count={0} (0x{0:X}):", count);
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_byte, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_byte, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_ushort, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_ushort, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_uint, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_uint, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_ulong, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_ulong, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_sbyte, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_sbyte, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_short, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_short, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_int, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_int, count));
-                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(srcT_256_long, count):\t{0}", Avx2.ShiftRightLogical128BitLane(srcT_256_long, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<Byte>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<Byte>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<UInt16>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<UInt16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<UInt32>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<UInt32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<UInt64>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<UInt64>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<SByte>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<SByte>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<Int16>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<Int16>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<Int32>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<Int32>.Demo, count));
+                WriteLineFormat(tw, indentNext, "ShiftRightLogical128BitLane(Vector256s<Int64>.Demo, count):\t{0}", Avx2.ShiftRightLogical128BitLane(Vector256s<Int64>.Demo, count));
             }
 
             // ShiftRightLogicalVariable(Vector128<Int32>, Vector128<UInt32>)	__m128i _mm_srlv_epi32 (__m128i a, __m128i count)
@@ -2646,10 +2646,10 @@ namespace IntrinsicsLib {
             // VPSRLVD ymm, ymm, ymm/m256
             // ShiftRightLogicalVariable(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_srlv_epi64 (__m256i a, __m256i count)
             // VPSRLVQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(src2_128_int, srcQ_128_uint):\t{0}", Avx2.ShiftRightLogicalVariable(src2_128_int, srcQ_128_uint));
-            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(src2_256_int, srcQ_256_uint):\t{0}", Avx2.ShiftRightLogicalVariable(src2_256_int, srcQ_256_uint));
-            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(src2_256_long, srcQ_256_ulong):\t{0}", Avx2.ShiftRightLogicalVariable(src2_256_long, srcQ_256_ulong));
-            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(srcT_256_int, srcQ_256_uint):\t{0}", Avx2.ShiftRightLogicalVariable(srcT_256_int, srcQ_256_uint));
+            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial):\t{0}", Avx2.ShiftRightLogicalVariable(Vector128s<Int32>.V2, Vector128s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial):\t{0}", Avx2.ShiftRightLogicalVariable(Vector256s<Int32>.V2, Vector256s<UInt32>.Serial));
+            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial):\t{0}", Avx2.ShiftRightLogicalVariable(Vector256s<Int64>.V2, Vector256s<UInt64>.Serial));
+            WriteLineFormat(tw, indent, "ShiftRightLogicalVariable(Vector256s<Int32>.Demo, Vector256s<UInt32>.Serial):\t{0}", Avx2.ShiftRightLogicalVariable(Vector256s<Int32>.Demo, Vector256s<UInt32>.Serial));
 
             // Shuffle(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_shuffle_epi8 (__m256i a, __m256i b)
             // VPSHUFB ymm, ymm, ymm/m256
@@ -2693,11 +2693,11 @@ namespace IntrinsicsLib {
             // VPSHUFB ymm, ymm, ymm/m256
             // Shuffle(Vector256<UInt32>, Byte)	__m256i _mm256_shuffle_epi32 (__m256i a, const int imm8)
             // VPSHUFD ymm, ymm/m256, imm8
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_byte, srcQ_256_byte):\t{0}", Avx2.Shuffle(srcT_256_byte, srcQ_256_byte));
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_sbyte, srcQ_256_sbyte):\t{0}", Avx2.Shuffle(srcT_256_sbyte, srcQ_256_sbyte));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial):\t{0}", Avx2.Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.Serial):\t{0}", Avx2.Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.Serial));
             // Shuffle int - control: Reverse order based on 128 bits.
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_int, 0b0001_1011):\t{0}", Avx2.Shuffle(srcT_256_int, 0b0001_1011));
-            WriteLineFormat(tw, indent, "Shuffle(srcT_256_uint, 0b0001_1011):\t{0}", Avx2.Shuffle(srcT_256_uint, 0b0001_1011));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<Int32>.Demo, 0b0001_1011):\t{0}", Avx2.Shuffle(Vector256s<Int32>.Demo, 0b0001_1011));
+            WriteLineFormat(tw, indent, "Shuffle(Vector256s<UInt32>.Demo, 0b0001_1011):\t{0}", Avx2.Shuffle(Vector256s<UInt32>.Demo, 0b0001_1011));
             //Debugger.Break();
 
             // ShuffleHigh(Vector256<Int16>, Byte)	__m256i _mm256_shufflehi_epi16 (__m256i a, const int imm8)
@@ -2715,7 +2715,7 @@ namespace IntrinsicsLib {
             // dst[223:208] := (a >> (imm8[3:2] * 16))[207:192]
             // dst[239:224] := (a >> (imm8[5:4] * 16))[207:192]
             // dst[255:240] := (a >> (imm8[7:6] * 16))[207:192]
-            WriteLineFormat(tw, indent, "ShuffleHigh(srcT_256_short, 0b0001_1011):\t{0}", Avx2.ShuffleHigh(srcT_256_short, 0b0001_1011));
+            WriteLineFormat(tw, indent, "ShuffleHigh(Vector256s<Int16>.Demo, 0b0001_1011):\t{0}", Avx2.ShuffleHigh(Vector256s<Int16>.Demo, 0b0001_1011));
 
             // ShuffleLow(Vector256<Int16>, Byte)	__m256i _mm256_shufflelo_epi16 (__m256i a, const int imm8)
             // VPSHUFLW ymm, ymm/m256, imm8
@@ -2732,7 +2732,7 @@ namespace IntrinsicsLib {
             // dst[175:160] := (a >> (imm8[5:4] * 16))[143:128]
             // dst[191:176] := (a >> (imm8[7:6] * 16))[143:128]
             // dst[255:192] := a[255:192]
-            WriteLineFormat(tw, indent, "ShuffleLow(srcT_256_short, 0b0001_1011):\t{0}", Avx2.ShuffleLow(srcT_256_short, 0b0001_1011));
+            WriteLineFormat(tw, indent, "ShuffleLow(Vector256s<Int16>.Demo, 0b0001_1011):\t{0}", Avx2.ShuffleLow(Vector256s<Int16>.Demo, 0b0001_1011));
 
             // Sign(Vector256<Int16>, Vector256<Int16>)	__m256i _mm256_sign_epi16 (__m256i a, __m256i b)
             // VPSIGNW ymm, ymm, ymm/m256
@@ -2751,9 +2751,9 @@ namespace IntrinsicsLib {
             // VPSIGND ymm, ymm, ymm/m256
             // Sign(Vector256<SByte>, Vector256<SByte>)	__m256i _mm256_sign_epi8 (__m256i a, __m256i b)
             // VPSIGNB ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Sign(srcQ_256_sbyte, srcT_256_sbyte):\t{0}", Avx2.Sign(srcQ_256_sbyte, srcT_256_sbyte));
-            WriteLineFormat(tw, indent, "Sign(srcQ_256_short, srcT_256_short):\t{0}", Avx2.Sign(srcQ_256_short, srcT_256_short));
-            WriteLineFormat(tw, indent, "Sign(srcQ_256_int, srcT_256_int):\t{0}", Avx2.Sign(srcQ_256_int, srcT_256_int));
+            WriteLineFormat(tw, indent, "Sign(Vector256s<SByte>.Serial, Vector256s<SByte>.Demo):\t{0}", Avx2.Sign(Vector256s<SByte>.Serial, Vector256s<SByte>.Demo));
+            WriteLineFormat(tw, indent, "Sign(Vector256s<Int16>.Serial, Vector256s<Int16>.Demo):\t{0}", Avx2.Sign(Vector256s<Int16>.Serial, Vector256s<Int16>.Demo));
+            WriteLineFormat(tw, indent, "Sign(Vector256s<Int32>.Serial, Vector256s<Int32>.Demo):\t{0}", Avx2.Sign(Vector256s<Int32>.Serial, Vector256s<Int32>.Demo));
 
             // Subtract(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_sub_epi8 (__m256i a, __m256i b)
             // VPSUBB ymm, ymm, ymm/m256
@@ -2771,14 +2771,14 @@ namespace IntrinsicsLib {
             // VPSUBD ymm, ymm, ymm/m256
             // Subtract(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_sub_epi64 (__m256i a, __m256i b)
             // VPSUBQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Subtract(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Subtract(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Subtract(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Subtract(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Subtract(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_short, src2_256_short):\t{0}", Avx2.Subtract(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_int, src2_256_int):\t{0}", Avx2.Subtract(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "Subtract(srcT_256_long, src2_256_long):\t{0}", Avx2.Subtract(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Subtract(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Subtract(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Subtract(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Subtract(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Subtract(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Subtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Subtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "Subtract(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Subtract(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // SubtractSaturate(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_subs_epu8 (__m256i a, __m256i b)
             // VPSUBUSB ymm, ymm, ymm/m256
@@ -2788,10 +2788,10 @@ namespace IntrinsicsLib {
             // VPSUBSB ymm, ymm, ymm/m256
             // SubtractSaturate(Vector256<UInt16>, Vector256<UInt16>)	__m256i _mm256_subs_epu16 (__m256i a, __m256i b)
             // VPSUBUSW ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "SubtractSaturate(srcT_256_byte, src2_256_byte):\t{0}", Avx2.SubtractSaturate(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "SubtractSaturate(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.SubtractSaturate(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "SubtractSaturate(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.SubtractSaturate(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "SubtractSaturate(srcT_256_short, src2_256_short):\t{0}", Avx2.SubtractSaturate(srcT_256_short, src2_256_short));
+            WriteLineFormat(tw, indent, "SubtractSaturate(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.SubtractSaturate(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "SubtractSaturate(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.SubtractSaturate(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "SubtractSaturate(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.SubtractSaturate(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "SubtractSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.SubtractSaturate(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
 
             // SumAbsoluteDifferences(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_sad_epu8 (__m256i a, __m256i b)
             // VPSADBW ymm, ymm, ymm/m256
@@ -2806,8 +2806,8 @@ namespace IntrinsicsLib {
             // 	               tmp[i+39:i+32] + tmp[i+47:i+40] + tmp[i+55:i+48] + tmp[i+63:i+56]
             // 	dst[i+63:i+16] := 0
             // ENDFOR
-            WriteLineFormat(tw, indent, "SumAbsoluteDifferences(srcT_256_byte, src2_256_byte):\t{0}", Avx2.SumAbsoluteDifferences(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "SumAbsoluteDifferences(srcQ_256_byte, src2_256_byte):\t{0}", Avx2.SumAbsoluteDifferences(srcQ_256_byte, src2_256_byte));
+            WriteLineFormat(tw, indent, "SumAbsoluteDifferences(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.SumAbsoluteDifferences(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "SumAbsoluteDifferences(Vector256s<Byte>.Serial, Vector256s<Byte>.V2):\t{0}", Avx2.SumAbsoluteDifferences(Vector256s<Byte>.Serial, Vector256s<Byte>.V2));
 
             // UnpackHigh(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_unpackhi_epi8 (__m256i a, __m256i b)
             // VPUNPCKHBW ymm, ymm, ymm/m256
@@ -2847,14 +2847,14 @@ namespace IntrinsicsLib {
             // VPUNPCKHDQ ymm, ymm, ymm/m256
             // UnpackHigh(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_unpackhi_epi64 (__m256i a, __m256i b)
             // VPUNPCKHQDQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_byte, src2_256_byte):\t{0}", Avx2.UnpackHigh(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.UnpackHigh(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_uint, src2_256_uint):\t{0}", Avx2.UnpackHigh(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.UnpackHigh(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.UnpackHigh(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_short, src2_256_short):\t{0}", Avx2.UnpackHigh(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_int, src2_256_int):\t{0}", Avx2.UnpackHigh(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "UnpackHigh(srcT_256_long, src2_256_long):\t{0}", Avx2.UnpackHigh(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "UnpackHigh(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.UnpackHigh(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // UnpackLow(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_unpacklo_epi8 (__m256i a, __m256i b)
             // VPUNPCKLBW ymm, ymm, ymm/m256
@@ -2894,14 +2894,14 @@ namespace IntrinsicsLib {
             // VPUNPCKLDQ ymm, ymm, ymm/m256
             // UnpackLow(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_unpacklo_epi64 (__m256i a, __m256i b)
             // VPUNPCKLQDQ ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_byte, src2_256_byte):\t{0}", Avx2.UnpackLow(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.UnpackLow(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_uint, src2_256_uint):\t{0}", Avx2.UnpackLow(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.UnpackLow(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.UnpackLow(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_short, src2_256_short):\t{0}", Avx2.UnpackLow(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_int, src2_256_int):\t{0}", Avx2.UnpackLow(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "UnpackLow(srcT_256_long, src2_256_long):\t{0}", Avx2.UnpackLow(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.UnpackLow(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.UnpackLow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.UnpackLow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.UnpackLow(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.UnpackLow(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.UnpackLow(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.UnpackLow(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "UnpackLow(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.UnpackLow(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
             // Xor(Vector256<Byte>, Vector256<Byte>)	__m256i _mm256_xor_si256 (__m256i a, __m256i b)
             // VPXOR ymm, ymm, ymm/m256
@@ -2919,14 +2919,14 @@ namespace IntrinsicsLib {
             // VPXOR ymm, ymm, ymm/m256
             // Xor(Vector256<UInt64>, Vector256<UInt64>)	__m256i _mm256_xor_si256 (__m256i a, __m256i b)
             // VPXOR ymm, ymm, ymm/m256
-            WriteLineFormat(tw, indent, "Xor(srcT_256_byte, src2_256_byte):\t{0}", Avx2.Xor(srcT_256_byte, src2_256_byte));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_ushort, src2_256_ushort):\t{0}", Avx2.Xor(srcT_256_ushort, src2_256_ushort));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_uint, src2_256_uint):\t{0}", Avx2.Xor(srcT_256_uint, src2_256_uint));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_ulong, src2_256_ulong):\t{0}", Avx2.Xor(srcT_256_ulong, src2_256_ulong));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_sbyte, src2_256_sbyte):\t{0}", Avx2.Xor(srcT_256_sbyte, src2_256_sbyte));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_short, src2_256_short):\t{0}", Avx2.Xor(srcT_256_short, src2_256_short));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_int, src2_256_int):\t{0}", Avx2.Xor(srcT_256_int, src2_256_int));
-            WriteLineFormat(tw, indent, "Xor(srcT_256_long, src2_256_long):\t{0}", Avx2.Xor(srcT_256_long, src2_256_long));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Avx2.Xor(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Avx2.Xor(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Avx2.Xor(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Avx2.Xor(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Avx2.Xor(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Avx2.Xor(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Avx2.Xor(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+            WriteLineFormat(tw, indent, "Xor(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Avx2.Xor(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
 
         }
 
