@@ -282,7 +282,7 @@ namespace IntrinsicsLib {
         public static void Run(TextWriter tw, string indent) {
             try {
                 RunCommon(tw, indent);
-                //RunX86(tw, indent);
+                RunX86(tw, indent);
                 //RunArm(tw, indent);
             } catch (Exception ex) {
                 tw.WriteLine(ex);
