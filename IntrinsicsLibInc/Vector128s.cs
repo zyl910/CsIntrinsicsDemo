@@ -187,7 +187,7 @@ namespace IntrinsicsLib {
         /// <param name="src">Source value.</param>
         /// <returns>A new <see cref="Vector128{T}"/> with all elements initialized to value.</returns>
         public static Vector128<T> CreateByDouble<T>(double src) where T : struct {
-            return Create(TraitsUtil.GetByDouble<T>(src));
+            return Create(Scalars.GetByDouble<T>(src));
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace IntrinsicsLib {
         public static Vector128<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
             return CreateByFunc<T>(delegate (int index) {
                 double src = start + step * index;
-                return TraitsUtil.GetByDouble<T>(src);
+                return Scalars.GetByDouble<T>(src);
             });
         }
 
@@ -210,7 +210,7 @@ namespace IntrinsicsLib {
         /// <param name="src">Source value.</param>
         /// <returns>A new <see cref="Vector128{T}"/> with all elements initialized to value.</returns>
         public static Vector128<T> CreateByBits<T>(Int64 src) where T : struct {
-            return Create<T>(TraitsUtil.GetByBits<T>(src));
+            return Create<T>(Scalars.GetByBits<T>(src));
         }
 
         /// <summary>
@@ -471,7 +471,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(SByte)(~0x80);
                     ElementNonExponentMask = (T)(object)(SByte)(~0);
                     ElementNonMantissaMask = (T)(object)(SByte)(~0x7F);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)SByte.MaxValue;
                     ElementMinValue = (T)(object)SByte.MinValue;
                     ElementNaN = ElementZero;
@@ -489,7 +489,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(Int16)(~0x8000);
                     ElementNonExponentMask = (T)(object)(Int16)(~0);
                     ElementNonMantissaMask = (T)(object)(Int16)(~0x7FFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int16.MaxValue;
                     ElementMinValue = (T)(object)Int16.MinValue;
                     ElementNaN = ElementZero;
@@ -507,7 +507,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(Int32)(~0x80000000);
                     ElementNonExponentMask = (T)(object)(Int32)(~0);
                     ElementNonMantissaMask = (T)(object)(Int32)(~0x7FFFFFFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int32.MaxValue;
                     ElementMinValue = (T)(object)Int32.MinValue;
                     ElementNaN = ElementZero;
@@ -525,7 +525,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(Int64)(~0x8000000000000000L);
                     ElementNonExponentMask = (T)(object)(Int64)(~0);
                     ElementNonMantissaMask = (T)(object)(Int64)(~0x7FFFFFFFFFFFFFFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Int64.MaxValue;
                     ElementMinValue = (T)(object)Int64.MinValue;
                     ElementNaN = ElementZero;
@@ -543,7 +543,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(Byte)(~0);
                     ElementNonExponentMask = (T)(object)(Byte)(~0);
                     ElementNonMantissaMask = (T)(object)(Byte)(~0xFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)Byte.MaxValue;
                     ElementMinValue = (T)(object)Byte.MinValue;
                     ElementNaN = ElementZero;
@@ -561,7 +561,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(UInt16)(~0);
                     ElementNonExponentMask = (T)(object)(UInt16)(~0);
                     ElementNonMantissaMask = (T)(object)(UInt16)(~0xFFFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt16.MaxValue;
                     ElementMinValue = (T)(object)UInt16.MinValue;
                     ElementNaN = ElementZero;
@@ -579,7 +579,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(UInt32)(~0);
                     ElementNonExponentMask = (T)(object)(UInt32)(~0);
                     ElementNonMantissaMask = (T)(object)(UInt32)(~0xFFFFFFFF);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt32.MaxValue;
                     ElementMinValue = (T)(object)UInt32.MinValue;
                     ElementNaN = ElementZero;
@@ -597,7 +597,7 @@ namespace IntrinsicsLib {
                     ElementNonSignMask = (T)(object)(UInt64)(~0L);
                     ElementNonExponentMask = (T)(object)(UInt64)(~0L);
                     ElementNonMantissaMask = (T)(object)(UInt64)(~0xFFFFFFFFFFFFFFFFL);
-                    ElementEpsilon = TraitsUtil.GetByDouble<T>(1);
+                    ElementEpsilon = Scalars.GetByDouble<T>(1);
                     ElementMaxValue = (T)(object)UInt64.MaxValue;
                     ElementMinValue = (T)(object)UInt64.MinValue;
                     ElementNaN = ElementZero;
@@ -653,11 +653,11 @@ namespace IntrinsicsLib {
             MaskBitPosSerial = Vector128s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen;
                 long n = 1L << m;
-                return TraitsUtil.GetByBits<T>(n);
+                return Scalars.GetByBits<T>(n);
             });
             MaskBitsSerial = Vector128s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen + 1;
-                return TraitsUtil.GetBitsMask<T>(0, m);
+                return Scalars.GetBitsMask<T>(0, m);
             });
             MaskBits1 = Vector128s.CreateByBits<T>(0x1);
             MaskBits2 = Vector128s.CreateByBits<T>(0x3);

@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Avx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scalars.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TraitsUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector128s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector256s.cs" />
