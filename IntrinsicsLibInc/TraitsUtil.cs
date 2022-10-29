@@ -11,7 +11,7 @@ using System.Text;
 
 namespace IntrinsicsLib {
     /// <summary>
-    /// Traits util.
+    /// Traits misc util.
     /// </summary>
     public static class TraitsUtil {
 

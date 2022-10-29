@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = false;
+        public static bool ShowFull = true;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -387,10 +387,22 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "Vectors.CreateRotate(arrByte):\t{0}", Vectors.CreateRotate(arrByte));
             tw.WriteLine();
 
-            // Vector samples
-            tw.WriteLine(indent + "[Vector samples]");
+            // Scalars<T> .
+            tw.WriteLine(indent + "[Scalar samples]");
+            RunInfoScalars<float>(tw, indent);
+            RunInfoScalars<double>(tw, indent);
+            RunInfoScalars<sbyte>(tw, indent);
+            RunInfoScalars<byte>(tw, indent);
+            RunInfoScalars<short>(tw, indent);
+            RunInfoScalars<ushort>(tw, indent);
+            RunInfoScalars<int>(tw, indent);
+            RunInfoScalars<uint>(tw, indent);
+            RunInfoScalars<long>(tw, indent);
+            RunInfoScalars<ulong>(tw, indent);
+            tw.WriteLine();
 
             // Vectors<T> .
+            tw.WriteLine(indent + "[Vector samples]");
             RunInfoVectors<float>(tw, indent);
             RunInfoVectors<double>(tw, indent);
             RunInfoVectors<sbyte>(tw, indent);
@@ -441,6 +453,58 @@ namespace IntrinsicsLib {
             RunInfoVector256s<long>(tw, indent);
             RunInfoVector256s<ulong>(tw, indent);
             tw.WriteLine();
+        }
+
+        /// <summary>
+        /// Run base - <see cref="Scalars{T}"/>
+        /// </summary>
+        /// <param name="tw">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+        public static void RunInfoScalars<T>(TextWriter tw, string indent) where T : struct {
+            tw.WriteLine(indent + string.Format("-- Scalars<{0}> --", typeof(T).Name));
+            if (ShowFull) {
+                WriteLineFormat(tw, indent, "V0:\t{0}", Scalars<T>.V0);
+                WriteLineFormat(tw, indent, "AllBitsSet:\t{0}", Scalars<T>.AllBitsSet);
+            }
+            WriteLineFormat(tw, indent, "ByteSize:\t{0}", Scalars<T>.ByteSize);
+            tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Scalars<T>.SignBits, Scalars<T>.ExponentBits, Scalars<T>.MantissaBits));
+            if (ShowFull) {
+                tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Scalars<T>.SignShift, Scalars<T>.ExponentShift, Scalars<T>.MantissaShift));
+                WriteLineFormat(tw, indent, "SignMask:\t{0}", Scalars<T>.SignMask);
+                WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Scalars<T>.ExponentMask);
+                WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Scalars<T>.MantissaMask);
+                WriteLineFormat(tw, indent, "NonSignMask:\t{0}", Scalars<T>.NonSignMask);
+                WriteLineFormat(tw, indent, "NonExponentMask:\t{0}", Scalars<T>.NonExponentMask);
+                WriteLineFormat(tw, indent, "NonMantissaMask:\t{0}", Scalars<T>.NonMantissaMask);
+                WriteLineFormat(tw, indent, "SignMask:\t{0}", Scalars<T>.SignMask);
+                WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Scalars<T>.ExponentMask);
+                WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Scalars<T>.MantissaMask);
+                WriteLineFormat(tw, indent, "NonSignMask:\t{0}", Scalars<T>.NonSignMask);
+                WriteLineFormat(tw, indent, "NonExponentMask:\t{0}", Scalars<T>.NonExponentMask);
+                WriteLineFormat(tw, indent, "NonMantissaMask:\t{0}", Scalars<T>.NonMantissaMask);
+                WriteLineFormat(tw, indent, "Epsilon:\t{0}", Scalars<T>.Epsilon);
+                WriteLineFormat(tw, indent, "MaxValue:\t{0}", Scalars<T>.MaxValue);
+                WriteLineFormat(tw, indent, "MinValue:\t{0}", Scalars<T>.MinValue);
+                WriteLineFormat(tw, indent, "NaN:\t{0}", Scalars<T>.NaN);
+                WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Scalars<T>.NegativeInfinity);
+                WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Scalars<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "E:\t{0}", Scalars<T>.E);
+                WriteLineFormat(tw, indent, "Pi:\t{0}", Scalars<T>.Pi);
+                WriteLineFormat(tw, indent, "Tau:\t{0}", Scalars<T>.Tau);
+                WriteLineFormat(tw, indent, "V0:\t{0}", Scalars<T>.V0);
+                WriteLineFormat(tw, indent, "V1:\t{0}", Scalars<T>.V1);
+                WriteLineFormat(tw, indent, "V127:\t{0}", Scalars<T>.V127);
+                WriteLineFormat(tw, indent, "V255:\t{0}", Scalars<T>.V255);
+                WriteLineFormat(tw, indent, "V32767:\t{0}", Scalars<T>.V32767);
+                WriteLineFormat(tw, indent, "V65535:\t{0}", Scalars<T>.V65535);
+                WriteLineFormat(tw, indent, "V2147483647:\t{0}", Scalars<T>.V2147483647);
+                WriteLineFormat(tw, indent, "V4294967295:\t{0}", Scalars<T>.V4294967295);
+                WriteLineFormat(tw, indent, "V_1:\t{0}", Scalars<T>.V_1);
+                WriteLineFormat(tw, indent, "V_128:\t{0}", Scalars<T>.V_128);
+                WriteLineFormat(tw, indent, "V_32768:\t{0}", Scalars<T>.V_32768);
+                WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Scalars<T>.V_2147483648);
+            }
         }
 
         /// <summary>
