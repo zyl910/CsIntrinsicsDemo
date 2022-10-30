@@ -267,7 +267,7 @@ namespace IntrinsicsLib {
         public static readonly T SignMask;
         /// <summary>Exponent mask (指数掩码).</summary>
         public static readonly T ExponentMask;
-        /// <summary>Mantissa mast (尾数掩码)k.</summary>
+        /// <summary>Mantissa mask (尾数掩码).</summary>
         public static readonly T MantissaMask;
         /// <summary>Non-sign mask (非符号掩码).</summary>
         public static readonly T NonSignMask;

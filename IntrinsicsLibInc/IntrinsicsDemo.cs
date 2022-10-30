@@ -532,11 +532,11 @@ namespace IntrinsicsLib {
         public static void RunInfoVectors<T>(TextWriter tw, string indent) where T:struct {
             tw.WriteLine(indent + string.Format("-- Vectors<{0}> (Count={1}) --", typeof(T).Name, Vector<T>.Count));
             if (ShowFull) {
-                WriteLineFormat(tw, indent, "ElementSize:\t{0}", Vectors<T>.ElementSize);
+                WriteLineFormat(tw, indent, "ElementByteSize:\t{0}", Vectors<T>.ElementByteSize);
             }
-            tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vectors<T>.SignBits, Vectors<T>.ExponentBits, Vectors<T>.MantissaBits));
+            tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vectors<T>.ElementSignBits, Vectors<T>.ElementExponentBits, Vectors<T>.ElementMantissaBits));
             if (ShowFull) {
-                tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Vectors<T>.SignShift, Vectors<T>.ExponentShift, Vectors<T>.MantissaShift));
+                tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Vectors<T>.ElementSignShift, Vectors<T>.ElementExponentShift, Vectors<T>.ElementMantissaShift));
                 WriteLineFormat(tw, indent, "ElementV0:\t{0}", Vectors<T>.ElementV0);
                 WriteLineFormat(tw, indent, "ElementAllBitsSet:\t{0}", Vectors<T>.ElementAllBitsSet);
                 WriteLineFormat(tw, indent, "ElementSignMask:\t{0}", Vectors<T>.ElementSignMask);
@@ -551,6 +551,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "ElementNaN:\t{0}", Vectors<T>.ElementNaN);
                 WriteLineFormat(tw, indent, "ElementNegativeInfinity:\t{0}", Vectors<T>.ElementNegativeInfinity);
                 WriteLineFormat(tw, indent, "ElementPositiveInfinity:\t{0}", Vectors<T>.ElementPositiveInfinity);
+                WriteLineFormat(tw, indent, "AllBitsSet:\t{0}", Vectors<T>.AllBitsSet);
                 WriteLineFormat(tw, indent, "SignMask:\t{0}", Vectors<T>.SignMask);
                 WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Vectors<T>.ExponentMask);
                 WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Vectors<T>.MantissaMask);
@@ -566,25 +567,6 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "E:\t{0}", Vectors<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Vectors<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Vectors<T>.Tau);
-                WriteLineFormat(tw, indent, "AllBitsSet:\t{0}", Vectors<T>.AllBitsSet);
-            }
-            WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
-            WriteLineFormat(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);
-            if (ShowFull) {
-                WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vectors<T>.XyXMask);
-                WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vectors<T>.XyYMask);
-                WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vectors<T>.XyzwXMask);
-                WriteLineFormat(tw, indent, "XyzwYMask:\t{0}", Vectors<T>.XyzwYMask);
-                WriteLineFormat(tw, indent, "XyzwZMask:\t{0}", Vectors<T>.XyzwZMask);
-                WriteLineFormat(tw, indent, "XyzwWMask:\t{0}", Vectors<T>.XyzwWMask);
-                WriteLineFormat(tw, indent, "XyzwNotXMask:\t{0}", Vectors<T>.XyzwNotXMask);
-                WriteLineFormat(tw, indent, "XyzwNotYMask:\t{0}", Vectors<T>.XyzwNotYMask);
-                WriteLineFormat(tw, indent, "XyzwNotZMask:\t{0}", Vectors<T>.XyzwNotZMask);
-                WriteLineFormat(tw, indent, "XyzwNotWMask:\t{0}", Vectors<T>.XyzwNotWMask);
-            }
-            WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
-            WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vectors<T>.MaskBitsSerial);
-            if (ShowFull) {
                 WriteLineFormat(tw, indent, "V0:\t{0}", Vectors<T>.V0);
                 WriteLineFormat(tw, indent, "V1:\t{0}", Vectors<T>.V1);
                 WriteLineFormat(tw, indent, "V127:\t{0}", Vectors<T>.V127);
@@ -597,6 +579,22 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Vectors<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Vectors<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Vectors<T>.V_2147483648);
+            }
+            WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
+            WriteLineFormat(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);
+            WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vectors<T>.MaskBitsSerial);
+            if (ShowFull) {
+                WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vectors<T>.XyXMask);
+                WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vectors<T>.XyYMask);
+                WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vectors<T>.XyzwXMask);
+                WriteLineFormat(tw, indent, "XyzwYMask:\t{0}", Vectors<T>.XyzwYMask);
+                WriteLineFormat(tw, indent, "XyzwZMask:\t{0}", Vectors<T>.XyzwZMask);
+                WriteLineFormat(tw, indent, "XyzwWMask:\t{0}", Vectors<T>.XyzwWMask);
+                WriteLineFormat(tw, indent, "XyzwNotXMask:\t{0}", Vectors<T>.XyzwNotXMask);
+                WriteLineFormat(tw, indent, "XyzwNotYMask:\t{0}", Vectors<T>.XyzwNotYMask);
+                WriteLineFormat(tw, indent, "XyzwNotZMask:\t{0}", Vectors<T>.XyzwNotZMask);
+                WriteLineFormat(tw, indent, "XyzwNotWMask:\t{0}", Vectors<T>.XyzwNotWMask);
             }
         }
 

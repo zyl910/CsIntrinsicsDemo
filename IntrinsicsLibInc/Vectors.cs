@@ -243,126 +243,56 @@ namespace IntrinsicsLib {
     /// </summary>
     /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
     public abstract class Vectors<T>: AbstractVectors<T> where T:struct {
+        /// <summary>Value 0 (0的值).</summary>
+        public static readonly Vector<T> V0;
+        /// <summary>All bit is 1 (所有位都是1的值).</summary>
+        public static readonly Vector<T> AllBitsSet;
         // -- Number struct --
-        /// <summary>Element byte size.</summary>
-        public static readonly int ElementSize;
-        /// <summary>Sign bit size. When the type is an unsigned number, the value is 0.</summary>
-        public static readonly int SignBits;
-        /// <summary>Exponent bit size. When the type is an integer, the value is 0.</summary>
-        public static readonly int ExponentBits;
-        /// <summary>Mantissa bit size.</summary>
-        public static readonly int MantissaBits;
-        /// <summary>Sign shift bit.</summary>
-        public static readonly int SignShift;
-        /// <summary>Exponent shift bit.</summary>
-        public static readonly int ExponentShift;
-        /// <summary>Mantissa shift bit.</summary>
-        public static readonly int MantissaShift;
-        /// <summary>(Element) All bit is 1.</summary>
-        public static readonly T ElementAllBitsSet;
-        /// <summary>(Element) Sign mask.</summary>
-        public static readonly T ElementSignMask;
-        /// <summary>(Element) Exponent mask.</summary>
-        public static readonly T ElementExponentMask;
-        /// <summary>(Element) Mantissa mask.</summary>
-        public static readonly T ElementMantissaMask;
-        /// <summary>(Element) Non-sign mask.</summary>
-        public static readonly T ElementNonSignMask;
-        /// <summary>(Element) Non-exponent mask.</summary>
-        public static readonly T ElementNonExponentMask;
-        /// <summary>(Element) Non-mantissa mask.</summary>
-        public static readonly T ElementNonMantissaMask;
-        /// <summary>(Element) Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
-        public static readonly T ElementEpsilon;
-        /// <summary>(Element) Represents the largest possible value.</summary>
-        public static readonly T ElementMaxValue;
-        /// <summary>(Element) Represents the smallest possible value.</summary>
-        public static readonly T ElementMinValue;
-        /// <summary>(Element) Represents not a number (NaN). When the type is an integer, the value is 0.</summary>
-        public static readonly T ElementNaN;
-        /// <summary>(Element) Represents negative infinity. When the type is an integer, the value is 0.</summary>
-        public static readonly T ElementNegativeInfinity;
-        /// <summary>(Element) Represents positive infinity. When the type is an integer, the value is 0.</summary>
-        public static readonly T ElementPositiveInfinity;
-        /// <summary>Sign mask.</summary>
+        /// <summary>Sign mask (符号掩码).</summary>
         public static readonly Vector<T> SignMask;
-        /// <summary>Exponent mask.</summary>
+        /// <summary>Exponent mask (指数掩码).</summary>
         public static readonly Vector<T> ExponentMask;
-        /// <summary>Mantissa mask.</summary>
+        /// <summary>Mantissa mask (尾数掩码).</summary>
         public static readonly Vector<T> MantissaMask;
-        /// <summary>Non-sign mask.</summary>
+        /// <summary>Non-sign mask (非符号掩码).</summary>
         public static readonly Vector<T> NonSignMask;
-        /// <summary>Non-exponent mask.</summary>
+        /// <summary>Non-exponent mask (非指数掩码).</summary>
         public static readonly Vector<T> NonExponentMask;
-        /// <summary>Non-mantissa mask.</summary>
+        /// <summary>Non-mantissa mask (非尾数掩码).</summary>
         public static readonly Vector<T> NonMantissaMask;
-        /// <summary>Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
+        /// <summary>Represents the smallest positive value that is greater than zero (表示大于零的最小正值). When the type is an integer, the value is 1 (当类型为整数时，该值为1).</summary>
         public static readonly Vector<T> Epsilon;
-        /// <summary>Represents the largest possible value.</summary>
+        /// <summary>Represents the largest possible value (表示最大可能值).</summary>
         public static readonly Vector<T> MaxValue;
-        /// <summary>Represents the smallest possible value.</summary>
+        /// <summary>Represents the smallest possible value (表示最大可能值).</summary>
         public static readonly Vector<T> MinValue;
-        /// <summary>Represents not a number (NaN). When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents not a number (NaN) (表示“非数(NaN)”的值). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector<T> NaN;
-        /// <summary>Represents negative infinity. When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents negative infinity (表示负无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector<T> NegativeInfinity;
-        /// <summary>Represents positive infinity. When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector<T> PositiveInfinity;
         // -- Math --
-        /// <summary>Represents the natural logarithmic base, specified by the constant, e.</summary>
+        /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static readonly Vector<T> E;
-        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π.</summary>
+        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
         public static readonly Vector<T> Pi;
-        /// <summary>Represents the number of radians in one turn, specified by the constant, τ.</summary>
+        /// <summary>Represents the number of radians in one turn, specified by the constant, τ (表示转一圈的弧度数，由常量 τ 指定).</summary>
         public static readonly Vector<T> Tau;
-        // -- Specified value --
-        /// <summary>All bit is 1.</summary>
-        public static readonly Vector<T> AllBitsSet;
-        /// <summary>Serial Value. e.g. 0,1,2,3...</summary>
-        public static readonly Vector<T> Serial;
-        /// <summary>Demo Value. It is a value constructed for testing purposes. It is characterized by different element values, and contains a minimum value, a maximum value.</summary>
-        public static readonly Vector<T> Demo;
-        // -- Xyzw --
-        /// <summary>Xy - X mask. For a 2-element group, select the mask of the 0th element.</summary>
-        public static readonly Vector<T> XyXMask;
-        /// <summary>Xy - Y mask. For a 2-element group, select the mask of the 1st element.</summary>
-        public static readonly Vector<T> XyYMask;
-        /// <summary>Xyzw - X mask. For a 4-element group, select the mask of the 0th element. Alias has `RgbaRMask`.</summary>
-        public static readonly Vector<T> XyzwXMask;
-        /// <summary>Xyzw - Y mask. For a 4-element group, select the mask of the 1th element. Alias has `RgbaGMask`.</summary>
-        public static readonly Vector<T> XyzwYMask;
-        /// <summary>Xyzw - Z mask. For a 4-element group, select the mask of the 2th element. Alias has `RgbaBMask`.</summary>
-        public static readonly Vector<T> XyzwZMask;
-        /// <summary>Xyzw - W mask. For a 4-element group, select the mask of the 3th element. Alias has `RgbaAMask`.</summary>
-        public static readonly Vector<T> XyzwWMask;
-        /// <summary>Xyzw - Not X mask. For a 4-element group, not select the mask of the 0th element. Alias has `RgbaNotRMask`.</summary>
-        public static readonly Vector<T> XyzwNotXMask;
-        /// <summary>Xyzw - Not Y mask. For a 4-element group, not select the mask of the 1th element. Alias has `RgbaNotGMask`.</summary>
-        public static readonly Vector<T> XyzwNotYMask;
-        /// <summary>Xyzw - Not Z mask. For a 4-element group, not select the mask of the 2th element. Alias has `RgbaNotBMask`.</summary>
-        public static readonly Vector<T> XyzwNotZMask;
-        /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element. Alias has `RgbaNotAMask`.</summary>
-        public static readonly Vector<T> XyzwNotWMask;
         // -- Mask --
-        /// <summary>Serial bit pos mask. e.g. 1, 2, 4, 8, 0x10 ...</summary>
-        public static readonly Vector<T> MaskBitPosSerial;
-        /// <summary>Serial bits mask. e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
-        public static readonly Vector<T> MaskBitsSerial;
-        /// <summary>1 bits mask.</summary>
+        /// <summary>1 bits mask (1位掩码).</summary>
         public static readonly Vector<T> MaskBits1;
-        /// <summary>2 bits mask.</summary>
+        /// <summary>2 bits mask (2位掩码).</summary>
         public static readonly Vector<T> MaskBits2;
-        /// <summary>4 bits mask.</summary>
+        /// <summary>4 bits mask (4位掩码).</summary>
         public static readonly Vector<T> MaskBits4;
-        /// <summary>8 bits mask.</summary>
+        /// <summary>8 bits mask (8位掩码).</summary>
         public static readonly Vector<T> MaskBits8;
-        /// <summary>16 bits mask.</summary>
+        /// <summary>16 bits mask (16位掩码).</summary>
         public static readonly Vector<T> MaskBits16;
-        /// <summary>32 bits mask.</summary>
+        /// <summary>32 bits mask (32位掩码).</summary>
         public static readonly Vector<T> MaskBits32;
-        // -- Zero or positive number --
-        /// <summary>Value 0 .</summary>
-        public static readonly Vector<T> V0;
+        // -- Positive number --
         /// <summary>Value 1 .</summary>
         public static readonly Vector<T> V1;
         /// <summary>Value 2 .</summary>
@@ -392,7 +322,7 @@ namespace IntrinsicsLib {
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
         public static readonly Vector<T> V4294967295;
         // -- Negative number  --
-        /// <summary>Value -1 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
+        /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly Vector<T> V_1;
         /// <summary>Value -2 .</summary>
         public static readonly Vector<T> V_2;
@@ -414,225 +344,107 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> V_32768;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
         public static readonly Vector<T> V_2147483648;
+        // -- Specified value --
+        /// <summary>Serial Value (顺序值). e.g. 0,1,2,3...</summary>
+        public static readonly Vector<T> Serial;
+        /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
+        public static readonly Vector<T> Demo;
+        /// <summary>Serial bit pos mask (顺序位偏移的掩码). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        public static readonly Vector<T> MaskBitPosSerial;
+        /// <summary>Serial bits mask (顺序位集的掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        public static readonly Vector<T> MaskBitsSerial;
+        // -- Xyzw --
+        /// <summary>Xy - X mask. For a 2-element group, select the mask of the 0th element (对于2个元素的组，选择第0个元素的掩码).</summary>
+        public static readonly Vector<T> XyXMask;
+        /// <summary>Xy - Y mask. For a 2-element group, select the mask of the 1st element (对于2个元素的组，选择第1个元素的掩码).</summary>
+        public static readonly Vector<T> XyYMask;
+        /// <summary>Xyzw - X mask. For a 4-element group, select the mask of the 0th element (对于4个元素的组，选择第0个元素的掩码). Alias has <see cref="RgbaRMask"/>.</summary>
+        public static readonly Vector<T> XyzwXMask;
+        /// <summary>Xyzw - Y mask. For a 4-element group, select the mask of the 1th element (对于4个元素的组，选择第1个元素的掩码). Alias has <see cref="RgbaGMask"/>.</summary>
+        public static readonly Vector<T> XyzwYMask;
+        /// <summary>Xyzw - Z mask. For a 4-element group, select the mask of the 2th element (对于4个元素的组，选择第2个元素的掩码). Alias has <see cref="RgbaBMask"/>.</summary>
+        public static readonly Vector<T> XyzwZMask;
+        /// <summary>Xyzw - W mask. For a 4-element group, select the mask of the 3th element (对于4个元素的组，选择第3个元素的掩码). Alias has <see cref="RgbaAMask"/>.</summary>
+        public static readonly Vector<T> XyzwWMask;
+        /// <summary>Xyzw - Not X mask. For a 4-element group, not select the mask of the 0th element (对于4个元素的组，不选择第0个元素的掩码). Alias has <see cref="RgbaNotRMask"/>.</summary>
+        public static readonly Vector<T> XyzwNotXMask;
+        /// <summary>Xyzw - Not Y mask. For a 4-element group, not select the mask of the 1th element (对于4个元素的组，不选择第1个元素的掩码). Alias has <see cref="RgbaNotGMask"/>.</summary>
+        public static readonly Vector<T> XyzwNotYMask;
+        /// <summary>Xyzw - Not Z mask. For a 4-element group, not select the mask of the 2th element (对于4个元素的组，不选择第2个元素的掩码). Alias has <see cref="RgbaNotBMask"/>.</summary>
+        public static readonly Vector<T> XyzwNotZMask;
+        /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="RgbaNotAMask"/>.</summary>
+        public static readonly Vector<T> XyzwNotWMask;
 
         /// <summary>
         /// Static constructor.
         /// </summary>
         static Vectors() {
-            V0 = Vector<T>.Zero;
-            T ElementZero = default;
+            V0 = Vectors.Create<T>(ElementV0);
+            AllBitsSet = Vectors.Create<T>(ElementAllBitsSet);
             // -- Number struct --
-            unchecked {
-                if (typeof(T) == typeof(Single)) {
-                    ElementSize = sizeof(Single);
-                    SignBits = 1;
-                    ExponentBits = 8;
-                    MantissaBits = 23;
-                    ElementAllBitsSet = (T)(object)BitConverter.Int32BitsToSingle(~0);
-                    ElementSignMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x80000000);
-                    ElementExponentMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x7F800000);
-                    ElementMantissaMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x007FFFFF);
-                    ElementNonSignMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x80000000);
-                    ElementNonExponentMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x7F800000);
-                    ElementNonMantissaMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x007FFFFF);
-                    ElementEpsilon = (T)(object)Single.Epsilon;
-                    ElementMaxValue = (T)(object)Single.MaxValue;
-                    ElementMinValue = (T)(object)Single.MinValue;
-                    ElementNaN = (T)(object)Single.NaN;
-                    ElementNegativeInfinity = (T)(object)Single.NegativeInfinity;
-                    ElementPositiveInfinity = (T)(object)Single.PositiveInfinity;
-                } else if (typeof(T) == typeof(Double)) {
-                    ElementSize = sizeof(Double);
-                    SignBits = 1;
-                    ExponentBits = 11;
-                    MantissaBits = 52;
-                    ElementAllBitsSet = (T)(object)BitConverter.Int64BitsToDouble(~0L);
-                    ElementSignMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x8000000000000000L);
-                    ElementExponentMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x7FF0000000000000L);
-                    ElementMantissaMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL);
-                    ElementNonSignMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x8000000000000000L);
-                    ElementNonExponentMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x7FF0000000000000L);
-                    ElementNonMantissaMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x000FFFFFFFFFFFFFL);
-                    ElementEpsilon = (T)(object)Double.Epsilon;
-                    ElementMaxValue = (T)(object)Double.MaxValue;
-                    ElementMinValue = (T)(object)Double.MinValue;
-                    ElementNaN = (T)(object)Double.NaN;
-                    ElementNegativeInfinity = (T)(object)Double.NegativeInfinity;
-                    ElementPositiveInfinity = (T)(object)Double.PositiveInfinity;
-                } else if (typeof(T) == typeof(SByte)) {
-                    ElementSize = sizeof(SByte);
-                    SignBits = 1;
-                    ExponentBits = 0;
-                    MantissaBits = 7;
-                    ElementAllBitsSet = (T)(object)(SByte)(~0);
-                    ElementSignMask = (T)(object)(SByte)(0x80);
-                    ElementExponentMask = (T)(object)(SByte)(0);
-                    ElementMantissaMask = (T)(object)(SByte)(0x7F);
-                    ElementNonSignMask = (T)(object)(SByte)(~0x80);
-                    ElementNonExponentMask = (T)(object)(SByte)(~0);
-                    ElementNonMantissaMask = (T)(object)(SByte)(~0x7F);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)SByte.MaxValue;
-                    ElementMinValue = (T)(object)SByte.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(Int16)) {
-                    ElementSize = sizeof(Int16);
-                    SignBits = 1;
-                    ExponentBits = 0;
-                    MantissaBits = 15;
-                    ElementAllBitsSet = (T)(object)(Int16)(~0);
-                    ElementSignMask = (T)(object)(Int16)(0x8000);
-                    ElementExponentMask = (T)(object)(Int16)(0);
-                    ElementMantissaMask = (T)(object)(Int16)(0x7FFF);
-                    ElementNonSignMask = (T)(object)(Int16)(~0x8000);
-                    ElementNonExponentMask = (T)(object)(Int16)(~0);
-                    ElementNonMantissaMask = (T)(object)(Int16)(~0x7FFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)Int16.MaxValue;
-                    ElementMinValue = (T)(object)Int16.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(Int32)) {
-                    ElementSize = sizeof(Int32);
-                    SignBits = 1;
-                    ExponentBits = 0;
-                    MantissaBits = 31;
-                    ElementAllBitsSet = (T)(object)(Int32)(~0);
-                    ElementSignMask = (T)(object)(Int32)(0x80000000);
-                    ElementExponentMask = (T)(object)(Int32)(0);
-                    ElementMantissaMask = (T)(object)(Int32)(0x7FFFFFFF);
-                    ElementNonSignMask = (T)(object)(Int32)(~0x80000000);
-                    ElementNonExponentMask = (T)(object)(Int32)(~0);
-                    ElementNonMantissaMask = (T)(object)(Int32)(~0x7FFFFFFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)Int32.MaxValue;
-                    ElementMinValue = (T)(object)Int32.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(Int64)) {
-                    ElementSize = sizeof(Int64);
-                    SignBits = 1;
-                    ExponentBits = 0;
-                    MantissaBits = 63;
-                    ElementAllBitsSet = (T)(object)(Int64)(~0);
-                    ElementSignMask = (T)(object)(Int64)(0x8000000000000000L);
-                    ElementExponentMask = (T)(object)(Int64)(0);
-                    ElementMantissaMask = (T)(object)(Int64)(0x7FFFFFFFFFFFFFFF);
-                    ElementNonSignMask = (T)(object)(Int64)(~0x8000000000000000L);
-                    ElementNonExponentMask = (T)(object)(Int64)(~0);
-                    ElementNonMantissaMask = (T)(object)(Int64)(~0x7FFFFFFFFFFFFFFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)Int64.MaxValue;
-                    ElementMinValue = (T)(object)Int64.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(Byte)) {
-                    ElementSize = sizeof(Byte);
-                    SignBits = 0;
-                    ExponentBits = 0;
-                    MantissaBits = 8;
-                    ElementAllBitsSet = (T)(object)(Byte)(~0);
-                    ElementSignMask = (T)(object)(Byte)(0);
-                    ElementExponentMask = (T)(object)(Byte)(0);
-                    ElementMantissaMask = (T)(object)(Byte)(0xFF);
-                    ElementNonSignMask = (T)(object)(Byte)(~0);
-                    ElementNonExponentMask = (T)(object)(Byte)(~0);
-                    ElementNonMantissaMask = (T)(object)(Byte)(~0xFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)Byte.MaxValue;
-                    ElementMinValue = (T)(object)Byte.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(UInt16)) {
-                    ElementSize = sizeof(UInt16);
-                    SignBits = 0;
-                    ExponentBits = 0;
-                    MantissaBits = 16;
-                    ElementAllBitsSet = (T)(object)(UInt16)(~0);
-                    ElementSignMask = (T)(object)(UInt16)(0);
-                    ElementExponentMask = (T)(object)(UInt16)(0);
-                    ElementMantissaMask = (T)(object)(UInt16)(0xFFFF);
-                    ElementNonSignMask = (T)(object)(UInt16)(~0);
-                    ElementNonExponentMask = (T)(object)(UInt16)(~0);
-                    ElementNonMantissaMask = (T)(object)(UInt16)(~0xFFFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)UInt16.MaxValue;
-                    ElementMinValue = (T)(object)UInt16.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(UInt32)) {
-                    ElementSize = sizeof(UInt32);
-                    SignBits = 0;
-                    ExponentBits = 0;
-                    MantissaBits = 32;
-                    ElementAllBitsSet = (T)(object)(UInt32)(~0);
-                    ElementSignMask = (T)(object)(UInt32)(0);
-                    ElementExponentMask = (T)(object)(UInt32)(0);
-                    ElementMantissaMask = (T)(object)(UInt32)(0xFFFFFFFF);
-                    ElementNonSignMask = (T)(object)(UInt32)(~0);
-                    ElementNonExponentMask = (T)(object)(UInt32)(~0);
-                    ElementNonMantissaMask = (T)(object)(UInt32)(~0xFFFFFFFF);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)UInt32.MaxValue;
-                    ElementMinValue = (T)(object)UInt32.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                } else if (typeof(T) == typeof(UInt64)) {
-                    ElementSize = sizeof(UInt64);
-                    SignBits = 0;
-                    ExponentBits = 0;
-                    MantissaBits = 64;
-                    ElementAllBitsSet = (T)(object)(UInt64)(~0);
-                    ElementSignMask = (T)(object)(UInt64)(0);
-                    ElementExponentMask = (T)(object)(UInt64)(0);
-                    ElementMantissaMask = (T)(object)(UInt64)(0xFFFFFFFFFFFFFFFFL);
-                    ElementNonSignMask = (T)(object)(UInt64)(~0L);
-                    ElementNonExponentMask = (T)(object)(UInt64)(~0L);
-                    ElementNonMantissaMask = (T)(object)(UInt64)(~0xFFFFFFFFFFFFFFFFL);
-                    ElementEpsilon = Scalars.GetByDouble<T>(1);
-                    ElementMaxValue = (T)(object)UInt64.MaxValue;
-                    ElementMinValue = (T)(object)UInt64.MinValue;
-                    ElementNaN = ElementZero;
-                    ElementNegativeInfinity = ElementZero;
-                    ElementPositiveInfinity = ElementZero;
-                }
-            }
-            MantissaShift = 0;
-            ExponentShift = MantissaShift + MantissaBits;
-            SignShift = ExponentShift + ExponentBits;
-            SignMask = Vectors.Create(ElementSignMask);
-            ExponentMask = Vectors.Create(ElementExponentMask);
-            MantissaMask = Vectors.Create(ElementMantissaMask);
-            Epsilon = Vectors.Create(ElementEpsilon);
-            MaxValue = Vectors.Create(ElementMaxValue);
-            MinValue = Vectors.Create(ElementMinValue);
-            NaN = Vectors.Create(ElementNaN);
-            NegativeInfinity = Vectors.Create(ElementNegativeInfinity);
-            PositiveInfinity = Vectors.Create(ElementPositiveInfinity);
-            NonSignMask = Vectors.OnesComplement(SignMask);
-            NonExponentMask = Vectors.OnesComplement(ExponentMask);
-            NonMantissaMask = Vectors.OnesComplement(MantissaMask);
+            SignMask = Vectors.Create<T>(ElementSignMask);
+            ExponentMask = Vectors.Create<T>(ElementExponentMask);
+            MantissaMask = Vectors.Create<T>(ElementMantissaMask);
+            NonSignMask = Vectors.Create<T>(ElementNonSignMask);
+            NonExponentMask = Vectors.Create<T>(ElementNonExponentMask);
+            NonMantissaMask = Vectors.Create<T>(ElementNonMantissaMask);
+            Epsilon = Vectors.Create<T>(ElementEpsilon);
+            MaxValue = Vectors.Create<T>(ElementMaxValue);
+            MinValue = Vectors.Create<T>(ElementMinValue);
+            NaN = Vectors.Create<T>(ElementNaN);
+            NegativeInfinity = Vectors.Create<T>(ElementNegativeInfinity);
+            PositiveInfinity = Vectors.Create<T>(ElementPositiveInfinity);
             // -- Math --
-            E = Vectors.CreateByDouble<T>(Math.E);
-            Pi = Vectors.CreateByDouble<T>(Math.PI);
-#if NET5_0_OR_GREATER
-            Tau = Vectors.CreateByDouble<T>(Math.Tau);
-#else
-            Tau = CreateByDouble(Math.PI * 2);
-#endif // NET5_0_OR_GREATER
-            // -- Math shift --
+            E = Vectors.Create<T>(ElementE);
+            Pi = Vectors.Create<T>(ElementPi);
+            Tau = Vectors.Create<T>(ElementTau);
+            // -- Mask --
+            MaskBits1 = Vectors.Create<T>(ElementMaskBits1);
+            MaskBits2 = Vectors.Create<T>(ElementMaskBits2);
+            MaskBits4 = Vectors.Create<T>(ElementMaskBits4);
+            MaskBits8 = Vectors.Create<T>(ElementMaskBits8);
+            MaskBits16 = Vectors.Create<T>(ElementMaskBits16);
+            MaskBits32 = Vectors.Create<T>(ElementMaskBits32);
+            // -- Positive number --
+            V1 = Vectors.Create<T>(ElementV1);
+            V2 = Vectors.Create<T>(ElementV2);
+            V3 = Vectors.Create<T>(ElementV3);
+            V4 = Vectors.Create<T>(ElementV4);
+            V5 = Vectors.Create<T>(ElementV5);
+            V6 = Vectors.Create<T>(ElementV6);
+            V7 = Vectors.Create<T>(ElementV7);
+            V8 = Vectors.Create<T>(ElementV8);
+            V127 = Vectors.Create<T>(ElementV127);
+            V255 = Vectors.Create<T>(ElementV255);
+            V32767 = Vectors.Create<T>(ElementV32767);
+            V65535 = Vectors.Create<T>(ElementV65535);
+            V2147483647 = Vectors.Create<T>(ElementV2147483647);
+            V4294967295 = Vectors.Create<T>(ElementV4294967295);
+            // -- Negative number  --
+            V_1 = Vectors.Create<T>(ElementV_1);
+            V_2 = Vectors.Create<T>(ElementV_2);
+            V_3 = Vectors.Create<T>(ElementV_3);
+            V_4 = Vectors.Create<T>(ElementV_4);
+            V_5 = Vectors.Create<T>(ElementV_5);
+            V_6 = Vectors.Create<T>(ElementV_6);
+            V_7 = Vectors.Create<T>(ElementV_7);
+            V_8 = Vectors.Create<T>(ElementV_8);
+            V_128 = Vectors.Create<T>(ElementV_128);
+            V_32768 = Vectors.Create<T>(ElementV_32768);
+            V_2147483648 = Vectors.Create<T>(ElementV_2147483648);
             // -- Specified value --
-            AllBitsSet = Vectors.OnesComplement(Vector<T>.Zero);
-            Serial = GetSerial();
+            Serial = Vectors.CreateByDoubleLoop<T>(0, 1);
             Demo = GetDemo();
+            int bitLen = ElementByteSize * 8;
+            MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                int m = index % bitLen;
+                long n = 1L << m;
+                return Scalars.GetByBits<T>(n);
+            });
+            MaskBitsSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                int m = index % bitLen + 1;
+                return Scalars.GetBitsMask<T>(0, m);
+            });
             // -- Xyzw --
             if (true) {
                 T o = ElementZero;
@@ -648,58 +460,6 @@ namespace IntrinsicsLib {
                 XyzwNotZMask = Vectors.OnesComplement(XyzwZMask);
                 XyzwNotWMask = Vectors.OnesComplement(XyzwWMask);
             }
-            // -- Mask --
-            int bitLen = ElementSize * 8;
-            MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
-                int m = index % bitLen;
-                long n = 1L << m;
-                return Scalars.GetByBits<T>(n);
-            });
-            MaskBitsSerial = Vectors.CreateByFunc<T>(delegate (int index) {
-                int m = index % bitLen + 1;
-                return Scalars.GetBitsMask<T>(0, m);
-            });
-            MaskBits1 = Vectors.CreateByBits<T>(0x1);
-            MaskBits2 = Vectors.CreateByBits<T>(0x3);
-            MaskBits4 = Vectors.CreateByBits<T>(0xF);
-            MaskBits8 = Vectors.CreateByBits<T>(0xFF);
-            MaskBits16 = Vectors.CreateByBits<T>(0xFFFF);
-            MaskBits32 = Vectors.CreateByBits<T>(0xFFFFFFFF);
-            // -- Positive number --
-            V1 = Vectors.CreateByDouble<T>(1);
-            V2 = Vectors.CreateByDouble<T>(2);
-            V3 = Vectors.CreateByDouble<T>(3);
-            V4 = Vectors.CreateByDouble<T>(4);
-            V5 = Vectors.CreateByDouble<T>(5);
-            V6 = Vectors.CreateByDouble<T>(6);
-            V7 = Vectors.CreateByDouble<T>(7);
-            V8 = Vectors.CreateByDouble<T>(8);
-            V127 = Vectors.CreateByDouble<T>(127);
-            V255 = Vectors.CreateByDouble<T>(255);
-            V32767 = Vectors.CreateByDouble<T>(32767);
-            V65535 = Vectors.CreateByDouble<T>(65535);
-            V2147483647 = Vectors.CreateByDouble<T>(2147483647);
-            V4294967295 = Vectors.CreateByDouble<T>(4294967295);
-            // -- Negative number  --
-            V_1 = Vectors.CreateByDouble<T>(-1);
-            V_2 = Vectors.CreateByDouble<T>(-2);
-            V_3 = Vectors.CreateByDouble<T>(-3);
-            V_4 = Vectors.CreateByDouble<T>(-4);
-            V_5 = Vectors.CreateByDouble<T>(-5);
-            V_6 = Vectors.CreateByDouble<T>(-6);
-            V_7 = Vectors.CreateByDouble<T>(-7);
-            V_8 = Vectors.CreateByDouble<T>(-8);
-            V_128 = Vectors.CreateByDouble<T>(-128);
-            V_32768 = Vectors.CreateByDouble<T>(-32768);
-            V_2147483648 = Vectors.CreateByDouble<T>(-2147483648);
-        }
-
-        /// <summary>
-        /// Get serial value.
-        /// </summary>
-        /// <returns>Return serial value.</returns>
-        private static Vector<T> GetSerial() {
-            return Vectors.CreateByDoubleLoop<T>(0, 1);
         }
 
         /// <summary>
@@ -731,6 +491,28 @@ namespace IntrinsicsLib {
                 return Serial; // GetSerial();
             }
         }
+
+        /// <summary>Xy - Not X mask. For a 2-element group, not select the mask of the 0th element (对于2个元素的组，不选择第0个元素的掩码).</summary>
+        public static ref readonly Vector<T> XyNotXMask { get { return ref XyYMask; } }
+        /// <summary>Xy - Not Y mask. For a 2-element group, not select the mask of the 1st element (对于2个元素的组，不选择第1个元素的掩码).</summary>
+        public static ref readonly Vector<T> XyNotYMask { get { return ref XyXMask; } }
+        /// <summary>Rgba - R mask. For a 4-element group, select the mask of the 0th element (对于4个元素的组，选择第0个元素的掩码). Alias has <see cref="XyzwXMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaRMask { get { return ref XyzwXMask; } }
+        /// <summary>Rgba - G mask. For a 4-element group, select the mask of the 1th element (对于4个元素的组，选择第1个元素的掩码). Alias has <see cref="XyzwYMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaGMask { get { return ref XyzwYMask; } }
+        /// <summary>Rgba - B mask. For a 4-element group, select the mask of the 2th element (对于4个元素的组，选择第2个元素的掩码). Alias has <see cref="XyzwZMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaBMask { get { return ref XyzwZMask; } }
+        /// <summary>Rgba - A mask. For a 4-element group, select the mask of the 3th element (对于4个元素的组，选择第3个元素的掩码). Alias has <see cref="XyzwWMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaAMask { get { return ref XyzwWMask; } }
+        /// <summary>Rgba - Not R mask. For a 4-element group, not select the mask of the 0th element (对于4个元素的组，不选择第0个元素的掩码). Alias has <see cref="XyzwNotXMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotRMask { get { return ref XyzwNotXMask; } }
+        /// <summary>Rgba - Not G mask. For a 4-element group, not select the mask of the 1th element (对于4个元素的组，不选择第1个元素的掩码). Alias has <see cref="XyzwNotYMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotGMask { get { return ref XyzwNotYMask; } }
+        /// <summary>Rgba - Not B mask. For a 4-element group, not select the mask of the 2th element (对于4个元素的组，不选择第2个元素的掩码). Alias has <see cref="XyzwNotZMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotBMask { get { return ref XyzwNotZMask; } }
+        /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotAMask { get { return ref XyzwNotWMask; } }
+
 
     }
 }
