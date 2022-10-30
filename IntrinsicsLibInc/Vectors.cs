@@ -242,7 +242,7 @@ namespace IntrinsicsLib {
     /// Constants of <see cref="Vector{T}"/> .
     /// </summary>
     /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-    public static class Vectors<T> where T:struct {
+    public abstract class Vectors<T>: AbstractVectors<T> where T:struct {
         // -- Number struct --
         /// <summary>Element byte size.</summary>
         public static readonly int ElementSize;
@@ -258,8 +258,6 @@ namespace IntrinsicsLib {
         public static readonly int ExponentShift;
         /// <summary>Mantissa shift bit.</summary>
         public static readonly int MantissaShift;
-        /// <summary>(Element) Zero.</summary>
-        public static readonly T ElementZero;
         /// <summary>(Element) All bit is 1.</summary>
         public static readonly T ElementAllBitsSet;
         /// <summary>(Element) Sign mask.</summary>
@@ -422,7 +420,7 @@ namespace IntrinsicsLib {
         /// </summary>
         static Vectors() {
             V0 = Vector<T>.Zero;
-            ElementZero = default;
+            T ElementZero = default;
             // -- Number struct --
             unchecked {
                 if (typeof(T) == typeof(Single)) {

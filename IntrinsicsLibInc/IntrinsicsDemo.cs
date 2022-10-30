@@ -418,6 +418,16 @@ namespace IntrinsicsLib {
             RunInfoVectors<uint>(tw, indent);
             RunInfoVectors<long>(tw, indent);
             RunInfoVectors<ulong>(tw, indent);
+            unsafe {
+                // When the return type is `T`, you cannot get a pointer. // CS0211	Cannot take the address of the given expression
+                //fixed (ulong* p = &Vectors<ulong>.ElementZero) {
+                //    WriteLineFormat(tw, indent, "&Vectors<ulong>.ElementZero:\t0x{0:X}", (IntPtr)p);
+                //}
+                // When the return type is `ref readonly T`, you cannot get a pointer.
+                fixed (ulong* p = &Vectors<ulong>.ElementV0) {
+                    WriteLineFormat(tw, indent, "&Vectors<ulong>.ElementV0:\t0x{0:X}", (IntPtr)p);
+                }
+            }
             tw.WriteLine();
 
             // Vector64s<T> .
@@ -527,7 +537,7 @@ namespace IntrinsicsLib {
             tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Vectors<T>.SignBits, Vectors<T>.ExponentBits, Vectors<T>.MantissaBits));
             if (ShowFull) {
                 tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Vectors<T>.SignShift, Vectors<T>.ExponentShift, Vectors<T>.MantissaShift));
-                WriteLineFormat(tw, indent, "ElementZero:\t{0}", Vectors<T>.ElementZero);
+                WriteLineFormat(tw, indent, "ElementV0:\t{0}", Vectors<T>.ElementV0);
                 WriteLineFormat(tw, indent, "ElementAllBitsSet:\t{0}", Vectors<T>.ElementAllBitsSet);
                 WriteLineFormat(tw, indent, "ElementSignMask:\t{0}", Vectors<T>.ElementSignMask);
                 WriteLineFormat(tw, indent, "ElementExponentMask:\t{0}", Vectors<T>.ElementExponentMask);

@@ -9,6 +9,7 @@
     <Import_RootNamespace>IntrinsicsLib</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AbstractVectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86.cs" />
