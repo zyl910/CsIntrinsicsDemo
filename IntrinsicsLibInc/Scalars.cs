@@ -10,11 +10,11 @@ namespace IntrinsicsLib {
     public static class Scalars {
 
         /// <summary>
-        /// Converts a double to the target type value.
+        /// Converts a <see cref="double"/> to the target type value (将 <see cref="double"/> 转换为目标类型值).
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
-        /// <param name="src">Source value.</param>
-        /// <returns>Returns target type value.</returns>
+        /// <param name="src">Source value (源值).</param>
+        /// <returns>Returns target type value (返回目标类型的值).</returns>
         public static T GetByDouble<T>(double src) {
             if (typeof(T) == typeof(Single)) {
                 return (T)(object)(Single)src;
@@ -50,11 +50,11 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Converts a bits to the target type value.
+        /// Converts a bits to the target type value (将整数位转换为目标类型值).
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
-        /// <param name="src">Source value.</param>
-        /// <returns>Returns target type value.</returns>
+        /// <param name="src">Source value (源值).</param>
+        /// <returns>Returns target type value (返回目标类型的值).</returns>
         public static T GetByBits<T>(Int64 src) {
             if (typeof(T) == typeof(Single)) {
                 return (T)(object)BitConverter.Int32BitsToSingle((Int32)src);
@@ -90,11 +90,11 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Get a <see cref="Int64"/> bits from target type value.
+        /// Get a <see cref="Int64"/> bits from target type value (从目标类型取得 <see cref="Int64"/> 类型的64位值).
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
-        /// <param name="src">Source value.</param>
-        /// <returns>Returns a <see cref="Int64"/> bits.</returns>
+        /// <param name="src">Source value (源值).</param>
+        /// <returns>Returns a <see cref="Int64"/> bits (返回 <see cref="Int64"/> 类型的64位值).</returns>
         public static Int64 GetInt64BitsFrom<T>(T src) where T:struct {
             if (typeof(T) == typeof(Single)) {
                 return (Int64)BitConverter.SingleToInt32Bits((Single)(object)src);
@@ -131,10 +131,10 @@ namespace IntrinsicsLib {
 
 #if NET5_0_OR_GREATER
         /// <summary>
-        /// Converts a half-precision floating-point value into a 16-bit integer.
+        /// Converts a half-precision floating-point value into a 16-bit integer (将半精度浮点值转换为 16 位整数).
         /// </summary>
-        /// <param name="value">The number to convert.</param>
-        /// <returns>A 16-bit integer whose bits are identical to value.</returns>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 16-bit integer whose bits are identical to value (一个16位整数，表示转换的半精度浮点值).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int16 HalfToInt16Bits(Half value) {
 #if NET6_0_OR_GREATER
@@ -147,10 +147,10 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Converts a half-precision floating-point value into a 16-bit unsigned integer.
+        /// Converts a half-precision floating-point value into a 16-bit unsigned integer (将指定的半精度浮点数转换为 16 位无符号整数).
         /// </summary>
-        /// <param name="value">The number to convert.</param>
-        /// <returns>A 16-bit unsigned integer whose bits are identical to value.</returns>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 16-bit integer whose bits are identical to value (一个16位无符号整数，表示转换的半精度浮点值).</returns>
         [CLSCompliant(false)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt16 HalfToUInt16Bits(Half value) {
@@ -164,10 +164,10 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Reinterprets the specified 16-bit signed integer value as a half-precision floating-point value.
+        /// Reinterprets the specified 16-bit signed integer value as a half-precision floating-point value (将指定的 16 位有符号整数值重新解释为半精度浮点值).
         /// </summary>
-        /// <param name="value">The 16-bit signed integer value to convert.</param>
-        /// <returns>A half-precision floating-point value that represents the converted integer.</returns>
+        /// <param name="value">The 16-bit signed integer value to convert (欲转换的16位带符号整数值).</param>
+        /// <returns>A half-precision floating-point value that represents the converted integer (表示根据整数转换后的半精度浮点值).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Half Int16BitsToHalf(Int16 value) {
 #if NET6_0_OR_GREATER
@@ -180,10 +180,10 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Reinterprets the specified 16-bit unsigned integer value as a half-precision floating-point value.
+        /// Reinterprets the specified 16-bit unsigned integer value as a half-precision floating-point value (将指定的 16 位无符号整数转换为半精度浮点数).
         /// </summary>
-        /// <param name="value">The 16-bit unsigned integer value to convert.</param>
-        /// <returns>A half-precision floating-point value that represents the converted integer.</returns>
+        /// <param name="value">The 16-bit unsigned integer value to convert (欲转换的16位无符号整数值).</param>
+        /// <returns>A half-precision floating-point value that represents the converted integer (表示根据整数转换后的半精度浮点值).</returns>
         [CLSCompliant(false)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Half UInt16BitsToHalf(UInt16 value) {
@@ -199,11 +199,11 @@ namespace IntrinsicsLib {
 #endif // NET5_0_OR_GREATER
 
         /// <summary>
-        /// Get 64-bit's bits mask.
+        /// Get 64-bit's bits mask (取得64位的掩码).
         /// </summary>
-        /// <param name="start">Bits start.</param>
-        /// <param name="len">Bits length.</param>
-        /// <returns>Returns mask.</returns>
+        /// <param name="start">Bits start (起始位).</param>
+        /// <param name="len">Bits length (位长度).</param>
+        /// <returns>Returns mask (返回掩码).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetBitsMask64(int start, int len) {
             unchecked {
@@ -219,9 +219,9 @@ namespace IntrinsicsLib {
         /// Get bits mask (取得位掩码).
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
-        /// <param name="start">Bits start.</param>
-        /// <param name="len">Bits length.</param>
-        /// <returns>Returns mask.</returns>
+        /// <param name="start">Bits start (起始位).</param>
+        /// <param name="len">Bits length (位长度).</param>
+        /// <returns>Returns mask (返回掩码).</returns>
         public static T GetBitsMask<T>(int start, int len) {
             return GetByBits<T>(GetBitsMask64(start, len));
         }
@@ -249,61 +249,63 @@ namespace IntrinsicsLib {
         // -- Number struct --
         /// <summary>Byte size (字节大小).</summary>
         public static readonly int ByteSize;
-        /// <summary>Sign bit size (符号位位数). When the type is an unsigned number, the value is 0.</summary>
+        /// <summary>Exponent bias (指数偏移值). When the type is an integer, the value is 0.</summary>
+        public static readonly int ExponentBias;
+        /// <summary>Sign bit size (符号位数). When the type is an unsigned number, the value is 0.</summary>
         public static readonly int SignBits;
         /// <summary>Exponent bit size (指数位数). When the type is an integer, the value is 0.</summary>
         public static readonly int ExponentBits;
         /// <summary>Mantissa bit size (尾数位数).</summary>
         public static readonly int MantissaBits;
-        /// <summary>Sign shift bit.</summary>
+        /// <summary>Sign shift bit (符号位移).</summary>
         public static readonly int SignShift;
-        /// <summary>Exponent shift bit.</summary>
+        /// <summary>Exponent shift bit (指数位移).</summary>
         public static readonly int ExponentShift;
-        /// <summary>Mantissa shift bit.</summary>
+        /// <summary>Mantissa shift bit (尾数位移).</summary>
         public static readonly int MantissaShift;
-        /// <summary>Sign mask.</summary>
+        /// <summary>Sign mask (符号掩码).</summary>
         public static readonly T SignMask;
-        /// <summary>Exponent mask.</summary>
+        /// <summary>Exponent mask (指数掩码).</summary>
         public static readonly T ExponentMask;
-        /// <summary>Mantissa mask.</summary>
+        /// <summary>Mantissa mast (尾数掩码)k.</summary>
         public static readonly T MantissaMask;
-        /// <summary>Non-sign mask.</summary>
+        /// <summary>Non-sign mask (非符号掩码).</summary>
         public static readonly T NonSignMask;
-        /// <summary>Non-exponent mask.</summary>
+        /// <summary>Non-exponent mask (非指数掩码).</summary>
         public static readonly T NonExponentMask;
-        /// <summary>Non-mantissa mask.</summary>
+        /// <summary>Non-mantissa mask (非尾数掩码).</summary>
         public static readonly T NonMantissaMask;
-        /// <summary>Represents the smallest positive value that is greater than zero. When the type is an integer, the value is 1.</summary>
+        /// <summary>Represents the smallest positive value that is greater than zero (表示大于零的最小正值). When the type is an integer, the value is 1 (当类型为整数时，该值为1).</summary>
         public static readonly T Epsilon;
-        /// <summary>Represents the largest possible value.</summary>
+        /// <summary>Represents the largest possible value (表示最大可能值).</summary>
         public static readonly T MaxValue;
-        /// <summary>Represents the smallest possible value.</summary>
+        /// <summary>Represents the smallest possible value (表示最大可能值).</summary>
         public static readonly T MinValue;
-        /// <summary>Represents not a number (NaN). When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents not a number (NaN) (表示“非数(NaN)”的值). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly T NaN;
-        /// <summary>Represents negative infinity. When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents negative infinity (表示负无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly T NegativeInfinity;
-        /// <summary>Represents positive infinity. When the type is an integer, the value is 0.</summary>
+        /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly T PositiveInfinity;
         // -- Math --
-        /// <summary>Represents the natural logarithmic base, specified by the constant, e.</summary>
+        /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static readonly T E;
-        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π.</summary>
+        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
         public static readonly T Pi;
-        /// <summary>Represents the number of radians in one turn, specified by the constant, τ.</summary>
+        /// <summary>Represents the number of radians in one turn, specified by the constant, τ (表示转一圈的弧度数，由常量 τ 指定).</summary>
         public static readonly T Tau;
         // -- Mask --
-        /// <summary>1 bits mask.</summary>
+        /// <summary>1 bits mask (1位掩码).</summary>
         public static readonly T MaskBits1;
-        /// <summary>2 bits mask.</summary>
+        /// <summary>2 bits mask (2位掩码).</summary>
         public static readonly T MaskBits2;
-        /// <summary>4 bits mask.</summary>
+        /// <summary>4 bits mask (4位掩码).</summary>
         public static readonly T MaskBits4;
-        /// <summary>8 bits mask.</summary>
+        /// <summary>8 bits mask (8位掩码).</summary>
         public static readonly T MaskBits8;
-        /// <summary>16 bits mask.</summary>
+        /// <summary>16 bits mask (16位掩码).</summary>
         public static readonly T MaskBits16;
-        /// <summary>32 bits mask.</summary>
+        /// <summary>32 bits mask (32位掩码).</summary>
         public static readonly T MaskBits32;
         // -- Positive number --
         /// <summary>Value 1 .</summary>
@@ -335,7 +337,7 @@ namespace IntrinsicsLib {
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
         public static readonly T V4294967295;
         // -- Negative number  --
-        /// <summary>Value -1 . When the type is unsigned, the value is a signed cast value (Example: '(Byte)(-1)=255').</summary>
+        /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly T V_1;
         /// <summary>Value -2 .</summary>
         public static readonly T V_2;
@@ -368,6 +370,7 @@ namespace IntrinsicsLib {
             unchecked {
                 if (typeof(T) == typeof(Single)) {
                     ByteSize = sizeof(Single);
+                    ExponentBias = 127;
                     SignBits = 1;
                     ExponentBits = 8;
                     MantissaBits = 23;
@@ -385,6 +388,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = (T)(object)Single.PositiveInfinity;
                 } else if (typeof(T) == typeof(Double)) {
                     ByteSize = sizeof(Double);
+                    ExponentBias = 1023;
                     SignBits = 1;
                     ExponentBits = 11;
                     MantissaBits = 52;
@@ -402,6 +406,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = (T)(object)Double.PositiveInfinity;
                 } else if (typeof(T) == typeof(SByte)) {
                     ByteSize = sizeof(SByte);
+                    ExponentBias = 0;
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 7;
@@ -419,6 +424,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(Int16)) {
                     ByteSize = sizeof(Int16);
+                    ExponentBias = 0;
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 15;
@@ -436,6 +442,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(Int32)) {
                     ByteSize = sizeof(Int32);
+                    ExponentBias = 0;
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 31;
@@ -453,6 +460,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(Int64)) {
                     ByteSize = sizeof(Int64);
+                    ExponentBias = 0;
                     SignBits = 1;
                     ExponentBits = 0;
                     MantissaBits = 63;
@@ -470,6 +478,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(Byte)) {
                     ByteSize = sizeof(Byte);
+                    ExponentBias = 0;
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 8;
@@ -487,6 +496,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(UInt16)) {
                     ByteSize = sizeof(UInt16);
+                    ExponentBias = 0;
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 16;
@@ -504,6 +514,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(UInt32)) {
                     ByteSize = sizeof(UInt32);
+                    ExponentBias = 0;
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 32;
@@ -521,6 +532,7 @@ namespace IntrinsicsLib {
                     PositiveInfinity = V0;
                 } else if (typeof(T) == typeof(UInt64)) {
                     ByteSize = sizeof(UInt64);
+                    ExponentBias = 0;
                     SignBits = 0;
                     ExponentBits = 0;
                     MantissaBits = 64;
@@ -536,6 +548,86 @@ namespace IntrinsicsLib {
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
+                } else if (typeof(T) == typeof(IntPtr)) {
+                    ByteSize = IntPtr.Size;
+                    ExponentBias = 0;
+                    if (sizeof(Int32) == ByteSize) {
+                        SignBits = 1;
+                        ExponentBits = 0;
+                        MantissaBits = 31;
+                        SignMask = (T)(object)(IntPtr)(Int32)(0x80000000);
+                        ExponentMask = (T)(object)(IntPtr)(Int32)(0);
+                        MantissaMask = (T)(object)(IntPtr)(Int32)(0x7FFFFFFF);
+                        NonSignMask = (T)(object)(IntPtr)(Int32)(~0x80000000);
+                        NonExponentMask = (T)(object)(IntPtr)(Int32)(~0);
+                        NonMantissaMask = (T)(object)(IntPtr)(Int32)(~0x7FFFFFFF);
+                    } else {
+                        SignBits = 1;
+                        ExponentBits = 0;
+                        MantissaBits = 63;
+                        SignMask = (T)(object)(IntPtr)(Int64)(0x8000000000000000L);
+                        ExponentMask = (T)(object)(IntPtr)(Int64)(0);
+                        MantissaMask = (T)(object)(IntPtr)(Int64)(0x7FFFFFFFFFFFFFFF);
+                        NonSignMask = (T)(object)(IntPtr)(Int64)(~0x8000000000000000L);
+                        NonExponentMask = (T)(object)(IntPtr)(Int64)(~0);
+                        NonMantissaMask = (T)(object)(IntPtr)(Int64)(~0x7FFFFFFFFFFFFFFF);
+                    }
+                    Epsilon = Scalars.GetByDouble<T>(1);
+                    MaxValue = (T)(object)IntPtr.MaxValue;
+                    MinValue = (T)(object)IntPtr.MinValue;
+                    NaN = V0;
+                    NegativeInfinity = V0;
+                    PositiveInfinity = V0;
+                } else if (typeof(T) == typeof(UIntPtr)) {
+                    ByteSize = UIntPtr.Size;
+                    ExponentBias = 0;
+                    if (sizeof(UInt32) == ByteSize) {
+                        SignBits = 1;
+                        ExponentBits = 0;
+                        MantissaBits = 31;
+                        SignMask = (T)(object)(UIntPtr)(UInt32)(0);
+                        ExponentMask = (T)(object)(UIntPtr)(UInt32)(0);
+                        MantissaMask = (T)(object)(UIntPtr)(UInt32)(0xFFFFFFFF);
+                        NonSignMask = (T)(object)(UIntPtr)(UInt32)(~0);
+                        NonExponentMask = (T)(object)(UIntPtr)(UInt32)(~0);
+                        NonMantissaMask = (T)(object)(UIntPtr)(UInt32)(~0xFFFFFFFF);
+                    } else {
+                        SignBits = 1;
+                        ExponentBits = 0;
+                        MantissaBits = 63;
+                        SignMask = (T)(object)(UIntPtr)(UInt64)(0);
+                        ExponentMask = (T)(object)(UIntPtr)(UInt64)(0);
+                        MantissaMask = (T)(object)(UIntPtr)(UInt64)(0xFFFFFFFFFFFFFFFFL);
+                        NonSignMask = (T)(object)(UIntPtr)(UInt64)(~0);
+                        NonExponentMask = (T)(object)(UIntPtr)(UInt64)(~0);
+                        NonMantissaMask = (T)(object)(UIntPtr)(UInt64)(~0xFFFFFFFFFFFFFFFFL);
+                    }
+                    Epsilon = Scalars.GetByDouble<T>(1);
+                    MaxValue = (T)(object)UIntPtr.MaxValue;
+                    MinValue = (T)(object)UIntPtr.MinValue;
+                    NaN = V0;
+                    NegativeInfinity = V0;
+                    PositiveInfinity = V0;
+#if NET5_0_OR_GREATER
+                } else if (typeof(T) == typeof(Half)) {
+                    ByteSize = 2; // sizeof(Half);
+                    ExponentBias = 15;
+                    SignBits = 1;
+                    ExponentBits = 5;
+                    MantissaBits = 10;
+                    SignMask = (T)(object)Scalars.Int16BitsToHalf((Int16)0x8000);
+                    ExponentMask = (T)(object)Scalars.Int16BitsToHalf((Int16)0x7C00);
+                    MantissaMask = (T)(object)Scalars.Int16BitsToHalf((Int16)0x03FF);
+                    NonSignMask = (T)(object)Scalars.Int16BitsToHalf(~(Int16)0x8000);
+                    NonExponentMask = (T)(object)Scalars.Int16BitsToHalf(~(Int16)0x7C00);
+                    NonMantissaMask = (T)(object)Scalars.Int16BitsToHalf(~(Int16)0x03FF);
+                    Epsilon = (T)(object)Half.Epsilon;
+                    MaxValue = (T)(object)Half.MaxValue;
+                    MinValue = (T)(object)Half.MinValue;
+                    NaN = (T)(object)Half.NaN;
+                    NegativeInfinity = (T)(object)Half.NegativeInfinity;
+                    PositiveInfinity = (T)(object)Half.PositiveInfinity;
+#endif // NET5_0_OR_GREATER
                 }
             }
             MantissaShift = 0;

@@ -399,6 +399,11 @@ namespace IntrinsicsLib {
             RunInfoScalars<uint>(tw, indent);
             RunInfoScalars<long>(tw, indent);
             RunInfoScalars<ulong>(tw, indent);
+            RunInfoScalars<IntPtr>(tw, indent);
+            RunInfoScalars<UIntPtr>(tw, indent);
+#if NET5_0_OR_GREATER
+            RunInfoScalars<Half>(tw, indent);
+#endif // NET5_0_OR_GREATER
             tw.WriteLine();
 
             // Vectors<T> .
@@ -471,6 +476,7 @@ namespace IntrinsicsLib {
             tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Scalars<T>.SignBits, Scalars<T>.ExponentBits, Scalars<T>.MantissaBits));
             if (ShowFull) {
                 tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Scalars<T>.SignShift, Scalars<T>.ExponentShift, Scalars<T>.MantissaShift));
+                WriteLineFormat(tw, indent, "ExponentBias:\t{0}", Scalars<T>.ExponentBias);
                 WriteLineFormat(tw, indent, "SignMask:\t{0}", Scalars<T>.SignMask);
                 WriteLineFormat(tw, indent, "ExponentMask:\t{0}", Scalars<T>.ExponentMask);
                 WriteLineFormat(tw, indent, "MantissaMask:\t{0}", Scalars<T>.MantissaMask);
