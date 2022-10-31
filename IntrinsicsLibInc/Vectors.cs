@@ -14,48 +14,137 @@ namespace IntrinsicsLib {
     /// </summary>
     public static class Vectors {
 
+        // == Vector as ==
+
+#if NETCOREAPP3_0_OR_GREATER
+        ///// <summary>
+        ///// Reinterprets a <see cref="Vector64{T}"/> as a new <see cref="Vector{T}"/> (将 <see cref="Vector64{T}"/> 重新解释为新的 <see cref="Vector{T}"/>).
+        ///// </summary>
+        ///// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        ///// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        ///// <returns>value reinterpreted as a new <see cref="Vector{T}"/> (重新解释后新的 <see cref="Vector{T}"/>)值.</returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Vector<T> AsVector<T>(Vector64<T> value) where T : struct {
+        //    //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+        //    return Unsafe.As<Vector64<T>, Vector<T>>(ref value);
+        //}
+
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> instance with all elements initialized to the specified value.
+        /// Reinterprets a <see cref="Vector128{T}"/> as a new <see cref="Vector{T}"/> (将 <see cref="Vector128{T}"/> 重新解释为新的 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="value">The value that all elements will be initialized to.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        /// <returns>value reinterpreted as a new <see cref="Vector{T}"/> (重新解释后新的 <see cref="Vector{T}"/>)值.</returns>
+        /// <seealso cref="Vector128.AsVector{T}(Vector128{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector<T> AsVector<T>(Vector128<T> value) where T : struct {
+            //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+            return Unsafe.As<Vector128<T>, Vector<T>>(ref value);
+        }
+
+        /// <summary>
+        /// Reinterprets a <see cref="Vector256{T}"/> as a new <see cref="Vector{T}"/> (将 <see cref="Vector256{T}"/> 重新解释为新的 <see cref="Vector{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        /// <returns>value reinterpreted as a new <see cref="Vector{T}"/> (重新解释后新的 <see cref="Vector{T}"/>)值.</returns>
+        /// <seealso cref="Vector256.AsVector{T}(Vector256{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector<T> AsVector<T>(Vector256<T> value) where T : struct {
+            //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+            return Unsafe.As<Vector256<T>, Vector<T>>(ref value);
+        }
+
+        ///// <summary>
+        ///// Reinterprets a <see cref="Vector{T}"/> as a new <see cref="Vector64{T}"/> (将 <see cref="Vector{T}"/> 重新解释为新的 <see cref="Vector64{T}"/>).
+        ///// </summary>
+        ///// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        ///// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        ///// <returns>value reinterpreted as a new <see cref="Vector64{T}"/> (重新解释后新的 <see cref="Vector64{T}"/>)值.</returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Vector64<T> AsVector64<T>(Vector<T> value) where T : struct {
+        //    //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+        //    Vector64<T> source = default(Vector64<T>);
+        //    Unsafe.WriteUnaligned(ref Unsafe.As<Vector64<T>, byte>(ref source), value);
+        //    return source;
+        //}
+
+        /// <summary>
+        /// Reinterprets a <see cref="Vector{T}"/> as a new <see cref="Vector128{T}"/> (将 <see cref="Vector{T}"/> 重新解释为新的 <see cref="Vector128{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        /// <returns>value reinterpreted as a new <see cref="Vector128{T}"/> (重新解释后新的 <see cref="Vector128{T}"/>)值.</returns>
+        /// <seealso cref="Vector128.AsVector128{T}(Vector{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector128<T> AsVector128<T>(Vector<T> value) where T : struct {
+            //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+            Vector128<T> source = default(Vector128<T>);
+            Unsafe.WriteUnaligned(ref Unsafe.As<Vector128<T>, byte>(ref source), value);
+            return source;
+        }
+
+        /// <summary>
+        /// Reinterprets a <see cref="Vector{T}"/> as a new <see cref="Vector256{T}"/> (将 <see cref="Vector{T}"/> 重新解释为新的 <see cref="Vector256{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        /// <returns>value reinterpreted as a new <see cref="Vector256{T}"/> (重新解释后新的 <see cref="Vector256{T}"/>)值.</returns>
+        /// <seealso cref="Vector256.AsVector256{T}(Vector{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector256<T> AsVector256<T>(Vector<T> value) where T : struct {
+            //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
+            Vector256<T> source = default(Vector256<T>);
+            Unsafe.WriteUnaligned(ref Unsafe.As<Vector256<T>, byte>(ref source), value);
+            return source;
+        }
+
+#endif
+
+        // == Vector methods ==
+
+        /// <summary>
+        /// Creates a new <see cref="Vector{T}"/> instance with all elements initialized to the specified value (创建新的 <see cref="Vector{T}"/> 实例，其中所有元素已初始化为指定值).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The value that all elements will be initialized to (所有元素的初始化目标值).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value (一个新的 <see cref="Vector{T}"/>，其中所有元素已初始化为 <paramref name="value"/> ).</returns>
         /// <seealso cref="Vector{T}(T)"/>
         public static Vector<T> Create<T>(T value) where T : struct {
             return new Vector<T>(value);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a given array.
+        /// Creates a new <see cref="Vector{T}"/> from a given array (从给定数组创建一个新的 <see cref="Vector{T}"/> ).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <seealso cref="Vector{T}(T[])"/>
         public static Vector<T> Create<T>(T[] values) where T:struct {
             return new Vector<T>(values);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position.
+        /// Creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position (于指定索引位置开始，从指定数组创建一个 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <param name="index">The starting index position from which to create the vector.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
+        /// <param name="index">The starting index position from which to create the vector (欲创建向量的起始索引位置).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(T[], int)"/>
         public static Vector<T> Create<T>(T[] values, int index) where T : struct {
             return new Vector<T>(values, index);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a given read-only span of bytes.
+        /// Creates a new <see cref="Vector{T}"/> from a given read-only span of bytes (根据给定的只读字节跨度构造一个 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">A read-only span of bytes that contains the values to add to the vector.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">A read-only span of bytes that contains the values to add to the vector (从中创建向量的只读字节跨度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{byte})"/>
         public static Vector<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
@@ -64,25 +153,17 @@ namespace IntrinsicsLib {
             if (values.Length < Vector<byte>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-            return Unsafe.ReadUnaligned<Vector<T>>(ref MemoryMarshal.GetReference(values)); // Only .NET Core 2.1+, .NET Standard 2.1+ .
-#else
-            unsafe {
-                fixed (byte* p = values) {
-                    return *(Vector<T>*)(void*)p;
-                }
-            }
-#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            return Unsafe.ReadUnaligned<Vector<T>>(ref Scalars.GetReference(values));
 #endif // NETCOREAPP3_0_OR_GREATER
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="ReadOnlySpan{T}"/>.
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="ReadOnlySpan{T}"/> (根据给定的 <see cref="ReadOnlySpan{T}"/> 构造一个 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as a read-only span of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The readonly span from which the vector is created (从中创建向量的只读跨度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{T})"/>
         public static Vector<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
@@ -91,48 +172,38 @@ namespace IntrinsicsLib {
             if (values.Length < Vector<T>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref MemoryMarshal.GetReference(values)));
-#else
-            //return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref TraitsUtil.GetReference(values))); // CS8329	Cannot use method 'TraitsUtil.GetReference<T>(ReadOnlySpan<T>)' as a ref or out value because it is a readonly variable.
-            int cnt = Vector<T>.Count;
-            T[] arr = new T[cnt];
-            for(int i=0; i<cnt; ++i) {
-                arr[i] = values[i];
-            }
-            return Vectors.Create<T>(arr);
-#endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref Scalars.GetReference(values)));
 #endif // NETCOREAPP3_0_OR_GREATER
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Span{T}"/>.
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Span{T}"/> (根据给定的 <see cref="Span{T}"/> 构造一个 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as a span of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least Count elements.</exception>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (从中创建向量的跨度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(Span{T})"/>
         public static Vector<T> Create<T>(Span<T> values) where T : struct {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if (NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
             return new Vector<T>(values);
 #else
             if (values.Length < Vector<T>.Count) {
                 throw new IndexOutOfRangeException(string.Format("Index was outside the bounds({0}) of the array!", values.Length));
             }
-            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref TraitsUtil.GetReference(values)));
+            return Unsafe.ReadUnaligned<Vector<T>>(ref Unsafe.As<T, byte>(ref Scalars.GetReference(values)));
 #endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position.
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position (于指定索引位置开始，从指定数组旋转创建一个 <see cref="Vector{T}"/>).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <param name="index">The starting index position from which to create the vector.</param>
-        /// <param name="length">The rotation length of the element.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
-        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero. The <paramref name="length"/> of values minus index is less than Length.</exception>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
+        /// <param name="index">The starting index position from which to create the vector (欲创建向量的起始索引位置).</param>
+        /// <param name="length">The rotation length of the element (The rotation length of the element).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         public static Vector<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
             T[] arr = new T[Vector<T>.Count];
             int idxEnd = index + length;
@@ -151,21 +222,21 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector{T}"/> from a given array.
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given array (从给定数组旋转创建一个新的 <see cref="Vector{T}"/> ).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="values">The values to add to the vector, as an array of objects of type <typeparamref name="T"/>.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/>.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         public static Vector<T> CreateRotate<T>(params T[] values) where T : struct {
             return CreateRotate<T>(values, 0, values.Length);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/>.
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/> (从给定 <see cref="Func{T, TResult}"/> 创建一个新的 <see cref="Vector{T}"/> ) .
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index)`, `index` is element index.</param>
-        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/>.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="func">A function that gets the value of each element (获取每个元素值的函数). Prototype: `T func(int index)`, `index` is element index.</param>
+        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/> (一个新<see cref="Vector{T}"/>，其元素来 <see cref="Func{T, TResult}"/>).</returns>
         public static Vector<T> CreateByFunc<T>(Func<int, T> func) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
             T[] arr = new T[Vector<T>.Count];
@@ -177,13 +248,13 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.
+        /// Creates a new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/> (从给定 <see cref="Func{T1, T2, TResult}"/> 创建一个新的 <see cref="Vector{T}"/> ) .
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <typeparam name="TUserdata">Type of <paramref name="userdata"/>.</typeparam>
-        /// <param name="func">A function that gets the value of each element. Prototype: `T func(int index, TUserdata userdata)`, `index` is element index.</param>
-        /// <param name="userdata">The userdata.</param>
-        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/>.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <typeparam name="TUserdata">Type of <paramref name="userdata"/> (<paramref name="userdata"/>的类型).</typeparam>
+        /// <param name="func">A function that gets the value of each element (获取每个元素值的函数). Prototype: `T func(int index, TUserdata userdata)`, `index` is element index.</param>
+        /// <param name="userdata">The userdata (用户自定义数据).</param>
+        /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/> (一个新<see cref="Vector{T}"/>，其元素来 <see cref="Func{T1, T2, TResult}"/>).</returns>
         public static Vector<T> CreateByFunc<T, TUserdata>(Func<int, TUserdata, T> func, TUserdata userdata) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
             T[] arr = new T[Vector<T>.Count];
@@ -195,21 +266,22 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double type.
+        /// Creates a <see cref="Vector{T}"/> whose components are of a specified double value (创建一个 <see cref="Vector{T}"/>，其元素为指定的双精度浮点值).
         /// </summary>
-        /// <param name="src">Source value.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="src">Source value (源值).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value (一个新的 <see cref="Vector{T}"/>，其中所有元素已初始化为 <paramref name="value"/> ).</returns>
         public static Vector<T> CreateByDouble<T>(double src) where T : struct {
             return Create(Scalars.GetByDouble<T>(src));
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector{T}"/> from double value `for` loop.
+        /// Creates a <see cref="Vector{T}"/> from double value `for` loop (创建一个 <see cref="Vector{T}"/>，其元素来自双精度浮点值的`for`循环).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="start">Start value.</param>
-        /// <param name="step">Step value.</param>
-        /// <returns>A new <see cref="Vector{T}"/> from double value `for` loop.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="start">Start value (起始值).</param>
+        /// <param name="step">Increments at each step (每一步的增量).</param>
+        /// <returns>A new <see cref="Vector{T}"/> from a from double value `for` loop (一个新<see cref="Vector{T}"/>，其元素来自双精度浮点值的`for`循环.</returns>
         public static Vector<T> CreateByDoubleLoop<T>(double start, double step) where T : struct {
             return CreateByFunc(delegate (int index) {
                 double src = start + step * index;
@@ -218,20 +290,21 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Creates a <see cref="Vector{T}"/> whose components are of a specified bits.
+        /// Creates a <see cref="Vector{T}"/> whose components are of a specified integer bits (创建一个 <see cref="Vector{T}"/>，其元素为指定的整数位).
         /// </summary>
-        /// <param name="src">Source value.</param>
-        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="src">Source value (源值).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value (一个新的 <see cref="Vector{T}"/>，其中所有元素已初始化为 <paramref name="value"/> ).</returns>
         public static Vector<T> CreateByBits<T>(Int64 src) where T : struct {
             return Create(Scalars.GetByBits<T>(src));
         }
 
         /// <summary>
-        /// Computes the ones-complement (~) of a vector.
+        /// Computes the ones-complement (~) of a vector (计算向量的补数).
         /// </summary>
-        /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
-        /// <param name="src">The vector whose ones-complement is to be computed.</param>
-        /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/>.</returns>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="src">The vector whose ones-complement is to be computed (要计算其补数的向量).</param>
+        /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/> (一个向量，其各元素是 <paramref name="src"/> 相应元素的补数).</returns>
         public static Vector<T> OnesComplement<T>(Vector<T> src) where T : struct {
             return ~src;
         }
@@ -241,7 +314,7 @@ namespace IntrinsicsLib {
     /// <summary>
     /// Constants of <see cref="Vector{T}"/> .
     /// </summary>
-    /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
+    /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
     public abstract class Vectors<T>: AbstractVectors<T> where T:struct {
         /// <summary>Value 0 (0的值).</summary>
         public static readonly Vector<T> V0;

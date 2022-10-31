@@ -376,6 +376,7 @@ namespace IntrinsicsLib {
             //tw.WriteLine(Vectors.Create(arrByte)); // IndexOutOfRangeException
             WriteLineFormat(tw, indent, "Create by T[]:\t{0}", Vectors.Create(arr));
             var parr = new ReadOnlySpan<double>(arr);
+            WriteLineFormat(tw, indent, "Create by Span<T>:\t{0}", Vectors.Create(new Span<double>(arr)));
             WriteLineFormat(tw, indent, "Create by ReadOnlySpan<T>:\t{0}", Vectors.Create(parr));
             if (true) {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
