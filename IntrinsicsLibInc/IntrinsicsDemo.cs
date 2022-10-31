@@ -420,12 +420,12 @@ namespace IntrinsicsLib {
             RunInfoVectors<ulong>(tw, indent);
             unsafe {
                 // When the return type is `T`, you cannot get a pointer. // CS0211	Cannot take the address of the given expression
-                //fixed (ulong* p = &Vectors<ulong>.ElementZero) {
-                //    WriteLineFormat(tw, indent, "&Vectors<ulong>.ElementZero:\t0x{0:X}", (IntPtr)p);
+                //fixed (void* p = &Vectors<ulong>.Zero) {
+                //    WriteLineFormat(tw, indent, "&Vectors<ulong>.Zero:\t0x{0:X}", (IntPtr)p);
                 //}
                 // When the return type is `ref readonly T`, you cannot get a pointer.
-                fixed (ulong* p = &Vectors<ulong>.ElementV0) {
-                    WriteLineFormat(tw, indent, "&Vectors<ulong>.ElementV0:\t0x{0:X}", (IntPtr)p);
+                fixed (void* p = &Vectors<ulong>.V0) {
+                    WriteLineFormat(tw, indent, "&Vectors<ulong>.V0:\t0x{0:X}", (IntPtr)p);
                 }
             }
             tw.WriteLine();
@@ -585,6 +585,8 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
             WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vectors<T>.MaskBitsSerial);
             if (ShowFull) {
+                WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vectors<T>.InterlacedSign);
+                WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vectors<T>.InterlacedSignNegative);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vectors<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vectors<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vectors<T>.XyzwXMask);

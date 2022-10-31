@@ -345,7 +345,7 @@ namespace IntrinsicsLib {
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
         public static readonly Vector<T> V_2147483648;
         // -- Specified value --
-        /// <summary>Serial Value (顺序值). e.g. 0,1,2,3...</summary>
+        /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector<T> Serial;
         /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
         public static readonly Vector<T> Demo;
@@ -353,6 +353,10 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> MaskBitPosSerial;
         /// <summary>Serial bits mask (顺序位集的掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
         public static readonly Vector<T> MaskBitsSerial;
+        /// <summary>Interlaced sign number (交错的符号数值). e.g. 1, -1, 1, -1, 1, -1 ...</summary>
+        public static readonly Vector<T> InterlacedSign;
+        /// <summary>Interlaced sign number starting with a negative number (负数开头的交错的符号数值). e.g. -1, 1, -1, 1, -1, 1 ...</summary>
+        public static readonly Vector<T> InterlacedSignNegative;
         // -- Xyzw --
         /// <summary>Xy - X mask. For a 2-element group, select the mask of the 0th element (对于2个元素的组，选择第0个元素的掩码).</summary>
         public static readonly Vector<T> XyXMask;
@@ -445,6 +449,8 @@ namespace IntrinsicsLib {
                 int m = index % bitLen + 1;
                 return Scalars.GetBitsMask<T>(0, m);
             });
+            InterlacedSign = Vectors.CreateRotate<T>(ElementV1, ElementV_1);
+            InterlacedSignNegative = Vectors.CreateRotate<T>(ElementV_1, ElementV1);
             // -- Xyzw --
             if (true) {
                 T o = ElementZero;
@@ -492,6 +498,8 @@ namespace IntrinsicsLib {
             }
         }
 
+        /// <summary>Zero (0).</summary>
+        public static Vector<T> Zero { get { return V0; } }
         /// <summary>Xy - Not X mask. For a 2-element group, not select the mask of the 0th element (对于2个元素的组，不选择第0个元素的掩码).</summary>
         public static ref readonly Vector<T> XyNotXMask { get { return ref XyYMask; } }
         /// <summary>Xy - Not Y mask. For a 2-element group, not select the mask of the 1st element (对于2个元素的组，不选择第1个元素的掩码).</summary>
