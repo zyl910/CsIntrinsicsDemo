@@ -110,6 +110,7 @@ namespace IntrinsicsLib {
         /// <param name="value">The value that all elements will be initialized to (所有元素的初始化目标值).</param>
         /// <returns>A new <see cref="Vector{T}"/> with all elements initialized to value (一个新的 <see cref="Vector{T}"/>，其中所有元素已初始化为 <paramref name="value"/> ).</returns>
         /// <seealso cref="Vector{T}(T)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(T value) where T : struct {
             return new Vector<T>(value);
         }
@@ -121,6 +122,7 @@ namespace IntrinsicsLib {
         /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <seealso cref="Vector{T}(T[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(T[] values) where T:struct {
             return new Vector<T>(values);
         }
@@ -134,6 +136,7 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(T[], int)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(T[] values, int index) where T : struct {
             return new Vector<T>(values, index);
         }
@@ -146,6 +149,7 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{byte})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(ReadOnlySpan<byte> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
             return new Vector<T>(values);
@@ -165,6 +169,7 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(ReadOnlySpan{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(ReadOnlySpan<T> values) where T : struct {
 #if NETCOREAPP3_0_OR_GREATER
             return new Vector<T>(values);
@@ -184,6 +189,7 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException"><paramref name="values"/> did not contain at least <see cref="Vector{T}.Count"/> elements (<paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         /// <seealso cref="Vector{T}(Span{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> Create<T>(Span<T> values) where T : struct {
 #if (NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
             return new Vector<T>(values);
@@ -205,20 +211,23 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
         public static Vector<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
-            T[] arr = new T[Vector<T>.Count];
             int idxEnd = index + length;
             int idx = index;
             if (null == values || values.Length <= 0) return Vector<T>.Zero;
             if (index < 0 || idxEnd > values.Length) {
                 throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
             }
-            for (int i = 0; i < arr.Length; ++i) {
-                arr[i] = values[idx];
-                ++idx;
-                if (idx >= idxEnd) idx = index;
+            Vector<T> temp = default;
+            unsafe {
+                // T* arr = (T*)&temp; // CS0208	Cannot take the address of, get the size of, or declare a pointer to a managed type ('T')
+                Span<T> arr = new Span<T>(&temp, Vector<T>.Count);
+                for (int i = 0; i < arr.Length; ++i) {
+                    arr[i] = values[idx];
+                    ++idx;
+                    if (idx >= idxEnd) idx = index;
+                }
+                return Create(arr);
             }
-            Vector<T> rt = Create(arr);
-            return rt;
         }
 
         /// <summary>
@@ -239,12 +248,14 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T, TResult}"/> (一个新<see cref="Vector{T}"/>，其元素来 <see cref="Func{T, TResult}"/>).</returns>
         public static Vector<T> CreateByFunc<T>(Func<int, T> func) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
-            T[] arr = new T[Vector<T>.Count];
-            for(int i=0; i < Vector<T>.Count; ++i) {
-                arr[i] = func(i);
+            Vector<T> temp = default;
+            unsafe {
+                Span<T> arr = new Span<T>(&temp, Vector<T>.Count);
+                for (int i = 0; i < Vector<T>.Count; ++i) {
+                    arr[i] = func(i);
+                }
+                return Create(arr);
             }
-            Vector<T> rt = Create(arr);
-            return rt;
         }
 
         /// <summary>
@@ -257,12 +268,14 @@ namespace IntrinsicsLib {
         /// <returns>A new <see cref="Vector{T}"/> from a from the given <see cref="Func{T1, T2, TResult}"/> (一个新<see cref="Vector{T}"/>，其元素来 <see cref="Func{T1, T2, TResult}"/>).</returns>
         public static Vector<T> CreateByFunc<T, TUserdata>(Func<int, TUserdata, T> func, TUserdata userdata) where T : struct {
             if (null == func) throw new ArgumentNullException(nameof(func));
-            T[] arr = new T[Vector<T>.Count];
-            for (int i = 0; i < Vector<T>.Count; ++i) {
-                arr[i] = func(i, userdata);
+            Vector<T> temp = default;
+            unsafe {
+                Span<T> arr = new Span<T>(&temp, Vector<T>.Count);
+                for (int i = 0; i < Vector<T>.Count; ++i) {
+                    arr[i] = func(i, userdata);
+                }
+                return Create(arr);
             }
-            Vector<T> rt = Create(arr);
-            return rt;
         }
 
         /// <summary>
@@ -305,6 +318,7 @@ namespace IntrinsicsLib {
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="src">The vector whose ones-complement is to be computed (要计算其补数的向量).</param>
         /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/> (一个向量，其各元素是 <paramref name="src"/> 相应元素的补数).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector<T> OnesComplement<T>(Vector<T> src) where T : struct {
             return ~src;
         }
