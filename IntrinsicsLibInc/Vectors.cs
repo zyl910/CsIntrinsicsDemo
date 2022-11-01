@@ -14,6 +14,107 @@ namespace IntrinsicsLib {
     /// </summary>
     public static class Vectors {
 
+        // == Mask array ==
+        // It takes up too much space to construct a batch of mask arrays for each element type. Int32/UInt32/Single can share a 4-byte mask, and the total bit length of vector types is fixed. Therefore, arrays such as MaskBitPosArray1B can be shared by multiple element types. (若为每一种元素类型都构造一批掩码数组的话, 太占空间了. 考虑到 Int32/UInt32/Single 可共用4字节的掩码, 且向量类型的总位长是固定的, 于是 MaskBitPosArray1B 等数组可以给多种元素类型所共用.)
+
+        /// <summary>Bit pos mask array - 1Byte (位偏移掩码的数组 - 1字节). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        private static readonly Vector<Byte>[] MaskBitPosArray1B;
+        /// <summary>Bit pos mask array - 2Byte (位偏移掩码的数组 - 2字节). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        private static readonly Vector<Byte>[] MaskBitPosArray2B;
+        /// <summary>Bit pos mask array - 4Byte (位偏移掩码的数组 - 4字节). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        private static readonly Vector<Byte>[] MaskBitPosArray4B;
+        /// <summary>Bit pos mask array - 8Byte (位偏移掩码的数组 - 8字节). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        private static readonly Vector<Byte>[] MaskBitPosArray8B;
+        /// <summary>Bits mask array - 1Byte (位集掩码的数组 - 1字节). e.g. 0, 1, 3, 7, 0xF, 0x1F ...</summary>
+        private static readonly Vector<Byte>[] MaskBitsArray1B;
+        /// <summary>Bits mask array - 2Byte (位集掩码的数组 - 2字节). e.g. 0, 1, 3, 7, 0xF, 0x1F ...</summary>
+        private static readonly Vector<Byte>[] MaskBitsArray2B;
+        /// <summary>Bits mask array - 4Byte (位集掩码的数组 - 4字节). e.g. 0, 1, 3, 7, 0xF, 0x1F ...</summary>
+        private static readonly Vector<Byte>[] MaskBitsArray4B;
+        /// <summary>Bits mask array - 8Byte (位集掩码的数组 - 8字节). e.g. 0, 1, 3, 7, 0xF, 0x1F ...</summary>
+        private static readonly Vector<Byte>[] MaskBitsArray8B;
+
+        /// <summary>
+        /// Static constructor.
+        /// </summary>
+        static Vectors() {
+            Int64 bitpos;
+            Int64 bits;
+            int i;
+            MaskBitPosArray1B = new Vector<Byte>[1 * 8];
+            MaskBitPosArray2B = new Vector<Byte>[2 * 8];
+            MaskBitPosArray4B = new Vector<Byte>[4 * 8];
+            MaskBitPosArray8B = new Vector<Byte>[8 * 8];
+            MaskBitsArray1B = new Vector<Byte>[1 * 8 + 1];
+            MaskBitsArray2B = new Vector<Byte>[2 * 8 + 1];
+            MaskBitsArray4B = new Vector<Byte>[4 * 8 + 1];
+            MaskBitsArray8B = new Vector<Byte>[8 * 8 + 1];
+            MaskBitsArray1B[0] = Vector<Byte>.Zero;
+            MaskBitsArray2B[0] = Vector<Byte>.Zero;
+            MaskBitsArray4B[0] = Vector<Byte>.Zero;
+            MaskBitsArray8B[0] = Vector<Byte>.Zero;
+            bitpos = 1;
+            bits = 1;
+            for (i=0; i< MaskBitPosArray8B.Length; ++i) {
+                if (i < MaskBitPosArray1B.Length) {
+                    MaskBitPosArray1B[i] = Vectors.Create(Scalars.GetByBits<Byte>(bitpos));
+                    MaskBitsArray1B[1 + i] = Vectors.Create(Scalars.GetByBits<Byte>(bits));
+                }
+                if (i < MaskBitPosArray2B.Length) {
+                    MaskBitPosArray2B[i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt16>(bitpos)));
+                    MaskBitsArray2B[1 + i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt16>(bits)));
+                }
+                if (i < MaskBitPosArray4B.Length) {
+                    MaskBitPosArray4B[i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt32>(bitpos)));
+                    MaskBitsArray4B[1 + i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt32>(bits)));
+                }
+                if (i < MaskBitPosArray8B.Length) {
+                    MaskBitPosArray8B[i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt64>(bitpos)));
+                    MaskBitsArray8B[1 + i] = Vector.AsVectorByte(Vectors.Create(Scalars.GetByBits<UInt64>(bits)));
+                }
+                // next.
+                bitpos <<= 1;
+                bits = bits << 1 | 1;
+            }
+            if (0!= bits) {
+                // [Debug]
+            }
+        }
+
+        /// <summary>
+        /// Get bit pos mask array (取得位偏移掩码的数组).
+        /// </summary>
+        /// <param name="byteSize">元素的字节大小 (元素的字节大小).</param>
+        /// <returns>Returns bit pos mask array (返回位偏移掩码的数组). An 8-byte array is returned if not found, to avoid returning null (找不到时返回8字节的数组, 这是为了避免返回null).</returns>
+        internal static Vector<Byte>[] GetMaskBitPosArray(int byteSize) {
+            if (1 == byteSize) {
+                return MaskBitPosArray1B;
+            } else if (2 == byteSize) {
+                return MaskBitPosArray2B;
+            } else if (4 == byteSize) {
+                return MaskBitPosArray4B;
+            } else {
+                return MaskBitPosArray8B;
+            }
+        }
+
+        /// <summary>
+        /// Get bits mask array (取得位集掩码的数组).
+        /// </summary>
+        /// <param name="byteSize">元素的字节大小 (元素的字节大小).</param>
+        /// <returns>Returns bits mask array (返回位集掩码的数组). An 8-byte array is returned if not found, to avoid returning null (找不到时返回8字节的数组, 这是为了避免返回null).</returns>
+        internal static Vector<Byte>[] GetMaskBitsArray(int byteSize) {
+            if (1 == byteSize) {
+                return MaskBitsArray1B;
+            } else if (2 == byteSize) {
+                return MaskBitsArray2B;
+            } else if (4 == byteSize) {
+                return MaskBitsArray4B;
+            } else {
+                return MaskBitsArray8B;
+            }
+        }
+
         // == Vector as ==
 
 #if NETCOREAPP3_0_OR_GREATER
@@ -366,19 +467,6 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> Pi;
         /// <summary>Represents the number of radians in one turn, specified by the constant, τ (表示转一圈的弧度数，由常量 τ 指定).</summary>
         public static readonly Vector<T> Tau;
-        // -- Mask --
-        /// <summary>1 bits mask (1位掩码).</summary>
-        public static readonly Vector<T> MaskBits1;
-        /// <summary>2 bits mask (2位掩码).</summary>
-        public static readonly Vector<T> MaskBits2;
-        /// <summary>4 bits mask (4位掩码).</summary>
-        public static readonly Vector<T> MaskBits4;
-        /// <summary>8 bits mask (8位掩码).</summary>
-        public static readonly Vector<T> MaskBits8;
-        /// <summary>16 bits mask (16位掩码).</summary>
-        public static readonly Vector<T> MaskBits16;
-        /// <summary>32 bits mask (32位掩码).</summary>
-        public static readonly Vector<T> MaskBits32;
         // -- Positive number --
         /// <summary>Value 1 .</summary>
         public static readonly Vector<T> V1;
@@ -465,6 +553,11 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="RgbaNotAMask"/>.</summary>
         public static readonly Vector<T> XyzwNotWMask;
+        // == Mask array ==
+        /// <summary>Bit pos mask array (位偏移掩码的数组). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        private static readonly Vector<Byte>[] MaskBitPosArray;
+        /// <summary>Bits mask array (位集掩码的数组). e.g. 0, 1, 3, 7, 0xF, 0x1F ...</summary>
+        private static readonly Vector<Byte>[] MaskBitsArray;
 
         /// <summary>
         /// Static constructor.
@@ -489,13 +582,6 @@ namespace IntrinsicsLib {
             E = Vectors.Create<T>(ElementE);
             Pi = Vectors.Create<T>(ElementPi);
             Tau = Vectors.Create<T>(ElementTau);
-            // -- Mask --
-            MaskBits1 = Vectors.Create<T>(ElementMaskBits1);
-            MaskBits2 = Vectors.Create<T>(ElementMaskBits2);
-            MaskBits4 = Vectors.Create<T>(ElementMaskBits4);
-            MaskBits8 = Vectors.Create<T>(ElementMaskBits8);
-            MaskBits16 = Vectors.Create<T>(ElementMaskBits16);
-            MaskBits32 = Vectors.Create<T>(ElementMaskBits32);
             // -- Positive number --
             V1 = Vectors.Create<T>(ElementV1);
             V2 = Vectors.Create<T>(ElementV2);
@@ -553,6 +639,9 @@ namespace IntrinsicsLib {
                 XyzwNotZMask = Vectors.OnesComplement(XyzwZMask);
                 XyzwNotWMask = Vectors.OnesComplement(XyzwWMask);
             }
+            // == Mask array ==
+            MaskBitPosArray = Vectors.GetMaskBitPosArray(ElementByteSize);
+            MaskBitsArray = Vectors.GetMaskBitsArray(ElementByteSize);
         }
 
         /// <summary>
@@ -585,29 +674,81 @@ namespace IntrinsicsLib {
             }
         }
 
+        /// <summary>
+        /// Get bit pos mask by index (根据索引获取位偏移掩码). The equivalent of <c>Vectors.Create(Scalars.GetByBits&lt;T&gt;(1L &lt;&lt; index))</c>.
+        /// </summary>
+        /// <param name="index">The index (索引). The value ranges from 0 to <c>ElementBitSize-1</c> (值的范围是 0 ~ <c>ElementBitSize-1</c>). 为了性能, 本函数不做范围检查, 调用者请确保它的值在范围内 (For performance purposes, this function does not do range checking; the caller should ensure that its value is within the range).</param>
+        /// <returns>Returns bit pos mask (返回位偏移掩码).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ref readonly Vector<T> GetMaskBitPos(int index) {
+            return ref Unsafe.As<Vector<Byte>, Vector<T>>(ref MaskBitPosArray[index]);
+        }
+
+        /// <summary>
+        /// Get bit pos mask span (获取位偏移掩码的跨度). Tip: You can use <see cref="Unsafe.As"/> convert its item to <see cref="Vector{T}"/> type (提示: 可以用 <see cref="Unsafe.As"/> 将其中条目转为 <see cref="Vector{T}"/> 类型).
+        /// </summary>
+        /// <returns>Returns bit pos mask span (返回位偏移掩码的跨度).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReadOnlySpan<Vector<Byte>> GetMaskBitPosSpan() {
+            return new ReadOnlySpan<Vector<Byte>>(MaskBitPosArray);
+        }
+
+        /// <summary>
+        /// Get bits mask by index (根据索引获取位集掩码). The equivalent of <c>Vectors.Create(Scalars.GetBitsMask&lt;T&gt;(0, index))</c>.
+        /// </summary>
+        /// <param name="index">The index (索引). The value ranges from 0 to <c>ElementBitSize</c> (值的范围是 0 ~ <c>ElementBitSize</c>). 为了性能, 本函数不做范围检查, 调用者请确保它的值在范围内 (For performance purposes, this function does not do range checking; the caller should ensure that its value is within the range).</param>
+        /// <returns>Returns bits mask mask (返回位集掩码).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ref readonly Vector<T> GetMaskBits(int index) {
+            return ref Unsafe.As<Vector<Byte>, Vector<T>>(ref MaskBitsArray[index]);
+        }
+
+        /// <summary>
+        /// Get bits mask span (获取位集掩码的跨度). Tip: You can use <see cref="Unsafe.As"/> convert its item to <see cref="Vector{T}"/> type (提示: 可以用 <see cref="Unsafe.As"/> 将其中条目转为 <see cref="Vector{T}"/> 类型).
+        /// </summary>
+        /// <returns>Returns bits mask span (返回位集掩码的跨度).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReadOnlySpan<Vector<Byte>> GetMaskBitsSpan() {
+            return new ReadOnlySpan<Vector<Byte>>(MaskBitsArray);
+        }
+
+
         /// <summary>Zero (0).</summary>
         public static Vector<T> Zero { get { return V0; } }
-        /// <summary>Xy - Not X mask. For a 2-element group, not select the mask of the 0th element (对于2个元素的组，不选择第0个元素的掩码).</summary>
-        public static ref readonly Vector<T> XyNotXMask { get { return ref XyYMask; } }
-        /// <summary>Xy - Not Y mask. For a 2-element group, not select the mask of the 1st element (对于2个元素的组，不选择第1个元素的掩码).</summary>
-        public static ref readonly Vector<T> XyNotYMask { get { return ref XyXMask; } }
-        /// <summary>Rgba - R mask. For a 4-element group, select the mask of the 0th element (对于4个元素的组，选择第0个元素的掩码). Alias has <see cref="XyzwXMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaRMask { get { return ref XyzwXMask; } }
-        /// <summary>Rgba - G mask. For a 4-element group, select the mask of the 1th element (对于4个元素的组，选择第1个元素的掩码). Alias has <see cref="XyzwYMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaGMask { get { return ref XyzwYMask; } }
-        /// <summary>Rgba - B mask. For a 4-element group, select the mask of the 2th element (对于4个元素的组，选择第2个元素的掩码). Alias has <see cref="XyzwZMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaBMask { get { return ref XyzwZMask; } }
-        /// <summary>Rgba - A mask. For a 4-element group, select the mask of the 3th element (对于4个元素的组，选择第3个元素的掩码). Alias has <see cref="XyzwWMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaAMask { get { return ref XyzwWMask; } }
-        /// <summary>Rgba - Not R mask. For a 4-element group, not select the mask of the 0th element (对于4个元素的组，不选择第0个元素的掩码). Alias has <see cref="XyzwNotXMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaNotRMask { get { return ref XyzwNotXMask; } }
-        /// <summary>Rgba - Not G mask. For a 4-element group, not select the mask of the 1th element (对于4个元素的组，不选择第1个元素的掩码). Alias has <see cref="XyzwNotYMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaNotGMask { get { return ref XyzwNotYMask; } }
-        /// <summary>Rgba - Not B mask. For a 4-element group, not select the mask of the 2th element (对于4个元素的组，不选择第2个元素的掩码). Alias has <see cref="XyzwNotZMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaNotBMask { get { return ref XyzwNotZMask; } }
-        /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
-        public static ref readonly Vector<T> RgbaNotAMask { get { return ref XyzwNotWMask; } }
 
+        /// <summary>1 bits mask (1位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits1 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(1); } }
+        /// <summary>2 bits mask (2位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits2 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(2); } }
+        /// <summary>4 bits mask (4位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits4 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(4); } }
+        /// <summary>8 bits mask (8位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits8 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(8); } }
+        /// <summary>16 bits mask (16位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits16 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(Math.Min(ElementBitSize, 16)); } }
+        /// <summary>32 bits mask (32位掩码).</summary>
+        public static ref readonly Vector<T> MaskBits32 { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref GetMaskBits(Math.Min(ElementBitSize, 32)); } }
+
+        /// <summary>Xy - Not X mask. For a 2-element group, not select the mask of the 0th element (对于2个元素的组，不选择第0个元素的掩码).</summary>
+        public static ref readonly Vector<T> XyNotXMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyYMask; } }
+        /// <summary>Xy - Not Y mask. For a 2-element group, not select the mask of the 1st element (对于2个元素的组，不选择第1个元素的掩码).</summary>
+        public static ref readonly Vector<T> XyNotYMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyXMask; } }
+        /// <summary>Rgba - R mask. For a 4-element group, select the mask of the 0th element (对于4个元素的组，选择第0个元素的掩码). Alias has <see cref="XyzwXMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaRMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwXMask; } }
+        /// <summary>Rgba - G mask. For a 4-element group, select the mask of the 1th element (对于4个元素的组，选择第1个元素的掩码). Alias has <see cref="XyzwYMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaGMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwYMask; } }
+        /// <summary>Rgba - B mask. For a 4-element group, select the mask of the 2th element (对于4个元素的组，选择第2个元素的掩码). Alias has <see cref="XyzwZMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaBMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwZMask; } }
+        /// <summary>Rgba - A mask. For a 4-element group, select the mask of the 3th element (对于4个元素的组，选择第3个元素的掩码). Alias has <see cref="XyzwWMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaAMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwWMask; } }
+        /// <summary>Rgba - Not R mask. For a 4-element group, not select the mask of the 0th element (对于4个元素的组，不选择第0个元素的掩码). Alias has <see cref="XyzwNotXMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotRMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotXMask; } }
+        /// <summary>Rgba - Not G mask. For a 4-element group, not select the mask of the 1th element (对于4个元素的组，不选择第1个元素的掩码). Alias has <see cref="XyzwNotYMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotGMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotYMask; } }
+        /// <summary>Rgba - Not B mask. For a 4-element group, not select the mask of the 2th element (对于4个元素的组，不选择第2个元素的掩码). Alias has <see cref="XyzwNotZMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotBMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotZMask; } }
+        /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
+        public static ref readonly Vector<T> RgbaNotAMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotWMask; } }
 
     }
 }

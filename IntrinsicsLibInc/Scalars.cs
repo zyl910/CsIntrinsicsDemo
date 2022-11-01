@@ -286,6 +286,8 @@ namespace IntrinsicsLib {
         // -- Number struct --
         /// <summary>Byte size (字节大小).</summary>
         public static readonly int ByteSize;
+        /// <summary>Bit size (位大小).</summary>
+        public static readonly int BitSize;
         /// <summary>Exponent bias (指数偏移值). When the type is an integer, the value is 0.</summary>
         public static readonly int ExponentBias;
         /// <summary>Sign bit size (符号位数). When the type is an unsigned number, the value is 0.</summary>
@@ -667,6 +669,7 @@ namespace IntrinsicsLib {
 #endif // NET5_0_OR_GREATER
                 }
             }
+            BitSize = ByteSize * 8;
             MantissaShift = 0;
             ExponentShift = MantissaShift + MantissaBits;
             SignShift = ExponentShift + ExponentBits;

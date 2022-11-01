@@ -92,6 +92,9 @@ namespace IntrinsicsLib {
             } catch (Exception ex) {
                 tw.WriteLine(ex);
             }
+            if (null!= tw) {
+                // [Debug]
+            }
         }
 
         /// <summary>
@@ -588,6 +591,9 @@ namespace IntrinsicsLib {
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vectors<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vectors<T>.InterlacedSignNegative);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vectors<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vectors<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vectors<T>.XyzwXMask);

@@ -19,6 +19,8 @@ namespace IntrinsicsLib {
         // -- Number struct --
         /// <summary>(Element) Byte size (字节大小).</summary>
         public static int ElementByteSize { get { return Scalars<T>.ByteSize; } }
+        /// <summary>(Element) Bit size (位大小).</summary>
+        public static int ElementBitSize { get { return Scalars<T>.BitSize; } }
         /// <summary>(Element) Exponent bias (指数偏移值). When the type is an integer, the value is 0.</summary>
         public static int ElementExponentBias { get { return Scalars<T>.ExponentBias; } }
         /// <summary>(Element) Sign bit size (符号位数). When the type is an unsigned number, the value is 0.</summary>
