@@ -671,6 +671,9 @@ namespace IntrinsicsLib {
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector64s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector64s<T>.InterlacedSignNegative);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector64s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector64s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector64s<T>.XyzwXMask);
@@ -748,6 +751,9 @@ namespace IntrinsicsLib {
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector128s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector128s<T>.InterlacedSignNegative);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector128s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector128s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector128s<T>.XyzwXMask);
@@ -825,6 +831,9 @@ namespace IntrinsicsLib {
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector256s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector256s<T>.InterlacedSignNegative);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector256s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector256s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector256s<T>.XyzwXMask);
