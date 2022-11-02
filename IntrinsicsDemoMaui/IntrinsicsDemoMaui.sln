@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntrinsicsDemoMaui", "IntrinsicsDemoMaui\IntrinsicsDemoMaui.csproj", "{C290546C-53AB-4B7E-B2F2-90D445003CFF}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntrinsicsLibInc", "..\IntrinsicsLibInc\IntrinsicsLibInc.shproj", "{A33DD5A5-2A8A-46FF-97BE-BF3FB23154C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\IntrinsicsLibInc\IntrinsicsLibInc.projitems*{a33dd5a5-2a8a-46ff-97be-bf3fb23154c2}*SharedItemsImports = 13
+		..\IntrinsicsLibInc\IntrinsicsLibInc.projitems*{c290546c-53ab-4b7e-b2f2-90d445003cff}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

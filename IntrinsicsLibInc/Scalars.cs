@@ -679,7 +679,7 @@ namespace IntrinsicsLib {
 #if NET5_0_OR_GREATER
             Tau = Scalars.GetByDouble<T>(Math.Tau);
 #else
-            Tau = CreateByDouble(Math.PI * 2);
+            Tau = Scalars.GetByDouble<T>(Math.PI * 2);
 #endif // NET5_0_OR_GREATER
             // -- Math shift --
             // -- Mask --

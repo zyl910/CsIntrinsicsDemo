@@ -11,6 +11,12 @@
         <HorizontalStackLayout Margin="4" Grid.Row="0">
 
             <Button
+            x:Name="ShowBtn"
+            Text="Show"
+            SemanticProperties.Hint="Show Info."
+            Clicked="ShowBtn_Clicked" />
+
+            <Button
             x:Name="CounterBtn"
             Text="Click me"
             SemanticProperties.Hint="Counts the number of times you click"

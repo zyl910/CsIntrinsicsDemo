@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = true;
+        public static bool ShowFull = false;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -88,7 +88,7 @@ namespace IntrinsicsLib {
             try {
                 RunCommon(tw, indent);
                 RunX86(tw, indent);
-                //RunArm(tw, indent);
+                RunArm(tw, indent);
             } catch (Exception ex) {
                 tw.WriteLine(ex);
             }

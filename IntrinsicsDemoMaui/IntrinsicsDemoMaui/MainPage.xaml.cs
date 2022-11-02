@@ -1,8 +1,11 @@
-﻿using System.Numerics;
+﻿using IntrinsicsLib;
+using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.Intrinsics;
 
 namespace IntrinsicsDemoMaui;
 
+[CLSCompliant(false)]
 public partial class MainPage : ContentPage {
     int count = 0;
 
@@ -23,5 +26,24 @@ public partial class MainPage : ContentPage {
 
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
+
+    private void ShowBtn_Clicked(object sender, EventArgs e) {
+        string indent = "";
+        try {
+            //TextWriter tw = Console.Out;
+            TextWriter tw = new StringWriter();
+            tw.WriteLine("IntrinsicsDemoMaui");
+            tw.WriteLine();
+            IntrinsicsDemo.OutputEnvironment(tw, indent);
+            tw.WriteLine();
+            IntrinsicsDemo.Run(tw, indent);
+            string? rt = tw.ToString();
+            Debug.WriteLine(rt);
+            InfoEditor.Text = rt;
+        } catch (Exception ex) {
+            InfoEditor.Text = ex.ToString();
+        }
+    }
+
 }
 

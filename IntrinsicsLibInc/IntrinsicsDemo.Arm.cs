@@ -16,8 +16,8 @@ namespace IntrinsicsLib {
         /// <param name="indent">The indent.</param>
         public static void RunArm(TextWriter tw, string indent) {
 #if NET5_0_OR_GREATER
-            bool isSupported = ArmBase.IsSupported;
-            if (!isSupported) return;
+            // bool isSupported = ArmBase.IsSupported;
+            // if (!isSupported) return;
             RunArmSupported(tw, indent);
 #else
             return;
