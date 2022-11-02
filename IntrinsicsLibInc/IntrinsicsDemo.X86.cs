@@ -20,8 +20,8 @@ namespace IntrinsicsLib {
 #else
             bool isSupported = Sse.IsSupported;
 #endif
-            if (!isSupported) return;
             RunX86Supported(tw, indent);
+            if (!isSupported) return;
             // Sse
             // Avx
             RunX86Avx(tw, indent);

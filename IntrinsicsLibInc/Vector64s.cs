@@ -34,46 +34,48 @@ namespace IntrinsicsLib {
         /// Static constructor.
         /// </summary>
         static Vector64s() {
-            Int64 bitpos;
-            Int64 bits;
-            int i;
-            MaskBitPosArray1B = new Vector64<Byte>[1 * 8];
-            MaskBitPosArray2B = new Vector64<Byte>[2 * 8];
-            MaskBitPosArray4B = new Vector64<Byte>[4 * 8];
-            MaskBitPosArray8B = new Vector64<Byte>[8 * 8];
-            MaskBitsArray1B = new Vector64<Byte>[1 * 8 + 1];
-            MaskBitsArray2B = new Vector64<Byte>[2 * 8 + 1];
-            MaskBitsArray4B = new Vector64<Byte>[4 * 8 + 1];
-            MaskBitsArray8B = new Vector64<Byte>[8 * 8 + 1];
-            MaskBitsArray1B[0] = Vector64<Byte>.Zero;
-            MaskBitsArray2B[0] = Vector64<Byte>.Zero;
-            MaskBitsArray4B[0] = Vector64<Byte>.Zero;
-            MaskBitsArray8B[0] = Vector64<Byte>.Zero;
-            bitpos = 1;
-            bits = 1;
-            for (i = 0; i < MaskBitPosArray8B.Length; ++i) {
-                if (i < MaskBitPosArray1B.Length) {
-                    MaskBitPosArray1B[i] = Vector64s.Create(Scalars.GetByBits<Byte>(bitpos));
-                    MaskBitsArray1B[1 + i] = Vector64s.Create(Scalars.GetByBits<Byte>(bits));
+            unchecked {
+                Int64 bitpos;
+                Int64 bits;
+                int i;
+                MaskBitPosArray1B = new Vector64<Byte>[1 * 8];
+                MaskBitPosArray2B = new Vector64<Byte>[2 * 8];
+                MaskBitPosArray4B = new Vector64<Byte>[4 * 8];
+                MaskBitPosArray8B = new Vector64<Byte>[8 * 8];
+                MaskBitsArray1B = new Vector64<Byte>[1 * 8 + 1];
+                MaskBitsArray2B = new Vector64<Byte>[2 * 8 + 1];
+                MaskBitsArray4B = new Vector64<Byte>[4 * 8 + 1];
+                MaskBitsArray8B = new Vector64<Byte>[8 * 8 + 1];
+                MaskBitsArray1B[0] = Vector64<Byte>.Zero;
+                MaskBitsArray2B[0] = Vector64<Byte>.Zero;
+                MaskBitsArray4B[0] = Vector64<Byte>.Zero;
+                MaskBitsArray8B[0] = Vector64<Byte>.Zero;
+                bitpos = 1;
+                bits = 1;
+                for (i = 0; i < MaskBitPosArray8B.Length; ++i) {
+                    if (i < MaskBitPosArray1B.Length) {
+                        MaskBitPosArray1B[i] = Vector64.Create(Scalars.GetByBits<Byte>(bitpos));
+                        MaskBitsArray1B[1 + i] = Vector64.Create(Scalars.GetByBits<Byte>(bits));
+                    }
+                    if (i < MaskBitPosArray2B.Length) {
+                        MaskBitPosArray2B[i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt16>(bitpos)));
+                        MaskBitsArray2B[1 + i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt16>(bits)));
+                    }
+                    if (i < MaskBitPosArray4B.Length) {
+                        MaskBitPosArray4B[i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt32>(bitpos)));
+                        MaskBitsArray4B[1 + i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt32>(bits)));
+                    }
+                    if (i < MaskBitPosArray8B.Length) {
+                        MaskBitPosArray8B[i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt64>(bitpos)));
+                        MaskBitsArray8B[1 + i] = Vector64.AsByte(Vector64.Create(Scalars.GetByBits<UInt64>(bits)));
+                    }
+                    // next.
+                    bitpos <<= 1;
+                    bits = bits << 1 | 1;
                 }
-                if (i < MaskBitPosArray2B.Length) {
-                    MaskBitPosArray2B[i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt16>(bitpos)));
-                    MaskBitsArray2B[1 + i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt16>(bits)));
+                if (0 != bits) {
+                    // [Debug]
                 }
-                if (i < MaskBitPosArray4B.Length) {
-                    MaskBitPosArray4B[i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt32>(bitpos)));
-                    MaskBitsArray4B[1 + i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt32>(bits)));
-                }
-                if (i < MaskBitPosArray8B.Length) {
-                    MaskBitPosArray8B[i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt64>(bitpos)));
-                    MaskBitsArray8B[1 + i] = Vector64.AsByte(Vector64s.Create(Scalars.GetByBits<UInt64>(bits)));
-                }
-                // next.
-                bitpos <<= 1;
-                bits = bits << 1 | 1;
-            }
-            if (0 != bits) {
-                // [Debug]
             }
         }
 
@@ -125,7 +127,29 @@ namespace IntrinsicsLib {
 #if NET7_0_OR_GREATER
             return Vector64.Create(value);
 #else
-            return Vector64.Create((dynamic)value);
+            if (typeof(T) == typeof(Single)) {
+                return (Vector64<T>)(object)Vector64.Create((Single)(object)value);
+            } else if (typeof(T) == typeof(Double)) {
+                return (Vector64<T>)(object)Vector64.Create((Double)(object)value);
+            } else if (typeof(T) == typeof(SByte)) {
+                return (Vector64<T>)(object)Vector64.Create((SByte)(object)value);
+            } else if (typeof(T) == typeof(Int16)) {
+                return (Vector64<T>)(object)Vector64.Create((Int16)(object)value);
+            } else if (typeof(T) == typeof(Int32)) {
+                return (Vector64<T>)(object)Vector64.Create((Int32)(object)value);
+            } else if (typeof(T) == typeof(Int64)) {
+                return (Vector64<T>)(object)Vector64.Create((Int64)(object)value);
+            } else if (typeof(T) == typeof(Byte)) {
+                return (Vector64<T>)(object)Vector64.Create((Byte)(object)value);
+            } else if (typeof(T) == typeof(UInt16)) {
+                return (Vector64<T>)(object)Vector64.Create((UInt16)(object)value);
+            } else if (typeof(T) == typeof(UInt32)) {
+                return (Vector64<T>)(object)Vector64.Create((UInt32)(object)value);
+            } else if (typeof(T) == typeof(UInt64)) {
+                return (Vector64<T>)(object)Vector64.Create((UInt64)(object)value);
+            } else {
+                return (Vector64<T>)(object)Vector64.Create((dynamic)value);
+            }
 #endif
         }
 

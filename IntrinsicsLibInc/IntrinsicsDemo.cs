@@ -103,11 +103,31 @@ namespace IntrinsicsLib {
         /// <param name="tw">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public static void RunCommon(TextWriter tw, string indent) {
-            RunBaseInfo(tw, indent);
-            RunVector(tw, indent);
-            RunVector64(tw, indent);
-            RunVector128(tw, indent);
-            RunVector256(tw, indent);
+            try {
+                RunBaseInfo(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunBaseInfo fail! " + ex.ToString());
+            }
+            try {
+                RunVector(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunVector fail! " + ex.ToString());
+            }
+            try {
+                RunVector64(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunVector64 fail! " + ex.ToString());
+            }
+            try {
+                RunVector128(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunVector128 fail! " + ex.ToString());
+            }
+            try {
+                RunVector256(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunVector256 fail! " + ex.ToString());
+            }
         }
 
         /// <summary>
@@ -435,42 +455,54 @@ namespace IntrinsicsLib {
             tw.WriteLine();
 
             // Vector64s<T> .
-            RunInfoVector64s<float>(tw, indent);
-            RunInfoVector64s<double>(tw, indent);
-            RunInfoVector64s<sbyte>(tw, indent);
-            RunInfoVector64s<byte>(tw, indent);
-            RunInfoVector64s<short>(tw, indent);
-            RunInfoVector64s<ushort>(tw, indent);
-            RunInfoVector64s<int>(tw, indent);
-            RunInfoVector64s<uint>(tw, indent);
-            RunInfoVector64s<long>(tw, indent);
-            RunInfoVector64s<ulong>(tw, indent);
+            try {
+                RunInfoVector64s<float>(tw, indent);
+                RunInfoVector64s<double>(tw, indent);
+                RunInfoVector64s<sbyte>(tw, indent);
+                RunInfoVector64s<byte>(tw, indent);
+                RunInfoVector64s<short>(tw, indent);
+                RunInfoVector64s<ushort>(tw, indent);
+                RunInfoVector64s<int>(tw, indent);
+                RunInfoVector64s<uint>(tw, indent);
+                RunInfoVector64s<long>(tw, indent);
+                RunInfoVector64s<ulong>(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunInfoVector64s fail! " + ex.ToString());
+            }
             tw.WriteLine();
 
             // Vector128s<T> .
-            RunInfoVector128s<float>(tw, indent);
-            RunInfoVector128s<double>(tw, indent);
-            RunInfoVector128s<sbyte>(tw, indent);
-            RunInfoVector128s<byte>(tw, indent);
-            RunInfoVector128s<short>(tw, indent);
-            RunInfoVector128s<ushort>(tw, indent);
-            RunInfoVector128s<int>(tw, indent);
-            RunInfoVector128s<uint>(tw, indent);
-            RunInfoVector128s<long>(tw, indent);
-            RunInfoVector128s<ulong>(tw, indent);
+            try {
+                RunInfoVector128s<float>(tw, indent);
+                RunInfoVector128s<double>(tw, indent);
+                RunInfoVector128s<sbyte>(tw, indent);
+                RunInfoVector128s<byte>(tw, indent);
+                RunInfoVector128s<short>(tw, indent);
+                RunInfoVector128s<ushort>(tw, indent);
+                RunInfoVector128s<int>(tw, indent);
+                RunInfoVector128s<uint>(tw, indent);
+                RunInfoVector128s<long>(tw, indent);
+                RunInfoVector128s<ulong>(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunInfoVector128s fail! " + ex.ToString());
+            }
             tw.WriteLine();
 
             // Vector256s<T> .
-            RunInfoVector256s<float>(tw, indent);
-            RunInfoVector256s<double>(tw, indent);
-            RunInfoVector256s<sbyte>(tw, indent);
-            RunInfoVector256s<byte>(tw, indent);
-            RunInfoVector256s<short>(tw, indent);
-            RunInfoVector256s<ushort>(tw, indent);
-            RunInfoVector256s<int>(tw, indent);
-            RunInfoVector256s<uint>(tw, indent);
-            RunInfoVector256s<long>(tw, indent);
-            RunInfoVector256s<ulong>(tw, indent);
+            try {
+                RunInfoVector256s<float>(tw, indent);
+                RunInfoVector256s<double>(tw, indent);
+                RunInfoVector256s<sbyte>(tw, indent);
+                RunInfoVector256s<byte>(tw, indent);
+                RunInfoVector256s<short>(tw, indent);
+                RunInfoVector256s<ushort>(tw, indent);
+                RunInfoVector256s<int>(tw, indent);
+                RunInfoVector256s<uint>(tw, indent);
+                RunInfoVector256s<long>(tw, indent);
+                RunInfoVector256s<ulong>(tw, indent);
+            } catch (Exception ex) {
+                tw.WriteLine("RunInfoVector256s fail! " + ex.ToString());
+            }
             tw.WriteLine();
         }
 
@@ -886,18 +918,19 @@ namespace IntrinsicsLib {
 
             // -- Methods --
             #region Methods
-            //Debugger.Break();
-            //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
-            WriteLineFormat(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
-            WriteLineFormat(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
+            unchecked {
+                //Debugger.Break();
+                //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
+                WriteLineFormat(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
+                WriteLineFormat(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
 
 //            //Add<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the sum of each pair of elements from two given vectors.
 //            WriteLineFormat(tw, indent, "Add(srcT, src1):\t{0}", Vector.Add(srcT, src1));
@@ -1192,6 +1225,8 @@ namespace IntrinsicsLib {
 //            //Xor<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise exclusive Or(XOr) operation on each pair of elements in two vectors.
 //            WriteLineFormat(tw, indent, "Xor(srcT, src1):\t{0}", Vector.Xor(srcT, src1));
 //            WriteLineFormat(tw, indent, "Xor(srcT, src2):\t{0}", Vector.Xor(srcT, src2));
+
+            }
 
 #endregion // Methods
 

@@ -16,7 +16,9 @@ public partial class MainPage : ContentPage {
     private void OnCounterClicked(object sender, EventArgs e) {
         count++;
         string msg = string.Format("Vector<Byte>.Count={0}, IsHardwareAccelerated={1}. ", Vector<Byte>.Count, Vector.IsHardwareAccelerated);
-        msg += string.Format("\nVector256<Byte>.Count={0}, IsHardwareAccelerated={1}. ", Vector256<Byte>.Count, Vector.IsHardwareAccelerated);
+        msg += string.Format("\nVector64<Byte>.Count={0}. ", Vector64<Byte>.Count);
+        msg += string.Format("\nVector128<Byte>.Count={0}. ", Vector128<Byte>.Count);
+        msg += string.Format("\nVector256<Byte>.Count={0}. ", Vector256<Byte>.Count);
         InfoEditor.Text = msg;
 
         if (count == 1)
@@ -27,7 +29,7 @@ public partial class MainPage : ContentPage {
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
 
-    private void ShowBtn_Clicked(object sender, EventArgs e) {
+    private async void ShowBtn_Clicked(object sender, EventArgs e) {
         string indent = "";
         try {
             //TextWriter tw = Console.Out;
@@ -40,6 +42,7 @@ public partial class MainPage : ContentPage {
             string? rt = tw.ToString();
             Debug.WriteLine(rt);
             InfoEditor.Text = rt;
+            await Clipboard.Default.SetTextAsync(rt);
         } catch (Exception ex) {
             InfoEditor.Text = ex.ToString();
         }

@@ -34,46 +34,48 @@ namespace IntrinsicsLib {
         /// Static constructor.
         /// </summary>
         static Vector128s() {
-            Int64 bitpos;
-            Int64 bits;
-            int i;
-            MaskBitPosArray1B = new Vector128<Byte>[1 * 8];
-            MaskBitPosArray2B = new Vector128<Byte>[2 * 8];
-            MaskBitPosArray4B = new Vector128<Byte>[4 * 8];
-            MaskBitPosArray8B = new Vector128<Byte>[8 * 8];
-            MaskBitsArray1B = new Vector128<Byte>[1 * 8 + 1];
-            MaskBitsArray2B = new Vector128<Byte>[2 * 8 + 1];
-            MaskBitsArray4B = new Vector128<Byte>[4 * 8 + 1];
-            MaskBitsArray8B = new Vector128<Byte>[8 * 8 + 1];
-            MaskBitsArray1B[0] = Vector128<Byte>.Zero;
-            MaskBitsArray2B[0] = Vector128<Byte>.Zero;
-            MaskBitsArray4B[0] = Vector128<Byte>.Zero;
-            MaskBitsArray8B[0] = Vector128<Byte>.Zero;
-            bitpos = 1;
-            bits = 1;
-            for (i = 0; i < MaskBitPosArray8B.Length; ++i) {
-                if (i < MaskBitPosArray1B.Length) {
-                    MaskBitPosArray1B[i] = Vector128s.Create(Scalars.GetByBits<Byte>(bitpos));
-                    MaskBitsArray1B[1 + i] = Vector128s.Create(Scalars.GetByBits<Byte>(bits));
+            unchecked {
+                Int64 bitpos;
+                Int64 bits;
+                int i;
+                MaskBitPosArray1B = new Vector128<Byte>[1 * 8];
+                MaskBitPosArray2B = new Vector128<Byte>[2 * 8];
+                MaskBitPosArray4B = new Vector128<Byte>[4 * 8];
+                MaskBitPosArray8B = new Vector128<Byte>[8 * 8];
+                MaskBitsArray1B = new Vector128<Byte>[1 * 8 + 1];
+                MaskBitsArray2B = new Vector128<Byte>[2 * 8 + 1];
+                MaskBitsArray4B = new Vector128<Byte>[4 * 8 + 1];
+                MaskBitsArray8B = new Vector128<Byte>[8 * 8 + 1];
+                MaskBitsArray1B[0] = Vector128<Byte>.Zero;
+                MaskBitsArray2B[0] = Vector128<Byte>.Zero;
+                MaskBitsArray4B[0] = Vector128<Byte>.Zero;
+                MaskBitsArray8B[0] = Vector128<Byte>.Zero;
+                bitpos = 1;
+                bits = 1;
+                for (i = 0; i < MaskBitPosArray8B.Length; ++i) {
+                    if (i < MaskBitPosArray1B.Length) {
+                        MaskBitPosArray1B[i] = Vector128.Create(Scalars.GetByBits<Byte>(bitpos));
+                        MaskBitsArray1B[1 + i] = Vector128.Create(Scalars.GetByBits<Byte>(bits));
+                    }
+                    if (i < MaskBitPosArray2B.Length) {
+                        MaskBitPosArray2B[i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt16>(bitpos)));
+                        MaskBitsArray2B[1 + i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt16>(bits)));
+                    }
+                    if (i < MaskBitPosArray4B.Length) {
+                        MaskBitPosArray4B[i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt32>(bitpos)));
+                        MaskBitsArray4B[1 + i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt32>(bits)));
+                    }
+                    if (i < MaskBitPosArray8B.Length) {
+                        MaskBitPosArray8B[i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt64>(bitpos)));
+                        MaskBitsArray8B[1 + i] = Vector128.AsByte(Vector128.Create(Scalars.GetByBits<UInt64>(bits)));
+                    }
+                    // next.
+                    bitpos <<= 1;
+                    bits = bits << 1 | 1;
                 }
-                if (i < MaskBitPosArray2B.Length) {
-                    MaskBitPosArray2B[i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt16>(bitpos)));
-                    MaskBitsArray2B[1 + i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt16>(bits)));
+                if (0 != bits) {
+                    // [Debug]
                 }
-                if (i < MaskBitPosArray4B.Length) {
-                    MaskBitPosArray4B[i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt32>(bitpos)));
-                    MaskBitsArray4B[1 + i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt32>(bits)));
-                }
-                if (i < MaskBitPosArray8B.Length) {
-                    MaskBitPosArray8B[i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt64>(bitpos)));
-                    MaskBitsArray8B[1 + i] = Vector128.AsByte(Vector128s.Create(Scalars.GetByBits<UInt64>(bits)));
-                }
-                // next.
-                bitpos <<= 1;
-                bits = bits << 1 | 1;
-            }
-            if (0 != bits) {
-                // [Debug]
             }
         }
 
@@ -125,7 +127,29 @@ namespace IntrinsicsLib {
 #if NET7_0_OR_GREATER
             return Vector128.Create(value);
 #else
-            return Vector128.Create((dynamic)value);
+            if (typeof(T) == typeof(Single)) {
+                return (Vector128<T>)(object)Vector128.Create((Single)(object)value);
+            } else if (typeof(T) == typeof(Double)) {
+                return (Vector128<T>)(object)Vector128.Create((Double)(object)value);
+            } else if (typeof(T) == typeof(SByte)) {
+                return (Vector128<T>)(object)Vector128.Create((SByte)(object)value);
+            } else if (typeof(T) == typeof(Int16)) {
+                return (Vector128<T>)(object)Vector128.Create((Int16)(object)value);
+            } else if (typeof(T) == typeof(Int32)) {
+                return (Vector128<T>)(object)Vector128.Create((Int32)(object)value);
+            } else if (typeof(T) == typeof(Int64)) {
+                return (Vector128<T>)(object)Vector128.Create((Int64)(object)value);
+            } else if (typeof(T) == typeof(Byte)) {
+                return (Vector128<T>)(object)Vector128.Create((Byte)(object)value);
+            } else if (typeof(T) == typeof(UInt16)) {
+                return (Vector128<T>)(object)Vector128.Create((UInt16)(object)value);
+            } else if (typeof(T) == typeof(UInt32)) {
+                return (Vector128<T>)(object)Vector128.Create((UInt32)(object)value);
+            } else if (typeof(T) == typeof(UInt64)) {
+                return (Vector128<T>)(object)Vector128.Create((UInt64)(object)value);
+            } else {
+                return (Vector128<T>)(object)Vector128.Create((dynamic)value);
+            }
 #endif
         }
 
@@ -612,7 +636,7 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Get bit pos mask span (获取位偏移掩码的跨度). Tip: You can use <see cref="Unsafe.As"/> convert its item to <see cref="Vector128{T}"/> type (提示: 可以用 <see cref="Unsafe.As"/> 将其中条目转为 <see cref="Vector128{T}"/> 类型).
+        /// Get bit pos mask span (获取位偏移掩码的跨度). Tip: You can use <see cref="Unsafe.As{TFrom, TTo}(ref TFrom)"/> convert its item to <see cref="Vector128{T}"/> type (提示: 可以用 <see cref="Unsafe.As{TFrom, TTo}(ref TFrom)"/> 将其中条目转为 <see cref="Vector128{T}"/> 类型).
         /// </summary>
         /// <returns>Returns bit pos mask span (返回位偏移掩码的跨度).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
