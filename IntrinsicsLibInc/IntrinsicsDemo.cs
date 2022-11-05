@@ -87,7 +87,7 @@ namespace IntrinsicsLib {
         public static void Run(TextWriter tw, string indent) {
             try {
                 RunCommon(tw, indent);
-                RunX86(tw, indent);
+                //RunX86(tw, indent);
                 RunArm(tw, indent);
             } catch (Exception ex) {
                 tw.WriteLine(ex);
@@ -393,6 +393,7 @@ namespace IntrinsicsLib {
 #else
 #endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             }
+            WriteLineFormat(tw, indent, "Vectors.CreateTrim(arrByte):\t{0}", Vectors.CreateTrim(arrByte));
             WriteLineFormat(tw, indent, "Vectors.CreateRotate(arrByte):\t{0}", Vectors.CreateRotate(arrByte));
             tw.WriteLine();
 
@@ -427,6 +428,10 @@ namespace IntrinsicsLib {
             RunInfoVectors<uint>(tw, indent);
             RunInfoVectors<long>(tw, indent);
             RunInfoVectors<ulong>(tw, indent);
+#if NET6_0_OR_GREATER
+            RunInfoVectors<nint>(tw, indent);
+            RunInfoVectors<nuint>(tw, indent);
+#endif // NET6_0_OR_GREATER
             unsafe {
                 // When the return type is `T`, you cannot get a pointer. // CS0211	Cannot take the address of the given expression
                 //fixed (void* p = &Vectors<ulong>.Zero) {
@@ -604,7 +609,9 @@ namespace IntrinsicsLib {
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
             WriteLineFormat(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);
             WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vectors<T>.MaskBitPosSerialRotate);
             WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vectors<T>.MaskBitsSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerialRotate:\t{0}", Vectors<T>.MaskBitsSerialRotate);
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vectors<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vectors<T>.InterlacedSignNegative);

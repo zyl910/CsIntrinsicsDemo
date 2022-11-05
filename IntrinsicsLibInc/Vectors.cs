@@ -303,15 +303,65 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector{T}"/> from a given array starting at a specified index position (于指定索引位置开始，从指定数组旋转创建一个 <see cref="Vector{T}"/>).
+        /// Trim creates a new <see cref="Vector{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <param name="index">Starting index position of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的起始索引位置).</param>
+        /// <param name="length">Length of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的长度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
+        public static Vector<T> CreateTrim<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
+            int idxEnd = index + length;
+            int idx = index;
+            if (null == values || values.Length <= 0) return Vector<T>.Zero;
+            if (index < 0 || idxEnd > values.Length) {
+                throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
+            }
+            Vector<T> temp = default;
+            unsafe {
+                // T* arr = (T*)&temp; // CS0208	Cannot take the address of, get the size of, or declare a pointer to a managed type ('T')
+                Span<T> arr = new Span<T>(&temp, Vector<T>.Count);
+                int m = Math.Min(arr.Length, length);
+                for (int i = 0; i < m; ++i) {
+                    arr[i] = values[idx];
+                    ++idx;
+                    if (idx >= idxEnd) break;
+                }
+                return Create(arr);
+            }
+        }
+
+        /// <summary>
+        /// Trim creates a new <see cref="Vector{T}"/> from a given span (从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector<T> CreateTrim<T>(ReadOnlySpan<T> values) where T : struct {
+            return CreateTrim<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Trim creates a new <see cref="Vector{T}"/> from a given array (从给定数组补齐创建一个新的 <see cref="Vector{T}"/> ). The element after values is initialized to 0(values 之后的元素会初始化为0).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
-        /// <param name="index">The starting index position from which to create the vector (欲创建向量的起始索引位置).</param>
-        /// <param name="length">The rotation length of the element (The rotation length of the element).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector<T> CreateTrim<T>(params T[] values) where T : struct {
+            return CreateTrim<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度旋转创建一个 <see cref="Vector{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <param name="index">Starting index position of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的起始索引位置).</param>
+        /// <param name="length">Length of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的长度).</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
-        public static Vector<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
+        public static Vector<T> CreateRotate<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
             int idxEnd = index + length;
             int idx = index;
             if (null == values || values.Length <= 0) return Vector<T>.Zero;
@@ -329,6 +379,16 @@ namespace IntrinsicsLib {
                 }
                 return Create(arr);
             }
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度旋转创建一个 <see cref="Vector{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector<T> CreateRotate<T>(ReadOnlySpan<T> values) where T : struct {
+            return CreateRotate<T>(values, 0, values.Length);
         }
 
         /// <summary>
@@ -524,10 +584,14 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> Serial;
         /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
         public static readonly Vector<T> Demo;
-        /// <summary>Serial bit pos mask (顺序位偏移的掩码). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        /// <summary>Serial bit pos mask (顺序位偏移的掩码). The element whose index exceeds the number of bits has a value of 0(索引超过位数的元素值为0). e.g. 1, 2, 4, 8, 0x10 ...</summary>
         public static readonly Vector<T> MaskBitPosSerial;
-        /// <summary>Serial bits mask (顺序位集的掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        /// <summary>Serial bit pos rotate mask (顺序位偏移的旋转掩码). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        public static readonly Vector<T> MaskBitPosSerialRotate;
+        /// <summary>Serial bits mask (顺序位集的掩码). The element whose index exceeds the number of bits has a value of all bit set 1(索引超过位数的元素值为所有位都是1的值). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
         public static readonly Vector<T> MaskBitsSerial;
+        /// <summary>Serial bits rotate mask (顺序位集的旋转掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        public static readonly Vector<T> MaskBitsSerialRotate;
         /// <summary>Interlaced sign number (交错的符号数值). e.g. 1, -1, 1, -1, 1, -1 ...</summary>
         public static readonly Vector<T> InterlacedSign;
         /// <summary>Interlaced sign number starting with a negative number (负数开头的交错的符号数值). e.g. -1, 1, -1, 1, -1, 1 ...</summary>
@@ -614,11 +678,22 @@ namespace IntrinsicsLib {
             Demo = GetDemo();
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                long n = 0;
+                if (index < bitLen) {
+                    n = 1L << index;
+                }
+                return Scalars.GetByBits<T>(n);
+            });
+            MaskBitPosSerialRotate = Vectors.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen;
                 long n = 1L << m;
                 return Scalars.GetByBits<T>(n);
             });
             MaskBitsSerial = Vectors.CreateByFunc<T>(delegate (int index) {
+                int m = Math.Min(index + 1, bitLen);
+                return Scalars.GetBitsMask<T>(0, m);
+            });
+            MaskBitsSerialRotate = Vectors.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen + 1;
                 return Scalars.GetBitsMask<T>(0, m);
             });
@@ -669,6 +744,12 @@ namespace IntrinsicsLib {
                 return (Vector<T>)(object)Vectors.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
             } else if (typeof(T) == typeof(UInt64)) {
                 return (Vector<T>)(object)Vectors.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
+#if NET6_0_OR_GREATER
+            } else if (typeof(T) == typeof(IntPtr)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<IntPtr>(IntPtr.MinValue, IntPtr.MaxValue, (IntPtr)0, (IntPtr)1, (IntPtr)2, (IntPtr)3);
+            } else if (typeof(T) == typeof(UIntPtr)) {
+                return (Vector<T>)(object)Vectors.CreateRotate<UIntPtr>(UIntPtr.MinValue, UIntPtr.MaxValue, (UIntPtr)0, (UIntPtr)1, (UIntPtr)2, (UIntPtr)3);
+#endif // NET6_0_OR_GREATER
             } else {
                 return Serial; // GetSerial();
             }
