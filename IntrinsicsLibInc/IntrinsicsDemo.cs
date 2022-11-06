@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = false;
+        public static bool ShowFull = true;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -531,6 +531,9 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "NaN:\t{0}", Scalars<T>.NaN);
                 WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Scalars<T>.NegativeInfinity);
                 WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Scalars<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "FixedShift:\t{0}", Scalars<T>.FixedShift);
+                WriteLineFormat(tw, indent, "FixedOne:\t{0}", Scalars<T>.FixedOne);
+                WriteLineFormat(tw, indent, "FixedOneDouble:\t{0}", Scalars<T>.FixedOneDouble);
                 WriteLineFormat(tw, indent, "E:\t{0}", Scalars<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Scalars<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Scalars<T>.Tau);
@@ -546,6 +549,12 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Scalars<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Scalars<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Scalars<T>.V_2147483648);
+                WriteLineFormat(tw, indent, "VReciprocal127:\t{0}", Scalars<T>.VReciprocal127);
+                WriteLineFormat(tw, indent, "VReciprocal255:\t{0}", Scalars<T>.VReciprocal255);
+                WriteLineFormat(tw, indent, "VReciprocal32767:\t{0}", Scalars<T>.VReciprocal32767);
+                WriteLineFormat(tw, indent, "VReciprocal65535:\t{0}", Scalars<T>.VReciprocal65535);
+                WriteLineFormat(tw, indent, "VReciprocal2147483647:\t{0}", Scalars<T>.VReciprocal2147483647);
+                WriteLineFormat(tw, indent, "VReciprocal4294967295:\t{0}", Scalars<T>.VReciprocal4294967295);
             }
         }
 
@@ -590,6 +599,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "NaN:\t{0}", Vectors<T>.NaN);
                 WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Vectors<T>.NegativeInfinity);
                 WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Vectors<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "FixedOne:\t{0}", Vectors<T>.FixedOne);
                 WriteLineFormat(tw, indent, "E:\t{0}", Vectors<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Vectors<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Vectors<T>.Tau);
@@ -605,6 +615,12 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Vectors<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Vectors<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Vectors<T>.V_2147483648);
+                WriteLineFormat(tw, indent, "VReciprocal127:\t{0}", Vectors<T>.VReciprocal127);
+                WriteLineFormat(tw, indent, "VReciprocal255:\t{0}", Vectors<T>.VReciprocal255);
+                WriteLineFormat(tw, indent, "VReciprocal32767:\t{0}", Vectors<T>.VReciprocal32767);
+                WriteLineFormat(tw, indent, "VReciprocal65535:\t{0}", Vectors<T>.VReciprocal65535);
+                WriteLineFormat(tw, indent, "VReciprocal2147483647:\t{0}", Vectors<T>.VReciprocal2147483647);
+                WriteLineFormat(tw, indent, "VReciprocal4294967295:\t{0}", Vectors<T>.VReciprocal4294967295);
             }
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
             WriteLineFormat(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);

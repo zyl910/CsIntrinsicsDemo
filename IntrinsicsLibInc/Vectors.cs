@@ -521,6 +521,8 @@ namespace IntrinsicsLib {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector<T> PositiveInfinity;
         // -- Math --
+        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        public static readonly Vector<T> FixedOne;
         /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static readonly Vector<T> E;
         /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
@@ -556,7 +558,7 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> V2147483647;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
         public static readonly Vector<T> V4294967295;
-        // -- Negative number  --
+        // -- Negative number --
         /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly Vector<T> V_1;
         /// <summary>Value -2 .</summary>
@@ -579,6 +581,19 @@ namespace IntrinsicsLib {
         public static readonly Vector<T> V_32768;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
         public static readonly Vector<T> V_2147483648;
+        // -- Reciprocal number --
+        /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal127;
+        /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal255;
+        /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal32767;
+        /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal65535;
+        /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal2147483647;
+        /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector<T> VReciprocal4294967295;
         // -- Specified value --
         /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector<T> Serial;
@@ -643,6 +658,7 @@ namespace IntrinsicsLib {
             NegativeInfinity = Vectors.Create<T>(ElementNegativeInfinity);
             PositiveInfinity = Vectors.Create<T>(ElementPositiveInfinity);
             // -- Math --
+            FixedOne = Vectors.Create<T>(ElementFixedOne);
             E = Vectors.Create<T>(ElementE);
             Pi = Vectors.Create<T>(ElementPi);
             Tau = Vectors.Create<T>(ElementTau);
@@ -673,6 +689,13 @@ namespace IntrinsicsLib {
             V_128 = Vectors.Create<T>(ElementV_128);
             V_32768 = Vectors.Create<T>(ElementV_32768);
             V_2147483648 = Vectors.Create<T>(ElementV_2147483648);
+            // -- Reciprocal number  --
+            VReciprocal127 = Vectors.Create<T>(ElementVReciprocal127);
+            VReciprocal255 = Vectors.Create<T>(ElementVReciprocal255);
+            VReciprocal32767 = Vectors.Create<T>(ElementVReciprocal32767);
+            VReciprocal65535 = Vectors.Create<T>(ElementVReciprocal65535);
+            VReciprocal2147483647 = Vectors.Create<T>(ElementVReciprocal2147483647);
+            VReciprocal4294967295 = Vectors.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vectors.CreateByDoubleLoop<T>(0, 1);
             Demo = GetDemo();

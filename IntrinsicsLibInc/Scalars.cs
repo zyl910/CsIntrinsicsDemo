@@ -87,6 +87,29 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
+        /// Converts a <see cref="double"/> to the fixed point number of the target type (将 <see cref="double"/> 转换为目标类型的定点数). Use the <paramref name="fixedOne"/> parameter (使用 <paramref name="fixedOne"/> 参数).
+        /// </summary>
+        /// <typeparam name="T">Target type (目标类型).</typeparam>
+        /// <param name="src">Source value (源值).</param>
+        /// <param name="fixedOne">The fixed point number of the value 1 (数值1的定点数)</param>
+        /// <returns>Returns target type value (返回目标类型的值).</returns>
+        public static T GetFixedByDoubleUseOne<T>(double src, double fixedOne) {
+            return GetByDouble<T>(src * fixedOne);
+        }
+
+        /// <summary>
+        /// Converts a <see cref="double"/> to the fixed point number of the target type (将 <see cref="double"/> 转换为目标类型的定点数).
+        /// </summary>
+        /// <typeparam name="T">Target type (目标类型).</typeparam>
+        /// <param name="src">Source value (源值).</param>
+        /// <param name="shift">Binary shift of fixed point number (定点数的位移).</param>
+        /// <returns>Returns target type value (返回目标类型的值).</returns>
+        public static T GetFixedByDouble<T>(double src, int shift) {
+            double fixedOne = Math.Pow(2.0, shift);
+            return GetFixedByDoubleUseOne<T>(src, fixedOne);
+        }
+
+        /// <summary>
         /// Converts a bits to the target type value (将整数位转换为目标类型值).
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
@@ -327,11 +350,17 @@ namespace IntrinsicsLib {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly T PositiveInfinity;
         // -- Math --
-        /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
+        /// <summary>Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
+        public static readonly int FixedShift;
+        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
+        public static readonly T FixedOne;
+        /// <summary>The double of the fixed point number with the value 1 (数值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
+        public static readonly double FixedOneDouble;
+        /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
         public static readonly T E;
-        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
+        /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
         public static readonly T Pi;
-        /// <summary>Represents the number of radians in one turn, specified by the constant, τ (表示转一圈的弧度数，由常量 τ 指定).</summary>
+        /// <summary>Represents the number of radians in one turn, specified by the constant, τ (表示转一圈的弧度数，由常量 τ 指定). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
         public static readonly T Tau;
         // -- Mask --
         /// <summary>1 bits mask (1位掩码).</summary>
@@ -375,7 +404,7 @@ namespace IntrinsicsLib {
         public static readonly T V2147483647;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
         public static readonly T V4294967295;
-        // -- Negative number  --
+        // -- Negative number --
         /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly T V_1;
         /// <summary>Value -2 .</summary>
@@ -398,6 +427,19 @@ namespace IntrinsicsLib {
         public static readonly T V_32768;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
         public static readonly T V_2147483648;
+        // -- Reciprocal number --
+        /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal127;
+        /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal255;
+        /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal32767;
+        /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal65535;
+        /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal2147483647;
+        /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
+        public static readonly T VReciprocal4294967295;
 
         /// <summary>
         /// Static constructor.
@@ -674,14 +716,25 @@ namespace IntrinsicsLib {
             ExponentShift = MantissaShift + MantissaBits;
             SignShift = ExponentShift + ExponentBits;
             // -- Math --
-            E = Scalars.GetByDouble<T>(Math.E);
-            Pi = Scalars.GetByDouble<T>(Math.PI);
+            if (ExponentBits>0) {
+                // Float point number.
+                FixedShift = 0;
+                FixedOneDouble = 1;
+            } else {
+                // Fixed point number.
+                FixedShift = BitSize / 2;
+                FixedOneDouble = Math.Pow(2.0, FixedShift);
+            }
+            FixedOne = Scalars.GetByDouble<T>(FixedOneDouble);
+            E = Scalars.GetFixedByDoubleUseOne<T>(Math.E, FixedOneDouble);
+            Pi = Scalars.GetFixedByDoubleUseOne<T>(Math.PI, FixedOneDouble);
+            Tau = Scalars.GetFixedByDoubleUseOne<T>(
 #if NET5_0_OR_GREATER
-            Tau = Scalars.GetByDouble<T>(Math.Tau);
+                Math.Tau
 #else
-            Tau = Scalars.GetByDouble<T>(Math.PI * 2);
+                Math.PI * 2
 #endif // NET5_0_OR_GREATER
-            // -- Math shift --
+                , FixedOneDouble);
             // -- Mask --
             MaskBits1 = Scalars.GetByBits<T>(0x1);
             MaskBits2 = Scalars.GetByBits<T>(0x3);
@@ -716,6 +769,13 @@ namespace IntrinsicsLib {
             V_128 = Scalars.GetByDouble<T>(-128);
             V_32768 = Scalars.GetByDouble<T>(-32768);
             V_2147483648 = Scalars.GetByDouble<T>(-2147483648);
+            // -- Reciprocal number  --
+            VReciprocal127 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 127, FixedOneDouble);
+            VReciprocal255 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 255, FixedOneDouble);
+            VReciprocal32767 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 32767, FixedOneDouble);
+            VReciprocal65535 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 65535, FixedOneDouble);
+            VReciprocal2147483647 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 2147483647, FixedOneDouble);
+            VReciprocal4294967295 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 4294967295, FixedOneDouble);
         }
 
     }

@@ -60,6 +60,12 @@ namespace IntrinsicsLib {
         /// <summary>(Element) Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static T ElementPositiveInfinity { get { return Scalars<T>.PositiveInfinity; } }
         // -- Math --
+        /// <summary>Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
+        public static int ElementFixedShift { get { return Scalars<T>.FixedShift; } }
+        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        public static T ElementFixedOne { get { return Scalars<T>.FixedOne; } }
+        /// <summary>The double of the fixed point number with the value 1 (数值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        public static double ElementFixedOneDouble { get { return Scalars<T>.FixedOneDouble; } }
         /// <summary>(Element) Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static T ElementE { get { return Scalars<T>.E; } }
         /// <summary>(Element) Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
@@ -131,6 +137,19 @@ namespace IntrinsicsLib {
         public static T ElementV_32768 { get { return Scalars<T>.V_32768; } }
         /// <summary>(Element) Value -2147483648 (Int32.MinValue) .</summary>
         public static T ElementV_2147483648 { get { return Scalars<T>.V_2147483648; } }
+        // -- Reciprocal number --
+        /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal127 { get { return Scalars<T>.VReciprocal127; } }
+        /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal255 { get { return Scalars<T>.VReciprocal255; } }
+        /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal32767 { get { return Scalars<T>.VReciprocal32767; } }
+        /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal65535 { get { return Scalars<T>.VReciprocal65535; } }
+        /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal2147483647 { get { return Scalars<T>.VReciprocal2147483647; } }
+        /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static T ElementVReciprocal4294967295 { get { return Scalars<T>.VReciprocal4294967295; } }
     }
 
 }

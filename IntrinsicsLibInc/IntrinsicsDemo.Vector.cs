@@ -498,4 +498,5 @@ namespace IntrinsicsLib {
 #endif
         }
     }
+
 }
