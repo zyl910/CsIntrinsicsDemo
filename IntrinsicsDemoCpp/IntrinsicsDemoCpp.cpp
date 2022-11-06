@@ -1,11 +1,33 @@
 // IntrinsicsDemoCpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
+//#include <iostream>
+#include <stdio.h>
+
+#include "X86Avx.h"
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    //std::cout << "Hello World!\n";
+    printf("IntrinsicsDemoCpp\n");
+    printf("\n");
+    printf("Pointer size:\t%d\n", (int)(sizeof(void*)));
+#ifdef _DEBUG
+    printf("IsRelease:\tFalse\n");
+#else
+    printf("IsRelease:\tTrue\n");
+#endif // _DEBUG
+#ifdef _MSC_VER
+    printf("_MSC_VER:\t%d\n", _MSC_VER);
+#endif // _MSC_VER
+#ifdef __AVX__
+    printf("__AVX__:\t%d\n", __AVX__);
+#endif // __AVX__
+    printf("\n");
+
+    // test
+    testX86Avx();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
