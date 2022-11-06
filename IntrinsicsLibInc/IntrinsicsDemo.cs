@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = false;
+        public static bool ShowFull = true;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -116,7 +116,7 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Get hex string.
+        /// Get hex string by Vector.
         /// </summary>
         /// <typeparam name="T">Vector value type.</typeparam>
         /// <param name="src">Source value.</param>
@@ -295,6 +295,22 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
+        /// Get hex string.
+        /// </summary>
+        /// <typeparam name="T">Value type.</typeparam>
+        /// <param name="src">Source value.</param>
+        /// <param name="separator">The separator.</param>
+        /// <param name="noFixEndian">No fix endian.</param>
+        /// <returns>Returns hex string.</returns>
+        private static string GetHex<T>(T src, string separator, bool noFixEndian) where T : struct {
+            string rt = string.Empty;
+            if (src is IFormattable) {
+                rt = ((IFormattable)src).ToString("X", null);
+            }
+            return rt;
+        }
+
+        /// <summary>
         /// WriteLine with format by Vector.
         /// </summary>
         /// <typeparam name="T">Vector value type.</typeparam>
@@ -308,31 +324,6 @@ namespace IntrinsicsLib {
             string hex = GetHex(src, " ", false);
             line += "\t# (" + hex + ")";
             tw.WriteLine(line);
-        }
-
-        /// <summary>
-        /// WriteLine with format by Vector array.
-        /// </summary>
-        /// <typeparam name="T">Vector value type.</typeparam>
-        /// <param name="tw">The TextWriter.</param>
-        /// <param name="indent">The indent.</param>
-        /// <param name="format">The format.</param>
-        /// <param name="srcs">Source array</param>
-        private static void WriteLineFormat<T>(TextWriter tw, string indent, string format, params Vector<T>[] srcs) where T : struct {
-            if (null == tw) return;
-            StringBuilder sb = new StringBuilder();
-            sb.Append(indent + string.Format(format, srcs.Cast<object>().ToArray()));
-            if (srcs.Length > 0) {
-                sb.Append("\t# ");
-                for (int i = 0; i < srcs.Length; ++i) {
-                    string hex = GetHex(srcs[i], " ", false);
-                    if (i > 0) sb.Append(", ");
-                    sb.Append("(");
-                    sb.Append(hex);
-                    sb.Append(")");
-                }
-            }
-            tw.WriteLine(sb.ToString());
         }
 
         /// <summary>
@@ -389,10 +380,38 @@ namespace IntrinsicsLib {
         /// <param name="tw">The TextWriter.</param>
         /// <param name="indent">The indent.</param>
         /// <param name="format">The format.</param>
-        /// <param name="src">Source value</param>
-        private static void WriteLineFormat(TextWriter tw, string indent, string format, object src) {
+        /// <param name="args">The args</param>
+        private static void WriteLineFormat(TextWriter tw, string indent, string format, params object?[] args) {
             if (null == tw) return;
-            tw.WriteLine(indent + string.Format(format, src));
+            //tw.WriteLine(indent + string.Format(format, src));
+            if (null == tw) return;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(indent + string.Format(format, args));
+            if (true) {
+                int countHex = 0;
+                if (args.Length > 0) {
+                    for (int i = 0; i < args.Length; ++i) {
+                        object? src = args[i];
+                        string hex = string.Empty;
+                        try {
+                            hex = GetHex(src as dynamic, " ", false);
+                        } catch (Exception ex) {
+                            //Debug.WriteLine(src + ": " + ex);
+                        }
+                        if (string.IsNullOrEmpty(hex)) continue;
+                        if (countHex<=0) {
+                            sb.Append("\t# ");
+                        } else {
+                            sb.Append(", ");
+                        }
+                        ++countHex;
+                        sb.Append("(");
+                        sb.Append(hex);
+                        sb.Append(")");
+                    }
+                }
+            }
+            tw.WriteLine(sb.ToString());
         }
 
         /// <summary>
