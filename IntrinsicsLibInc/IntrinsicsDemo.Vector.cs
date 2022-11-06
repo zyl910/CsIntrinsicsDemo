@@ -375,53 +375,53 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "Sum(Vectors<ulong>.Demo):\t{0}", Vector.Sum(Vectors<ulong>.Demo));
 #endif // NET6_0_OR_GREATER
 
-                //            //Widen(Vector<Byte>, Vector<UInt16>, Vector<UInt16>) Widens aVector<Byte> into two Vector<UInt16>instances.
-                //            //Widen(Vector<Int16>, Vector<Int32>, Vector<Int32>) Widens a Vector<Int16> into twoVector<Int32> instances.
-                //            //Widen(Vector<Int32>, Vector<Int64>, Vector<Int64>) Widens a Vector<Int32> into twoVector<Int64> instances.
-                //            //Widen(Vector<SByte>, Vector<Int16>, Vector<Int16>) Widens a Vector<SByte> into twoVector<Int16> instances.
-                //            //Widen(Vector<Single>, Vector<Double>, Vector<Double>) Widens a Vector<Single> into twoVector<Double> instances.
-                //            //Widen(Vector<UInt16>, Vector<UInt32>, Vector<UInt32>) Widens a Vector<UInt16> into twoVector<UInt32> instances.
-                //            //Widen(Vector<UInt32>, Vector<UInt64>, Vector<UInt64>) Widens a Vector<UInt32> into twoVector<UInt64> instances.
-                //            if (typeof(T) == typeof(Single)) {
-                //                Vector<Double> low, high;
-                //                Vector.Widen(Vector.AsVectorSingle(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(SByte)) {
-                //                Vector<Int16> low, high;
-                //                Vector.Widen(Vector.AsVectorSByte(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(Int16)) {
-                //                Vector<Int32> low, high;
-                //                Vector.Widen(Vector.AsVectorInt16(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(Int32)) {
-                //                Vector<Int64> low, high;
-                //                Vector.Widen(Vector.AsVectorInt32(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(Byte)) {
-                //                Vector<UInt16> low, high;
-                //                Vector.Widen(Vector.AsVectorByte(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(UInt16)) {
-                //                Vector<UInt32> low, high;
-                //                Vector.Widen(Vector.AsVectorUInt16(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            } else if (typeof(T) == typeof(UInt32)) {
-                //                Vector<UInt64> low, high;
-                //                Vector.Widen(Vector.AsVectorUInt32(srcT), out low, out high);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).low:\t{0}", low);
-                //                WriteLineFormat(tw, indent, "Widen(srcT).high:\t{0}", high);
-                //            }
+                //Widen(Vector<Byte>, Vector<UInt16>, Vector<UInt16>) Widens aVector<Byte> into two Vector<UInt16>instances.
+                //Widen(Vector<Int16>, Vector<Int32>, Vector<Int32>) Widens a Vector<Int16> into twoVector<Int32> instances.
+                //Widen(Vector<Int32>, Vector<Int64>, Vector<Int64>) Widens a Vector<Int32> into twoVector<Int64> instances.
+                //Widen(Vector<SByte>, Vector<Int16>, Vector<Int16>) Widens a Vector<SByte> into twoVector<Int16> instances.
+                //Widen(Vector<Single>, Vector<Double>, Vector<Double>) Widens a Vector<Single> into twoVector<Double> instances.
+                //Widen(Vector<UInt16>, Vector<UInt32>, Vector<UInt32>) Widens a Vector<UInt16> into twoVector<UInt32> instances.
+                //Widen(Vector<UInt32>, Vector<UInt64>, Vector<UInt64>) Widens a Vector<UInt32> into twoVector<UInt64> instances.
+                if (true) {
+                    Vector.Widen(Vectors<float>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<float>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<sbyte>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<sbyte>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<byte>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<byte>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<short>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<short>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<ushort>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<ushort>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<int>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<int>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    Vector.Widen(Vectors<uint>.Demo, out var low, out var high);
+                    WriteLineFormat(tw, indent, "Widen(Vectors<uint>.Demo):\t{0}, {1}", low, high);
+                }
 
-                //            //Xor<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise exclusive Or(XOr) operation on each pair of elements in two vectors.
-                //            WriteLineFormat(tw, indent, "Xor(srcT, src1):\t{0}", Vector.Xor(srcT, src1));
-                //            WriteLineFormat(tw, indent, "Xor(srcT, src2):\t{0}", Vector.Xor(srcT, src2));
+                //Xor<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise exclusive Or(XOr) operation on each pair of elements in two vectors.
+                WriteLineFormat(tw, indent, "Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
+                WriteLineFormat(tw, indent, "Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
 
             }
 

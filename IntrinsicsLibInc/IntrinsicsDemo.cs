@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = true;
+        public static bool ShowFull = false;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -308,6 +308,31 @@ namespace IntrinsicsLib {
             string hex = GetHex(src, " ", false);
             line += "\t# (" + hex + ")";
             tw.WriteLine(line);
+        }
+
+        /// <summary>
+        /// WriteLine with format by Vector array.
+        /// </summary>
+        /// <typeparam name="T">Vector value type.</typeparam>
+        /// <param name="tw">The TextWriter.</param>
+        /// <param name="indent">The indent.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="srcs">Source array</param>
+        private static void WriteLineFormat<T>(TextWriter tw, string indent, string format, params Vector<T>[] srcs) where T : struct {
+            if (null == tw) return;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(indent + string.Format(format, srcs.Cast<object>().ToArray()));
+            if (srcs.Length > 0) {
+                sb.Append("\t# ");
+                for (int i = 0; i < srcs.Length; ++i) {
+                    string hex = GetHex(srcs[i], " ", false);
+                    if (i > 0) sb.Append(", ");
+                    sb.Append("(");
+                    sb.Append(hex);
+                    sb.Append(")");
+                }
+            }
+            tw.WriteLine(sb.ToString());
         }
 
         /// <summary>
