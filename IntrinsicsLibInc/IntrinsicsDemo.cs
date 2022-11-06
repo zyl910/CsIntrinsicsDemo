@@ -28,7 +28,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = true;
+        public static bool ShowFull = false;
 
         // srcArray: array.
         private const int srcArraySize = 256;

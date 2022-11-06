@@ -52,10 +52,18 @@ void testX86Avx() {
             srcT_int16[i] = (__int16)i;
         }
     }
-    srcT_int8[2] = -128;
-    srcT_int8[3] = 127;
-    srcT_int16[2] = -32768;
-    srcT_int16[3] = 32767;
+    srcT_int8[0] = -128;
+    srcT_int8[1] = -2;
+    srcT_int8[2] = 127;
+    srcT_int8[3] = (__int8)0xFF;
+    srcT_int8[4] = 4;
+    srcT_int8[5] = (__int8)(1 << 4);
+    srcT_int16[0] = -32768;
+    srcT_int16[1] = -2;
+    srcT_int16[2] = 32767;
+    srcT_int16[3] = (__int16)0xFF;
+    srcT_int16[4] = 8;
+    srcT_int16[5] = (__int8)(1 << 8);
 
     // test.
     Widen_SByte();

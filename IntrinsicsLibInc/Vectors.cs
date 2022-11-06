@@ -698,7 +698,40 @@ namespace IntrinsicsLib {
             VReciprocal4294967295 = Vectors.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vectors.CreateByDoubleLoop<T>(0, 1);
-            Demo = GetDemo();
+            Demo = Vectors.CreateByFunc<T>(delegate (int index) {
+                T rt = Scalars.GetByDouble<T>(index);
+                if (0== index) {
+                    rt = ElementMinValue;
+                } else if (1 == index) {
+                    rt = Scalars.GetByDouble<T>(-2.3);
+                } else if (2 == index) {
+                    rt = ElementMaxValue;
+                } else if (3 == index) {
+                    rt = ElementAllBitsSet;
+                //} else if (6 == index) {
+                //    rt = ElementE;
+                //} else if (7 == index) {
+                //    rt = ElementPi;
+                //} else if (8 == index) {
+                //    rt = ElementTau;
+                }
+                if (ElementExponentBits > 0) {
+                    // Float point number.
+                    if (4 == index) {
+                        rt = ElementPositiveInfinity;
+                    } else if (5 == index) {
+                        rt = ElementEpsilon;
+                    }
+                } else {
+                    // Fixed point number.
+                    if (4 == index) {
+                        rt = Scalars.GetByDouble<T>(ElementFixedShift);
+                    } else if (5 == index) {
+                        rt = ElementFixedOne;
+                    }
+                }
+                return rt;
+            });
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
                 long n = 0;
@@ -740,42 +773,6 @@ namespace IntrinsicsLib {
             // == Mask array ==
             MaskBitPosArray = Vectors.GetMaskBitPosArray(ElementByteSize);
             MaskBitsArray = Vectors.GetMaskBitsArray(ElementByteSize);
-        }
-
-        /// <summary>
-        /// Get demo value.
-        /// </summary>
-        /// <returns>Return demo value.</returns>
-        private static Vector<T> GetDemo() {
-            if (typeof(T) == typeof(Single)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<Single>(Single.MinValue, Single.PositiveInfinity, Single.NaN, -1.2f, 0f, 1f, 2f, 4f);
-            } else if (typeof(T) == typeof(Double)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<double>(Double.MinValue, Double.PositiveInfinity, -1.2, 0);
-            } else if (typeof(T) == typeof(SByte)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<SByte>(SByte.MinValue, SByte.MaxValue, -1, 0, 1, 2, 3, 64);
-            } else if (typeof(T) == typeof(Int16)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<Int16>(Int16.MinValue, Int16.MaxValue, -1, 0, 1, 2, 3, 16384);
-            } else if (typeof(T) == typeof(Int32)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<Int32>(Int32.MinValue, Int32.MaxValue, -1, 0, 1, 2, 3, 32768);
-            } else if (typeof(T) == typeof(Int64)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<Int64>(Int64.MinValue, Int64.MaxValue, -1, 0, 1, 2, 3);
-            } else if (typeof(T) == typeof(Byte)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<Byte>(Byte.MinValue, Byte.MaxValue, 0, 1, 2, 3, 4, 128);
-            } else if (typeof(T) == typeof(UInt16)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<UInt16>(UInt16.MinValue, UInt16.MaxValue, 0, 1, 2, 3, 4, 32768);
-            } else if (typeof(T) == typeof(UInt32)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
-            } else if (typeof(T) == typeof(UInt64)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
-#if NET6_0_OR_GREATER
-            } else if (typeof(T) == typeof(IntPtr)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<IntPtr>(IntPtr.MinValue, IntPtr.MaxValue, (IntPtr)0, (IntPtr)1, (IntPtr)2, (IntPtr)3);
-            } else if (typeof(T) == typeof(UIntPtr)) {
-                return (Vector<T>)(object)Vectors.CreateRotate<UIntPtr>(UIntPtr.MinValue, UIntPtr.MaxValue, (UIntPtr)0, (UIntPtr)1, (UIntPtr)2, (UIntPtr)3);
-#endif // NET6_0_OR_GREATER
-            } else {
-                return Serial; // GetSerial();
-            }
         }
 
         /// <summary>
