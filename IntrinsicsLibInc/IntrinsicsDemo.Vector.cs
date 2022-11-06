@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Numerics;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 
 namespace IntrinsicsLib {
@@ -382,6 +384,8 @@ namespace IntrinsicsLib {
                 //Widen(Vector<Single>, Vector<Double>, Vector<Double>) Widens a Vector<Single> into twoVector<Double> instances.
                 //Widen(Vector<UInt16>, Vector<UInt32>, Vector<UInt32>) Widens a Vector<UInt16> into twoVector<UInt32> instances.
                 //Widen(Vector<UInt32>, Vector<UInt64>, Vector<UInt64>) Widens a Vector<UInt32> into twoVector<UInt64> instances.
+                // Debugger.Break();
+                // WriteLineFormat(tw, indent, "Avx2.Abs:\t{0}", Avx2.Abs(Vector256s<short>.AllBitsSet)); // Visual Studio 2019 YMM registers not displaying in Managed Debugger
                 if (true) {
                     Vector.Widen(Vectors<float>.Demo, out var low, out var high);
                     WriteLineFormat(tw, indent, "Widen(Vectors<float>.Demo):\t{0}, {1}", low, high);
