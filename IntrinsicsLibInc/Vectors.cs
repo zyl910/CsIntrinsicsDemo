@@ -303,7 +303,7 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Trim creates a new <see cref="Vector{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// Padding creates a new <see cref="Vector{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
@@ -311,7 +311,7 @@ namespace IntrinsicsLib {
         /// <param name="length">Length of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的长度).</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector{T}.Count"/>).</exception>
-        public static Vector<T> CreateTrim<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
+        public static Vector<T> CreatePadding<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
             int idxEnd = index + length;
             int idx = index;
             if (null == values || values.Length <= 0) return Vector<T>.Zero;
@@ -333,23 +333,23 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Trim creates a new <see cref="Vector{T}"/> from a given span (从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// Padding creates a new <see cref="Vector{T}"/> from a given span (从指定跨度补齐创建一个 <see cref="Vector{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
-        public static Vector<T> CreateTrim<T>(ReadOnlySpan<T> values) where T : struct {
-            return CreateTrim<T>(values, 0, values.Length);
+        public static Vector<T> CreatePadding<T>(ReadOnlySpan<T> values) where T : struct {
+            return CreatePadding<T>(values, 0, values.Length);
         }
 
         /// <summary>
-        /// Trim creates a new <see cref="Vector{T}"/> from a given array (从给定数组补齐创建一个新的 <see cref="Vector{T}"/> ). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// Padding creates a new <see cref="Vector{T}"/> from a given array (从给定数组补齐创建一个新的 <see cref="Vector{T}"/> ). The element after values is initialized to 0(values 之后的元素会初始化为0).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
         /// <returns>A new <see cref="Vector{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
-        public static Vector<T> CreateTrim<T>(params T[] values) where T : struct {
-            return CreateTrim<T>(values, 0, values.Length);
+        public static Vector<T> CreatePadding<T>(params T[] values) where T : struct {
+            return CreatePadding<T>(values, 0, values.Length);
         }
 
         /// <summary>

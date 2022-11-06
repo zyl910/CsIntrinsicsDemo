@@ -393,7 +393,7 @@ namespace IntrinsicsLib {
 #else
 #endif // NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             }
-            WriteLineFormat(tw, indent, "Vectors.CreateTrim(arrByte):\t{0}", Vectors.CreateTrim(arrByte));
+            WriteLineFormat(tw, indent, "Vectors.CreatePadding(arrByte):\t{0}", Vectors.CreatePadding(arrByte));
             WriteLineFormat(tw, indent, "Vectors.CreateRotate(arrByte):\t{0}", Vectors.CreateRotate(arrByte));
             tw.WriteLine();
 
