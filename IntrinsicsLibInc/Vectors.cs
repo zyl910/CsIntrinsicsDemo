@@ -480,7 +480,7 @@ namespace IntrinsicsLib {
         /// <param name="src">The vector whose ones-complement is to be computed (要计算其补数的向量).</param>
         /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/> (一个向量，其各元素是 <paramref name="src"/> 相应元素的补数).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector<T> OnesComplement<T>(Vector<T> src) where T : struct {
+        internal static Vector<T> OnesComplement<T>(Vector<T> src) where T : struct {
             return ~src;
         }
 

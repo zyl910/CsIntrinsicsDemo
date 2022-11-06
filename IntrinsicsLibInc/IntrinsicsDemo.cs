@@ -688,6 +688,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "NaN:\t{0}", Vector64s<T>.NaN);
                 WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Vector64s<T>.NegativeInfinity);
                 WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Vector64s<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "FixedOne:\t{0}", Vector64s<T>.FixedOne);
                 WriteLineFormat(tw, indent, "E:\t{0}", Vector64s<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Vector64s<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Vector64s<T>.Tau);
@@ -703,17 +704,25 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Vector64s<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Vector64s<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Vector64s<T>.V_2147483648);
+                WriteLineFormat(tw, indent, "VReciprocal127:\t{0}", Vector64s<T>.VReciprocal127);
+                WriteLineFormat(tw, indent, "VReciprocal255:\t{0}", Vector64s<T>.VReciprocal255);
+                WriteLineFormat(tw, indent, "VReciprocal32767:\t{0}", Vector64s<T>.VReciprocal32767);
+                WriteLineFormat(tw, indent, "VReciprocal65535:\t{0}", Vector64s<T>.VReciprocal65535);
+                WriteLineFormat(tw, indent, "VReciprocal2147483647:\t{0}", Vector64s<T>.VReciprocal2147483647);
+                WriteLineFormat(tw, indent, "VReciprocal4294967295:\t{0}", Vector64s<T>.VReciprocal4294967295);
             }
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vector64s<T>.Serial);
             WriteLineFormat(tw, indent, "Demo:\t{0}", Vector64s<T>.Demo);
             WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vector64s<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector64s<T>.MaskBitPosSerialRotate);
             WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vector64s<T>.MaskBitsSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerialRotate:\t{0}", Vector64s<T>.MaskBitsSerialRotate);
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector64s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector64s<T>.InterlacedSignNegative);
-                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
-                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
-                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vector64s<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vector64s<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vector64s<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector64s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector64s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector64s<T>.XyzwXMask);
@@ -768,6 +777,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "NaN:\t{0}", Vector128s<T>.NaN);
                 WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Vector128s<T>.NegativeInfinity);
                 WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Vector128s<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "FixedOne:\t{0}", Vector128s<T>.FixedOne);
                 WriteLineFormat(tw, indent, "E:\t{0}", Vector128s<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Vector128s<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Vector128s<T>.Tau);
@@ -783,17 +793,25 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Vector128s<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Vector128s<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Vector128s<T>.V_2147483648);
+                WriteLineFormat(tw, indent, "VReciprocal127:\t{0}", Vector128s<T>.VReciprocal127);
+                WriteLineFormat(tw, indent, "VReciprocal255:\t{0}", Vector128s<T>.VReciprocal255);
+                WriteLineFormat(tw, indent, "VReciprocal32767:\t{0}", Vector128s<T>.VReciprocal32767);
+                WriteLineFormat(tw, indent, "VReciprocal65535:\t{0}", Vector128s<T>.VReciprocal65535);
+                WriteLineFormat(tw, indent, "VReciprocal2147483647:\t{0}", Vector128s<T>.VReciprocal2147483647);
+                WriteLineFormat(tw, indent, "VReciprocal4294967295:\t{0}", Vector128s<T>.VReciprocal4294967295);
             }
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vector128s<T>.Serial);
             WriteLineFormat(tw, indent, "Demo:\t{0}", Vector128s<T>.Demo);
             WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vector128s<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector128s<T>.MaskBitPosSerialRotate);
             WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vector128s<T>.MaskBitsSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerialRotate:\t{0}", Vector128s<T>.MaskBitsSerialRotate);
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector128s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector128s<T>.InterlacedSignNegative);
-                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
-                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
-                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vector128s<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vector128s<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vector128s<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector128s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector128s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector128s<T>.XyzwXMask);
@@ -848,6 +866,7 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "NaN:\t{0}", Vector256s<T>.NaN);
                 WriteLineFormat(tw, indent, "NegativeInfinity:\t{0}", Vector256s<T>.NegativeInfinity);
                 WriteLineFormat(tw, indent, "PositiveInfinity:\t{0}", Vector256s<T>.PositiveInfinity);
+                WriteLineFormat(tw, indent, "FixedOne:\t{0}", Vector256s<T>.FixedOne);
                 WriteLineFormat(tw, indent, "E:\t{0}", Vector256s<T>.E);
                 WriteLineFormat(tw, indent, "Pi:\t{0}", Vector256s<T>.Pi);
                 WriteLineFormat(tw, indent, "Tau:\t{0}", Vector256s<T>.Tau);
@@ -863,17 +882,25 @@ namespace IntrinsicsLib {
                 WriteLineFormat(tw, indent, "V_128:\t{0}", Vector256s<T>.V_128);
                 WriteLineFormat(tw, indent, "V_32768:\t{0}", Vector256s<T>.V_32768);
                 WriteLineFormat(tw, indent, "V_2147483648:\t{0}", Vector256s<T>.V_2147483648);
+                WriteLineFormat(tw, indent, "VReciprocal127:\t{0}", Vector256s<T>.VReciprocal127);
+                WriteLineFormat(tw, indent, "VReciprocal255:\t{0}", Vector256s<T>.VReciprocal255);
+                WriteLineFormat(tw, indent, "VReciprocal32767:\t{0}", Vector256s<T>.VReciprocal32767);
+                WriteLineFormat(tw, indent, "VReciprocal65535:\t{0}", Vector256s<T>.VReciprocal65535);
+                WriteLineFormat(tw, indent, "VReciprocal2147483647:\t{0}", Vector256s<T>.VReciprocal2147483647);
+                WriteLineFormat(tw, indent, "VReciprocal4294967295:\t{0}", Vector256s<T>.VReciprocal4294967295);
             }
             WriteLineFormat(tw, indent, "Serial:\t{0}", Vector256s<T>.Serial);
             WriteLineFormat(tw, indent, "Demo:\t{0}", Vector256s<T>.Demo);
             WriteLineFormat(tw, indent, "MaskBitPosSerial:\t{0}", Vector256s<T>.MaskBitPosSerial);
+            WriteLineFormat(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector256s<T>.MaskBitPosSerialRotate);
             WriteLineFormat(tw, indent, "MaskBitsSerial:\t{0}", Vector256s<T>.MaskBitsSerial);
+            WriteLineFormat(tw, indent, "MaskBitsSerialRotate:\t{0}", Vector256s<T>.MaskBitsSerialRotate);
             if (ShowFull) {
                 WriteLineFormat(tw, indent, "InterlacedSign:\t{0}", Vector256s<T>.InterlacedSign);
                 WriteLineFormat(tw, indent, "InterlacedSignNegative:\t{0}", Vector256s<T>.InterlacedSignNegative);
-                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vectors<T>.MaskBits8);
-                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vectors<T>.MaskBits16);
-                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vectors<T>.MaskBits32);
+                WriteLineFormat(tw, indent, "MaskBits8:\t{0}", Vector256s<T>.MaskBits8);
+                WriteLineFormat(tw, indent, "MaskBits16:\t{0}", Vector256s<T>.MaskBits16);
+                WriteLineFormat(tw, indent, "MaskBits32:\t{0}", Vector256s<T>.MaskBits32);
                 WriteLineFormat(tw, indent, "XyXMask:\t{0}", Vector256s<T>.XyXMask);
                 WriteLineFormat(tw, indent, "XyYMask:\t{0}", Vector256s<T>.XyYMask);
                 WriteLineFormat(tw, indent, "XyzwXMask:\t{0}", Vector256s<T>.XyzwXMask);

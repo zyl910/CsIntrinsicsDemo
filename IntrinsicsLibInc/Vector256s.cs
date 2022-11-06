@@ -245,15 +245,65 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
-        /// Rotate creates a new <see cref="Vector256{T}"/> from a given array starting at a specified index position (于指定索引位置开始，从指定数组旋转创建一个 <see cref="Vector256{T}"/>).
+        /// Padding creates a new <see cref="Vector256{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度补齐创建一个 <see cref="Vector256{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <param name="index">Starting index position of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的起始索引位置).</param>
+        /// <param name="length">Length of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的长度).</param>
+        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector256{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector256{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector256{T}.Count"/>).</exception>
+        public static Vector256<T> CreatePadding<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
+            int idxEnd = index + length;
+            int idx = index;
+            if (null == values || values.Length <= 0) return Vector256<T>.Zero;
+            if (index < 0 || idxEnd > values.Length) {
+                throw new IndexOutOfRangeException(string.Format("Index({0}) was outside the bounds{1} of the array!", index, values.Length));
+            }
+            Vector256<T> temp = default;
+            unsafe {
+                // T* arr = (T*)&temp; // CS0208	Cannot take the address of, get the size of, or declare a pointer to a managed type ('T')
+                Span<T> arr = new Span<T>(&temp, Vector256<T>.Count);
+                int m = Math.Min(arr.Length, length);
+                for (int i = 0; i < m; ++i) {
+                    arr[i] = values[idx];
+                    ++idx;
+                    if (idx >= idxEnd) break;
+                }
+                return Create(arr);
+            }
+        }
+
+        /// <summary>
+        /// Padding creates a new <see cref="Vector256{T}"/> from a given span (从指定跨度补齐创建一个 <see cref="Vector256{T}"/>). The element after values is initialized to 0(values 之后的元素会初始化为0).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector256{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector256<T> CreatePadding<T>(ReadOnlySpan<T> values) where T : struct {
+            return CreatePadding<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Padding creates a new <see cref="Vector256{T}"/> from a given array (从给定数组补齐创建一个新的 <see cref="Vector256{T}"/> ). The element after values is initialized to 0(values 之后的元素会初始化为0).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="values">The array from which the vector is created (用于创建向量的数组).</param>
-        /// <param name="index">The starting index position from which to create the vector (欲创建向量的起始索引位置).</param>
-        /// <param name="length">The rotation length of the element (The rotation length of the element).</param>
+        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector256{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector256<T> CreatePadding<T>(params T[] values) where T : struct {
+            return CreatePadding<T>(values, 0, values.Length);
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector256{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度旋转创建一个 <see cref="Vector256{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <param name="index">Starting index position of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的起始索引位置).</param>
+        /// <param name="length">Length of valid data in <paramref name="values"/> (<paramref name="values"/> 中有效数据的长度).</param>
         /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector256{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
         /// <exception cref="IndexOutOfRangeException">The <paramref name="index"/> is less than zero (<paramref name="index"/> 小于零). The length of <paramref name="values"/>, starting from <paramref name="index"/>, is less than <see cref="Vector256{T}.Count"/> (从 <paramref name="index"/> 开始的 <paramref name="values"/> 的长度小于 <see cref="Vector256{T}.Count"/>).</exception>
-        public static Vector256<T> CreateRotate<T>(T[] values, int index, int length) where T : struct {
+        public static Vector256<T> CreateRotate<T>(ReadOnlySpan<T> values, int index, int length) where T : struct {
             int idxEnd = index + length;
             int idx = index;
             if (null == values || values.Length <= 0) return Vector256<T>.Zero;
@@ -271,6 +321,16 @@ namespace IntrinsicsLib {
                 }
                 return Create(arr);
             }
+        }
+
+        /// <summary>
+        /// Rotate creates a new <see cref="Vector256{T}"/> from a given span starting at a specified index position (于指定索引位置开始，从指定跨度旋转创建一个 <see cref="Vector256{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="values">The span from which the vector is created (用于创建向量的跨度).</param>
+        /// <returns>A new <see cref="Vector256{T}"/> with its elements set to the first Count elements from <paramref name="values"/> (一个新<see cref="Vector256{T}"/>，其元素设置为来自<paramref name="values"/>首批满足长度的元素).</returns>
+        public static Vector256<T> CreateRotate<T>(ReadOnlySpan<T> values) where T : struct {
+            return CreateRotate<T>(values, 0, values.Length);
         }
 
         /// <summary>
@@ -362,7 +422,7 @@ namespace IntrinsicsLib {
         /// <param name="src">The vector whose ones-complement is to be computed (要计算其补数的向量).</param>
         /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/> (一个向量，其各元素是 <paramref name="src"/> 相应元素的补数).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector256<T> OnesComplement<T>(Vector256<T> src) where T : struct {
+        internal static Vector256<T> OnesComplement<T>(Vector256<T> src) where T : struct {
 #if NET7_0_OR_GREATER
             return ~src;
 #else
@@ -414,6 +474,8 @@ namespace IntrinsicsLib {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector256<T> PositiveInfinity;
         // -- Math --
+        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        public static readonly Vector256<T> FixedOne;
         /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static readonly Vector256<T> E;
         /// <summary>Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π (表示圆的周长与其直径的比值，由常数 π 指定).</summary>
@@ -449,7 +511,7 @@ namespace IntrinsicsLib {
         public static readonly Vector256<T> V2147483647;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
         public static readonly Vector256<T> V4294967295;
-        // -- Negative number  --
+        // -- Negative number --
         /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly Vector256<T> V_1;
         /// <summary>Value -2 .</summary>
@@ -472,15 +534,32 @@ namespace IntrinsicsLib {
         public static readonly Vector256<T> V_32768;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
         public static readonly Vector256<T> V_2147483648;
+        // -- Reciprocal number --
+        /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal127;
+        /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal255;
+        /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal32767;
+        /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal65535;
+        /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal2147483647;
+        /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
+        public static readonly Vector256<T> VReciprocal4294967295;
         // -- Specified value --
         /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector256<T> Serial;
         /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
         public static readonly Vector256<T> Demo;
-        /// <summary>Serial bit pos mask (顺序位偏移的掩码). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        /// <summary>Serial bit pos mask (顺序位偏移的掩码). The element whose index exceeds the number of bits has a value of 0(索引超过位数的元素值为0). e.g. 1, 2, 4, 8, 0x10 ...</summary>
         public static readonly Vector256<T> MaskBitPosSerial;
-        /// <summary>Serial bits mask (顺序位集的掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        /// <summary>Serial bit pos rotate mask (顺序位偏移的旋转掩码). e.g. 1, 2, 4, 8, 0x10 ...</summary>
+        public static readonly Vector256<T> MaskBitPosSerialRotate;
+        /// <summary>Serial bits mask (顺序位集的掩码). The element whose index exceeds the number of bits has a value of all bit set 1(索引超过位数的元素值为所有位都是1的值). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
         public static readonly Vector256<T> MaskBitsSerial;
+        /// <summary>Serial bits rotate mask (顺序位集的旋转掩码). e.g. 1, 3, 7, 0xF, 0x1F ...</summary>
+        public static readonly Vector256<T> MaskBitsSerialRotate;
         /// <summary>Interlaced sign number (交错的符号数值). e.g. 1, -1, 1, -1, 1, -1 ...</summary>
         public static readonly Vector256<T> InterlacedSign;
         /// <summary>Interlaced sign number starting with a negative number (负数开头的交错的符号数值). e.g. -1, 1, -1, 1, -1, 1 ...</summary>
@@ -532,6 +611,7 @@ namespace IntrinsicsLib {
             NegativeInfinity = Vector256s.Create<T>(ElementNegativeInfinity);
             PositiveInfinity = Vector256s.Create<T>(ElementPositiveInfinity);
             // -- Math --
+            FixedOne = Vector256s.Create<T>(ElementFixedOne);
             E = Vector256s.Create<T>(ElementE);
             Pi = Vector256s.Create<T>(ElementPi);
             Tau = Vector256s.Create<T>(ElementTau);
@@ -562,16 +642,34 @@ namespace IntrinsicsLib {
             V_128 = Vector256s.Create<T>(ElementV_128);
             V_32768 = Vector256s.Create<T>(ElementV_32768);
             V_2147483648 = Vector256s.Create<T>(ElementV_2147483648);
+            // -- Reciprocal number  --
+            VReciprocal127 = Vector256s.Create<T>(ElementVReciprocal127);
+            VReciprocal255 = Vector256s.Create<T>(ElementVReciprocal255);
+            VReciprocal32767 = Vector256s.Create<T>(ElementVReciprocal32767);
+            VReciprocal65535 = Vector256s.Create<T>(ElementVReciprocal65535);
+            VReciprocal2147483647 = Vector256s.Create<T>(ElementVReciprocal2147483647);
+            VReciprocal4294967295 = Vector256s.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vector256s.CreateByDoubleLoop<T>(0, 1);
             Demo = GetDemo();
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vector256s.CreateByFunc<T>(delegate (int index) {
+                long n = 0;
+                if (index < bitLen) {
+                    n = 1L << index;
+                }
+                return Scalars.GetByBits<T>(n);
+            });
+            MaskBitPosSerialRotate = Vector256s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen;
                 long n = 1L << m;
                 return Scalars.GetByBits<T>(n);
             });
             MaskBitsSerial = Vector256s.CreateByFunc<T>(delegate (int index) {
+                int m = Math.Min(index + 1, bitLen);
+                return Scalars.GetBitsMask<T>(0, m);
+            });
+            MaskBitsSerialRotate = Vector256s.CreateByFunc<T>(delegate (int index) {
                 int m = index % bitLen + 1;
                 return Scalars.GetBitsMask<T>(0, m);
             });
