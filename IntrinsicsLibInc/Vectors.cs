@@ -180,7 +180,7 @@ namespace IntrinsicsLib {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector128<T> AsVector128<T>(Vector<T> value) where T : struct {
             //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
-            Vector128<T> source = default(Vector128<T>);
+            Vector128<T> source = default;
             Unsafe.WriteUnaligned(ref Unsafe.As<Vector128<T>, byte>(ref source), value);
             return source;
         }
@@ -195,7 +195,7 @@ namespace IntrinsicsLib {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector256<T> AsVector256<T>(Vector<T> value) where T : struct {
             //ThrowHelper.ThrowForUnsupportedVectorBaseType<T>();
-            Vector256<T> source = default(Vector256<T>);
+            Vector256<T> source = default;
             Unsafe.WriteUnaligned(ref Unsafe.As<Vector256<T>, byte>(ref source), value);
             return source;
         }
