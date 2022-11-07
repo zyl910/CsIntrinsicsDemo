@@ -79,40 +79,40 @@ namespace IntrinsicsLib {
             unchecked {
                 //Debugger.Break();
                 //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
-                WriteLineFormat(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
-                WriteLineFormat(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
 
                 //Add<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the sum of each pair of elements from two given vectors.
-                WriteLineFormat(tw, indent, "Add(Vectors<float>.Demo, Vectors<float>.V1):\t{0}", Vector.Add(Vectors<float>.Demo, Vectors<float>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<double>.Demo, Vectors<double>.V1):\t{0}", Vector.Add(Vectors<double>.Demo, Vectors<double>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1):\t{0}", Vector.Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<byte>.Demo, Vectors<byte>.V1):\t{0}", Vector.Add(Vectors<byte>.Demo, Vectors<byte>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<short>.Demo, Vectors<short>.V1):\t{0}", Vector.Add(Vectors<short>.Demo, Vectors<short>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<ushort>.Demo, Vectors<ushort>.V1):\t{0}", Vector.Add(Vectors<ushort>.Demo, Vectors<ushort>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<int>.Demo, Vectors<int>.V1):\t{0}", Vector.Add(Vectors<int>.Demo, Vectors<int>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<uint>.Demo, Vectors<uint>.V1):\t{0}", Vector.Add(Vectors<uint>.Demo, Vectors<uint>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<long>.Demo, Vectors<long>.V1):\t{0}", Vector.Add(Vectors<long>.Demo, Vectors<long>.V1));
-                WriteLineFormat(tw, indent, "Add(Vectors<ulong>.Demo, Vectors<ulong>.V1):\t{0}", Vector.Add(Vectors<ulong>.Demo, Vectors<ulong>.V1));
+                WriteLine(tw, indent, "Add(Vectors<float>.Demo, Vectors<float>.V1):\t{0}", Vector.Add(Vectors<float>.Demo, Vectors<float>.V1));
+                WriteLine(tw, indent, "Add(Vectors<double>.Demo, Vectors<double>.V1):\t{0}", Vector.Add(Vectors<double>.Demo, Vectors<double>.V1));
+                WriteLine(tw, indent, "Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1):\t{0}", Vector.Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1));
+                WriteLine(tw, indent, "Add(Vectors<byte>.Demo, Vectors<byte>.V1):\t{0}", Vector.Add(Vectors<byte>.Demo, Vectors<byte>.V1));
+                WriteLine(tw, indent, "Add(Vectors<short>.Demo, Vectors<short>.V1):\t{0}", Vector.Add(Vectors<short>.Demo, Vectors<short>.V1));
+                WriteLine(tw, indent, "Add(Vectors<ushort>.Demo, Vectors<ushort>.V1):\t{0}", Vector.Add(Vectors<ushort>.Demo, Vectors<ushort>.V1));
+                WriteLine(tw, indent, "Add(Vectors<int>.Demo, Vectors<int>.V1):\t{0}", Vector.Add(Vectors<int>.Demo, Vectors<int>.V1));
+                WriteLine(tw, indent, "Add(Vectors<uint>.Demo, Vectors<uint>.V1):\t{0}", Vector.Add(Vectors<uint>.Demo, Vectors<uint>.V1));
+                WriteLine(tw, indent, "Add(Vectors<long>.Demo, Vectors<long>.V1):\t{0}", Vector.Add(Vectors<long>.Demo, Vectors<long>.V1));
+                WriteLine(tw, indent, "Add(Vectors<ulong>.Demo, Vectors<ulong>.V1):\t{0}", Vector.Add(Vectors<ulong>.Demo, Vectors<ulong>.V1));
 
                 //AndNot<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise And Not operation on each pair of corresponding elements in two vectors.
-                WriteLineFormat(tw, indent, "AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLineFormat(tw, indent, "AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
 
                 //As<TFrom, TTo>(Vector<TFrom>)    Reinterprets aVector64<T> as a new Vector64<T>.
                 //AsVectorByte<T>(Vector<T>) Reinterprets the bits of a specified vector into those of a vector of unsigned bytes.
@@ -130,34 +130,34 @@ namespace IntrinsicsLib {
                 // `As***` see below.
 
                 //BitwiseAnd<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise Andoperation on each pair of elements in two vectors.
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
 
                 //BitwiseOr<T>(Vector<T>, Vector<T>)  Returns a new vector by performing a bitwise Oroperation on each pair of elements in two vectors.
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLineFormat(tw, indent, "BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
 
 #if NET5_0_OR_GREATER
                 //Ceiling(Vector<Double>) Returns a new vector whose elements are the smallest integral values that are greater than or equal to the given vector's elements.
                 //Ceiling(Vector<Single>) Returns a new vector whose elements are the smallest integral values that are greater than or equal to the given vector's elements.
-                WriteLineFormat(tw, indent, "Ceiling(Vectors<float>.Demo):\t{0}", Vector.Ceiling(Vectors<float>.Demo));
-                WriteLineFormat(tw, indent, "Ceiling(Vectors<double>.Demo):\t{0}", Vector.Ceiling(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Ceiling(Vectors<float>.Demo):\t{0}", Vector.Ceiling(Vectors<float>.Demo));
+                WriteLine(tw, indent, "Ceiling(Vectors<double>.Demo):\t{0}", Vector.Ceiling(Vectors<double>.Demo));
 #endif // NET5_0_OR_GREATER
 
                 //ConditionalSelect(Vector<Int32>, Vector<Single>, Vector<Single>)    Creates a new single-precision vector with elements selected between two specified single-precision source vectors based on an integral mask vector.
@@ -177,16 +177,16 @@ namespace IntrinsicsLib {
                 //[5] = src0[5]&srcT[5] | src0[5]&~srcT[5] = 0&3 | 1&~3 = 0 | 1&0xFFFFFFFC = 0
                 //[6] = src0[6]&srcT[6] | src0[6]&~srcT[6] = 0&4 | 1&~4 = 0 | 1&0xFFFFFFFB = 1
                 //[7] = src0[7]&srcT[7] | src0[7]&~srcT[7] = 0&0 | 1&~0 = 0 | 1 = 1
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7):\t{0}", Vector.ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7):\t{0}", Vector.ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7):\t{0}", Vector.ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7):\t{0}", Vector.ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7):\t{0}", Vector.ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7):\t{0}", Vector.ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7));
-                WriteLineFormat(tw, indent, "ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7):\t{0}", Vector.ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7):\t{0}", Vector.ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7):\t{0}", Vector.ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7):\t{0}", Vector.ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7):\t{0}", Vector.ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7):\t{0}", Vector.ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7));
 
                 //            //ConvertToDouble(Vector<Int64>) Converts a Vector<Int64>to aVector<Double>.
                 //            //ConvertToDouble(Vector<UInt64>) Converts a Vector<UInt64> to aVector<Double>.
@@ -198,47 +198,47 @@ namespace IntrinsicsLib {
                 //            //ConvertToUInt64(Vector<Double>) Converts a Vector<Double> to aVector<UInt64>.
                 //            // Infinity or NaN -> IntTypes.MinValue .
                 //            if (typeof(T) == typeof(Double)) {
-                //                WriteLineFormat(tw, indent, "ConvertToInt64(srcT):\t{0}", Vector.ConvertToInt64(Vector.AsVectorDouble(srcT)));
-                //                WriteLineFormat(tw, indent, "ConvertToUInt64(srcT):\t{0}", Vector.ConvertToUInt64(Vector.AsVectorDouble(srcT)));
+                //                WriteLine(tw, indent, "ConvertToInt64(srcT):\t{0}", Vector.ConvertToInt64(Vector.AsVectorDouble(srcT)));
+                //                WriteLine(tw, indent, "ConvertToUInt64(srcT):\t{0}", Vector.ConvertToUInt64(Vector.AsVectorDouble(srcT)));
                 //            } else if (typeof(T) == typeof(Single)) {
-                //                WriteLineFormat(tw, indent, "ConvertToInt32(srcT):\t{0}", Vector.ConvertToInt32(Vector.AsVectorSingle(srcT)));
-                //                WriteLineFormat(tw, indent, "ConvertToUInt32(srcT):\t{0}", Vector.ConvertToUInt32(Vector.AsVectorSingle(srcT)));
+                //                WriteLine(tw, indent, "ConvertToInt32(srcT):\t{0}", Vector.ConvertToInt32(Vector.AsVectorSingle(srcT)));
+                //                WriteLine(tw, indent, "ConvertToUInt32(srcT):\t{0}", Vector.ConvertToUInt32(Vector.AsVectorSingle(srcT)));
                 //            } else if (typeof(T) == typeof(Int32)) {
-                //                WriteLineFormat(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorInt32(srcT)));
+                //                WriteLine(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorInt32(srcT)));
                 //            } else if (typeof(T) == typeof(UInt32)) {
-                //                WriteLineFormat(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorUInt32(srcT)));
+                //                WriteLine(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorUInt32(srcT)));
                 //            } else if (typeof(T) == typeof(Int64)) {
-                //                WriteLineFormat(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorInt64(srcT)));
+                //                WriteLine(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorInt64(srcT)));
                 //            } else if (typeof(T) == typeof(UInt64)) {
-                //                WriteLineFormat(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorUInt64(srcT)));
+                //                WriteLine(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorUInt64(srcT)));
                 //            }
 
                 //            //Divide<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the result of dividing the first vector's elements by the corresponding elements in the second vector.
-                //            WriteLineFormat(tw, indent, "Divide(srcT, src2):\t{0}", Vector.Divide(srcT, src2));
+                //            WriteLine(tw, indent, "Divide(srcT, src2):\t{0}", Vector.Divide(srcT, src2));
 
                 //            //Dot<T>(Vector<T>, Vector<T>) Returns the dot product of two vectors.
-                //            WriteLineFormat(tw, indent, "Dot(srcT, src1):\t{0}", Vector.Dot(srcT, src1));
-                //            WriteLineFormat(tw, indent, "Dot(srcT, src2):\t{0}", Vector.Dot(srcT, src2));
-                //            WriteLineFormat(tw, indent, "Dot(src1, src2):\t{0}", Vector.Dot(src1, src2));
+                //            WriteLine(tw, indent, "Dot(srcT, src1):\t{0}", Vector.Dot(srcT, src1));
+                //            WriteLine(tw, indent, "Dot(srcT, src2):\t{0}", Vector.Dot(srcT, src2));
+                //            WriteLine(tw, indent, "Dot(src1, src2):\t{0}", Vector.Dot(src1, src2));
 
                 //            //Equals(Vector<Double>, Vector<Double>)  Returns a new integral vector whose elements signal whether the elements in two specified double-precision vectors are equal.
                 //            //Equals(Vector<Int32>, Vector<Int32>)    Returns a new integral vector whose elements signal whether the elements in two specified integral vectors are equal.
                 //            //Equals(Vector<Int64>, Vector<Int64>)    Returns a new vector whose elements signal whether the elements in two specified long integer vectors are equal.
                 //            //Equals(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in two specified single-precision vectors are equal.
                 //            //Equals<T>(Vector<T>, Vector<T>) Returns a new vector of a specified type whose elements signal whether the elements in two specified vectors of the same type are equal.
-                //            WriteLineFormat(tw, indent, "Equals(srcT, src0):\t{0}", Vector.Equals(srcT, src0));
-                //            WriteLineFormat(tw, indent, "Equals(srcT, src1):\t{0}", Vector.Equals(srcT, src1));
+                //            WriteLine(tw, indent, "Equals(srcT, src0):\t{0}", Vector.Equals(srcT, src0));
+                //            WriteLine(tw, indent, "Equals(srcT, src1):\t{0}", Vector.Equals(srcT, src1));
 
                 //            //EqualsAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether each pair of elements in the given vectors is equal.
-                //            WriteLineFormat(tw, indent, "EqualsAll(srcT, src0):\t{0}", Vector.EqualsAll(srcT, src0));
+                //            WriteLine(tw, indent, "EqualsAll(srcT, src0):\t{0}", Vector.EqualsAll(srcT, src0));
                 //            //EqualsAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any single pair of elements in the given vectors is equal.
-                //            WriteLineFormat(tw, indent, "EqualsAny(srcT, src0):\t{0}", Vector.EqualsAny(srcT, src0));
+                //            WriteLine(tw, indent, "EqualsAny(srcT, src0):\t{0}", Vector.EqualsAny(srcT, src0));
 
 #if NET5_0_OR_GREATER
                 //Floor(Vector<Double>) Returns a new vector whose elements are the largest integral values that are less than or equal to the given vector's elements.
                 //Floor(Vector<Single>)   Returns a new vector whose elements are the largest integral values that are less than or equal to the given vector's elements.
-                WriteLineFormat(tw, indent, "Floor(Vectors<float>.Demo):\t{0}", Vector.Floor(Vectors<float>.Demo));
-                WriteLineFormat(tw, indent, "Floor(Vectors<double>.Demo):\t{0}", Vector.Floor(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Floor(Vectors<float>.Demo):\t{0}", Vector.Floor(Vectors<float>.Demo));
+                WriteLine(tw, indent, "Floor(Vectors<double>.Demo):\t{0}", Vector.Floor(Vectors<double>.Demo));
 #endif // NET5_0_OR_GREATER
 
                 //            //GreaterThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are greater than their corresponding elements in a second double-precision floating-point vector.
@@ -246,8 +246,8 @@ namespace IntrinsicsLib {
                 //            //GreaterThan(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than their corresponding elements in a second long integer vector.
                 //            //GreaterThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are greater than their corresponding elements in a second single-precision floating-point vector.
                 //            //GreaterThan<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than their corresponding elements in the second vector of the same time.
-                //            WriteLineFormat(tw, indent, "GreaterThan(srcT, src0):\t{0}", Vector.GreaterThan(srcT, src0));
-                //            WriteLineFormat(tw, indent, "GreaterThan(srcT, src1):\t{0}", Vector.GreaterThan(srcT, src1));
+                //            WriteLine(tw, indent, "GreaterThan(srcT, src0):\t{0}", Vector.GreaterThan(srcT, src0));
+                //            WriteLine(tw, indent, "GreaterThan(srcT, src1):\t{0}", Vector.GreaterThan(srcT, src1));
 
                 //            //GreaterThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than the corresponding elements in the second vector.
                 //            //GreaterThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than the corresponding element in the second vector.
@@ -257,8 +257,8 @@ namespace IntrinsicsLib {
                 //            //GreaterThanOrEqual(Vector<Int64>, Vector<Int64>)    Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than or equal to their corresponding elements in the second long integer vector.
                 //            //GreaterThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one vector are greater than or equal to their corresponding elements in the single-precision floating-point second vector.
                 //            //GreaterThanOrEqual<T>(Vector<T>, Vector<T>) Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than or equal to their corresponding elements in the second vector of the same type.
-                //            WriteLineFormat(tw, indent, "GreaterThanOrEqual(srcT, src0):\t{0}", Vector.GreaterThanOrEqual(srcT, src0));
-                //            WriteLineFormat(tw, indent, "GreaterThanOrEqual(srcT, src1):\t{0}", Vector.GreaterThanOrEqual(srcT, src1));
+                //            WriteLine(tw, indent, "GreaterThanOrEqual(srcT, src0):\t{0}", Vector.GreaterThanOrEqual(srcT, src0));
+                //            WriteLine(tw, indent, "GreaterThanOrEqual(srcT, src1):\t{0}", Vector.GreaterThanOrEqual(srcT, src1));
 
                 //            //GreaterThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than or equal to all the corresponding elements in the second vector.
                 //            //GreaterThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than or equal to the corresponding element in the second vector.
@@ -268,8 +268,8 @@ namespace IntrinsicsLib {
                 //            //LessThan(Vector<Int64>, Vector<Int64>)  Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less than their corresponding elements in a second long integer vector.
                 //            //LessThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision vector are less than their corresponding elements in a second single-precision vector.
                 //            //LessThan<T>(Vector<T>, Vector<T>)   Returns a new vector of a specified type whose elements signal whether the elements in one vector are less than their corresponding elements in the second vector.
-                //            WriteLineFormat(tw, indent, "LessThan(srcT, src0):\t{0}", Vector.LessThan(srcT, src0));
-                //            WriteLineFormat(tw, indent, "LessThan(srcT, src1):\t{0}", Vector.LessThan(srcT, src1));
+                //            WriteLine(tw, indent, "LessThan(srcT, src0):\t{0}", Vector.LessThan(srcT, src0));
+                //            WriteLine(tw, indent, "LessThan(srcT, src1):\t{0}", Vector.LessThan(srcT, src1));
 
                 //            //LessThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all of the elements in the first vector are less than their corresponding elements in the second vector.
                 //            //LessThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than the corresponding element in the second vector.
@@ -279,24 +279,24 @@ namespace IntrinsicsLib {
                 //            //LessThanOrEqual(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less or equal to their corresponding elements in a second long integer vector.
                 //            //LessThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are less than or equal to their corresponding elements in a second single-precision floating-point vector.
                 //            //LessThanOrEqual<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector are less than or equal to their corresponding elements in the second vector.
-                //            WriteLineFormat(tw, indent, "LessThanOrEqual(srcT, src0):\t{0}", Vector.LessThanOrEqual(srcT, src0));
-                //            WriteLineFormat(tw, indent, "LessThanOrEqual(srcT, src1):\t{0}", Vector.LessThanOrEqual(srcT, src1));
+                //            WriteLine(tw, indent, "LessThanOrEqual(srcT, src0):\t{0}", Vector.LessThanOrEqual(srcT, src0));
+                //            WriteLine(tw, indent, "LessThanOrEqual(srcT, src1):\t{0}", Vector.LessThanOrEqual(srcT, src1));
 
                 //            //LessThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are less than or equal to their corresponding elements in the second vector.
                 //            //LessThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than or equal to the corresponding element in the second vector.
 
                 //            //Max<T>(Vector<T>, Vector<T>) Returns a new vector whose elements are the maximum of each pair of elements in the two given vectors.
-                //            WriteLineFormat(tw, indent, "Max(srcT, src0):\t{0}", Vector.Max(srcT, src0));
-                //            WriteLineFormat(tw, indent, "Max(srcT, src2):\t{0}", Vector.Max(srcT, src2));
+                //            WriteLine(tw, indent, "Max(srcT, src0):\t{0}", Vector.Max(srcT, src0));
+                //            WriteLine(tw, indent, "Max(srcT, src2):\t{0}", Vector.Max(srcT, src2));
                 //            //Min<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements are the minimum of each pair of elements in the two given vectors.
-                //            WriteLineFormat(tw, indent, "Min(srcT, src0):\t{0}", Vector.Min(srcT, src0));
-                //            WriteLineFormat(tw, indent, "Min(srcT, src2):\t{0}", Vector.Min(srcT, src2));
-                //            WriteLineFormat(tw, indent, "Min(Max(srcT, src0), src2):\t{0}", Vector.Min(Vector.Max(srcT, src0), src2));
+                //            WriteLine(tw, indent, "Min(srcT, src0):\t{0}", Vector.Min(srcT, src0));
+                //            WriteLine(tw, indent, "Min(srcT, src2):\t{0}", Vector.Min(srcT, src2));
+                //            WriteLine(tw, indent, "Min(Max(srcT, src0), src2):\t{0}", Vector.Min(Vector.Max(srcT, src0), src2));
 
                 //            //Multiply<T>(T, Vector<T>)   Returns a new vector whose values are a scalar value multiplied by each of the values of a specified vector.
                 //            //Multiply<T>(Vector<T>, T) Returns a new vector whose values are the values of a specified vector each multiplied by a scalar value.
                 //            //Multiply<T>(Vector<T>, Vector<T>)   Returns a new vector whose values are the product of each pair of elements in two specified vectors.
-                //            WriteLineFormat(tw, indent, "Multiply(srcT, src2):\t{0}", Vector.Multiply(srcT, src2));
+                //            WriteLine(tw, indent, "Multiply(srcT, src2):\t{0}", Vector.Multiply(srcT, src2));
 
                 //            //Narrow(Vector<Double>, Vector<Double>) Narrows two Vector<Double>instances into one Vector<Single>.
                 //            //Narrow(Vector<Int16>, Vector<Int16>) Narrows two Vector<Int16> instances into one Vector<SByte>.
@@ -306,27 +306,27 @@ namespace IntrinsicsLib {
                 //            //Narrow(Vector<UInt32>, Vector<UInt32>) Narrows two Vector<UInt32> instances into one Vector<UInt16>.
                 //            //Narrow(Vector<UInt64>, Vector<UInt64>) Narrows two Vector<UInt64> instances into one Vector<UInt32>.
                 //            if (typeof(T) == typeof(Double)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorDouble(srcT), Vector.AsVectorDouble(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorDouble(srcT), Vector.AsVectorDouble(src1)));
                 //            } else if (typeof(T) == typeof(Int16)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt16(srcT), Vector.AsVectorInt16(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt16(srcT), Vector.AsVectorInt16(src1)));
                 //            } else if (typeof(T) == typeof(Int32)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt32(srcT), Vector.AsVectorInt32(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt32(srcT), Vector.AsVectorInt32(src1)));
                 //            } else if (typeof(T) == typeof(Int64)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt64(srcT), Vector.AsVectorInt64(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt64(srcT), Vector.AsVectorInt64(src1)));
                 //            } else if (typeof(T) == typeof(UInt16)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt16(srcT), Vector.AsVectorUInt16(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt16(srcT), Vector.AsVectorUInt16(src1)));
                 //            } else if (typeof(T) == typeof(UInt32)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt32(srcT), Vector.AsVectorUInt32(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt32(srcT), Vector.AsVectorUInt32(src1)));
                 //            } else if (typeof(T) == typeof(UInt64)) {
-                //                WriteLineFormat(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt64(srcT), Vector.AsVectorUInt64(src1)));
+                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt64(srcT), Vector.AsVectorUInt64(src1)));
                 //            }
 
                 //            //Negate<T>(Vector<T>) Returns a new vector whose elements are the negation of the corresponding element in the specified vector.
-                //            WriteLineFormat(tw, indent, "Negate(srcT):\t{0}", Vector.Negate(srcT));
-                //            WriteLineFormat(tw, indent, "Negate(srcAllOnes):\t{0}", Vector.Negate(srcAllOnes));
+                //            WriteLine(tw, indent, "Negate(srcT):\t{0}", Vector.Negate(srcT));
+                //            WriteLine(tw, indent, "Negate(srcAllOnes):\t{0}", Vector.Negate(srcAllOnes));
                 //            //OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
-                //            WriteLineFormat(tw, indent, "OnesComplement(srcT):\t{0}", Vector.OnesComplement(srcT));
-                //            WriteLineFormat(tw, indent, "OnesComplement(srcAllOnes):\t{0}", Vector.OnesComplement(srcAllOnes));
+                //            WriteLine(tw, indent, "OnesComplement(srcT):\t{0}", Vector.OnesComplement(srcT));
+                //            WriteLine(tw, indent, "OnesComplement(srcAllOnes):\t{0}", Vector.OnesComplement(srcAllOnes));
 
                 //#if NET7_0_OR_GREATER
                 //            //ShiftLeft(Vector<Byte>, Int32)  Shifts each element of a vector left by the specified amount.
@@ -357,24 +357,24 @@ namespace IntrinsicsLib {
                 //#endif // NET7_0_OR_GREATER
 
                 //            //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
-                //            WriteLineFormat(tw, indent, "SquareRoot(srcT):\t{0}", Vector.SquareRoot(srcT));
+                //            WriteLine(tw, indent, "SquareRoot(srcT):\t{0}", Vector.SquareRoot(srcT));
 
                 //            //Subtract<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the difference between the elements in the second vector and their corresponding elements in the first vector.
-                //            WriteLineFormat(tw, indent, "Subtract(srcT, src1):\t{0}", Vector.Subtract(srcT, src1));
-                //            WriteLineFormat(tw, indent, "Subtract(srcT, src2):\t{0}", Vector.Subtract(srcT, src2));
+                //            WriteLine(tw, indent, "Subtract(srcT, src1):\t{0}", Vector.Subtract(srcT, src1));
+                //            WriteLine(tw, indent, "Subtract(srcT, src2):\t{0}", Vector.Subtract(srcT, src2));
 
 #if NET6_0_OR_GREATER
                 //Sum<T>(Vector<T>) Returns the sum of all the elements inside the specified vector.
-                WriteLineFormat(tw, indent, "Sum(Vectors<float>.Demo):\t{0}", Vector.Sum(Vectors<float>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<double>.Demo):\t{0}", Vector.Sum(Vectors<double>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<sbyte>.Demo):\t{0}", Vector.Sum(Vectors<sbyte>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<byte>.Demo):\t{0}", Vector.Sum(Vectors<byte>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<short>.Demo):\t{0}", Vector.Sum(Vectors<short>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<ushort>.Demo):\t{0}", Vector.Sum(Vectors<ushort>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<int>.Demo):\t{0}", Vector.Sum(Vectors<int>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<uint>.Demo):\t{0}", Vector.Sum(Vectors<uint>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<long>.Demo):\t{0}", Vector.Sum(Vectors<long>.Demo));
-                WriteLineFormat(tw, indent, "Sum(Vectors<ulong>.Demo):\t{0}", Vector.Sum(Vectors<ulong>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<float>.Demo):\t{0}", Vector.Sum(Vectors<float>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<double>.Demo):\t{0}", Vector.Sum(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<sbyte>.Demo):\t{0}", Vector.Sum(Vectors<sbyte>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<byte>.Demo):\t{0}", Vector.Sum(Vectors<byte>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<short>.Demo):\t{0}", Vector.Sum(Vectors<short>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<ushort>.Demo):\t{0}", Vector.Sum(Vectors<ushort>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<int>.Demo):\t{0}", Vector.Sum(Vectors<int>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<uint>.Demo):\t{0}", Vector.Sum(Vectors<uint>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<long>.Demo):\t{0}", Vector.Sum(Vectors<long>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<ulong>.Demo):\t{0}", Vector.Sum(Vectors<ulong>.Demo));
 #endif // NET6_0_OR_GREATER
 
                 //Widen(Vector<Byte>, Vector<UInt16>, Vector<UInt16>) Widens aVector<Byte> into two Vector<UInt16>instances.
@@ -385,47 +385,47 @@ namespace IntrinsicsLib {
                 //Widen(Vector<UInt16>, Vector<UInt32>, Vector<UInt32>) Widens a Vector<UInt16> into twoVector<UInt32> instances.
                 //Widen(Vector<UInt32>, Vector<UInt64>, Vector<UInt64>) Widens a Vector<UInt32> into twoVector<UInt64> instances.
                 // Debugger.Break();
-                // WriteLineFormat(tw, indent, "Avx2.Abs:\t{0}", Avx2.Abs(Vector256s<short>.AllBitsSet)); // Visual Studio 2019 YMM registers not displaying in Managed Debugger
+                // WriteLine(tw, indent, "Avx2.Abs:\t{0}", Avx2.Abs(Vector256s<short>.AllBitsSet)); // Visual Studio 2019 YMM registers not displaying in Managed Debugger
                 if (true) {
                     Vector.Widen(Vectors<float>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<float>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<float>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<sbyte>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<sbyte>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<sbyte>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<byte>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<byte>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<byte>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<short>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<short>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<short>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<ushort>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<ushort>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<ushort>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<int>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<int>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<int>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
                     Vector.Widen(Vectors<uint>.Demo, out var low, out var high);
-                    WriteLineFormat(tw, indent, "Widen(Vectors<uint>.Demo):\t{0}, {1}", low, high);
+                    WriteLine(tw, indent, "Widen(Vectors<uint>.Demo):\t{0}, {1}", low, high);
                 }
 
                 //Xor<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise exclusive Or(XOr) operation on each pair of elements in two vectors.
-                WriteLineFormat(tw, indent, "Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLineFormat(tw, indent, "Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
 
             }
 
