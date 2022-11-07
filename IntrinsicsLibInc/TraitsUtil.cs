@@ -390,37 +390,48 @@ namespace IntrinsicsLib {
                 rt += str.Length;
             }
             if (!(noHex ?? false)) {
-                int countHex = 0;
                 if (args.Length > 0) {
+                    int countHex = 0;
                     for (int i = 0; i < args.Length; ++i) {
                         object? src = args[i];
-                        string hex = string.Empty;
                         try {
-                            hex = GetHex(src as dynamic, " ", false);
+                            bool isFirst = true;
+                            Action<string> actionHex = delegate (string str) {
+                                if (string.IsNullOrEmpty(str)) return;
+                                if (isFirst) {
+                                    isFirst = false;
+                                    string separatorItem;
+                                    if (countHex <= 0) {
+                                        separatorItem = lineCommentSeparator;
+                                    } else {
+                                        separatorItem = lineCommentItemSeparator;
+                                    }
+                                    if (!string.IsNullOrEmpty(separatorItem)) {
+                                        action(separatorItem);
+                                        rt += separatorItem.Length;
+                                    }
+                                    // begin.
+                                    ++countHex;
+                                    action("(");
+                                    ++rt;
+                                }
+                                // process str.
+                                action(str);
+                            };
+                            int n = GetHexTo(actionHex, src as dynamic, " ", false);
+                            rt += n;
+                            if (n>0) {
+                                // end.
+                                action(")");
+                                ++rt;
+                            }
+
                         } catch (Exception ex) {
                             //Debug.WriteLine(src + ": " + ex);
                             if (null != ex) {
                                 // [Debug] Use for Debugger.Break .
                             }
                         }
-                        if (string.IsNullOrEmpty(hex)) continue;
-                        string separatorItem;
-                        if (countHex <= 0) {
-                            separatorItem = lineCommentSeparator;
-                        } else {
-                            separatorItem = lineCommentItemSeparator;
-                        }
-                        if (!string.IsNullOrEmpty(separatorItem)) {
-                            action(separatorItem);
-                            rt += separatorItem.Length;
-                        }
-                        ++countHex;
-                        action("(");
-                        ++rt;
-                        action(hex);
-                        rt += hex.Length;
-                        action(")");
-                        ++rt;
                     }
                 }
             }
