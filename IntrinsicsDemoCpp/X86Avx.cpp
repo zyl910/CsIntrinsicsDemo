@@ -1,11 +1,12 @@
 #include "X86Avx.h"
 
 #include <stdio.h>
+#include <inttypes.h>
 #include <malloc.h>
 #include <immintrin.h>
 
-__int8 srcT_int8[32];
-__int16 srcT_int16[16];
+int8_t demo_int8[32];
+int16_t demo_int16[16];
 
 void Widen_SByte() {
     __m256i v0, v1;
@@ -26,7 +27,7 @@ void Widen_SByte() {
     //00007FFBCD18EFAC  vpcmpgtb    ymm1, ymm1, ymm0
     //00007FFBCD18EFB0  vpunpckhbw  ymm0, ymm0, ymm1
     //00007FFBCD18EFB4  vmovupd     ymmword ptr[rbp - 90h], ymm0
-    __m256i src = _mm256_load_si256((__m256i*) & srcT_int8[0]); // vmovupd     ymm0,ymmword ptr [rbp-790h]
+    __m256i src = _mm256_load_si256((__m256i*) & demo_int8[0]); // vmovupd     ymm0,ymmword ptr [rbp-790h]
     v0 = _mm256_permute4x64_epi64(src, 0xD4); // vpermq      ymm0, ymm0, 0D4h; 0D4h=0b1101_0100{3,1,1,0} // v0 = {`i64[0]`, i64[1], `i64[1]`, i64[3]}; 带(`)的是重点, 其他的2组会被忽略.
     __m256i zero = _mm256_setzero_si256(); // vxorps      ymm1, ymm1, ymm1
     __m256i mask = _mm256_cmpgt_epi8(zero, v0); // vpcmpgtb    ymm1, ymm1, ymm0 // mask 将存储高半部分的符号位: make = { 0 > i8[i] }
@@ -45,25 +46,25 @@ void testX86Avx() {
 
     // init.
     for (i = 0; i < 32; ++i) {
-        if (i < (sizeof(srcT_int8) / sizeof(srcT_int8[0]))) {
-            srcT_int8[i] = (__int8)i;
+        if (i < (sizeof(demo_int8) / sizeof(demo_int8[0]))) {
+            demo_int8[i] = (int8_t)i;
         }
-        if (i < (sizeof(srcT_int16) / sizeof(srcT_int16[0]))) {
-            srcT_int16[i] = (__int16)i;
+        if (i < (sizeof(demo_int16) / sizeof(demo_int16[0]))) {
+            demo_int16[i] = (int16_t)i;
         }
     }
-    srcT_int8[0] = -128;
-    srcT_int8[1] = -2;
-    srcT_int8[2] = 127;
-    srcT_int8[3] = (__int8)0xFF;
-    srcT_int8[4] = 4;
-    srcT_int8[5] = (__int8)(1 << 4);
-    srcT_int16[0] = -32768;
-    srcT_int16[1] = -2;
-    srcT_int16[2] = 32767;
-    srcT_int16[3] = (__int16)0xFF;
-    srcT_int16[4] = 8;
-    srcT_int16[5] = (__int8)(1 << 8);
+    demo_int8[0] = -128;
+    demo_int8[1] = -2;
+    demo_int8[2] = 127;
+    demo_int8[3] = (int8_t)0xFF;
+    demo_int8[4] = 4;
+    demo_int8[5] = (int8_t)(1 << 4);
+    demo_int16[0] = -32768;
+    demo_int16[1] = -2;
+    demo_int16[2] = 32767;
+    demo_int16[3] = (int16_t)0xFF;
+    demo_int16[4] = 8;
+    demo_int16[5] = (int8_t)(1 << 8);
 
     // test.
     Widen_SByte();
