@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IntrinsicsLib {
     /// <summary>
-    /// Methods of scalar(number type) (标量(数值类型)的方法).
+    /// Methods of scalar (标量的方法).
     /// </summary>
     public static class Scalars {
 
@@ -299,8 +299,9 @@ namespace IntrinsicsLib {
     }
 
     /// <summary>
-    /// Constants of scalar(number type) (标量(数值类型)的常数).
+    /// Constants of scalar (标量的常数).
     /// </summary>
+    /// <typeparam name="T">Target type (目标类型).</typeparam>
     public static class Scalars<T> where T: struct {
         /// <summary>Value 0 (0的值).</summary>
         public static readonly T V0;

@@ -648,7 +648,7 @@ namespace IntrinsicsLib {
             VReciprocal4294967295 = Vector64s.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vector64s.CreateByDoubleLoop<T>(0, 1);
-            Demo = GetDemo();
+            Demo = Vector64s.CreateByFunc<T>(Vectors.GenerateDemoElement<T>);
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vector64s.CreateByFunc<T>(delegate (int index) {
                 long n = 0;
@@ -690,36 +690,6 @@ namespace IntrinsicsLib {
             // == Mask array ==
             MaskBitPosArray = Vector64s.GetMaskBitPosArray(ElementByteSize);
             MaskBitsArray = Vector64s.GetMaskBitsArray(ElementByteSize);
-        }
-
-        /// <summary>
-        /// Get demo value.
-        /// </summary>
-        /// <returns>Return demo value.</returns>
-        private static Vector64<T> GetDemo() {
-            if (typeof(T) == typeof(Single)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<Single>(Single.MinValue, Single.PositiveInfinity, Single.NaN, -1.2f, 0f, 1f, 2f, 4f);
-            } else if (typeof(T) == typeof(Double)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<double>(Double.MinValue, Double.PositiveInfinity, -1.2, 0);
-            } else if (typeof(T) == typeof(SByte)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<SByte>(SByte.MinValue, SByte.MaxValue, -1, 0, 1, 2, 3, 64);
-            } else if (typeof(T) == typeof(Int16)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<Int16>(Int16.MinValue, Int16.MaxValue, -1, 0, 1, 2, 3, 16384);
-            } else if (typeof(T) == typeof(Int32)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<Int32>(Int32.MinValue, Int32.MaxValue, -1, 0, 1, 2, 3, 32768);
-            } else if (typeof(T) == typeof(Int64)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<Int64>(Int64.MinValue, Int64.MaxValue, -1, 0, 1, 2, 3);
-            } else if (typeof(T) == typeof(Byte)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<Byte>(Byte.MinValue, Byte.MaxValue, 0, 1, 2, 3, 4, 128);
-            } else if (typeof(T) == typeof(UInt16)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt16>(UInt16.MinValue, UInt16.MaxValue, 0, 1, 2, 3, 4, 32768);
-            } else if (typeof(T) == typeof(UInt32)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt32>(UInt32.MinValue, UInt32.MaxValue, 0, 1, 2, 3, 4, 65536);
-            } else if (typeof(T) == typeof(UInt64)) {
-                return (Vector64<T>)(object)Vector64s.CreateRotate<UInt64>(UInt64.MinValue, UInt64.MaxValue, 0, 1, 2, 3);
-            } else {
-                return Serial; // GetSerial();
-            }
         }
 
         /// <summary>

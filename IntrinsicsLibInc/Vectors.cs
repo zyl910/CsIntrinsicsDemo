@@ -440,6 +440,47 @@ namespace IntrinsicsLib {
         }
 
         /// <summary>
+        /// Generate the elements of the <see cref="Vectors{T}.Demo"/> value (生成演示值的各元素).
+        /// </summary>
+        /// <typeparam name="T">Target type (目标类型).</typeparam>
+        /// <param name="index">Element index(元素索引).</param>
+        /// <returns>Return element item.</returns>
+        public static T GenerateDemoElement<T>(int index) where T : struct {
+            T rt = Scalars.GetByDouble<T>(index);
+            if (0 == index) {
+                rt = Scalars<T>.MinValue;
+            } else if (1 == index) {
+                rt = Scalars.GetByDouble<T>(-2.3);
+            } else if (2 == index) {
+                rt = Scalars<T>.MaxValue;
+            } else if (3 == index) {
+                rt = Scalars<T>.AllBitsSet;
+            //} else if (6 == index) {
+            //    rt = Scalars<T>.E;
+            //} else if (7 == index) {
+            //    rt = Scalars<T>.Pi;
+            //} else if (8 == index) {
+            //    rt = Scalars<T>.Tau;
+            }
+            if (Scalars<T>.ExponentBits > 0) {
+                // Float point number.
+                if (4 == index) {
+                    rt = Scalars<T>.PositiveInfinity;
+                } else if (5 == index) {
+                    rt = Scalars<T>.Epsilon;
+                }
+            } else {
+                // Fixed point number.
+                if (4 == index) {
+                    rt = Scalars.GetByDouble<T>(Scalars<T>.FixedShift);
+                } else if (5 == index) {
+                    rt = Scalars<T>.FixedOne;
+                }
+            }
+            return rt;
+        }
+
+        /// <summary>
         /// Creates a <see cref="Vector{T}"/> whose components are of a specified double value (创建一个 <see cref="Vector{T}"/>，其元素为指定的双精度浮点值).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
@@ -698,40 +739,7 @@ namespace IntrinsicsLib {
             VReciprocal4294967295 = Vectors.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vectors.CreateByDoubleLoop<T>(0, 1);
-            Demo = Vectors.CreateByFunc<T>(delegate (int index) {
-                T rt = Scalars.GetByDouble<T>(index);
-                if (0== index) {
-                    rt = ElementMinValue;
-                } else if (1 == index) {
-                    rt = Scalars.GetByDouble<T>(-2.3);
-                } else if (2 == index) {
-                    rt = ElementMaxValue;
-                } else if (3 == index) {
-                    rt = ElementAllBitsSet;
-                //} else if (6 == index) {
-                //    rt = ElementE;
-                //} else if (7 == index) {
-                //    rt = ElementPi;
-                //} else if (8 == index) {
-                //    rt = ElementTau;
-                }
-                if (ElementExponentBits > 0) {
-                    // Float point number.
-                    if (4 == index) {
-                        rt = ElementPositiveInfinity;
-                    } else if (5 == index) {
-                        rt = ElementEpsilon;
-                    }
-                } else {
-                    // Fixed point number.
-                    if (4 == index) {
-                        rt = Scalars.GetByDouble<T>(ElementFixedShift);
-                    } else if (5 == index) {
-                        rt = ElementFixedOne;
-                    }
-                }
-                return rt;
-            });
+            Demo = Vectors.CreateByFunc<T>(Vectors.GenerateDemoElement<T>);
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vectors.CreateByFunc<T>(delegate (int index) {
                 long n = 0;
