@@ -298,63 +298,55 @@ namespace IntrinsicsLib {
                 //            //Multiply<T>(Vector<T>, Vector<T>)   Returns a new vector whose values are the product of each pair of elements in two specified vectors.
                 //            WriteLine(tw, indent, "Multiply(srcT, src2):\t{0}", Vector.Multiply(srcT, src2));
 
-                //            //Narrow(Vector<Double>, Vector<Double>) Narrows two Vector<Double>instances into one Vector<Single>.
-                //            //Narrow(Vector<Int16>, Vector<Int16>) Narrows two Vector<Int16> instances into one Vector<SByte>.
-                //            //Narrow(Vector<Int32>, Vector<Int32>) Narrows two Vector<Int32> instances into one Vector<Int16>.
-                //            //Narrow(Vector<Int64>, Vector<Int64>) Narrows two Vector<Int64> instances into one Vector<Int32>.
-                //            //Narrow(Vector<UInt16>, Vector<UInt16>) Narrows two Vector<UInt16> instances into one Vector<Byte>.
-                //            //Narrow(Vector<UInt32>, Vector<UInt32>) Narrows two Vector<UInt32> instances into one Vector<UInt16>.
-                //            //Narrow(Vector<UInt64>, Vector<UInt64>) Narrows two Vector<UInt64> instances into one Vector<UInt32>.
-                //            if (typeof(T) == typeof(Double)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorDouble(srcT), Vector.AsVectorDouble(src1)));
-                //            } else if (typeof(T) == typeof(Int16)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt16(srcT), Vector.AsVectorInt16(src1)));
-                //            } else if (typeof(T) == typeof(Int32)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt32(srcT), Vector.AsVectorInt32(src1)));
-                //            } else if (typeof(T) == typeof(Int64)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorInt64(srcT), Vector.AsVectorInt64(src1)));
-                //            } else if (typeof(T) == typeof(UInt16)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt16(srcT), Vector.AsVectorUInt16(src1)));
-                //            } else if (typeof(T) == typeof(UInt32)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt32(srcT), Vector.AsVectorUInt32(src1)));
-                //            } else if (typeof(T) == typeof(UInt64)) {
-                //                WriteLine(tw, indent, "Narrow(srcT):\t{0}", Vector.Narrow(Vector.AsVectorUInt64(srcT), Vector.AsVectorUInt64(src1)));
-                //            }
+                //Narrow(Vector<Double>, Vector<Double>) Narrows two Vector<Double>instances into one Vector<Single>.
+                //Narrow(Vector<Int16>, Vector<Int16>) Narrows two Vector<Int16> instances into one Vector<SByte>.
+                //Narrow(Vector<Int32>, Vector<Int32>) Narrows two Vector<Int32> instances into one Vector<Int16>.
+                //Narrow(Vector<Int64>, Vector<Int64>) Narrows two Vector<Int64> instances into one Vector<Int32>.
+                //Narrow(Vector<UInt16>, Vector<UInt16>) Narrows two Vector<UInt16> instances into one Vector<Byte>.
+                //Narrow(Vector<UInt32>, Vector<UInt32>) Narrows two Vector<UInt32> instances into one Vector<UInt16>.
+                //Narrow(Vector<UInt64>, Vector<UInt64>) Narrows two Vector<UInt64> instances into one Vector<UInt32>.
+                WriteLine(tw, indent, "Narrow(Vectors<Double>.Demo, Vectors<Double>.SerialNegative):\t{0}", Vector.Narrow(Vectors<Double>.Demo, Vectors<Double>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<Int16>.Demo, Vectors<Int16>.SerialNegative):\t{0}", Vector.Narrow(Vectors<Int16>.Demo, Vectors<Int16>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<Int32>.Demo, Vectors<Int32>.SerialNegative):\t{0}", Vector.Narrow(Vectors<Int32>.Demo, Vectors<Int32>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<Int64>.Demo, Vectors<Int64>.SerialNegative):\t{0}", Vector.Narrow(Vectors<Int64>.Demo, Vectors<Int64>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<UInt16>.Demo, Vectors<UInt16>.SerialNegative):\t{0}", Vector.Narrow(Vectors<UInt16>.Demo, Vectors<UInt16>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<UInt32>.Demo, Vectors<UInt32>.SerialNegative):\t{0}", Vector.Narrow(Vectors<UInt32>.Demo, Vectors<UInt32>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vectors<UInt64>.Demo, Vectors<UInt64>.SerialNegative):\t{0}", Vector.Narrow(Vectors<UInt64>.Demo, Vectors<UInt64>.SerialNegative));
 
-                //            //Negate<T>(Vector<T>) Returns a new vector whose elements are the negation of the corresponding element in the specified vector.
-                //            WriteLine(tw, indent, "Negate(srcT):\t{0}", Vector.Negate(srcT));
-                //            WriteLine(tw, indent, "Negate(srcAllOnes):\t{0}", Vector.Negate(srcAllOnes));
-                //            //OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
-                //            WriteLine(tw, indent, "OnesComplement(srcT):\t{0}", Vector.OnesComplement(srcT));
-                //            WriteLine(tw, indent, "OnesComplement(srcAllOnes):\t{0}", Vector.OnesComplement(srcAllOnes));
+                ////Negate<T>(Vector<T>) Returns a new vector whose elements are the negation of the corresponding element in the specified vector.
+                //WriteLine(tw, indent, "Negate(srcT):\t{0}", Vector.Negate(srcT));
+                //WriteLine(tw, indent, "Negate(srcAllOnes):\t{0}", Vector.Negate(srcAllOnes));
+                ////OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
+                //WriteLine(tw, indent, "OnesComplement(srcT):\t{0}", Vector.OnesComplement(srcT));
+                //WriteLine(tw, indent, "OnesComplement(srcAllOnes):\t{0}", Vector.OnesComplement(srcAllOnes));
 
-                //#if NET7_0_OR_GREATER
-                //            //ShiftLeft(Vector<Byte>, Int32)  Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<Int16>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<Int32>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<Int64>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<IntPtr>, Int32)    Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<SByte>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<UInt16>, Int32)    Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<UInt32>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<UInt64>, Int32)    Shifts each element of a vector left by the specified amount.
-                //            //ShiftLeft(Vector<UIntPtr>, Int32) Shifts each element of a vector left by the specified amount.
-                //            //ShiftRightArithmetic(Vector<Int16>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                //            //ShiftRightArithmetic(Vector<Int32>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                //            //ShiftRightArithmetic(Vector<Int64>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                //            //ShiftRightArithmetic(Vector<IntPtr>, Int32) Shifts(signed) each element of a vector right by the specified amount.
-                //            //ShiftRightArithmetic(Vector<SByte>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<Byte>, Int32)  Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<Int16>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<Int32>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<Int64>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<IntPtr>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<SByte>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<UInt16>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<UInt32>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<UInt64>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                //            //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
-                //#endif // NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER
+                            //ShiftLeft(Vector<Byte>, Int32)  Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<Int16>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<Int32>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<Int64>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<IntPtr>, Int32)    Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<SByte>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<UInt16>, Int32)    Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<UInt32>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<UInt64>, Int32)    Shifts each element of a vector left by the specified amount.
+                            //ShiftLeft(Vector<UIntPtr>, Int32) Shifts each element of a vector left by the specified amount.
+                            //ShiftRightArithmetic(Vector<Int16>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                            //ShiftRightArithmetic(Vector<Int32>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                            //ShiftRightArithmetic(Vector<Int64>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                            //ShiftRightArithmetic(Vector<IntPtr>, Int32) Shifts(signed) each element of a vector right by the specified amount.
+                            //ShiftRightArithmetic(Vector<SByte>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<Byte>, Int32)  Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<Int16>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<Int32>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<Int64>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<IntPtr>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<SByte>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<UInt16>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<UInt32>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<UInt64>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                            //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
+#endif // NET7_0_OR_GREATER
 
                 //            //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
                 //            WriteLine(tw, indent, "SquareRoot(srcT):\t{0}", Vector.SquareRoot(srcT));

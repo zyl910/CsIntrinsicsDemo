@@ -380,6 +380,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "VReciprocal4294967295:\t{0}", Vectors<T>.VReciprocal4294967295);
             }
             WriteLine(tw, indent, "Serial:\t{0}", Vectors<T>.Serial);
+            WriteLine(tw, indent, "SerialNegative:\t{0}", Vectors<T>.SerialNegative);
             WriteLine(tw, indent, "Demo:\t{0}", Vectors<T>.Demo);
             WriteLine(tw, indent, "MaskBitPosSerial:\t{0}", Vectors<T>.MaskBitPosSerial);
             WriteLine(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vectors<T>.MaskBitPosSerialRotate);
@@ -469,6 +470,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "VReciprocal4294967295:\t{0}", Vector64s<T>.VReciprocal4294967295);
             }
             WriteLine(tw, indent, "Serial:\t{0}", Vector64s<T>.Serial);
+            WriteLine(tw, indent, "SerialNegative:\t{0}", Vector64s<T>.SerialNegative);
             WriteLine(tw, indent, "Demo:\t{0}", Vector64s<T>.Demo);
             WriteLine(tw, indent, "MaskBitPosSerial:\t{0}", Vector64s<T>.MaskBitPosSerial);
             WriteLine(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector64s<T>.MaskBitPosSerialRotate);
@@ -558,6 +560,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "VReciprocal4294967295:\t{0}", Vector128s<T>.VReciprocal4294967295);
             }
             WriteLine(tw, indent, "Serial:\t{0}", Vector128s<T>.Serial);
+            WriteLine(tw, indent, "SerialNegative:\t{0}", Vector128s<T>.SerialNegative);
             WriteLine(tw, indent, "Demo:\t{0}", Vector128s<T>.Demo);
             WriteLine(tw, indent, "MaskBitPosSerial:\t{0}", Vector128s<T>.MaskBitPosSerial);
             WriteLine(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector128s<T>.MaskBitPosSerialRotate);
@@ -647,6 +650,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "VReciprocal4294967295:\t{0}", Vector256s<T>.VReciprocal4294967295);
             }
             WriteLine(tw, indent, "Serial:\t{0}", Vector256s<T>.Serial);
+            WriteLine(tw, indent, "SerialNegative:\t{0}", Vector256s<T>.SerialNegative);
             WriteLine(tw, indent, "Demo:\t{0}", Vector256s<T>.Demo);
             WriteLine(tw, indent, "MaskBitPosSerial:\t{0}", Vector256s<T>.MaskBitPosSerial);
             WriteLine(tw, indent, "MaskBitPosSerialRotate:\t{0}", Vector256s<T>.MaskBitPosSerialRotate);

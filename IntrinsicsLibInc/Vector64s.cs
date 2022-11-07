@@ -547,6 +547,8 @@ namespace IntrinsicsLib {
         // -- Specified value --
         /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector64<T> Serial;
+        /// <summary>Negative serial Value (负数顺序值). e.g. 0, -1, -2, -3 ...</summary>
+        public static readonly Vector64<T> SerialNegative;
         /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
         public static readonly Vector64<T> Demo;
         /// <summary>Serial bit pos mask (顺序位偏移的掩码). The element whose index exceeds the number of bits has a value of 0(索引超过位数的元素值为0). e.g. 1, 2, 4, 8, 0x10 ...</summary>
@@ -648,6 +650,7 @@ namespace IntrinsicsLib {
             VReciprocal4294967295 = Vector64s.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vector64s.CreateByDoubleLoop<T>(0, 1);
+            SerialNegative = Vector64s.CreateByDoubleLoop<T>(0, -1);
             Demo = Vector64s.CreateByFunc<T>(Vectors.GenerateDemoElement<T>);
             int bitLen = ElementByteSize * 8;
             MaskBitPosSerial = Vector64s.CreateByFunc<T>(delegate (int index) {
