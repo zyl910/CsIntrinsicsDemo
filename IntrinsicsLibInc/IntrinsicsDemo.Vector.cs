@@ -91,16 +91,16 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Abs(Vectors<UInt64>.Demo):\t{0}", Vector.Abs(Vectors<UInt64>.Demo));
 
                 //Add<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the sum of each pair of elements from two given vectors.
-                WriteLine(tw, indent, "Add(Vectors<Single>.Demo, Vectors<Single>.V1):\t{0}", Vector.Add(Vectors<Single>.Demo, Vectors<Single>.V1));
-                WriteLine(tw, indent, "Add(Vectors<Double>.Demo, Vectors<Double>.V1):\t{0}", Vector.Add(Vectors<Double>.Demo, Vectors<Double>.V1));
-                WriteLine(tw, indent, "Add(Vectors<SByte>.Demo, Vectors<SByte>.V1):\t{0}", Vector.Add(Vectors<SByte>.Demo, Vectors<SByte>.V1));
-                WriteLine(tw, indent, "Add(Vectors<Byte>.Demo, Vectors<Byte>.V1):\t{0}", Vector.Add(Vectors<Byte>.Demo, Vectors<Byte>.V1));
-                WriteLine(tw, indent, "Add(Vectors<Int16>.Demo, Vectors<Int16>.V1):\t{0}", Vector.Add(Vectors<Int16>.Demo, Vectors<Int16>.V1));
-                WriteLine(tw, indent, "Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V1):\t{0}", Vector.Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V1));
-                WriteLine(tw, indent, "Add(Vectors<Int32>.Demo, Vectors<Int32>.V1):\t{0}", Vector.Add(Vectors<Int32>.Demo, Vectors<Int32>.V1));
-                WriteLine(tw, indent, "Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V1):\t{0}", Vector.Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V1));
-                WriteLine(tw, indent, "Add(Vectors<Int64>.Demo, Vectors<Int64>.V1):\t{0}", Vector.Add(Vectors<Int64>.Demo, Vectors<Int64>.V1));
-                WriteLine(tw, indent, "Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V1):\t{0}", Vector.Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Single>.Demo, Vectors<Single>.V2):\t{0}", Vector.Add(Vectors<Single>.Demo, Vectors<Single>.V2));
+                WriteLine(tw, indent, "Add(Vectors<Double>.Demo, Vectors<Double>.V2):\t{0}", Vector.Add(Vectors<Double>.Demo, Vectors<Double>.V2));
+                WriteLine(tw, indent, "Add(Vectors<SByte>.Demo, Vectors<SByte>.V2):\t{0}", Vector.Add(Vectors<SByte>.Demo, Vectors<SByte>.V2));
+                WriteLine(tw, indent, "Add(Vectors<Byte>.Demo, Vectors<Byte>.V2):\t{0}", Vector.Add(Vectors<Byte>.Demo, Vectors<Byte>.V2));
+                WriteLine(tw, indent, "Add(Vectors<Int16>.Demo, Vectors<Int16>.V2):\t{0}", Vector.Add(Vectors<Int16>.Demo, Vectors<Int16>.V2));
+                WriteLine(tw, indent, "Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V2):\t{0}", Vector.Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V2));
+                WriteLine(tw, indent, "Add(Vectors<Int32>.Demo, Vectors<Int32>.V2):\t{0}", Vector.Add(Vectors<Int32>.Demo, Vectors<Int32>.V2));
+                WriteLine(tw, indent, "Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V2):\t{0}", Vector.Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V2));
+                WriteLine(tw, indent, "Add(Vectors<Int64>.Demo, Vectors<Int64>.V2):\t{0}", Vector.Add(Vectors<Int64>.Demo, Vectors<Int64>.V2));
+                WriteLine(tw, indent, "Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V2):\t{0}", Vector.Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V2));
 
                 //AndNot<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise And Not operation on each pair of corresponding elements in two vectors.
                 WriteLine(tw, indent, "AndNot(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask));
@@ -188,51 +188,98 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "ConditionalSelect(Vectors<Int64>.XyzwWMask, Vectors<Int64>.Demo, Vectors<Int64>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Int64>.XyzwWMask, Vectors<Int64>.Demo, Vectors<Int64>.V7));
                 WriteLine(tw, indent, "ConditionalSelect(Vectors<UInt64>.XyzwWMask, Vectors<UInt64>.Demo, Vectors<UInt64>.V7):\t{0}", Vector.ConditionalSelect(Vectors<UInt64>.XyzwWMask, Vectors<UInt64>.Demo, Vectors<UInt64>.V7));
 
-                //            //ConvertToDouble(Vector<Int64>) Converts a Vector<Int64>to aVector<Double>.
-                //            //ConvertToDouble(Vector<UInt64>) Converts a Vector<UInt64> to aVector<Double>.
-                //            //ConvertToInt32(Vector<Single>) Converts a Vector<Single> to aVector<Int32>.
-                //            //ConvertToInt64(Vector<Double>) Converts a Vector<Double> to aVector<Int64>.
-                //            //ConvertToSingle(Vector<Int32>) Converts a Vector<Int32> to aVector<Single>.
-                //            //ConvertToSingle(Vector<UInt32>) Converts a Vector<UInt32> to aVector<Single>.
-                //            //ConvertToUInt32(Vector<Single>) Converts a Vector<Single> to aVector<UInt32>.
-                //            //ConvertToUInt64(Vector<Double>) Converts a Vector<Double> to aVector<UInt64>.
-                //            // Infinity or NaN -> IntTypes.MinValue .
-                //            if (typeof(T) == typeof(Double)) {
-                //                WriteLine(tw, indent, "ConvertToInt64(srcT):\t{0}", Vector.ConvertToInt64(Vector.AsVectorDouble(srcT)));
-                //                WriteLine(tw, indent, "ConvertToUInt64(srcT):\t{0}", Vector.ConvertToUInt64(Vector.AsVectorDouble(srcT)));
-                //            } else if (typeof(T) == typeof(Single)) {
-                //                WriteLine(tw, indent, "ConvertToInt32(srcT):\t{0}", Vector.ConvertToInt32(Vector.AsVectorSingle(srcT)));
-                //                WriteLine(tw, indent, "ConvertToUInt32(srcT):\t{0}", Vector.ConvertToUInt32(Vector.AsVectorSingle(srcT)));
-                //            } else if (typeof(T) == typeof(Int32)) {
-                //                WriteLine(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorInt32(srcT)));
-                //            } else if (typeof(T) == typeof(UInt32)) {
-                //                WriteLine(tw, indent, "ConvertToSingle(srcT):\t{0}", Vector.ConvertToSingle(Vector.AsVectorUInt32(srcT)));
-                //            } else if (typeof(T) == typeof(Int64)) {
-                //                WriteLine(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorInt64(srcT)));
-                //            } else if (typeof(T) == typeof(UInt64)) {
-                //                WriteLine(tw, indent, "ConvertToDouble(srcT):\t{0}", Vector.ConvertToDouble(Vector.AsVectorUInt64(srcT)));
-                //            }
+                //ConvertToDouble(Vector<Int64>) Converts a Vector<Int64>to aVector<Double>.
+                //ConvertToDouble(Vector<UInt64>) Converts a Vector<UInt64> to aVector<Double>.
+                //ConvertToInt32(Vector<Single>) Converts a Vector<Single> to aVector<Int32>.
+                //ConvertToInt64(Vector<Double>) Converts a Vector<Double> to aVector<Int64>.
+                //ConvertToSingle(Vector<Int32>) Converts a Vector<Int32> to aVector<Single>.
+                //ConvertToSingle(Vector<UInt32>) Converts a Vector<UInt32> to aVector<Single>.
+                //ConvertToUInt32(Vector<Single>) Converts a Vector<Single> to aVector<UInt32>.
+                //ConvertToUInt64(Vector<Double>) Converts a Vector<Double> to aVector<UInt64>.
+                // Infinity or NaN -> IntTypes.MinValue .
+                WriteLine(tw, indent, "ConvertToDouble(Vectors<Int64>.Demo):\t{0}", Vector.ConvertToDouble(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "ConvertToDouble(Vectors<UInt64>.Demo):\t{0}", Vector.ConvertToDouble(Vectors<UInt64>.Demo));
+                WriteLine(tw, indent, "ConvertToInt32(Vectors<Single>.Demo):\t{0}", Vector.ConvertToInt32(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "ConvertToInt64(Vectors<Double>.Demo):\t{0}", Vector.ConvertToInt64(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "ConvertToSingle(Vectors<Int32>.Demo):\t{0}", Vector.ConvertToSingle(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "ConvertToSingle(Vectors<UInt32>.Demo):\t{0}", Vector.ConvertToSingle(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "ConvertToUInt32(Vectors<Single>.Demo):\t{0}", Vector.ConvertToUInt32(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "ConvertToUInt64(Vectors<Double>.Demo):\t{0}", Vector.ConvertToUInt64(Vectors<Double>.Demo));
 
-                //            //Divide<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the result of dividing the first vector's elements by the corresponding elements in the second vector.
-                //            WriteLine(tw, indent, "Divide(srcT, src2):\t{0}", Vector.Divide(srcT, src2));
+                //Divide<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the result of dividing the first vector's elements by the corresponding elements in the second vector.
+                WriteLine(tw, indent, "Divide(Vectors<Single>.Demo, Vectors<Single>.V2):\t{0}", Vector.Divide(Vectors<Single>.Demo, Vectors<Single>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<Double>.Demo, Vectors<Double>.V2):\t{0}", Vector.Divide(Vectors<Double>.Demo, Vectors<Double>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<SByte>.Demo, Vectors<SByte>.V2):\t{0}", Vector.Divide(Vectors<SByte>.Demo, Vectors<SByte>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<Byte>.Demo, Vectors<Byte>.V2):\t{0}", Vector.Divide(Vectors<Byte>.Demo, Vectors<Byte>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<Int16>.Demo, Vectors<Int16>.V2):\t{0}", Vector.Divide(Vectors<Int16>.Demo, Vectors<Int16>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<UInt16>.Demo, Vectors<UInt16>.V2):\t{0}", Vector.Divide(Vectors<UInt16>.Demo, Vectors<UInt16>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<Int32>.Demo, Vectors<Int32>.V2):\t{0}", Vector.Divide(Vectors<Int32>.Demo, Vectors<Int32>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<UInt32>.Demo, Vectors<UInt32>.V2):\t{0}", Vector.Divide(Vectors<UInt32>.Demo, Vectors<UInt32>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<Int64>.Demo, Vectors<Int64>.V2):\t{0}", Vector.Divide(Vectors<Int64>.Demo, Vectors<Int64>.V2));
+                WriteLine(tw, indent, "Divide(Vectors<UInt64>.Demo, Vectors<UInt64>.V2):\t{0}", Vector.Divide(Vectors<UInt64>.Demo, Vectors<UInt64>.V2));
 
-                //            //Dot<T>(Vector<T>, Vector<T>) Returns the dot product of two vectors.
-                //            WriteLine(tw, indent, "Dot(srcT, src1):\t{0}", Vector.Dot(srcT, src1));
-                //            WriteLine(tw, indent, "Dot(srcT, src2):\t{0}", Vector.Dot(srcT, src2));
-                //            WriteLine(tw, indent, "Dot(src1, src2):\t{0}", Vector.Dot(src1, src2));
+                //Dot<T>(Vector<T>, Vector<T>) Returns the dot product of two vectors.
+                WriteLine(tw, indent, "Dot(Vectors<Int32>.V1, Vectors<Int32>.V2):\t{0}", Vector.Dot(Vectors<Int32>.V1, Vectors<Int32>.V2)); // 1*2*Vector<T>.Count
+                WriteLine(tw, indent, "Dot(Vectors<Single>.Demo, Vectors<Single>.V2):\t{0}", Vector.Dot(Vectors<Single>.Demo, Vectors<Single>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<Double>.Demo, Vectors<Double>.V2):\t{0}", Vector.Dot(Vectors<Double>.Demo, Vectors<Double>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<SByte>.Demo, Vectors<SByte>.V2):\t{0}", Vector.Dot(Vectors<SByte>.Demo, Vectors<SByte>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<Byte>.Demo, Vectors<Byte>.V2):\t{0}", Vector.Dot(Vectors<Byte>.Demo, Vectors<Byte>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<Int16>.Demo, Vectors<Int16>.V2):\t{0}", Vector.Dot(Vectors<Int16>.Demo, Vectors<Int16>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<UInt16>.Demo, Vectors<UInt16>.V2):\t{0}", Vector.Dot(Vectors<UInt16>.Demo, Vectors<UInt16>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<Int32>.Demo, Vectors<Int32>.V2):\t{0}", Vector.Dot(Vectors<Int32>.Demo, Vectors<Int32>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<UInt32>.Demo, Vectors<UInt32>.V2):\t{0}", Vector.Dot(Vectors<UInt32>.Demo, Vectors<UInt32>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<Int64>.Demo, Vectors<Int64>.V2):\t{0}", Vector.Dot(Vectors<Int64>.Demo, Vectors<Int64>.V2));
+                WriteLine(tw, indent, "Dot(Vectors<UInt64>.Demo, Vectors<UInt64>.V2):\t{0}", Vector.Dot(Vectors<UInt64>.Demo, Vectors<UInt64>.V2));
 
-                //            //Equals(Vector<Double>, Vector<Double>)  Returns a new integral vector whose elements signal whether the elements in two specified double-precision vectors are equal.
-                //            //Equals(Vector<Int32>, Vector<Int32>)    Returns a new integral vector whose elements signal whether the elements in two specified integral vectors are equal.
-                //            //Equals(Vector<Int64>, Vector<Int64>)    Returns a new vector whose elements signal whether the elements in two specified long integer vectors are equal.
-                //            //Equals(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in two specified single-precision vectors are equal.
-                //            //Equals<T>(Vector<T>, Vector<T>) Returns a new vector of a specified type whose elements signal whether the elements in two specified vectors of the same type are equal.
-                //            WriteLine(tw, indent, "Equals(srcT, src0):\t{0}", Vector.Equals(srcT, src0));
-                //            WriteLine(tw, indent, "Equals(srcT, src1):\t{0}", Vector.Equals(srcT, src1));
+                //Equals(Vector<Double>, Vector<Double>)  Returns a new integral vector whose elements signal whether the elements in two specified double-precision vectors are equal.
+                //Equals(Vector<Int32>, Vector<Int32>)    Returns a new integral vector whose elements signal whether the elements in two specified integral vectors are equal.
+                //Equals(Vector<Int64>, Vector<Int64>)    Returns a new vector whose elements signal whether the elements in two specified long integer vectors are equal.
+                //Equals(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in two specified single-precision vectors are equal.
+                //Equals<T>(Vector<T>, Vector<T>) Returns a new vector of a specified type whose elements signal whether the elements in two specified vectors of the same type are equal.
+                WriteLine(tw, indent, "Equals(Vectors<Single>.Demo, Vectors<Single>.MinValue):\t{0}", Vector.Equals(Vectors<Single>.Demo, Vectors<Single>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Double>.Demo, Vectors<Double>.MinValue):\t{0}", Vector.Equals(Vectors<Double>.Demo, Vectors<Double>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<SByte>.Demo, Vectors<SByte>.MinValue):\t{0}", Vector.Equals(Vectors<SByte>.Demo, Vectors<SByte>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Byte>.Demo, Vectors<Byte>.MinValue):\t{0}", Vector.Equals(Vectors<Byte>.Demo, Vectors<Byte>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Int16>.Demo, Vectors<Int16>.MinValue):\t{0}", Vector.Equals(Vectors<Int16>.Demo, Vectors<Int16>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<UInt16>.Demo, Vectors<UInt16>.MinValue):\t{0}", Vector.Equals(Vectors<UInt16>.Demo, Vectors<UInt16>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Int32>.Demo, Vectors<Int32>.MinValue):\t{0}", Vector.Equals(Vectors<Int32>.Demo, Vectors<Int32>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<UInt32>.Demo, Vectors<UInt32>.MinValue):\t{0}", Vector.Equals(Vectors<UInt32>.Demo, Vectors<UInt32>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Int64>.Demo, Vectors<Int64>.MinValue):\t{0}", Vector.Equals(Vectors<Int64>.Demo, Vectors<Int64>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<UInt64>.Demo, Vectors<UInt64>.MinValue):\t{0}", Vector.Equals(Vectors<UInt64>.Demo, Vectors<UInt64>.MinValue));
+                WriteLine(tw, indent, "Equals(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.Equals(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.Equals(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.Equals(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.Equals(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.Equals(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.Equals(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.Equals(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.Equals(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.Equals(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "Equals(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.Equals(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //EqualsAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether each pair of elements in the given vectors is equal.
-                //            WriteLine(tw, indent, "EqualsAll(srcT, src0):\t{0}", Vector.EqualsAll(srcT, src0));
-                //            //EqualsAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any single pair of elements in the given vectors is equal.
-                //            WriteLine(tw, indent, "EqualsAny(srcT, src0):\t{0}", Vector.EqualsAny(srcT, src0));
+                //EqualsAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether each pair of elements in the given vectors is equal.
+                WriteLine(tw, indent, "EqualsAll(Vectors<Single>.Demo, Vectors<Single>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Single>.Demo, Vectors<Single>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<Double>.Demo, Vectors<Double>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Double>.Demo, Vectors<Double>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<SByte>.Demo, Vectors<SByte>.MinValue):\t{0}", Vector.EqualsAll(Vectors<SByte>.Demo, Vectors<SByte>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<Byte>.Demo, Vectors<Byte>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Byte>.Demo, Vectors<Byte>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<Int16>.Demo, Vectors<Int16>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Int16>.Demo, Vectors<Int16>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<UInt16>.Demo, Vectors<UInt16>.MinValue):\t{0}", Vector.EqualsAll(Vectors<UInt16>.Demo, Vectors<UInt16>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<Int32>.Demo, Vectors<Int32>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Int32>.Demo, Vectors<Int32>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<UInt32>.Demo, Vectors<UInt32>.MinValue):\t{0}", Vector.EqualsAll(Vectors<UInt32>.Demo, Vectors<UInt32>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<Int64>.Demo, Vectors<Int64>.MinValue):\t{0}", Vector.EqualsAll(Vectors<Int64>.Demo, Vectors<Int64>.MinValue));
+                WriteLine(tw, indent, "EqualsAll(Vectors<UInt64>.Demo, Vectors<UInt64>.MinValue):\t{0}", Vector.EqualsAll(Vectors<UInt64>.Demo, Vectors<UInt64>.MinValue));
+
+                //EqualsAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any single pair of elements in the given vectors is equal.
+                WriteLine(tw, indent, "EqualsAny(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.EqualsAny(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.EqualsAny(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.EqualsAny(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.EqualsAny(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.EqualsAny(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.EqualsAny(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.EqualsAny(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.EqualsAny(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.EqualsAny(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "EqualsAny(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.EqualsAny(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
 #if NET5_0_OR_GREATER
                 //Floor(Vector<Double>) Returns a new vector whose elements are the largest integral values that are less than or equal to the given vector's elements.
@@ -241,62 +288,121 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Floor(Vectors<Double>.Demo):\t{0}", Vector.Floor(Vectors<Double>.Demo));
 #endif // NET5_0_OR_GREATER
 
-                //            //GreaterThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are greater than their corresponding elements in a second double-precision floating-point vector.
-                //            //GreaterThan(Vector<Int32>, Vector<Int32>)   Returns a new integral vector whose elements signal whether the elements in one integral vector are greater than their corresponding elements in a second integral vector.
-                //            //GreaterThan(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than their corresponding elements in a second long integer vector.
-                //            //GreaterThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are greater than their corresponding elements in a second single-precision floating-point vector.
-                //            //GreaterThan<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than their corresponding elements in the second vector of the same time.
-                //            WriteLine(tw, indent, "GreaterThan(srcT, src0):\t{0}", Vector.GreaterThan(srcT, src0));
-                //            WriteLine(tw, indent, "GreaterThan(srcT, src1):\t{0}", Vector.GreaterThan(srcT, src1));
+                //GreaterThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are greater than their corresponding elements in a second double-precision floating-point vector.
+                //GreaterThan(Vector<Int32>, Vector<Int32>)   Returns a new integral vector whose elements signal whether the elements in one integral vector are greater than their corresponding elements in a second integral vector.
+                //GreaterThan(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than their corresponding elements in a second long integer vector.
+                //GreaterThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are greater than their corresponding elements in a second single-precision floating-point vector.
+                //GreaterThan<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than their corresponding elements in the second vector of the same time.
+                WriteLine(tw, indent, "GreaterThan(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.GreaterThan(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.GreaterThan(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.GreaterThan(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.GreaterThan(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.GreaterThan(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.GreaterThan(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.GreaterThan(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.GreaterThan(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.GreaterThan(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.GreaterThan(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //GreaterThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than the corresponding elements in the second vector.
-                //            //GreaterThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than the corresponding element in the second vector.
+                //GreaterThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than the corresponding elements in the second vector.
+                //GreaterThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than the corresponding element in the second vector.
 
-                //            //GreaterThanOrEqual(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one vector are greater than or equal to their corresponding elements in the second double-precision floating-point vector.
-                //            //GreaterThanOrEqual(Vector<Int32>, Vector<Int32>)    Returns a new integral vector whose elements signal whether the elements in one integral vector are greater than or equal to their corresponding elements in the second integral vector.
-                //            //GreaterThanOrEqual(Vector<Int64>, Vector<Int64>)    Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than or equal to their corresponding elements in the second long integer vector.
-                //            //GreaterThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one vector are greater than or equal to their corresponding elements in the single-precision floating-point second vector.
-                //            //GreaterThanOrEqual<T>(Vector<T>, Vector<T>) Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than or equal to their corresponding elements in the second vector of the same type.
-                //            WriteLine(tw, indent, "GreaterThanOrEqual(srcT, src0):\t{0}", Vector.GreaterThanOrEqual(srcT, src0));
-                //            WriteLine(tw, indent, "GreaterThanOrEqual(srcT, src1):\t{0}", Vector.GreaterThanOrEqual(srcT, src1));
+                //GreaterThanOrEqual(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one vector are greater than or equal to their corresponding elements in the second double-precision floating-point vector.
+                //GreaterThanOrEqual(Vector<Int32>, Vector<Int32>)    Returns a new integral vector whose elements signal whether the elements in one integral vector are greater than or equal to their corresponding elements in the second integral vector.
+                //GreaterThanOrEqual(Vector<Int64>, Vector<Int64>)    Returns a new long integer vector whose elements signal whether the elements in one long integer vector are greater than or equal to their corresponding elements in the second long integer vector.
+                //GreaterThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one vector are greater than or equal to their corresponding elements in the single-precision floating-point second vector.
+                //GreaterThanOrEqual<T>(Vector<T>, Vector<T>) Returns a new vector whose elements signal whether the elements in one vector of a specified type are greater than or equal to their corresponding elements in the second vector of the same type.
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.GreaterThanOrEqual(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //GreaterThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than or equal to all the corresponding elements in the second vector.
-                //            //GreaterThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than or equal to the corresponding element in the second vector.
+                //GreaterThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are greater than or equal to all the corresponding elements in the second vector.
+                //GreaterThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is greater than or equal to the corresponding element in the second vector.
 
-                //            //LessThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are less than their corresponding elements in a second double-precision floating-point vector.
-                //            //LessThan(Vector<Int32>, Vector<Int32>)  Returns a new integral vector whose elements signal whether the elements in one integral vector are less than their corresponding elements in a second integral vector.
-                //            //LessThan(Vector<Int64>, Vector<Int64>)  Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less than their corresponding elements in a second long integer vector.
-                //            //LessThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision vector are less than their corresponding elements in a second single-precision vector.
-                //            //LessThan<T>(Vector<T>, Vector<T>)   Returns a new vector of a specified type whose elements signal whether the elements in one vector are less than their corresponding elements in the second vector.
-                //            WriteLine(tw, indent, "LessThan(srcT, src0):\t{0}", Vector.LessThan(srcT, src0));
-                //            WriteLine(tw, indent, "LessThan(srcT, src1):\t{0}", Vector.LessThan(srcT, src1));
+                //LessThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are less than their corresponding elements in a second double-precision floating-point vector.
+                //LessThan(Vector<Int32>, Vector<Int32>)  Returns a new integral vector whose elements signal whether the elements in one integral vector are less than their corresponding elements in a second integral vector.
+                //LessThan(Vector<Int64>, Vector<Int64>)  Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less than their corresponding elements in a second long integer vector.
+                //LessThan(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision vector are less than their corresponding elements in a second single-precision vector.
+                //LessThan<T>(Vector<T>, Vector<T>)   Returns a new vector of a specified type whose elements signal whether the elements in one vector are less than their corresponding elements in the second vector.
+                WriteLine(tw, indent, "LessThan(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.LessThan(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.LessThan(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.LessThan(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.LessThan(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.LessThan(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.LessThan(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.LessThan(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.LessThan(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.LessThan(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "LessThan(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.LessThan(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //LessThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all of the elements in the first vector are less than their corresponding elements in the second vector.
-                //            //LessThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than the corresponding element in the second vector.
+                //LessThanAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all of the elements in the first vector are less than their corresponding elements in the second vector.
+                //LessThanAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than the corresponding element in the second vector.
 
-                //            //LessThanOrEqual(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are less than or equal to their corresponding elements in a second double-precision floating-point vector.
-                //            //LessThanOrEqual(Vector<Int32>, Vector<Int32>)   Returns a new integral vector whose elements signal whether the elements in one integral vector are less than or equal to their corresponding elements in a second integral vector.
-                //            //LessThanOrEqual(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less or equal to their corresponding elements in a second long integer vector.
-                //            //LessThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are less than or equal to their corresponding elements in a second single-precision floating-point vector.
-                //            //LessThanOrEqual<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector are less than or equal to their corresponding elements in the second vector.
-                //            WriteLine(tw, indent, "LessThanOrEqual(srcT, src0):\t{0}", Vector.LessThanOrEqual(srcT, src0));
-                //            WriteLine(tw, indent, "LessThanOrEqual(srcT, src1):\t{0}", Vector.LessThanOrEqual(srcT, src1));
+                //LessThanOrEqual(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are less than or equal to their corresponding elements in a second double-precision floating-point vector.
+                //LessThanOrEqual(Vector<Int32>, Vector<Int32>)   Returns a new integral vector whose elements signal whether the elements in one integral vector are less than or equal to their corresponding elements in a second integral vector.
+                //LessThanOrEqual(Vector<Int64>, Vector<Int64>)   Returns a new long integer vector whose elements signal whether the elements in one long integer vector are less or equal to their corresponding elements in a second long integer vector.
+                //LessThanOrEqual(Vector<Single>, Vector<Single>) Returns a new integral vector whose elements signal whether the elements in one single-precision floating-point vector are less than or equal to their corresponding elements in a second single-precision floating-point vector.
+                //LessThanOrEqual<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements signal whether the elements in one vector are less than or equal to their corresponding elements in the second vector.
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.LessThanOrEqual(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //LessThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are less than or equal to their corresponding elements in the second vector.
-                //            //LessThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than or equal to the corresponding element in the second vector.
+                //LessThanOrEqualAll<T>(Vector<T>, Vector<T>) Returns a value that indicates whether all elements in the first vector are less than or equal to their corresponding elements in the second vector.
+                //LessThanOrEqualAny<T>(Vector<T>, Vector<T>) Returns a value that indicates whether any element in the first vector is less than or equal to the corresponding element in the second vector.
 
-                //            //Max<T>(Vector<T>, Vector<T>) Returns a new vector whose elements are the maximum of each pair of elements in the two given vectors.
-                //            WriteLine(tw, indent, "Max(srcT, src0):\t{0}", Vector.Max(srcT, src0));
-                //            WriteLine(tw, indent, "Max(srcT, src2):\t{0}", Vector.Max(srcT, src2));
-                //            //Min<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements are the minimum of each pair of elements in the two given vectors.
-                //            WriteLine(tw, indent, "Min(srcT, src0):\t{0}", Vector.Min(srcT, src0));
-                //            WriteLine(tw, indent, "Min(srcT, src2):\t{0}", Vector.Min(srcT, src2));
-                //            WriteLine(tw, indent, "Min(Max(srcT, src0), src2):\t{0}", Vector.Min(Vector.Max(srcT, src0), src2));
+                //Max<T>(Vector<T>, Vector<T>) Returns a new vector whose elements are the maximum of each pair of elements in the two given vectors.
+                WriteLine(tw, indent, "Max(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "Max(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.Max(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "Max(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.Max(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "Max(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.Max(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "Max(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.Max(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "Max(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.Max(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "Max(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.Max(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "Max(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.Max(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "Max(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.Max(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "Max(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.Max(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
 
-                //            //Multiply<T>(T, Vector<T>)   Returns a new vector whose values are a scalar value multiplied by each of the values of a specified vector.
-                //            //Multiply<T>(Vector<T>, T) Returns a new vector whose values are the values of a specified vector each multiplied by a scalar value.
-                //            //Multiply<T>(Vector<T>, Vector<T>)   Returns a new vector whose values are the product of each pair of elements in two specified vectors.
-                //            WriteLine(tw, indent, "Multiply(srcT, src2):\t{0}", Vector.Multiply(srcT, src2));
+                //Min<T>(Vector<T>, Vector<T>)    Returns a new vector whose elements are the minimum of each pair of elements in the two given vectors.
+                WriteLine(tw, indent, "Min(Vectors<Single>.Demo, Vectors<Single>.V0):\t{0}", Vector.Min(Vectors<Single>.Demo, Vectors<Single>.V0));
+                WriteLine(tw, indent, "Min(Vectors<Double>.Demo, Vectors<Double>.V0):\t{0}", Vector.Min(Vectors<Double>.Demo, Vectors<Double>.V0));
+                WriteLine(tw, indent, "Min(Vectors<SByte>.Demo, Vectors<SByte>.V0):\t{0}", Vector.Min(Vectors<SByte>.Demo, Vectors<SByte>.V0));
+                WriteLine(tw, indent, "Min(Vectors<Byte>.Demo, Vectors<Byte>.V0):\t{0}", Vector.Min(Vectors<Byte>.Demo, Vectors<Byte>.V0));
+                WriteLine(tw, indent, "Min(Vectors<Int16>.Demo, Vectors<Int16>.V0):\t{0}", Vector.Min(Vectors<Int16>.Demo, Vectors<Int16>.V0));
+                WriteLine(tw, indent, "Min(Vectors<UInt16>.Demo, Vectors<UInt16>.V0):\t{0}", Vector.Min(Vectors<UInt16>.Demo, Vectors<UInt16>.V0));
+                WriteLine(tw, indent, "Min(Vectors<Int32>.Demo, Vectors<Int32>.V0):\t{0}", Vector.Min(Vectors<Int32>.Demo, Vectors<Int32>.V0));
+                WriteLine(tw, indent, "Min(Vectors<UInt32>.Demo, Vectors<UInt32>.V0):\t{0}", Vector.Min(Vectors<UInt32>.Demo, Vectors<UInt32>.V0));
+                WriteLine(tw, indent, "Min(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.Min(Vectors<Int64>.Demo, Vectors<Int64>.V0));
+                WriteLine(tw, indent, "Min(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.Min(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
+                // limit to [0, 255].
+                WriteLine(tw, indent, "Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.V255)):\t{0}", Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.V255));
+
+                //Multiply<T>(T, Vector<T>)   Returns a new vector whose values are a scalar value multiplied by each of the values of a specified vector.
+                //Multiply<T>(Vector<T>, T) Returns a new vector whose values are the values of a specified vector each multiplied by a scalar value.
+                //Multiply<T>(Vector<T>, Vector<T>)   Returns a new vector whose values are the product of each pair of elements in two specified vectors.
+                WriteLine(tw, indent, "Multiply(Vectors<Single>.Demo, Vectors<Single>.V2):\t{0}", Vector.Multiply(Vectors<Single>.Demo, Vectors<Single>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<Double>.Demo, Vectors<Double>.V2):\t{0}", Vector.Multiply(Vectors<Double>.Demo, Vectors<Double>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<SByte>.Demo, Vectors<SByte>.V2):\t{0}", Vector.Multiply(Vectors<SByte>.Demo, Vectors<SByte>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<Byte>.Demo, Vectors<Byte>.V2):\t{0}", Vector.Multiply(Vectors<Byte>.Demo, Vectors<Byte>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<Int16>.Demo, Vectors<Int16>.V2):\t{0}", Vector.Multiply(Vectors<Int16>.Demo, Vectors<Int16>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<UInt16>.Demo, Vectors<UInt16>.V2):\t{0}", Vector.Multiply(Vectors<UInt16>.Demo, Vectors<UInt16>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<Int32>.Demo, Vectors<Int32>.V2):\t{0}", Vector.Multiply(Vectors<Int32>.Demo, Vectors<Int32>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<UInt32>.Demo, Vectors<UInt32>.V2):\t{0}", Vector.Multiply(Vectors<UInt32>.Demo, Vectors<UInt32>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<Int64>.Demo, Vectors<Int64>.V2):\t{0}", Vector.Multiply(Vectors<Int64>.Demo, Vectors<Int64>.V2));
+                WriteLine(tw, indent, "Multiply(Vectors<UInt64>.Demo, Vectors<UInt64>.V2):\t{0}", Vector.Multiply(Vectors<UInt64>.Demo, Vectors<UInt64>.V2));
 
                 //Narrow(Vector<Double>, Vector<Double>) Narrows two Vector<Double>instances into one Vector<Single>.
                 //Narrow(Vector<Int16>, Vector<Int16>) Narrows two Vector<Int16> instances into one Vector<SByte>.
@@ -367,12 +473,29 @@ namespace IntrinsicsLib {
                 //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
 #endif // NET7_0_OR_GREATER
 
-                //            //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
-                //            WriteLine(tw, indent, "SquareRoot(srcT):\t{0}", Vector.SquareRoot(srcT));
+                //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
+                WriteLine(tw, indent, "SquareRoot(Vectors<Single>.Demo):\t{0}", Vector.SquareRoot(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<Double>.Demo):\t{0}", Vector.SquareRoot(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<SByte>.Demo):\t{0}", Vector.SquareRoot(Vectors<SByte>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<Byte>.Demo):\t{0}", Vector.SquareRoot(Vectors<Byte>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<Int16>.Demo):\t{0}", Vector.SquareRoot(Vectors<Int16>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<UInt16>.Demo):\t{0}", Vector.SquareRoot(Vectors<UInt16>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<Int32>.Demo):\t{0}", Vector.SquareRoot(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<UInt32>.Demo):\t{0}", Vector.SquareRoot(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<Int64>.Demo):\t{0}", Vector.SquareRoot(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "SquareRoot(Vectors<UInt64>.Demo):\t{0}", Vector.SquareRoot(Vectors<UInt64>.Demo));
 
-                //            //Subtract<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the difference between the elements in the second vector and their corresponding elements in the first vector.
-                //            WriteLine(tw, indent, "Subtract(srcT, src1):\t{0}", Vector.Subtract(srcT, src1));
-                //            WriteLine(tw, indent, "Subtract(srcT, src2):\t{0}", Vector.Subtract(srcT, src2));
+                //Subtract<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the difference between the elements in the second vector and their corresponding elements in the first vector.
+                WriteLine(tw, indent, "Subtract(Vectors<Single>.Demo, Vectors<Single>.V2):\t{0}", Vector.Subtract(Vectors<Single>.Demo, Vectors<Single>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<Double>.Demo, Vectors<Double>.V2):\t{0}", Vector.Subtract(Vectors<Double>.Demo, Vectors<Double>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<SByte>.Demo, Vectors<SByte>.V2):\t{0}", Vector.Subtract(Vectors<SByte>.Demo, Vectors<SByte>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<Byte>.Demo, Vectors<Byte>.V2):\t{0}", Vector.Subtract(Vectors<Byte>.Demo, Vectors<Byte>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<Int16>.Demo, Vectors<Int16>.V2):\t{0}", Vector.Subtract(Vectors<Int16>.Demo, Vectors<Int16>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<UInt16>.Demo, Vectors<UInt16>.V2):\t{0}", Vector.Subtract(Vectors<UInt16>.Demo, Vectors<UInt16>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<Int32>.Demo, Vectors<Int32>.V2):\t{0}", Vector.Subtract(Vectors<Int32>.Demo, Vectors<Int32>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<UInt32>.Demo, Vectors<UInt32>.V2):\t{0}", Vector.Subtract(Vectors<UInt32>.Demo, Vectors<UInt32>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<Int64>.Demo, Vectors<Int64>.V2):\t{0}", Vector.Subtract(Vectors<Int64>.Demo, Vectors<Int64>.V2));
+                WriteLine(tw, indent, "Subtract(Vectors<UInt64>.Demo, Vectors<UInt64>.V2):\t{0}", Vector.Subtract(Vectors<UInt64>.Demo, Vectors<UInt64>.V2));
 
 #if NET6_0_OR_GREATER
                 //Sum<T>(Vector<T>) Returns the sum of all the elements inside the specified vector.
