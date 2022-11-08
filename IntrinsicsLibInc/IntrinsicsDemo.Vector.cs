@@ -57,19 +57,19 @@ namespace IntrinsicsLib {
             }
 
             // Count.
-            tw.WriteLine(indent + string.Format("Vector<float>.Count:\t{0}", Vector<float>.Count));
-            tw.WriteLine(indent + string.Format("Vector<double>.Count:\t{0}", Vector<double>.Count));
-            tw.WriteLine(indent + string.Format("Vector<sbyte>.Count:\t{0}", Vector<sbyte>.Count));
-            tw.WriteLine(indent + string.Format("Vector<byte>.Count:\t{0}", Vector<byte>.Count));
-            tw.WriteLine(indent + string.Format("Vector<short>.Count:\t{0}", Vector<short>.Count));
-            tw.WriteLine(indent + string.Format("Vector<ushort>.Count:\t{0}", Vector<ushort>.Count));
-            tw.WriteLine(indent + string.Format("Vector<int>.Count:\t{0}", Vector<int>.Count));
-            tw.WriteLine(indent + string.Format("Vector<uint>.Count:\t{0}", Vector<uint>.Count));
-            tw.WriteLine(indent + string.Format("Vector<long>.Count:\t{0}", Vector<long>.Count));
-            tw.WriteLine(indent + string.Format("Vector<ulong>.Count:\t{0}", Vector<ulong>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Single>.Count:\t{0}", Vector<Single>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Double>.Count:\t{0}", Vector<Double>.Count));
+            tw.WriteLine(indent + string.Format("Vector<SByte>.Count:\t{0}", Vector<SByte>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Byte>.Count:\t{0}", Vector<Byte>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Int16>.Count:\t{0}", Vector<Int16>.Count));
+            tw.WriteLine(indent + string.Format("Vector<UInt16>.Count:\t{0}", Vector<UInt16>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Int32>.Count:\t{0}", Vector<Int32>.Count));
+            tw.WriteLine(indent + string.Format("Vector<UInt32>.Count:\t{0}", Vector<UInt32>.Count));
+            tw.WriteLine(indent + string.Format("Vector<Int64>.Count:\t{0}", Vector<Int64>.Count));
+            tw.WriteLine(indent + string.Format("Vector<UInt64>.Count:\t{0}", Vector<UInt64>.Count));
 #if NET6_0_OR_GREATER
-            tw.WriteLine(indent + string.Format("Vector<nint>.Count:\t{0}", Vector<nint>.Count));
-            tw.WriteLine(indent + string.Format("Vector<nuint>.Count:\t{0}", Vector<nuint>.Count));
+            tw.WriteLine(indent + string.Format("Vector<IntPtr>.Count:\t{0}", Vector<IntPtr>.Count));
+            tw.WriteLine(indent + string.Format("Vector<UIntPtr>.Count:\t{0}", Vector<UIntPtr>.Count));
             // Unhandled exception. System.NotSupportedException: Specified type is not supported
             //tw.WriteLine(indent + string.Format("Vector<Half>.Count:\t{0}", Vector<Half>.Count));
 #endif // NET6_0_OR_GREATER
@@ -79,40 +79,40 @@ namespace IntrinsicsLib {
             unchecked {
                 //Debugger.Break();
                 //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
-                WriteLine(tw, indent, "Abs(Vectors<float>.Demo):\t{0}", Vector.Abs(Vectors<float>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<double>.Demo):\t{0}", Vector.Abs(Vectors<double>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<sbyte>.Demo):\t{0}", Vector.Abs(Vectors<sbyte>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<byte>.Demo):\t{0}", Vector.Abs(Vectors<byte>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<short>.Demo):\t{0}", Vector.Abs(Vectors<short>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<ushort>.Demo):\t{0}", Vector.Abs(Vectors<ushort>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<int>.Demo):\t{0}", Vector.Abs(Vectors<int>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<uint>.Demo):\t{0}", Vector.Abs(Vectors<uint>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<long>.Demo):\t{0}", Vector.Abs(Vectors<long>.Demo));
-                WriteLine(tw, indent, "Abs(Vectors<ulong>.Demo):\t{0}", Vector.Abs(Vectors<ulong>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Single>.Demo):\t{0}", Vector.Abs(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Double>.Demo):\t{0}", Vector.Abs(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<SByte>.Demo):\t{0}", Vector.Abs(Vectors<SByte>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Byte>.Demo):\t{0}", Vector.Abs(Vectors<Byte>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Int16>.Demo):\t{0}", Vector.Abs(Vectors<Int16>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<UInt16>.Demo):\t{0}", Vector.Abs(Vectors<UInt16>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Int32>.Demo):\t{0}", Vector.Abs(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<UInt32>.Demo):\t{0}", Vector.Abs(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<Int64>.Demo):\t{0}", Vector.Abs(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "Abs(Vectors<UInt64>.Demo):\t{0}", Vector.Abs(Vectors<UInt64>.Demo));
 
                 //Add<T>(Vector<T>, Vector<T>) Returns a new vector whose values are the sum of each pair of elements from two given vectors.
-                WriteLine(tw, indent, "Add(Vectors<float>.Demo, Vectors<float>.V1):\t{0}", Vector.Add(Vectors<float>.Demo, Vectors<float>.V1));
-                WriteLine(tw, indent, "Add(Vectors<double>.Demo, Vectors<double>.V1):\t{0}", Vector.Add(Vectors<double>.Demo, Vectors<double>.V1));
-                WriteLine(tw, indent, "Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1):\t{0}", Vector.Add(Vectors<sbyte>.Demo, Vectors<sbyte>.V1));
-                WriteLine(tw, indent, "Add(Vectors<byte>.Demo, Vectors<byte>.V1):\t{0}", Vector.Add(Vectors<byte>.Demo, Vectors<byte>.V1));
-                WriteLine(tw, indent, "Add(Vectors<short>.Demo, Vectors<short>.V1):\t{0}", Vector.Add(Vectors<short>.Demo, Vectors<short>.V1));
-                WriteLine(tw, indent, "Add(Vectors<ushort>.Demo, Vectors<ushort>.V1):\t{0}", Vector.Add(Vectors<ushort>.Demo, Vectors<ushort>.V1));
-                WriteLine(tw, indent, "Add(Vectors<int>.Demo, Vectors<int>.V1):\t{0}", Vector.Add(Vectors<int>.Demo, Vectors<int>.V1));
-                WriteLine(tw, indent, "Add(Vectors<uint>.Demo, Vectors<uint>.V1):\t{0}", Vector.Add(Vectors<uint>.Demo, Vectors<uint>.V1));
-                WriteLine(tw, indent, "Add(Vectors<long>.Demo, Vectors<long>.V1):\t{0}", Vector.Add(Vectors<long>.Demo, Vectors<long>.V1));
-                WriteLine(tw, indent, "Add(Vectors<ulong>.Demo, Vectors<ulong>.V1):\t{0}", Vector.Add(Vectors<ulong>.Demo, Vectors<ulong>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Single>.Demo, Vectors<Single>.V1):\t{0}", Vector.Add(Vectors<Single>.Demo, Vectors<Single>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Double>.Demo, Vectors<Double>.V1):\t{0}", Vector.Add(Vectors<Double>.Demo, Vectors<Double>.V1));
+                WriteLine(tw, indent, "Add(Vectors<SByte>.Demo, Vectors<SByte>.V1):\t{0}", Vector.Add(Vectors<SByte>.Demo, Vectors<SByte>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Byte>.Demo, Vectors<Byte>.V1):\t{0}", Vector.Add(Vectors<Byte>.Demo, Vectors<Byte>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Int16>.Demo, Vectors<Int16>.V1):\t{0}", Vector.Add(Vectors<Int16>.Demo, Vectors<Int16>.V1));
+                WriteLine(tw, indent, "Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V1):\t{0}", Vector.Add(Vectors<UInt16>.Demo, Vectors<UInt16>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Int32>.Demo, Vectors<Int32>.V1):\t{0}", Vector.Add(Vectors<Int32>.Demo, Vectors<Int32>.V1));
+                WriteLine(tw, indent, "Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V1):\t{0}", Vector.Add(Vectors<UInt32>.Demo, Vectors<UInt32>.V1));
+                WriteLine(tw, indent, "Add(Vectors<Int64>.Demo, Vectors<Int64>.V1):\t{0}", Vector.Add(Vectors<Int64>.Demo, Vectors<Int64>.V1));
+                WriteLine(tw, indent, "Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V1):\t{0}", Vector.Add(Vectors<UInt64>.Demo, Vectors<UInt64>.V1));
 
                 //AndNot<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise And Not operation on each pair of corresponding elements in two vectors.
-                WriteLine(tw, indent, "AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLine(tw, indent, "AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask));
+                WriteLine(tw, indent, "AndNot(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask):\t{0}", Vector.AndNot(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask));
 
                 //As<TFrom, TTo>(Vector<TFrom>)    Reinterprets aVector64<T> as a new Vector64<T>.
                 //AsVectorByte<T>(Vector<T>) Reinterprets the bits of a specified vector into those of a vector of unsigned bytes.
@@ -130,34 +130,34 @@ namespace IntrinsicsLib {
                 // `As***` see below.
 
                 //BitwiseAnd<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise Andoperation on each pair of elements in two vectors.
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseAnd(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask):\t{0}", Vector.BitwiseAnd(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask));
 
                 //BitwiseOr<T>(Vector<T>, Vector<T>)  Returns a new vector by performing a bitwise Oroperation on each pair of elements in two vectors.
-                WriteLine(tw, indent, "BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLine(tw, indent, "BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask));
+                WriteLine(tw, indent, "BitwiseOr(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask):\t{0}", Vector.BitwiseOr(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask));
 
 #if NET5_0_OR_GREATER
                 //Ceiling(Vector<Double>) Returns a new vector whose elements are the smallest integral values that are greater than or equal to the given vector's elements.
                 //Ceiling(Vector<Single>) Returns a new vector whose elements are the smallest integral values that are greater than or equal to the given vector's elements.
-                WriteLine(tw, indent, "Ceiling(Vectors<float>.Demo):\t{0}", Vector.Ceiling(Vectors<float>.Demo));
-                WriteLine(tw, indent, "Ceiling(Vectors<double>.Demo):\t{0}", Vector.Ceiling(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Ceiling(Vectors<Single>.Demo):\t{0}", Vector.Ceiling(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "Ceiling(Vectors<Double>.Demo):\t{0}", Vector.Ceiling(Vectors<Double>.Demo));
 #endif // NET5_0_OR_GREATER
 
                 //ConditionalSelect(Vector<Int32>, Vector<Single>, Vector<Single>)    Creates a new single-precision vector with elements selected between two specified single-precision source vectors based on an integral mask vector.
@@ -177,16 +177,16 @@ namespace IntrinsicsLib {
                 //[5] = src0[5]&srcT[5] | src0[5]&~srcT[5] = 0&3 | 1&~3 = 0 | 1&0xFFFFFFFC = 0
                 //[6] = src0[6]&srcT[6] | src0[6]&~srcT[6] = 0&4 | 1&~4 = 0 | 1&0xFFFFFFFB = 1
                 //[7] = src0[7]&srcT[7] | src0[7]&~srcT[7] = 0&0 | 1&~0 = 0 | 1 = 1
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7):\t{0}", Vector.ConditionalSelect(Vectors<float>.XyzwWMask, Vectors<float>.Demo, Vectors<float>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7):\t{0}", Vector.ConditionalSelect(Vectors<double>.XyzwWMask, Vectors<double>.Demo, Vectors<double>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<sbyte>.XyzwWMask, Vectors<sbyte>.Demo, Vectors<sbyte>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<byte>.XyzwWMask, Vectors<byte>.Demo, Vectors<byte>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7):\t{0}", Vector.ConditionalSelect(Vectors<short>.XyzwWMask, Vectors<short>.Demo, Vectors<short>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ushort>.XyzwWMask, Vectors<ushort>.Demo, Vectors<ushort>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7):\t{0}", Vector.ConditionalSelect(Vectors<int>.XyzwWMask, Vectors<int>.Demo, Vectors<int>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7):\t{0}", Vector.ConditionalSelect(Vectors<uint>.XyzwWMask, Vectors<uint>.Demo, Vectors<uint>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7):\t{0}", Vector.ConditionalSelect(Vectors<long>.XyzwWMask, Vectors<long>.Demo, Vectors<long>.V7));
-                WriteLine(tw, indent, "ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7):\t{0}", Vector.ConditionalSelect(Vectors<ulong>.XyzwWMask, Vectors<ulong>.Demo, Vectors<ulong>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Single>.XyzwWMask, Vectors<Single>.Demo, Vectors<Single>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Single>.XyzwWMask, Vectors<Single>.Demo, Vectors<Single>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Double>.XyzwWMask, Vectors<Double>.Demo, Vectors<Double>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Double>.XyzwWMask, Vectors<Double>.Demo, Vectors<Double>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<SByte>.XyzwWMask, Vectors<SByte>.Demo, Vectors<SByte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<SByte>.XyzwWMask, Vectors<SByte>.Demo, Vectors<SByte>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Byte>.XyzwWMask, Vectors<Byte>.Demo, Vectors<Byte>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Byte>.XyzwWMask, Vectors<Byte>.Demo, Vectors<Byte>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Int16>.XyzwWMask, Vectors<Int16>.Demo, Vectors<Int16>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Int16>.XyzwWMask, Vectors<Int16>.Demo, Vectors<Int16>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<UInt16>.XyzwWMask, Vectors<UInt16>.Demo, Vectors<UInt16>.V7):\t{0}", Vector.ConditionalSelect(Vectors<UInt16>.XyzwWMask, Vectors<UInt16>.Demo, Vectors<UInt16>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Int32>.XyzwWMask, Vectors<Int32>.Demo, Vectors<Int32>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Int32>.XyzwWMask, Vectors<Int32>.Demo, Vectors<Int32>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<UInt32>.XyzwWMask, Vectors<UInt32>.Demo, Vectors<UInt32>.V7):\t{0}", Vector.ConditionalSelect(Vectors<UInt32>.XyzwWMask, Vectors<UInt32>.Demo, Vectors<UInt32>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<Int64>.XyzwWMask, Vectors<Int64>.Demo, Vectors<Int64>.V7):\t{0}", Vector.ConditionalSelect(Vectors<Int64>.XyzwWMask, Vectors<Int64>.Demo, Vectors<Int64>.V7));
+                WriteLine(tw, indent, "ConditionalSelect(Vectors<UInt64>.XyzwWMask, Vectors<UInt64>.Demo, Vectors<UInt64>.V7):\t{0}", Vector.ConditionalSelect(Vectors<UInt64>.XyzwWMask, Vectors<UInt64>.Demo, Vectors<UInt64>.V7));
 
                 //            //ConvertToDouble(Vector<Int64>) Converts a Vector<Int64>to aVector<Double>.
                 //            //ConvertToDouble(Vector<UInt64>) Converts a Vector<UInt64> to aVector<Double>.
@@ -237,8 +237,8 @@ namespace IntrinsicsLib {
 #if NET5_0_OR_GREATER
                 //Floor(Vector<Double>) Returns a new vector whose elements are the largest integral values that are less than or equal to the given vector's elements.
                 //Floor(Vector<Single>)   Returns a new vector whose elements are the largest integral values that are less than or equal to the given vector's elements.
-                WriteLine(tw, indent, "Floor(Vectors<float>.Demo):\t{0}", Vector.Floor(Vectors<float>.Demo));
-                WriteLine(tw, indent, "Floor(Vectors<double>.Demo):\t{0}", Vector.Floor(Vectors<double>.Demo));
+                WriteLine(tw, indent, "Floor(Vectors<Single>.Demo):\t{0}", Vector.Floor(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "Floor(Vectors<Double>.Demo):\t{0}", Vector.Floor(Vectors<Double>.Demo));
 #endif // NET5_0_OR_GREATER
 
                 //            //GreaterThan(Vector<Double>, Vector<Double>) Returns a new integral vector whose elements signal whether the elements in one double-precision floating-point vector are greater than their corresponding elements in a second double-precision floating-point vector.
@@ -313,39 +313,58 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Narrow(Vectors<UInt32>.Demo, Vectors<UInt32>.SerialNegative):\t{0}", Vector.Narrow(Vectors<UInt32>.Demo, Vectors<UInt32>.SerialNegative));
                 WriteLine(tw, indent, "Narrow(Vectors<UInt64>.Demo, Vectors<UInt64>.SerialNegative):\t{0}", Vector.Narrow(Vectors<UInt64>.Demo, Vectors<UInt64>.SerialNegative));
 
-                ////Negate<T>(Vector<T>) Returns a new vector whose elements are the negation of the corresponding element in the specified vector.
-                //WriteLine(tw, indent, "Negate(srcT):\t{0}", Vector.Negate(srcT));
-                //WriteLine(tw, indent, "Negate(srcAllOnes):\t{0}", Vector.Negate(srcAllOnes));
-                ////OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
-                //WriteLine(tw, indent, "OnesComplement(srcT):\t{0}", Vector.OnesComplement(srcT));
-                //WriteLine(tw, indent, "OnesComplement(srcAllOnes):\t{0}", Vector.OnesComplement(srcAllOnes));
+                //Negate<T>(Vector<T>) Returns a new vector whose elements are the negation of the corresponding element in the specified vector.
+                WriteLine(tw, indent, "Negate(Vectors<Single>.Demo):\t{0}", Vector.Negate(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<Double>.Demo):\t{0}", Vector.Negate(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<SByte>.Demo):\t{0}", Vector.Negate(Vectors<SByte>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<Byte>.Demo):\t{0}", Vector.Negate(Vectors<Byte>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<Int16>.Demo):\t{0}", Vector.Negate(Vectors<Int16>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<UInt16>.Demo):\t{0}", Vector.Negate(Vectors<UInt16>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<Int32>.Demo):\t{0}", Vector.Negate(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<UInt32>.Demo):\t{0}", Vector.Negate(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<Int64>.Demo):\t{0}", Vector.Negate(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "Negate(Vectors<UInt64>.Demo):\t{0}", Vector.Negate(Vectors<UInt64>.Demo));
+
+                //OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
+                WriteLine(tw, indent, "OnesComplement(Vectors<Single>.Demo):\t{0}", Vector.OnesComplement(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<Double>.Demo):\t{0}", Vector.OnesComplement(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<SByte>.Demo):\t{0}", Vector.OnesComplement(Vectors<SByte>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<Byte>.Demo):\t{0}", Vector.OnesComplement(Vectors<Byte>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<Int16>.Demo):\t{0}", Vector.OnesComplement(Vectors<Int16>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<UInt16>.Demo):\t{0}", Vector.OnesComplement(Vectors<UInt16>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<Int32>.Demo):\t{0}", Vector.OnesComplement(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<UInt32>.Demo):\t{0}", Vector.OnesComplement(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<Int64>.Demo):\t{0}", Vector.OnesComplement(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vectors<UInt64>.Demo):\t{0}", Vector.OnesComplement(Vectors<UInt64>.Demo));
 
 #if NET7_0_OR_GREATER
-                            //ShiftLeft(Vector<Byte>, Int32)  Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<Int16>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<Int32>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<Int64>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<IntPtr>, Int32)    Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<SByte>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<UInt16>, Int32)    Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<UInt32>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<UInt64>, Int32)    Shifts each element of a vector left by the specified amount.
-                            //ShiftLeft(Vector<UIntPtr>, Int32) Shifts each element of a vector left by the specified amount.
-                            //ShiftRightArithmetic(Vector<Int16>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                            //ShiftRightArithmetic(Vector<Int32>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                            //ShiftRightArithmetic(Vector<Int64>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                            //ShiftRightArithmetic(Vector<IntPtr>, Int32) Shifts(signed) each element of a vector right by the specified amount.
-                            //ShiftRightArithmetic(Vector<SByte>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<Byte>, Int32)  Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<Int16>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<Int32>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<Int64>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<IntPtr>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<SByte>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<UInt16>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<UInt32>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<UInt64>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
-                            //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftLeft(Vector<Byte>, Int32)  Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<Int16>, Int32) Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<Int32>, Int32) Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<Int64>, Int32) Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<IntPtr>, Int32)    Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<SByte>, Int32) Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<UInt16>, Int32)    Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<UInt32>, Int32) Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<UInt64>, Int32)    Shifts each element of a vector left by the specified amount.
+                //ShiftLeft(Vector<UIntPtr>, Int32) Shifts each element of a vector left by the specified amount.
+                
+                //ShiftRightArithmetic(Vector<Int16>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                //ShiftRightArithmetic(Vector<Int32>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                //ShiftRightArithmetic(Vector<Int64>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                //ShiftRightArithmetic(Vector<IntPtr>, Int32) Shifts(signed) each element of a vector right by the specified amount.
+                //ShiftRightArithmetic(Vector<SByte>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
+                
+                //ShiftRightLogical(Vector<Byte>, Int32)  Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<Int16>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<Int32>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<Int64>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<IntPtr>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<SByte>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<UInt16>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<UInt32>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<UInt64>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
+                //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
 #endif // NET7_0_OR_GREATER
 
                 //            //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
@@ -357,16 +376,16 @@ namespace IntrinsicsLib {
 
 #if NET6_0_OR_GREATER
                 //Sum<T>(Vector<T>) Returns the sum of all the elements inside the specified vector.
-                WriteLine(tw, indent, "Sum(Vectors<float>.Demo):\t{0}", Vector.Sum(Vectors<float>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<double>.Demo):\t{0}", Vector.Sum(Vectors<double>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<sbyte>.Demo):\t{0}", Vector.Sum(Vectors<sbyte>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<byte>.Demo):\t{0}", Vector.Sum(Vectors<byte>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<short>.Demo):\t{0}", Vector.Sum(Vectors<short>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<ushort>.Demo):\t{0}", Vector.Sum(Vectors<ushort>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<int>.Demo):\t{0}", Vector.Sum(Vectors<int>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<uint>.Demo):\t{0}", Vector.Sum(Vectors<uint>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<long>.Demo):\t{0}", Vector.Sum(Vectors<long>.Demo));
-                WriteLine(tw, indent, "Sum(Vectors<ulong>.Demo):\t{0}", Vector.Sum(Vectors<ulong>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Single>.Demo):\t{0}", Vector.Sum(Vectors<Single>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Double>.Demo):\t{0}", Vector.Sum(Vectors<Double>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<SByte>.Demo):\t{0}", Vector.Sum(Vectors<SByte>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Byte>.Demo):\t{0}", Vector.Sum(Vectors<Byte>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Int16>.Demo):\t{0}", Vector.Sum(Vectors<Int16>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<UInt16>.Demo):\t{0}", Vector.Sum(Vectors<UInt16>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Int32>.Demo):\t{0}", Vector.Sum(Vectors<Int32>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<UInt32>.Demo):\t{0}", Vector.Sum(Vectors<UInt32>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<Int64>.Demo):\t{0}", Vector.Sum(Vectors<Int64>.Demo));
+                WriteLine(tw, indent, "Sum(Vectors<UInt64>.Demo):\t{0}", Vector.Sum(Vectors<UInt64>.Demo));
 #endif // NET6_0_OR_GREATER
 
                 //Widen(Vector<Byte>, Vector<UInt16>, Vector<UInt16>) Widens aVector<Byte> into two Vector<UInt16>instances.
@@ -378,45 +397,45 @@ namespace IntrinsicsLib {
                 //Widen(Vector<UInt32>, Vector<UInt64>, Vector<UInt64>) Widens a Vector<UInt32> into twoVector<UInt64> instances.
                 // Debugger.Break();
                 if (true) {
-                    Vector.Widen(Vectors<float>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<float>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<Single>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<Single>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<sbyte>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<sbyte>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<SByte>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<SByte>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<byte>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<byte>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<Byte>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<Byte>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<short>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<short>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<Int16>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<Int16>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<ushort>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<ushort>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<UInt16>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<UInt16>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<int>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<int>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<Int32>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<Int32>.Demo):\t{0}, {1}", low, high);
                 }
                 if (true) {
-                    Vector.Widen(Vectors<uint>.Demo, out var low, out var high);
-                    WriteLine(tw, indent, "Widen(Vectors<uint>.Demo):\t{0}, {1}", low, high);
+                    Vector.Widen(Vectors<UInt32>.Demo, out var low, out var high);
+                    WriteLine(tw, indent, "Widen(Vectors<UInt32>.Demo):\t{0}, {1}", low, high);
                 }
 
                 //Xor<T>(Vector<T>, Vector<T>) Returns a new vector by performing a bitwise exclusive Or(XOr) operation on each pair of elements in two vectors.
-                WriteLine(tw, indent, "Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask):\t{0}", Vector.Xor(Vectors<float>.Demo, Vectors<float>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask):\t{0}", Vector.Xor(Vectors<double>.Demo, Vectors<double>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<sbyte>.Demo, Vectors<sbyte>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<byte>.Demo, Vectors<byte>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask):\t{0}", Vector.Xor(Vectors<short>.Demo, Vectors<short>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ushort>.Demo, Vectors<ushort>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask):\t{0}", Vector.Xor(Vectors<int>.Demo, Vectors<int>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask):\t{0}", Vector.Xor(Vectors<uint>.Demo, Vectors<uint>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask):\t{0}", Vector.Xor(Vectors<long>.Demo, Vectors<long>.XyzwWMask));
-                WriteLine(tw, indent, "Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask):\t{0}", Vector.Xor(Vectors<ulong>.Demo, Vectors<ulong>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Single>.Demo, Vectors<Single>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Double>.Demo, Vectors<Double>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<SByte>.Demo, Vectors<SByte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Byte>.Demo, Vectors<Byte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Int16>.Demo, Vectors<Int16>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask):\t{0}", Vector.Xor(Vectors<UInt16>.Demo, Vectors<UInt16>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Int32>.Demo, Vectors<Int32>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask):\t{0}", Vector.Xor(Vectors<UInt32>.Demo, Vectors<UInt32>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask):\t{0}", Vector.Xor(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask));
 
             }
 
