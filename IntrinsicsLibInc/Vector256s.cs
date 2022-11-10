@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Runtime.Intrinsics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if NETCOREAPP3_0_OR_GREATER
+using System.Runtime.Intrinsics;
+#endif
 
 namespace IntrinsicsLib {
 
@@ -9,6 +11,7 @@ namespace IntrinsicsLib {
     /// Methods of <see cref="Vector256{T}"/> .
     /// </summary>
     public static class Vector256s {
+#if NETCOREAPP3_0_OR_GREATER
 
         // == Mask array ==
         // It takes up too much space to construct a batch of mask arrays for each element type. Int32/UInt32/Single can share a 4-byte mask, and the total bit length of vector types is fixed. Therefore, arrays such as MaskBitPosArray1B can be shared by multiple element types. (若为每一种元素类型都构造一批掩码数组的话, 太占空间了. 考虑到 Int32/UInt32/Single 可共用4字节的掩码, 且向量类型的总位长是固定的, 于是 MaskBitPosArray1B 等数组可以给多种元素类型所共用.)
@@ -437,6 +440,7 @@ namespace IntrinsicsLib {
 #endif // NET7_0_OR_GREATER
         }
 
+#endif
     }
 
     /// <summary>
@@ -444,6 +448,7 @@ namespace IntrinsicsLib {
     /// </summary>
     /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
     public abstract class Vector256s<T> : AbstractVectors<T> where T : struct {
+#if NETCOREAPP3_0_OR_GREATER
         /// <summary>Value 0 (0的值).</summary>
         public static readonly Vector256<T> V0;
         /// <summary>All bit is 1 (所有位都是1的值).</summary>
@@ -774,5 +779,6 @@ namespace IntrinsicsLib {
         /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
         public static ref readonly Vector256<T> RgbaNotAMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotWMask; } }
 
+#endif
     }
 }

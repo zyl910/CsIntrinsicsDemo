@@ -4,7 +4,9 @@ using System.Text;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.Intrinsics;
+#endif
 using System.Collections;
 
 namespace IntrinsicsLib {
@@ -198,6 +200,18 @@ namespace IntrinsicsLib {
             Vector256<T> source = default;
             Unsafe.WriteUnaligned(ref Unsafe.As<Vector256<T>, byte>(ref source), value);
             return source;
+        }
+
+        /// <summary>
+        /// Reinterprets a <see cref="Vector{T}"/> as a new <see cref="Vector256{T}"/> (将 <see cref="Vector{T}"/> 重新解释为新的 <see cref="Vector256{T}"/>).
+        /// </summary>
+        /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
+        /// <param name="value">The vector to reinterpret (要重新解释的向量).</param>
+        /// <returns>value reinterpreted as a new <see cref="Vector256{T}"/> (重新解释后新的 <see cref="Vector256{T}"/>)值.</returns>
+        /// <seealso cref="Vector256.AsVector256{T}(Vector{T})"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector256<T> AsVector256A<T>(Vector<T> value) where T : struct {
+            return Unsafe.As<Vector<T>, Vector256<T>>(ref value);
         }
 
 #endif

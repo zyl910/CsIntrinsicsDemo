@@ -101,8 +101,8 @@ namespace IntrinsicsLib {
                 for (int i = 0; i < unitCount; ++i) {
                     if ((i > 0)) {
                         if (!string.IsNullOrEmpty(separator)) {
-                            action(separator);
-                            rt += separator.Length;
+                            action(separator!);
+                            rt += separator!.Length;
                         }
                     }
                     int idx = unitSize * (i + 1) - 1;
@@ -119,8 +119,8 @@ namespace IntrinsicsLib {
                     byte by = list[i];
                     if ((i > 0) && (0 == i % unitSize)) {
                         if (!string.IsNullOrEmpty(separator)) {
-                            action(separator);
-                            rt += separator.Length;
+                            action(separator!);
+                            rt += separator!.Length;
                         }
                     }
                     hex = by.ToString("X2");
@@ -131,6 +131,7 @@ namespace IntrinsicsLib {
             return rt;
         }
 
+#if NETCOREAPP3_0_OR_GREATER
         /// <summary>
         /// Gets a hexadecimal string of the <see cref="Vector64"/> and outputs it to <see cref="Action"/> (取得 <see cref="Vector64"/> 的十六进制字符串, 并输出到 <see cref="Action"/> ).
         /// </summary>
@@ -286,6 +287,7 @@ namespace IntrinsicsLib {
             }
             return rt;
         }
+#endif
 
         /// <summary>
         /// Get hexadecimal string (取得十六进制字符串).
@@ -322,6 +324,7 @@ namespace IntrinsicsLib {
             return sb.ToString();
         }
 
+#if NETCOREAPP3_0_OR_GREATER
         /// <summary>
         /// Gets a hexadecimal string of the <see cref="Vector64"/> (取得 <see cref="Vector64"/> 的十六进制字符串).
         /// </summary>
@@ -369,6 +372,7 @@ namespace IntrinsicsLib {
             }, src, separator, noFixEndian);
             return sb.ToString();
         }
+#endif
 
         /// <summary>
         /// Format a string, append a hexadecimal string intelligently to the end of the line, and output it to the <see cref="Action"/> (格式化字符串，智能在行尾追加十六进制字符串, 并会输出到 <see cref="Action"/> ). With these parameters: <paramref name="noHex"/>, <paramref name="lineCommentSeparator"/>, <paramref name="lineCommentItemSeparator"/> .
@@ -496,7 +500,7 @@ namespace IntrinsicsLib {
                     isFirst = false;
                     if (!string.IsNullOrEmpty(indent)) {
                         textWriter.Write(indent);
-                        rt += indent.Length;
+                        rt += indent!.Length;
                     }
                 }
                 textWriter.Write(hex);

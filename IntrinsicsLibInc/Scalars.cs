@@ -117,7 +117,7 @@ namespace IntrinsicsLib {
         /// <returns>Returns target type value (返回目标类型的值).</returns>
         public static T GetByBits<T>(Int64 src) {
             if (typeof(T) == typeof(Single)) {
-                return (T)(object)BitConverter.Int32BitsToSingle((Int32)src);
+                return (T)(object)Scalars.Int32BitsToSingle((Int32)src);
             } else if (typeof(T) == typeof(Double)) {
                 return (T)(object)BitConverter.Int64BitsToDouble(src);
             } else if (typeof(T) == typeof(SByte)) {
@@ -157,7 +157,7 @@ namespace IntrinsicsLib {
         /// <returns>Returns a <see cref="Int64"/> bits (返回 <see cref="Int64"/> 类型的64位值).</returns>
         public static Int64 GetInt64BitsFrom<T>(T src) where T:struct {
             if (typeof(T) == typeof(Single)) {
-                return (Int64)BitConverter.SingleToInt32Bits((Single)(object)src);
+                return (Int64)Scalars.SingleToInt32Bits((Single)(object)src);
             } else if (typeof(T) == typeof(Double)) {
                 return (Int64)BitConverter.DoubleToInt64Bits((Double)(object)src);
             } else if (typeof(T) == typeof(SByte)) {
@@ -188,6 +188,63 @@ namespace IntrinsicsLib {
                 return (Int64)Convert.ChangeType(src, typeof(Int64));
             }
         }
+        /// <summary>
+        /// Converts a single-precision floating-point value into a 32-bit integer (将单精度浮点值转换为 32 位整数).
+        /// </summary>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 32-bit integer whose bits are identical to value (一个32位整数，表示转换的单精度浮点值).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Int32 SingleToInt32Bits(Single value) {
+#if (NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
+            return BitConverter.SingleToInt32Bits(value);
+#else
+            return Unsafe.As<Single, Int32>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Converts a single-precision floating-point value into a 32-bit unsigned integer (将指定的单精度浮点数转换为 32 位无符号整数).
+        /// </summary>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 32-bit integer whose bits are identical to value (一个32位无符号整数，表示转换的单精度浮点值).</returns>
+        [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UInt32 SingleToUInt32Bits(Single value) {
+#if NET6_0_OR_GREATER
+            return BitConverter.SingleToUInt32Bits(value);
+#else
+            return Unsafe.As<Single, UInt32>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Reinterprets the specified 32-bit signed integer value as a single-precision floating-point value (将指定的 32 位有符号整数值重新解释为单精度浮点值).
+        /// </summary>
+        /// <param name="value">The 32-bit signed integer value to convert (欲转换的32位带符号整数值).</param>
+        /// <returns>A single-precision floating-point value that represents the converted integer (表示根据整数转换后的单精度浮点值).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Single Int32BitsToSingle(Int32 value) {
+#if (NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER)
+            return BitConverter.Int32BitsToSingle(value);
+#else
+            return Unsafe.As<Int32, Single>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Reinterprets the specified 32-bit unsigned integer value as a single-precision floating-point value (将指定的 32 位无符号整数转换为单精度浮点数).
+        /// </summary>
+        /// <param name="value">The 32-bit unsigned integer value to convert (欲转换的32位无符号整数值).</param>
+        /// <returns>A single-precision floating-point value that represents the converted integer (表示根据整数转换后的单精度浮点值).</returns>
+        [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Single UInt32BitsToSingle(UInt32 value) {
+#if NET6_0_OR_GREATER
+            return BitConverter.UInt32BitsToSingle(value);
+#else
+            return Unsafe.As<UInt32, Single>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
 
 #if NET5_0_OR_GREATER
         /// <summary>
@@ -200,9 +257,7 @@ namespace IntrinsicsLib {
 #if NET6_0_OR_GREATER
             return BitConverter.HalfToInt16Bits(value);
 #else
-            unsafe {
-                return *(Int16*)&value;
-            }
+            return Unsafe.As<Half, Int16>(ref value);
 #endif // NET6_0_OR_GREATER
         }
 
@@ -217,9 +272,7 @@ namespace IntrinsicsLib {
 #if NET6_0_OR_GREATER
             return BitConverter.HalfToUInt16Bits(value);
 #else
-            unsafe {
-                return *(UInt16*)&value;
-            }
+            return Unsafe.As<Half, UInt16>(ref value);
 #endif // NET6_0_OR_GREATER
         }
 
@@ -233,9 +286,7 @@ namespace IntrinsicsLib {
 #if NET6_0_OR_GREATER
             return BitConverter.Int16BitsToHalf(value);
 #else
-            unsafe {
-                return *(Half*)&value;
-            }
+            return Unsafe.As<Int16, Half>(ref value);
 #endif // NET6_0_OR_GREATER
         }
 
@@ -250,9 +301,7 @@ namespace IntrinsicsLib {
 #if NET6_0_OR_GREATER
             return BitConverter.UInt16BitsToHalf(value);
 #else
-            unsafe {
-                return *(Half*)&value;
-            }
+            return Unsafe.As<UInt16, Half>(ref value);
 #endif // NET6_0_OR_GREATER
         }
 
@@ -456,12 +505,12 @@ namespace IntrinsicsLib {
                     SignBits = 1;
                     ExponentBits = 8;
                     MantissaBits = 23;
-                    SignMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x80000000);
-                    ExponentMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x7F800000);
-                    MantissaMask = (T)(object)BitConverter.Int32BitsToSingle((Int32)0x007FFFFF);
-                    NonSignMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x80000000);
-                    NonExponentMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x7F800000);
-                    NonMantissaMask = (T)(object)BitConverter.Int32BitsToSingle(~(Int32)0x007FFFFF);
+                    SignMask = (T)(object)Scalars.Int32BitsToSingle((Int32)0x80000000);
+                    ExponentMask = (T)(object)Scalars.Int32BitsToSingle((Int32)0x7F800000);
+                    MantissaMask = (T)(object)Scalars.Int32BitsToSingle((Int32)0x007FFFFF);
+                    NonSignMask = (T)(object)Scalars.Int32BitsToSingle(~(Int32)0x80000000);
+                    NonExponentMask = (T)(object)Scalars.Int32BitsToSingle(~(Int32)0x7F800000);
+                    NonMantissaMask = (T)(object)Scalars.Int32BitsToSingle(~(Int32)0x007FFFFF);
                     Epsilon = (T)(object)Single.Epsilon;
                     MaxValue = (T)(object)Single.MaxValue;
                     MinValue = (T)(object)Single.MinValue;
@@ -643,6 +692,8 @@ namespace IntrinsicsLib {
                         NonSignMask = (T)(object)(IntPtr)(Int32)(~0x80000000);
                         NonExponentMask = (T)(object)(IntPtr)(Int32)(~0);
                         NonMantissaMask = (T)(object)(IntPtr)(Int32)(~0x7FFFFFFF);
+                        MaxValue = (T)(object)(IntPtr)Int32.MaxValue;
+                        MinValue = (T)(object)(IntPtr)Int32.MinValue;
                     } else {
                         SignBits = 1;
                         ExponentBits = 0;
@@ -653,10 +704,10 @@ namespace IntrinsicsLib {
                         NonSignMask = (T)(object)(IntPtr)(Int64)(~0x8000000000000000L);
                         NonExponentMask = (T)(object)(IntPtr)(Int64)(~0);
                         NonMantissaMask = (T)(object)(IntPtr)(Int64)(~0x7FFFFFFFFFFFFFFF);
+                        MaxValue = (T)(object)(IntPtr)Int64.MaxValue;
+                        MinValue = (T)(object)(IntPtr)Int64.MinValue;
                     }
                     Epsilon = Scalars.GetByDouble<T>(1);
-                    MaxValue = (T)(object)IntPtr.MaxValue;
-                    MinValue = (T)(object)IntPtr.MinValue;
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
@@ -673,6 +724,8 @@ namespace IntrinsicsLib {
                         NonSignMask = (T)(object)(UIntPtr)(UInt32)(~0);
                         NonExponentMask = (T)(object)(UIntPtr)(UInt32)(~0);
                         NonMantissaMask = (T)(object)(UIntPtr)(UInt32)(~0xFFFFFFFF);
+                        MaxValue = (T)(object)(UIntPtr)UInt32.MaxValue;
+                        MinValue = (T)(object)(UIntPtr)UInt32.MinValue;
                     } else {
                         SignBits = 1;
                         ExponentBits = 0;
@@ -683,10 +736,10 @@ namespace IntrinsicsLib {
                         NonSignMask = (T)(object)(UIntPtr)(UInt64)(~0);
                         NonExponentMask = (T)(object)(UIntPtr)(UInt64)(~0);
                         NonMantissaMask = (T)(object)(UIntPtr)(UInt64)(~0xFFFFFFFFFFFFFFFFL);
+                        MaxValue = (T)(object)(UIntPtr)UInt64.MaxValue;
+                        MinValue = (T)(object)(UIntPtr)UInt64.MinValue;
                     }
                     Epsilon = Scalars.GetByDouble<T>(1);
-                    MaxValue = (T)(object)UIntPtr.MaxValue;
-                    MinValue = (T)(object)UIntPtr.MinValue;
                     NaN = V0;
                     NegativeInfinity = V0;
                     PositiveInfinity = V0;
