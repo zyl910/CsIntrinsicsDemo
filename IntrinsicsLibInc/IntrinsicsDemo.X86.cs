@@ -47,8 +47,8 @@ namespace IntrinsicsLib {
             WriteLine(tw, indent, "Avx2.IsSupported:\t{0}", Avx2.IsSupported);
             WriteLine(tw, indent, "Avx2.X64.IsSupported:\t{0}", Avx2.X64.IsSupported);
 #if NET6_0_OR_GREATER
-            WriteLineFormat(tw, indent, "AvxVnni.IsSupported:\t{0}", AvxVnni.IsSupported);
-            WriteLineFormat(tw, indent, "AvxVnni.X64.IsSupported:\t{0}", AvxVnni.X64.IsSupported);
+            WriteLine(tw, indent, "AvxVnni.IsSupported:\t{0}", AvxVnni.IsSupported);
+            WriteLine(tw, indent, "AvxVnni.X64.IsSupported:\t{0}", AvxVnni.X64.IsSupported);
 #endif
             WriteLine(tw, indent, "Bmi1.IsSupported:\t{0}", Bmi1.IsSupported);
             WriteLine(tw, indent, "Bmi1.X64.IsSupported:\t{0}", Bmi1.X64.IsSupported);
@@ -79,8 +79,8 @@ namespace IntrinsicsLib {
             WriteLine(tw, indent, "X86Base.X64.IsSupported:\t{0}", X86Base.X64.IsSupported);
 #endif // NET5_0_OR_GREATER
 #if NET7_0_OR_GREATER
-            WriteLineFormat(tw, indent, "X86Serialize.IsSupported:\t{0}", X86Serialize.IsSupported);
-            WriteLineFormat(tw, indent, "X86Serialize.X64.IsSupported:\t{0}", X86Serialize.X64.IsSupported);
+            WriteLine(tw, indent, "X86Serialize.IsSupported:\t{0}", X86Serialize.IsSupported);
+            WriteLine(tw, indent, "X86Serialize.X64.IsSupported:\t{0}", X86Serialize.X64.IsSupported);
 #endif // NET7_0_OR_GREATER
         }
     }
