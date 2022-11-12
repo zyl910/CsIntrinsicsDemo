@@ -76,7 +76,6 @@ namespace IntrinsicsLib {
 #endif // NET6_0_OR_GREATER
 
             // -- Methods --
-            #region Methods
             unchecked {
                 //Debugger.Break();
                 //Abs<T>(Vector<T>) Returns a new vector whose elements are the absolute values of the given vector's elements.
@@ -455,13 +454,29 @@ namespace IntrinsicsLib {
                 //ShiftLeft(Vector<UInt32>, Int32) Shifts each element of a vector left by the specified amount.
                 //ShiftLeft(Vector<UInt64>, Int32)    Shifts each element of a vector left by the specified amount.
                 //ShiftLeft(Vector<UIntPtr>, Int32) Shifts each element of a vector left by the specified amount.
-                
+                int shift = 4;
+                WriteLine(tw, indent, "ShiftLeft(Vectors<SByte>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<Byte>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<Byte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<Int16>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<UInt16>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<UInt16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<Int32>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<UInt32>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<UInt32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<Int64>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<UInt64>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<UInt64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<IntPtr>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<IntPtr>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vectors<UIntPtr>.Demo, shift):\t{0}", Vector.ShiftLeft(Vectors<UIntPtr>.Demo, shift));
+
                 //ShiftRightArithmetic(Vector<Int16>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
                 //ShiftRightArithmetic(Vector<Int32>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
                 //ShiftRightArithmetic(Vector<Int64>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
                 //ShiftRightArithmetic(Vector<IntPtr>, Int32) Shifts(signed) each element of a vector right by the specified amount.
                 //ShiftRightArithmetic(Vector<SByte>, Int32)  Shifts(signed) each element of a vector right by the specified amount.
-                
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vectors<SByte>.Demo, shift):\t{0}", Vector.ShiftRightArithmetic(Vectors<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vectors<Int16>.Demo, shift):\t{0}", Vector.ShiftRightArithmetic(Vectors<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vectors<Int32>.Demo, shift):\t{0}", Vector.ShiftRightArithmetic(Vectors<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vectors<Int64>.Demo, shift):\t{0}", Vector.ShiftRightArithmetic(Vectors<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vectors<IntPtr>.Demo, shift):\t{0}", Vector.ShiftRightArithmetic(Vectors<IntPtr>.Demo, shift));
+
                 //ShiftRightLogical(Vector<Byte>, Int32)  Shifts(unsigned) each element of a vector right by the specified amount.
                 //ShiftRightLogical(Vector<Int16>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
                 //ShiftRightLogical(Vector<Int32>, Int32) Shifts(unsigned) each element of a vector right by the specified amount.
@@ -472,6 +487,16 @@ namespace IntrinsicsLib {
                 //ShiftRightLogical(Vector<UInt32>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
                 //ShiftRightLogical(Vector<UInt64>, Int32)    Shifts(unsigned) each element of a vector right by the specified amount.
                 //ShiftRightLogical(Vector<UIntPtr>, Int32)   Shifts(unsigned) each element of a vector right by the specified amount.
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<SByte>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<Byte>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<Byte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<Int16>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<UInt16>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<UInt16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<Int32>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<UInt32>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<UInt32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<Int64>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<UInt64>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<UInt64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<IntPtr>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<IntPtr>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vectors<UIntPtr>.Demo, shift):\t{0}", Vector.ShiftRightLogical(Vectors<UIntPtr>.Demo, shift));
 #endif // NET7_0_OR_GREATER
 
                 //SquareRoot<T>(Vector<T>)    Returns a new vector whose elements are the square roots of a specified vector's elements.
@@ -561,9 +586,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Xor(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask):\t{0}", Vector.Xor(Vectors<Int64>.Demo, Vectors<Int64>.XyzwWMask));
                 WriteLine(tw, indent, "Xor(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask):\t{0}", Vector.Xor(Vectors<UInt64>.Demo, Vectors<UInt64>.XyzwWMask));
 
-            }
-
-            #endregion // Methods
+            } // unchecked
 
         }
 
