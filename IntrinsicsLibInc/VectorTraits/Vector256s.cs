@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 #endif
 
-namespace IntrinsicsLib {
+namespace Zyl.VectorTraits {
 
     /// <summary>
     /// Methods of <see cref="Vector256{T}"/> .

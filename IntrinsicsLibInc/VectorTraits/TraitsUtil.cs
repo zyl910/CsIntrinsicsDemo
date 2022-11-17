@@ -11,7 +11,7 @@ using System.Text;
 
 [assembly: CLSCompliant(true)]
 
-namespace IntrinsicsLib {
+namespace Zyl.VectorTraits {
     /// <summary>
     /// Traits misc util.
     /// </summary>

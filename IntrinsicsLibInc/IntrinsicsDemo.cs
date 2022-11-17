@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 using System.Text;
+using Zyl.VectorTraits;
 
 namespace IntrinsicsLib {
     /// <summary>

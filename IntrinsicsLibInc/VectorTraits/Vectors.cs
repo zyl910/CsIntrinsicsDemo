@@ -9,7 +9,7 @@ using System.Runtime.Intrinsics;
 #endif
 using System.Collections;
 
-namespace IntrinsicsLib {
+namespace Zyl.VectorTraits {
 
     /// <summary>
     /// Methods of <see cref="Vector{T}"/> .

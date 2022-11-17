@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IntrinsicsLib {
+namespace Zyl.VectorTraits {
 
     /// <summary>
     /// Common constants of any Vector types (任何向量类型的公用常量).

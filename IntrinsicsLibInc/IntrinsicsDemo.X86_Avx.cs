@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
+using Zyl.VectorTraits;
 
 namespace IntrinsicsLib {
     partial class IntrinsicsDemo {

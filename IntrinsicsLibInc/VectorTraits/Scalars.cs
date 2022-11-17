@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IntrinsicsLib {
+namespace Zyl.VectorTraits {
     /// <summary>
     /// Methods of scalar (标量的方法).
     /// </summary>
