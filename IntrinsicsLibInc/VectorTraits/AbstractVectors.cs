@@ -62,9 +62,9 @@ namespace Zyl.VectorTraits {
         // -- Math --
         /// <summary>Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
         public static int ElementFixedShift { get { return Scalars<T>.FixedShift; } }
-        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static T ElementFixedOne { get { return Scalars<T>.FixedOne; } }
-        /// <summary>The double of the fixed point number with the value 1 (数值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>The double of the fixed point number with the value 1 (值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static double ElementFixedOneDouble { get { return Scalars<T>.FixedOneDouble; } }
         /// <summary>(Element) Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static T ElementE { get { return Scalars<T>.E; } }

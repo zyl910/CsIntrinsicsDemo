@@ -55,7 +55,7 @@ namespace Zyl.VectorTraits {
         /// </summary>
         /// <typeparam name="T">Target type (目标类型).</typeparam>
         /// <param name="src">Source value (源值).</param>
-        /// <param name="fixedOne">The fixed point number of the value 1 (数值1的定点数)</param>
+        /// <param name="fixedOne">The fixed point number of the value 1 (值1的定点数)</param>
         /// <returns>Returns target type value (返回目标类型的值).</returns>
         public static T GetFixedByDoubleUseOne<T>(double src, double fixedOne) {
             return GetByDouble<T>(src * fixedOne);
@@ -207,6 +207,8 @@ namespace Zyl.VectorTraits {
         public static readonly int ByteSize;
         /// <summary>Bit size (位大小).</summary>
         public static readonly int BitSize;
+        /// <summary>Bit size mask (位大小掩码).</summary>
+        public static readonly int BitSizeMask;
         /// <summary>Exponent bias (指数偏移值). When the type is an integer, the value is 0.</summary>
         public static readonly int ExponentBias;
         /// <summary>Sign bit size (符号位数). When the type is an unsigned number, the value is 0.</summary>
@@ -246,11 +248,13 @@ namespace Zyl.VectorTraits {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly T PositiveInfinity;
         // -- Math --
+        /// <summary>Normalized number of value 1 (值1的归一化数). When the type is an integer, the value is'<see cref="MaxValue"/>'; Otherwise it's 1 (当类型为整数时，它的值为 `<see cref="MaxValue"/>`; 其他情况下为 1).</summary>
+        public static readonly T NormOne;
         /// <summary>Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
         public static readonly int FixedShift;
-        /// <summary>The fixed point number of the value 1 (数值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
         public static readonly T FixedOne;
-        /// <summary>The double of the fixed point number with the value 1 (数值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>The double of the fixed point number with the value 1 (值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="FixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="FixedShift"/>)`; 其他情况下为 1).</summary>
         public static readonly double FixedOneDouble;
         /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
         public static readonly T E;
@@ -612,15 +616,18 @@ namespace Zyl.VectorTraits {
                 }
             }
             BitSize = ByteSize * 8;
+            BitSizeMask = BitSize - 1;
             MantissaShift = 0;
             ExponentShift = MantissaShift + MantissaBits;
             SignShift = ExponentShift + ExponentBits;
             // -- Math --
             if (ExponentBits>0) {
+                NormOne = Scalars.GetByDouble<T>(1);
                 // Float point number.
                 FixedShift = 0;
                 FixedOneDouble = 1;
             } else {
+                NormOne = MaxValue;
                 // Fixed point number.
                 FixedShift = BitSize / 2;
                 FixedOneDouble = Math.Pow(2.0, FixedShift);

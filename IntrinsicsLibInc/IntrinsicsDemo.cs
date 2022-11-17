@@ -270,6 +270,7 @@ namespace IntrinsicsLib {
             tw.WriteLine(indent + string.Format("SignBits-ExponentBits-MantissaBits:\t{0}-{1}-{2}", Scalars<T>.SignBits, Scalars<T>.ExponentBits, Scalars<T>.MantissaBits));
             if (ShowFull) {
                 tw.WriteLine(indent + string.Format("SignShift-ExponentShift-MantissaShift:\t{0}-{1}-{2}", Scalars<T>.SignShift, Scalars<T>.ExponentShift, Scalars<T>.MantissaShift));
+                WriteLine(tw, indent, "BitSizeMask:\t{0}", Scalars<T>.BitSizeMask);
                 WriteLine(tw, indent, "ExponentBias:\t{0}", Scalars<T>.ExponentBias);
                 WriteLine(tw, indent, "SignMask:\t{0}", Scalars<T>.SignMask);
                 WriteLine(tw, indent, "ExponentMask:\t{0}", Scalars<T>.ExponentMask);
@@ -289,6 +290,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "NaN:\t{0}", Scalars<T>.NaN);
                 WriteLine(tw, indent, "NegativeInfinity:\t{0}", Scalars<T>.NegativeInfinity);
                 WriteLine(tw, indent, "PositiveInfinity:\t{0}", Scalars<T>.PositiveInfinity);
+                WriteLine(tw, indent, "NormOne:\t{0}", Scalars<T>.NormOne);
                 WriteLine(tw, indent, "FixedShift:\t{0}", Scalars<T>.FixedShift);
                 WriteLine(tw, indent, "FixedOne:\t{0}", Scalars<T>.FixedOne);
                 WriteLine(tw, indent, "FixedOneDouble:\t{0}", Scalars<T>.FixedOneDouble);
