@@ -7,7 +7,6 @@ namespace Zyl.VectorTraits {
     /// <summary>
     /// Common constants of any Vector types (任何向量类型的公用常量).
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <typeparam name="T">The vector element type. T can be any primitive numeric type.</typeparam>
     public abstract class AbstractVectors<T> where T : struct {
         /// <summary>(Element) Zero (0).</summary>
@@ -21,6 +20,8 @@ namespace Zyl.VectorTraits {
         public static int ElementByteSize { get { return Scalars<T>.ByteSize; } }
         /// <summary>(Element) Bit size (位大小).</summary>
         public static int ElementBitSize { get { return Scalars<T>.BitSize; } }
+        /// <summary>(Element) Bit size mask (位大小掩码).</summary>
+        public static int ElementBitSizeMask { get { return Scalars<T>.BitSizeMask; } }
         /// <summary>(Element) Exponent bias (指数偏移值). When the type is an integer, the value is 0.</summary>
         public static int ElementExponentBias { get { return Scalars<T>.ExponentBias; } }
         /// <summary>(Element) Sign bit size (符号位数). When the type is an unsigned number, the value is 0.</summary>
@@ -60,11 +61,13 @@ namespace Zyl.VectorTraits {
         /// <summary>(Element) Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static T ElementPositiveInfinity { get { return Scalars<T>.PositiveInfinity; } }
         // -- Math --
-        /// <summary>Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
+        /// <summary>(Element) Normalized number of value 1 (值1的归一化数). When the type is an integer, the value is'<see cref="MaxValue"/>'; Otherwise it's 1 (当类型为整数时，它的值为 `<see cref="MaxValue"/>`; 其他情况下为 1).</summary>
+        public static T ElementNormOne { get { return Scalars<T>.NormOne; } }
+        /// <summary>(Element) Binary shift of fixed point number (定点数的位移). When the type is an integer, the value is' <see cref="BitSize"/>/2 '; Otherwise it's 0 (当类型为整数时，它的值为 `<see cref="BitSize"/>/2`; 其他情况下为 0).</summary>
         public static int ElementFixedShift { get { return Scalars<T>.FixedShift; } }
-        /// <summary>The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>(Element) The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static T ElementFixedOne { get { return Scalars<T>.FixedOne; } }
-        /// <summary>The double of the fixed point number with the value 1 (值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
+        /// <summary>(Element) The double of the fixed point number with the value 1 (值1的定点数的双精度浮点值). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static double ElementFixedOneDouble { get { return Scalars<T>.FixedOneDouble; } }
         /// <summary>(Element) Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
         public static T ElementE { get { return Scalars<T>.E; } }

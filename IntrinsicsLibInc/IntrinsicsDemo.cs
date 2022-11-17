@@ -29,7 +29,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = false;
+        public static bool ShowFull = true;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -405,6 +405,10 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "XyzwNotYMask:\t{0}", Vectors<T>.XyzwNotYMask);
                 WriteLine(tw, indent, "XyzwNotZMask:\t{0}", Vectors<T>.XyzwNotZMask);
                 WriteLine(tw, indent, "XyzwNotWMask:\t{0}", Vectors<T>.XyzwNotWMask);
+                WriteLine(tw, indent, "XyzwXNormOne:\t{0}", Vectors<T>.XyzwXNormOne);
+                WriteLine(tw, indent, "XyzwYNormOne:\t{0}", Vectors<T>.XyzwYNormOne);
+                WriteLine(tw, indent, "XyzwZNormOne:\t{0}", Vectors<T>.XyzwZNormOne);
+                WriteLine(tw, indent, "XyzwWNormOne:\t{0}", Vectors<T>.XyzwWNormOne);
             }
         }
 

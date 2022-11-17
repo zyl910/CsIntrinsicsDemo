@@ -576,6 +576,8 @@ namespace Zyl.VectorTraits {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector<T> PositiveInfinity;
         // -- Math --
+        /// <summary>Normalized number of value 1 (值1的归一化数). When the type is an integer, the value is'<see cref="ElementMaxValue"/>'; Otherwise it's 1 (当类型为整数时，它的值为 `<see cref="ElementMaxValue"/>`; 其他情况下为 1).</summary>
+        public static readonly Vector<T> NormOne;
         /// <summary>The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static readonly Vector<T> FixedOne;
         /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
@@ -689,6 +691,14 @@ namespace Zyl.VectorTraits {
         public static readonly Vector<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="RgbaNotAMask"/>.</summary>
         public static readonly Vector<T> XyzwNotWMask;
+        /// <summary>Xyzw - X is <see cref="ElementNormOne"/> (X 为值1的归一化数).</summary>
+        public static readonly Vector<T> XyzwXNormOne;
+        /// <summary>Xyzw - Y is <see cref="ElementNormOne"/> (Y 为值1的归一化数).</summary>
+        public static readonly Vector<T> XyzwYNormOne;
+        /// <summary>Xyzw - Z is <see cref="ElementNormOne"/> (Z 为值1的归一化数).</summary>
+        public static readonly Vector<T> XyzwZNormOne;
+        /// <summary>Xyzw - W is <see cref="ElementNormOne"/> (W 为值1的归一化数).</summary>
+        public static readonly Vector<T> XyzwWNormOne;
         // == Mask array ==
         /// <summary>Bit pos mask array (位偏移掩码的数组). e.g. 1, 2, 4, 8, 0x10 ...</summary>
         private static readonly Vector<Byte>[] MaskBitPosArray;
@@ -715,6 +725,7 @@ namespace Zyl.VectorTraits {
             NegativeInfinity = Vectors.Create<T>(ElementNegativeInfinity);
             PositiveInfinity = Vectors.Create<T>(ElementPositiveInfinity);
             // -- Math --
+            NormOne = Vectors.Create<T>(ElementNormOne);
             FixedOne = Vectors.Create<T>(ElementFixedOne);
             E = Vectors.Create<T>(ElementE);
             Pi = Vectors.Create<T>(ElementPi);
@@ -784,6 +795,7 @@ namespace Zyl.VectorTraits {
             if (true) {
                 T o = ElementZero;
                 T f = ElementAllBitsSet;
+                T n = ElementNormOne;
                 XyXMask = Vectors.CreateRotate<T>(f, o);
                 XyYMask = Vectors.CreateRotate<T>(o, f);
                 XyzwXMask = Vectors.CreateRotate<T>(f, o, o, o);
@@ -794,6 +806,10 @@ namespace Zyl.VectorTraits {
                 XyzwNotYMask = Vectors.OnesComplement(XyzwYMask);
                 XyzwNotZMask = Vectors.OnesComplement(XyzwZMask);
                 XyzwNotWMask = Vectors.OnesComplement(XyzwWMask);
+                XyzwXNormOne = Vectors.CreateRotate<T>(n, o, o, o);
+                XyzwYNormOne = Vectors.CreateRotate<T>(o, n, o, o);
+                XyzwZNormOne = Vectors.CreateRotate<T>(o, o, n, o);
+                XyzwWNormOne = Vectors.CreateRotate<T>(o, o, o, n);
             }
             // == Mask array ==
             MaskBitPosArray = Vectors.GetMaskBitPosArray(ElementByteSize);
