@@ -9,17 +9,20 @@
     <Import_RootNamespace>IntrinsicsLib</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AbstractVectors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\AbstractVectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Vector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Avx.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Scalars.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TraitsUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Vector128s.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Vector256s.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Vector64s.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Vectors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Scalars.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\TraitsUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector128s.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector256s.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector64s.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vectors.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)VectorTraits\" />
   </ItemGroup>
 </Project>
