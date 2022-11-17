@@ -15,14 +15,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Vector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Avx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\BitUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Scalars.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\TraitsUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector128s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector256s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector64s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vectors.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)VectorTraits\" />
   </ItemGroup>
 </Project>
