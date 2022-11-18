@@ -419,13 +419,13 @@ namespace Zyl.VectorTraits {
         }
 
         /// <summary>
-        /// Computes the ones-complement (~) of a vector (计算向量的补数).
+        /// [Base] Computes the ones-complement (~) of a vector (计算向量的补数).
         /// </summary>
         /// <typeparam name="T">The vector element type (向量中的元素的类型).</typeparam>
         /// <param name="src">The vector whose ones-complement is to be computed (要计算其补数的向量).</param>
         /// <returns>A vector whose elements are the ones-complement of the corresponding elements in <paramref name="src"/> (一个向量，其各元素是 <paramref name="src"/> 相应元素的补数).</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static Vector64<T> OnesComplement<T>(Vector64<T> src) where T : struct {
+        internal static Vector64<T> BaseOnesComplement<T>(Vector64<T> src) where T : struct {
 #if NET7_0_OR_GREATER
             return ~src;
 #else
@@ -702,10 +702,10 @@ namespace Zyl.VectorTraits {
                 XyzwYMask = Vector64s.CreateRotate<T>(o, f, o, o);
                 XyzwZMask = Vector64s.CreateRotate<T>(o, o, f, o);
                 XyzwWMask = Vector64s.CreateRotate<T>(o, o, o, f);
-                XyzwNotXMask = Vector64s.OnesComplement(XyzwXMask);
-                XyzwNotYMask = Vector64s.OnesComplement(XyzwYMask);
-                XyzwNotZMask = Vector64s.OnesComplement(XyzwZMask);
-                XyzwNotWMask = Vector64s.OnesComplement(XyzwWMask);
+                XyzwNotXMask = Vector64s.BaseOnesComplement(XyzwXMask);
+                XyzwNotYMask = Vector64s.BaseOnesComplement(XyzwYMask);
+                XyzwNotZMask = Vector64s.BaseOnesComplement(XyzwZMask);
+                XyzwNotWMask = Vector64s.BaseOnesComplement(XyzwWMask);
                 XyzwXNormOne = Vector64s.CreateRotate<T>(n, o, o, o);
                 XyzwYNormOne = Vector64s.CreateRotate<T>(o, n, o, o);
                 XyzwZNormOne = Vector64s.CreateRotate<T>(o, o, n, o);
