@@ -302,8 +302,17 @@ namespace Zyl.VectorTraits {
             if (null == src) return rt;
             if (null == separator) { } // Ignore warning disable 0168
             if (noFixEndian) { } // Ignore warning disable 0168
-            if (src is IFormattable formattable) {
-                rt = formattable.ToString("X", null);
+            string format = "X";
+            if (src is Single srcSingle) {
+                rt = BitUtil.SingleToInt32Bits(srcSingle).ToString(format, null);
+            } else if (src is Double srcDouble) {
+                rt = BitConverter.DoubleToInt64Bits(srcDouble).ToString(format, null);
+#if NET5_0_OR_GREATER
+            } else if (src is Half srcHalf) {
+                rt = BitUtil.HalfToInt16Bits(srcHalf).ToString(format, null);
+#endif // NET5_0_OR_GREATER
+            } else if (src is IFormattable formattable) {
+                rt = formattable.ToString(format, null);
             }
             return rt;
         }
