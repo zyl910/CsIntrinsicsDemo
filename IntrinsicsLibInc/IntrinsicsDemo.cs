@@ -500,6 +500,11 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "XyzwNotYMask:\t{0}", Vector64s<T>.XyzwNotYMask);
                 WriteLine(tw, indent, "XyzwNotZMask:\t{0}", Vector64s<T>.XyzwNotZMask);
                 WriteLine(tw, indent, "XyzwNotWMask:\t{0}", Vector64s<T>.XyzwNotWMask);
+                WriteLine(tw, indent, "XyzwXNormOne:\t{0}", Vector64s<T>.XyzwXNormOne);
+                WriteLine(tw, indent, "XyzwYNormOne:\t{0}", Vector64s<T>.XyzwYNormOne);
+                WriteLine(tw, indent, "XyzwZNormOne:\t{0}", Vector64s<T>.XyzwZNormOne);
+                WriteLine(tw, indent, "XyzwWNormOne:\t{0}", Vector64s<T>.XyzwWNormOne);
+                WriteLine(tw, indent, "RgbaANormOne:\t{0}", Vector64s<T>.RgbaANormOne);
             }
         }
 
@@ -590,6 +595,11 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "XyzwNotYMask:\t{0}", Vector128s<T>.XyzwNotYMask);
                 WriteLine(tw, indent, "XyzwNotZMask:\t{0}", Vector128s<T>.XyzwNotZMask);
                 WriteLine(tw, indent, "XyzwNotWMask:\t{0}", Vector128s<T>.XyzwNotWMask);
+                WriteLine(tw, indent, "XyzwXNormOne:\t{0}", Vector128s<T>.XyzwXNormOne);
+                WriteLine(tw, indent, "XyzwYNormOne:\t{0}", Vector128s<T>.XyzwYNormOne);
+                WriteLine(tw, indent, "XyzwZNormOne:\t{0}", Vector128s<T>.XyzwZNormOne);
+                WriteLine(tw, indent, "XyzwWNormOne:\t{0}", Vector128s<T>.XyzwWNormOne);
+                WriteLine(tw, indent, "RgbaANormOne:\t{0}", Vector128s<T>.RgbaANormOne);
             }
         }
 
@@ -680,6 +690,11 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "XyzwNotYMask:\t{0}", Vector256s<T>.XyzwNotYMask);
                 WriteLine(tw, indent, "XyzwNotZMask:\t{0}", Vector256s<T>.XyzwNotZMask);
                 WriteLine(tw, indent, "XyzwNotWMask:\t{0}", Vector256s<T>.XyzwNotWMask);
+                WriteLine(tw, indent, "XyzwXNormOne:\t{0}", Vector256s<T>.XyzwXNormOne);
+                WriteLine(tw, indent, "XyzwYNormOne:\t{0}", Vector256s<T>.XyzwYNormOne);
+                WriteLine(tw, indent, "XyzwZNormOne:\t{0}", Vector256s<T>.XyzwZNormOne);
+                WriteLine(tw, indent, "XyzwWNormOne:\t{0}", Vector256s<T>.XyzwWNormOne);
+                WriteLine(tw, indent, "RgbaANormOne:\t{0}", Vector256s<T>.RgbaANormOne);
             }
         }
 

@@ -479,6 +479,8 @@ namespace Zyl.VectorTraits {
         /// <summary>Represents positive infinity (表示正无穷). When the type is an integer, the value is 0 (当类型为整数时，该值为0).</summary>
         public static readonly Vector256<T> PositiveInfinity;
         // -- Math --
+        /// <summary>Normalized number of value 1 (值1的归一化数). When the type is an integer, the value is'<see cref="ElementMaxValue"/>'; Otherwise it's 1 (当类型为整数时，它的值为 `<see cref="ElementMaxValue"/>`; 其他情况下为 1).</summary>
+        public static readonly Vector256<T> NormOne;
         /// <summary>The fixed point number of the value 1 (值1的定点数). When the type is an integer, the value is'Pow(2, <see cref="ElementFixedShift"/>)'; Otherwise it's 1 (当类型为整数时，它的值为 `Pow(2, <see cref="ElementFixedShift"/>)`; 其他情况下为 1).</summary>
         public static readonly Vector256<T> FixedOne;
         /// <summary>Represents the natural logarithmic base, specified by the constant, e (表示自然对数的底，它由常数 e 指定).</summary>
@@ -592,6 +594,14 @@ namespace Zyl.VectorTraits {
         public static readonly Vector256<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="RgbaNotAMask"/>.</summary>
         public static readonly Vector256<T> XyzwNotWMask;
+        /// <summary>Xyzw - X is normalized number of value 1 (X 为值1的归一化数).</summary>
+        public static readonly Vector256<T> XyzwXNormOne;
+        /// <summary>Xyzw - Y is normalized number of value 1 (Y 为值1的归一化数).</summary>
+        public static readonly Vector256<T> XyzwYNormOne;
+        /// <summary>Xyzw - Z is normalized number of value 1 (Z 为值1的归一化数).</summary>
+        public static readonly Vector256<T> XyzwZNormOne;
+        /// <summary>Xyzw - W is normalized number of value 1 (W 为值1的归一化数).</summary>
+        public static readonly Vector256<T> XyzwWNormOne;
         // == Mask array ==
         /// <summary>Bit pos mask array (位偏移掩码的数组). e.g. 1, 2, 4, 8, 0x10 ...</summary>
         private static readonly Vector256<Byte>[] MaskBitPosArray;
@@ -618,6 +628,7 @@ namespace Zyl.VectorTraits {
             NegativeInfinity = Vector256s.Create<T>(ElementNegativeInfinity);
             PositiveInfinity = Vector256s.Create<T>(ElementPositiveInfinity);
             // -- Math --
+            NormOne = Vector256s.Create<T>(ElementNormOne);
             FixedOne = Vector256s.Create<T>(ElementFixedOne);
             E = Vector256s.Create<T>(ElementE);
             Pi = Vector256s.Create<T>(ElementPi);
@@ -687,6 +698,7 @@ namespace Zyl.VectorTraits {
             if (true) {
                 T o = ElementZero;
                 T f = ElementAllBitsSet;
+                T n = ElementNormOne;
                 XyXMask = Vector256s.CreateRotate<T>(f, o);
                 XyYMask = Vector256s.CreateRotate<T>(o, f);
                 XyzwXMask = Vector256s.CreateRotate<T>(f, o, o, o);
@@ -697,6 +709,10 @@ namespace Zyl.VectorTraits {
                 XyzwNotYMask = Vector256s.OnesComplement(XyzwYMask);
                 XyzwNotZMask = Vector256s.OnesComplement(XyzwZMask);
                 XyzwNotWMask = Vector256s.OnesComplement(XyzwWMask);
+                XyzwXNormOne = Vector256s.CreateRotate<T>(n, o, o, o);
+                XyzwYNormOne = Vector256s.CreateRotate<T>(o, n, o, o);
+                XyzwZNormOne = Vector256s.CreateRotate<T>(o, o, n, o);
+                XyzwWNormOne = Vector256s.CreateRotate<T>(o, o, o, n);
             }
             // == Mask array ==
             MaskBitPosArray = Vector256s.GetMaskBitPosArray(ElementByteSize);
@@ -778,6 +794,14 @@ namespace Zyl.VectorTraits {
         public static ref readonly Vector256<T> RgbaNotBMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotZMask; } }
         /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
         public static ref readonly Vector256<T> RgbaNotAMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotWMask; } }
+        /// <summary>Rgba - R is normalized number of value 1 (R 为值1的归一化数).</summary>
+        public static ref readonly Vector256<T> RgbaRNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwXNormOne; } }
+        /// <summary>Rgba - G is normalized number of value 1 (G 为值1的归一化数).</summary>
+        public static ref readonly Vector256<T> RgbaGNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwYNormOne; } }
+        /// <summary>Rgba - B is normalized number of value 1 (B 为值1的归一化数).</summary>
+        public static ref readonly Vector256<T> RgbaBNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwZNormOne; } }
+        /// <summary>Rgba - A is normalized number of value 1 (A 为值1的归一化数).</summary>
+        public static ref readonly Vector256<T> RgbaANormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwWNormOne; } }
 
 #endif
     }
