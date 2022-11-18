@@ -409,6 +409,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "XyzwYNormOne:\t{0}", Vectors<T>.XyzwYNormOne);
                 WriteLine(tw, indent, "XyzwZNormOne:\t{0}", Vectors<T>.XyzwZNormOne);
                 WriteLine(tw, indent, "XyzwWNormOne:\t{0}", Vectors<T>.XyzwWNormOne);
+                WriteLine(tw, indent, "RgbaANormOne:\t{0}", Vectors<T>.RgbaANormOne);
             }
         }
 

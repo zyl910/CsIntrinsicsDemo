@@ -691,13 +691,13 @@ namespace Zyl.VectorTraits {
         public static readonly Vector<T> XyzwNotZMask;
         /// <summary>Xyzw - Not W mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="RgbaNotAMask"/>.</summary>
         public static readonly Vector<T> XyzwNotWMask;
-        /// <summary>Xyzw - X is <see cref="ElementNormOne"/> (X 为值1的归一化数).</summary>
+        /// <summary>Xyzw - X is normalized number of value 1 (X 为值1的归一化数).</summary>
         public static readonly Vector<T> XyzwXNormOne;
-        /// <summary>Xyzw - Y is <see cref="ElementNormOne"/> (Y 为值1的归一化数).</summary>
+        /// <summary>Xyzw - Y is normalized number of value 1 (Y 为值1的归一化数).</summary>
         public static readonly Vector<T> XyzwYNormOne;
-        /// <summary>Xyzw - Z is <see cref="ElementNormOne"/> (Z 为值1的归一化数).</summary>
+        /// <summary>Xyzw - Z is normalized number of value 1 (Z 为值1的归一化数).</summary>
         public static readonly Vector<T> XyzwZNormOne;
-        /// <summary>Xyzw - W is <see cref="ElementNormOne"/> (W 为值1的归一化数).</summary>
+        /// <summary>Xyzw - W is normalized number of value 1 (W 为值1的归一化数).</summary>
         public static readonly Vector<T> XyzwWNormOne;
         // == Mask array ==
         /// <summary>Bit pos mask array (位偏移掩码的数组). e.g. 1, 2, 4, 8, 0x10 ...</summary>
@@ -891,6 +891,14 @@ namespace Zyl.VectorTraits {
         public static ref readonly Vector<T> RgbaNotBMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotZMask; } }
         /// <summary>Rgba - Not A mask. For a 4-element group, not select the mask of the 3th element (对于4个元素的组，不选择第3个元素的掩码). Alias has <see cref="XyzwNotWMask"/>.</summary>
         public static ref readonly Vector<T> RgbaNotAMask { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwNotWMask; } }
+        /// <summary>Rgba - R is normalized number of value 1 (R 为值1的归一化数).</summary>
+        public static ref readonly Vector<T> RgbaRNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwXNormOne; } }
+        /// <summary>Rgba - G is normalized number of value 1 (G 为值1的归一化数).</summary>
+        public static ref readonly Vector<T> RgbaGNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwYNormOne; } }
+        /// <summary>Rgba - B is normalized number of value 1 (B 为值1的归一化数).</summary>
+        public static ref readonly Vector<T> RgbaBNormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwZNormOne; } }
+        /// <summary>Rgba - A is normalized number of value 1 (A 为值1的归一化数).</summary>
+        public static ref readonly Vector<T> RgbaANormOne { [MethodImpl(MethodImplOptions.AggressiveInlining)]get { return ref XyzwWNormOne; } }
 
     }
 }
