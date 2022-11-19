@@ -389,7 +389,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Min(Vectors<Int64>.Demo, Vectors<Int64>.V0):\t{0}", Vector.Min(Vectors<Int64>.Demo, Vectors<Int64>.V0));
                 WriteLine(tw, indent, "Min(Vectors<UInt64>.Demo, Vectors<UInt64>.V0):\t{0}", Vector.Min(Vectors<UInt64>.Demo, Vectors<UInt64>.V0));
                 // limit to [0, 255].
-                WriteLine(tw, indent, "Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.V255)):\t{0}", Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.V255));
+                WriteLine(tw, indent, "Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.VMaxByte)):\t{0}", Vector.Min(Vector.Max(Vectors<Single>.Demo, Vectors<Single>.V0), Vectors<Single>.VMaxByte));
 
                 //Multiply<T>(T, Vector<T>)   Returns a new vector whose values are a scalar value multiplied by each of the values of a specified vector.
                 //Multiply<T>(Vector<T>, T) Returns a new vector whose values are the values of a specified vector each multiplied by a scalar value.
@@ -1206,7 +1206,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
                 WriteLine(tw, indent, "Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
                 // limit to [0, 255].
-                WriteLine(tw, indent, "Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.V255)):\t{0}", Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.V255));
+                WriteLine(tw, indent, "Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.VMaxByte)):\t{0}", Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.VMaxByte));
 
                 // Multiply<T>(T, Vector256<T>)	
                 // Multiplies a vector by a scalar to compute their product.

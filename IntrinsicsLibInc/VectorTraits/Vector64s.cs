@@ -505,17 +505,17 @@ namespace Zyl.VectorTraits {
         /// <summary>Value 8 .</summary>
         public static readonly Vector64<T> V8;
         /// <summary>Value 127 (SByte.MaxValue).</summary>
-        public static readonly Vector64<T> V127;
+        public static readonly Vector64<T> VMaxSByte;
         /// <summary>Value 255 (Byte.MaxValue).</summary>
-        public static readonly Vector64<T> V255;
+        public static readonly Vector64<T> VMaxByte;
         /// <summary>Value 32767 (Int16.MaxValue) .</summary>
-        public static readonly Vector64<T> V32767;
+        public static readonly Vector64<T> VMaxInt16;
         /// <summary>Value 65535 (UInt16.MaxValue) .</summary>
-        public static readonly Vector64<T> V65535;
+        public static readonly Vector64<T> VMaxUInt16;
         /// <summary>Value 2147483647 (Int32.MaxValue) .</summary>
-        public static readonly Vector64<T> V2147483647;
+        public static readonly Vector64<T> VMaxInt32;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
-        public static readonly Vector64<T> V4294967295;
+        public static readonly Vector64<T> VMaxUInt32;
         // -- Negative number --
         /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly Vector64<T> V_1;
@@ -534,24 +534,24 @@ namespace Zyl.VectorTraits {
         /// <summary>Value -8 .</summary>
         public static readonly Vector64<T> V_8;
         /// <summary>Value -128 (SByte.MinValue).</summary>
-        public static readonly Vector64<T> V_128;
+        public static readonly Vector64<T> VMinSByte;
         /// <summary>Value -32768 (Int16.MinValue) .</summary>
-        public static readonly Vector64<T> V_32768;
+        public static readonly Vector64<T> VMinInt16;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
-        public static readonly Vector64<T> V_2147483648;
+        public static readonly Vector64<T> VMinInt32;
         // -- Reciprocal number --
         /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal127;
+        public static readonly Vector64<T> VReciprocalMaxSByte;
         /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal255;
+        public static readonly Vector64<T> VReciprocalMaxByte;
         /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal32767;
+        public static readonly Vector64<T> VReciprocalMaxInt16;
         /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal65535;
+        public static readonly Vector64<T> VReciprocalMaxUInt16;
         /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal2147483647;
+        public static readonly Vector64<T> VReciprocalMaxInt32;
         /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="ElementFixedShift"/> convention (当类型为整数时, 是使用 <see cref="ElementFixedShift"/> 约定的定点数).</summary>
-        public static readonly Vector64<T> VReciprocal4294967295;
+        public static readonly Vector64<T> VReciprocalMaxUInt32;
         // -- Specified value --
         /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector64<T> Serial;
@@ -642,12 +642,12 @@ namespace Zyl.VectorTraits {
             V6 = Vector64s.Create<T>(ElementV6);
             V7 = Vector64s.Create<T>(ElementV7);
             V8 = Vector64s.Create<T>(ElementV8);
-            V127 = Vector64s.Create<T>(ElementV127);
-            V255 = Vector64s.Create<T>(ElementV255);
-            V32767 = Vector64s.Create<T>(ElementV32767);
-            V65535 = Vector64s.Create<T>(ElementV65535);
-            V2147483647 = Vector64s.Create<T>(ElementV2147483647);
-            V4294967295 = Vector64s.Create<T>(ElementV4294967295);
+            VMaxSByte = Vector64s.Create<T>(ElementVMaxSByte);
+            VMaxByte = Vector64s.Create<T>(ElementVMaxByte);
+            VMaxInt16 = Vector64s.Create<T>(ElementVMaxInt16);
+            VMaxUInt16 = Vector64s.Create<T>(ElementVMaxUInt16);
+            VMaxInt32 = Vector64s.Create<T>(ElementVMaxInt32);
+            VMaxUInt32 = Vector64s.Create<T>(ElementVMaxUInt32);
             // -- Negative number  --
             V_1 = Vector64s.Create<T>(ElementV_1);
             V_2 = Vector64s.Create<T>(ElementV_2);
@@ -657,16 +657,16 @@ namespace Zyl.VectorTraits {
             V_6 = Vector64s.Create<T>(ElementV_6);
             V_7 = Vector64s.Create<T>(ElementV_7);
             V_8 = Vector64s.Create<T>(ElementV_8);
-            V_128 = Vector64s.Create<T>(ElementV_128);
-            V_32768 = Vector64s.Create<T>(ElementV_32768);
-            V_2147483648 = Vector64s.Create<T>(ElementV_2147483648);
+            VMinSByte = Vector64s.Create<T>(ElementVMinSByte);
+            VMinInt16 = Vector64s.Create<T>(ElementVMinInt16);
+            VMinInt32 = Vector64s.Create<T>(ElementVMinInt32);
             // -- Reciprocal number  --
-            VReciprocal127 = Vector64s.Create<T>(ElementVReciprocal127);
-            VReciprocal255 = Vector64s.Create<T>(ElementVReciprocal255);
-            VReciprocal32767 = Vector64s.Create<T>(ElementVReciprocal32767);
-            VReciprocal65535 = Vector64s.Create<T>(ElementVReciprocal65535);
-            VReciprocal2147483647 = Vector64s.Create<T>(ElementVReciprocal2147483647);
-            VReciprocal4294967295 = Vector64s.Create<T>(ElementVReciprocal4294967295);
+            VReciprocalMaxSByte = Vector64s.Create<T>(ElementVReciprocalMaxSByte);
+            VReciprocalMaxByte = Vector64s.Create<T>(ElementVReciprocalMaxByte);
+            VReciprocalMaxInt16 = Vector64s.Create<T>(ElementVReciprocalMaxInt16);
+            VReciprocalMaxUInt16 = Vector64s.Create<T>(ElementVReciprocalMaxUInt16);
+            VReciprocalMaxInt32 = Vector64s.Create<T>(ElementVReciprocalMaxInt32);
+            VReciprocalMaxUInt32 = Vector64s.Create<T>(ElementVReciprocalMaxUInt32);
             // -- Specified value --
             Serial = Vector64s.CreateByDoubleLoop<T>(0, 1);
             SerialDesc = Vector64s.CreateByDoubleLoop<T>(Vector64<T>.Count - 1, -1);

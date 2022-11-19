@@ -293,17 +293,17 @@ namespace Zyl.VectorTraits {
         /// <summary>Value 8 .</summary>
         public static readonly T V8;
         /// <summary>Value 127 (SByte.MaxValue).</summary>
-        public static readonly T V127;
+        public static readonly T VMaxSByte;
         /// <summary>Value 255 (Byte.MaxValue).</summary>
-        public static readonly T V255;
+        public static readonly T VMaxByte;
         /// <summary>Value 32767 (Int16.MaxValue) .</summary>
-        public static readonly T V32767;
+        public static readonly T VMaxInt16;
         /// <summary>Value 65535 (UInt16.MaxValue) .</summary>
-        public static readonly T V65535;
+        public static readonly T VMaxUInt16;
         /// <summary>Value 2147483647 (Int32.MaxValue) .</summary>
-        public static readonly T V2147483647;
+        public static readonly T VMaxInt32;
         /// <summary>Value 4294967295 (UInt32.MaxValue) .</summary>
-        public static readonly T V4294967295;
+        public static readonly T VMaxUInt32;
         // -- Negative number --
         /// <summary>Value -1 . When the type is unsigned integer, the value is a signed cast value (当类型为无符号整型时，值为带符号强制转换值). Example: '(Byte)(-1)=255' .</summary>
         public static readonly T V_1;
@@ -322,24 +322,24 @@ namespace Zyl.VectorTraits {
         /// <summary>Value -8 .</summary>
         public static readonly T V_8;
         /// <summary>Value -128 (SByte.MinValue).</summary>
-        public static readonly T V_128;
+        public static readonly T VMinSByte;
         /// <summary>Value -32768 (Int16.MinValue) .</summary>
-        public static readonly T V_32768;
+        public static readonly T VMinInt16;
         /// <summary>Value -2147483648 (Int32.MinValue) .</summary>
-        public static readonly T V_2147483648;
+        public static readonly T VMinInt32;
         // -- Reciprocal number --
         /// <summary>Reciprocal value: 1/127 (SByte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal127;
+        public static readonly T VReciprocalMaxSByte;
         /// <summary>Reciprocal value: 1/255 (Byte.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal255;
+        public static readonly T VReciprocalMaxByte;
         /// <summary>Reciprocal value: 1/32767 (Int16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal32767;
+        public static readonly T VReciprocalMaxInt16;
         /// <summary>Reciprocal value: 1/65535 (UInt16.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal65535;
+        public static readonly T VReciprocalMaxUInt16;
         /// <summary>Reciprocal value: 1/2147483647 (Int32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal2147483647;
+        public static readonly T VReciprocalMaxInt32;
         /// <summary>Reciprocal value: 1/4294967295 (UInt32.MaxValue). When the type is an integer, it is a fixed point number using the <see cref="FixedShift"/> convention (当类型为整数时, 是使用 <see cref="FixedShift"/> 约定的定点数).</summary>
-        public static readonly T VReciprocal4294967295;
+        public static readonly T VReciprocalMaxUInt32;
 
         /// <summary>
         /// Static constructor.
@@ -658,12 +658,12 @@ namespace Zyl.VectorTraits {
             V6 = Scalars.GetByDouble<T>(6);
             V7 = Scalars.GetByDouble<T>(7);
             V8 = Scalars.GetByDouble<T>(8);
-            V127 = Scalars.GetByDouble<T>(127);
-            V255 = Scalars.GetByDouble<T>(255);
-            V32767 = Scalars.GetByDouble<T>(32767);
-            V65535 = Scalars.GetByDouble<T>(65535);
-            V2147483647 = Scalars.GetByDouble<T>(2147483647);
-            V4294967295 = Scalars.GetByDouble<T>(4294967295);
+            VMaxSByte = Scalars.GetByDouble<T>(127);
+            VMaxByte = Scalars.GetByDouble<T>(255);
+            VMaxInt16 = Scalars.GetByDouble<T>(32767);
+            VMaxUInt16 = Scalars.GetByDouble<T>(65535);
+            VMaxInt32 = Scalars.GetByDouble<T>(2147483647);
+            VMaxUInt32 = Scalars.GetByDouble<T>(4294967295);
             // -- Negative number  --
             V_1 = Scalars.GetByDouble<T>(-1);
             V_2 = Scalars.GetByDouble<T>(-2);
@@ -673,16 +673,16 @@ namespace Zyl.VectorTraits {
             V_6 = Scalars.GetByDouble<T>(-6);
             V_7 = Scalars.GetByDouble<T>(-7);
             V_8 = Scalars.GetByDouble<T>(-8);
-            V_128 = Scalars.GetByDouble<T>(-128);
-            V_32768 = Scalars.GetByDouble<T>(-32768);
-            V_2147483648 = Scalars.GetByDouble<T>(-2147483648);
+            VMinSByte = Scalars.GetByDouble<T>(-128);
+            VMinInt16 = Scalars.GetByDouble<T>(-32768);
+            VMinInt32 = Scalars.GetByDouble<T>(-2147483648);
             // -- Reciprocal number  --
-            VReciprocal127 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 127, FixedOneDouble);
-            VReciprocal255 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 255, FixedOneDouble);
-            VReciprocal32767 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 32767, FixedOneDouble);
-            VReciprocal65535 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 65535, FixedOneDouble);
-            VReciprocal2147483647 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 2147483647, FixedOneDouble);
-            VReciprocal4294967295 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 4294967295, FixedOneDouble);
+            VReciprocalMaxSByte = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 127, FixedOneDouble);
+            VReciprocalMaxByte = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 255, FixedOneDouble);
+            VReciprocalMaxInt16 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 32767, FixedOneDouble);
+            VReciprocalMaxUInt16 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 65535, FixedOneDouble);
+            VReciprocalMaxInt32 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 2147483647, FixedOneDouble);
+            VReciprocalMaxUInt32 = Scalars.GetFixedByDoubleUseOne<T>(1.0 / 4294967295, FixedOneDouble);
         }
 
     }
