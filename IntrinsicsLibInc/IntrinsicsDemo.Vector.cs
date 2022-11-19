@@ -432,7 +432,7 @@ namespace IntrinsicsLib {
                 WriteLine(tw, indent, "Negate(Vectors<Int64>.Demo):\t{0}", Vector.Negate(Vectors<Int64>.Demo));
                 WriteLine(tw, indent, "Negate(Vectors<UInt64>.Demo):\t{0}", Vector.Negate(Vectors<UInt64>.Demo));
 
-                //BaseOnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
+                //OnesComplement<T>(Vector<T>) Returns a new vector whose elements are obtained by taking the one's complement of a specified vector's elements.
                 WriteLine(tw, indent, "BaseOnesComplement(Vectors<Single>.Demo):\t{0}", Vector.OnesComplement(Vectors<Single>.Demo));
                 WriteLine(tw, indent, "BaseOnesComplement(Vectors<Double>.Demo):\t{0}", Vector.OnesComplement(Vectors<Double>.Demo));
                 WriteLine(tw, indent, "BaseOnesComplement(Vectors<SByte>.Demo):\t{0}", Vector.OnesComplement(Vectors<SByte>.Demo));
@@ -672,6 +672,7 @@ namespace IntrinsicsLib {
             //tw.WriteLine(indent + string.Format("Vector256<Half>.Count:\t{0}", Vector256<Half>.Count));
 
             // -- Methods --
+            int shift;
             unchecked {
                 //Debugger.Break();
                 // Abs<T>(Vector256<T>)	
@@ -1053,7 +1054,8 @@ namespace IntrinsicsLib {
                 // Gets the element at the specified index.
                 // Ignore.
                 if (true) {
-                    int shift = 1;
+                    shift = 1;
+                    WriteLine(tw, indent, "shift:\t{0}", shift);
                     WriteLine(tw, indent, "GetElement(Vector256s<Single>.Demo, shift):\t{0}", Vector256.GetElement(Vector256s<Single>.Demo, shift));
                     WriteLine(tw, indent, "GetElement(Vector256s<Double>.Demo, shift):\t{0}", Vector256.GetElement(Vector256s<Double>.Demo, shift));
                     WriteLine(tw, indent, "GetElement(Vector256s<SByte>.Demo, shift):\t{0}", Vector256.GetElement(Vector256s<SByte>.Demo, shift));
@@ -1096,24 +1098,71 @@ namespace IntrinsicsLib {
 
                 // GreaterThan<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine which is greater on a per-element basis.
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.GreaterThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.GreaterThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.GreaterThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.GreaterThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "GreaterThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.GreaterThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+
                 // GreaterThanAll<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if all elements are greater.
                 // GreaterThanAny<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if any elements are greater.
+
                 // GreaterThanOrEqual<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine which is greater or equal on a per-element basis.
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "GreaterThanOrEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.GreaterThanOrEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+
                 // GreaterThanOrEqualAll<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if all elements are greater or equal.
                 // GreaterThanOrEqualAny<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if any elements are greater or equal.
+
                 // LessThan<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine which is less on a per-element basis.
+                WriteLine(tw, indent, "LessThan(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.LessThan(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.LessThan(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.LessThan(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.LessThan(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.LessThan(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.LessThan(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.LessThan(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.LessThan(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.LessThan(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "LessThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.LessThan(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+
                 // LessThanAll<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if all elements are less.
                 // LessThanAny<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if any elements are less.
+
                 // LessThanOrEqual<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine which is less or equal on a per-element basis.
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "LessThanOrEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.LessThanOrEqual(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+
                 // LessThanOrEqualAll<T>(Vector256<T>, Vector256<T>)	
                 // Compares two vectors to determine if all elements are less or equal.
                 // LessThanOrEqualAny<T>(Vector256<T>, Vector256<T>)	
@@ -1133,14 +1182,49 @@ namespace IntrinsicsLib {
 
                 // Max<T>(Vector256<T>, Vector256<T>)	
                 // Computes the maximum of two vectors on a per-element basis.
+                WriteLine(tw, indent, "Max(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.Max(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.Max(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.Max(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.Max(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.Max(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.Max(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.Max(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.Max(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "Max(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.Max(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+
                 // Min<T>(Vector256<T>, Vector256<T>)	
                 // Computes the minimum of two vectors on a per-element basis.
+                WriteLine(tw, indent, "Min(Vector256s<Single>.Demo, Vector256s<Single>.V0):\t{0}", Vector256.Min(Vector256s<Single>.Demo, Vector256s<Single>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<Double>.Demo, Vector256s<Double>.V0):\t{0}", Vector256.Min(Vector256s<Double>.Demo, Vector256s<Double>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<SByte>.Demo, Vector256s<SByte>.V0):\t{0}", Vector256.Min(Vector256s<SByte>.Demo, Vector256s<SByte>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<Byte>.Demo, Vector256s<Byte>.V0):\t{0}", Vector256.Min(Vector256s<Byte>.Demo, Vector256s<Byte>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<Int16>.Demo, Vector256s<Int16>.V0):\t{0}", Vector256.Min(Vector256s<Int16>.Demo, Vector256s<Int16>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0):\t{0}", Vector256.Min(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<Int32>.Demo, Vector256s<Int32>.V0):\t{0}", Vector256.Min(Vector256s<Int32>.Demo, Vector256s<Int32>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0):\t{0}", Vector256.Min(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V0):\t{0}", Vector256.Min(Vector256s<Int64>.Demo, Vector256s<Int64>.V0));
+                WriteLine(tw, indent, "Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0):\t{0}", Vector256.Min(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V0));
+                // limit to [0, 255].
+                WriteLine(tw, indent, "Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.V255)):\t{0}", Vector256.Min(Vector256.Max(Vector256s<Single>.Demo, Vector256s<Single>.V0), Vector256s<Single>.V255));
+
                 // Multiply<T>(T, Vector256<T>)	
                 // Multiplies a vector by a scalar to compute their product.
                 // Multiply<T>(Vector256<T>, T)	
                 // Multiplies a vector by a scalar to compute their product.
                 // Multiply<T>(Vector256<T>, Vector256<T>)	
                 // Multiplies two vectors to compute their element-wise product.
+                WriteLine(tw, indent, "Multiply(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Vector256.Multiply(Vector256s<Single>.Demo, Vector256s<Single>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Vector256.Multiply(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Vector256.Multiply(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Vector256.Multiply(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Vector256.Multiply(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Vector256.Multiply(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Vector256.Multiply(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Vector256.Multiply(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Vector256.Multiply(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
+                WriteLine(tw, indent, "Multiply(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Vector256.Multiply(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+
                 // Narrow(Vector256<Double>, Vector256<Double>)	
                 // Narrows two Vector256<T> instances into one Vector256<T>.
                 // Narrow(Vector256<Int16>, Vector256<Int16>)	
@@ -1155,10 +1239,40 @@ namespace IntrinsicsLib {
                 // Narrows two Vector256<T> instances into one Vector256<T>.
                 // Narrow(Vector256<UInt64>, Vector256<UInt64>)	
                 // Narrows two Vector256<T> instances into one Vector256<T>.
+                WriteLine(tw, indent, "Narrow(Vector256s<Double>.Demo, Vector256s<Double>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<Double>.Demo, Vector256s<Double>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<Int16>.Demo, Vector256s<Int16>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<Int16>.Demo, Vector256s<Int16>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<Int64>.Demo, Vector256s<Int64>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<Int64>.Demo, Vector256s<Int64>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<UInt16>.Demo, Vector256s<UInt16>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialNegative));
+                WriteLine(tw, indent, "Narrow(Vector256s<UInt64>.Demo, Vector256s<UInt64>.SerialNegative):\t{0}", Vector256.Narrow(Vector256s<UInt64>.Demo, Vector256s<UInt64>.SerialNegative));
+
                 // Negate<T>(Vector256<T>)	
                 // Negates a vector.
-                // BaseOnesComplement<T>(Vector256<T>)	
+                WriteLine(tw, indent, "Negate(Vector256s<Single>.Demo):\t{0}", Vector256.Negate(Vector256s<Single>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<Double>.Demo):\t{0}", Vector256.Negate(Vector256s<Double>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<SByte>.Demo):\t{0}", Vector256.Negate(Vector256s<SByte>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<Byte>.Demo):\t{0}", Vector256.Negate(Vector256s<Byte>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<Int16>.Demo):\t{0}", Vector256.Negate(Vector256s<Int16>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<UInt16>.Demo):\t{0}", Vector256.Negate(Vector256s<UInt16>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<Int32>.Demo):\t{0}", Vector256.Negate(Vector256s<Int32>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<UInt32>.Demo):\t{0}", Vector256.Negate(Vector256s<UInt32>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<Int64>.Demo):\t{0}", Vector256.Negate(Vector256s<Int64>.Demo));
+                WriteLine(tw, indent, "Negate(Vector256s<UInt64>.Demo):\t{0}", Vector256.Negate(Vector256s<UInt64>.Demo));
+
+                // OnesComplement<T>(Vector256<T>)	
                 // Computes the ones-complement of a vector.
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Single>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Single>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Double>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Double>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<SByte>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<SByte>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Byte>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Byte>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Int16>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Int16>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<UInt16>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<UInt16>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Int32>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Int32>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<UInt32>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<UInt32>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<Int64>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<Int64>.Demo));
+                WriteLine(tw, indent, "OnesComplement(Vector256s<UInt64>.Demo):\t{0}", Vector256.OnesComplement(Vector256s<UInt64>.Demo));
+
                 // ShiftLeft(Vector256<Byte>, Int32)	
                 // Shifts each element of a vector left by the specified amount.
                 // ShiftLeft(Vector256<Int16>, Int32)	
@@ -1179,6 +1293,19 @@ namespace IntrinsicsLib {
                 // Shifts each element of a vector left by the specified amount.
                 // ShiftLeft(Vector256<UIntPtr>, Int32)	
                 // Shifts each element of a vector left by the specified amount.
+                shift = 4;
+                WriteLine(tw, indent, "shift:\t{0}", shift);
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<SByte>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<Byte>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<Byte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<Int16>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<UInt16>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<UInt16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<Int32>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<UInt32>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<UInt32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<Int64>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<UInt64>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<UInt64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<IntPtr>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<IntPtr>.Demo, shift));
+                WriteLine(tw, indent, "ShiftLeft(Vector256s<UIntPtr>.Demo, shift):\t{0}", Vector256.ShiftLeft(Vector256s<UIntPtr>.Demo, shift));
+
                 // ShiftRightArithmetic(Vector256<Int16>, Int32)	
                 // Shifts (signed) each element of a vector right by the specified amount.
                 // ShiftRightArithmetic(Vector256<Int32>, Int32)	
@@ -1189,6 +1316,12 @@ namespace IntrinsicsLib {
                 // Shifts (signed) each element of a vector right by the specified amount.
                 // ShiftRightArithmetic(Vector256<SByte>, Int32)	
                 // Shifts (signed) each element of a vector right by the specified amount.
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vector256s<SByte>.Demo, shift):\t{0}", Vector256.ShiftRightArithmetic(Vector256s<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vector256s<Int16>.Demo, shift):\t{0}", Vector256.ShiftRightArithmetic(Vector256s<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vector256s<Int32>.Demo, shift):\t{0}", Vector256.ShiftRightArithmetic(Vector256s<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vector256s<Int64>.Demo, shift):\t{0}", Vector256.ShiftRightArithmetic(Vector256s<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightArithmetic(Vector256s<IntPtr>.Demo, shift):\t{0}", Vector256.ShiftRightArithmetic(Vector256s<IntPtr>.Demo, shift));
+
                 // ShiftRightLogical(Vector256<Byte>, Int32)	
                 // Shifts (unsigned) each element of a vector right by the specified amount.
                 // ShiftRightLogical(Vector256<Int16>, Int32)	
@@ -1209,7 +1342,17 @@ namespace IntrinsicsLib {
                 // Shifts (unsigned) each element of a vector right by the specified amount.
                 // ShiftRightLogical(Vector256<UIntPtr>, Int32)	
                 // Shifts (unsigned) each element of a vector right by the specified amount.
-                
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<SByte>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<SByte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<Byte>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<Byte>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<Int16>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<Int16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<UInt16>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<UInt16>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<Int32>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<Int32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<UInt32>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<UInt32>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<Int64>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<Int64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<UInt64>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<UInt64>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<IntPtr>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<IntPtr>.Demo, shift));
+                WriteLine(tw, indent, "ShiftRightLogical(Vector256s<UIntPtr>.Demo, shift):\t{0}", Vector256.ShiftRightLogical(Vector256s<UIntPtr>.Demo, shift));
+
                 // Shuffle(Vector256<Byte>, Vector256<Byte>)	
                 // Creates a new vector by selecting values from an input vector using a set of indices.
                 // Shuffle(Vector256<Double>, Vector256<Int64>)	
@@ -1230,9 +1373,30 @@ namespace IntrinsicsLib {
                 // Creates a new vector by selecting values from an input vector using a set of indices.
                 // Shuffle(Vector256<UInt64>, Vector256<UInt64>)	
                 // Creates a new vector by selecting values from an input vector using a set of indices.
-                
+                WriteLine(tw, indent, "Shuffle(Vector256s<Single>.Demo, Vector256s<Int32>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Single>.Demo, Vector256s<Int32>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<Double>.Demo, Vector256s<Int64>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Double>.Demo, Vector256s<Int64>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<Int16>.Demo, Vector256s<Int16>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Int16>.Demo, Vector256s<Int16>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<UInt16>.Demo, Vector256s<UInt16>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<UInt16>.Demo, Vector256s<UInt16>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<Int64>.Demo, Vector256s<Int64>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<Int64>.Demo, Vector256s<Int64>.SerialDesc));
+                WriteLine(tw, indent, "Shuffle(Vector256s<UInt64>.Demo, Vector256s<UInt64>.SerialDesc):\t{0}", Vector256.Shuffle(Vector256s<UInt64>.Demo, Vector256s<UInt64>.SerialDesc));
+
                 // Sqrt<T>(Vector256<T>)	
                 // Computes the square root of a vector on a per-element basis.
+                WriteLine(tw, indent, "Sqrt(Vector256s<Single>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Single>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<Double>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Double>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<SByte>.Demo):\t{0}", Vector256.Sqrt(Vector256s<SByte>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<Byte>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Byte>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<Int16>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Int16>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<UInt16>.Demo):\t{0}", Vector256.Sqrt(Vector256s<UInt16>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<Int32>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Int32>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<UInt32>.Demo):\t{0}", Vector256.Sqrt(Vector256s<UInt32>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<Int64>.Demo):\t{0}", Vector256.Sqrt(Vector256s<Int64>.Demo));
+                WriteLine(tw, indent, "Sqrt(Vector256s<UInt64>.Demo):\t{0}", Vector256.Sqrt(Vector256s<UInt64>.Demo));
+
                 // Store<T>(Vector256<T>, T*)	
                 // Stores a vector at the given destination.
                 // StoreAligned<T>(Vector256<T>, T*)	
@@ -1243,14 +1407,51 @@ namespace IntrinsicsLib {
                 // Stores a vector at the given destination.
                 // StoreUnsafe<T>(Vector256<T>, T, UIntPtr)	
                 // Stores a vector at the given destination.
+                // Ignore.
+
                 // Subtract<T>(Vector256<T>, Vector256<T>)	
                 // Subtracts two vectors to compute their difference.
+                WriteLine(tw, indent, "Subtract(Vector256s<Single>.Demo, Vector256s<Single>.V2):\t{0}", Vector256.Subtract(Vector256s<Single>.Demo, Vector256s<Single>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<Double>.Demo, Vector256s<Double>.V2):\t{0}", Vector256.Subtract(Vector256s<Double>.Demo, Vector256s<Double>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<SByte>.Demo, Vector256s<SByte>.V2):\t{0}", Vector256.Subtract(Vector256s<SByte>.Demo, Vector256s<SByte>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<Byte>.Demo, Vector256s<Byte>.V2):\t{0}", Vector256.Subtract(Vector256s<Byte>.Demo, Vector256s<Byte>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2):\t{0}", Vector256.Subtract(Vector256s<Int16>.Demo, Vector256s<Int16>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2):\t{0}", Vector256.Subtract(Vector256s<UInt16>.Demo, Vector256s<UInt16>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2):\t{0}", Vector256.Subtract(Vector256s<Int32>.Demo, Vector256s<Int32>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2):\t{0}", Vector256.Subtract(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<Int64>.Demo, Vector256s<Int64>.V2):\t{0}", Vector256.Subtract(Vector256s<Int64>.Demo, Vector256s<Int64>.V2));
+                WriteLine(tw, indent, "Subtract(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2):\t{0}", Vector256.Subtract(Vector256s<UInt64>.Demo, Vector256s<UInt64>.V2));
+
                 // Sum<T>(Vector256<T>)	
                 // Computes the sum of all elements in a vector.
+                WriteLine(tw, indent, "Sum(Vector256s<Single>.Demo):\t{0}", Vector256.Sum(Vector256s<Single>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<Double>.Demo):\t{0}", Vector256.Sum(Vector256s<Double>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<SByte>.Demo):\t{0}", Vector256.Sum(Vector256s<SByte>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<Byte>.Demo):\t{0}", Vector256.Sum(Vector256s<Byte>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<Int16>.Demo):\t{0}", Vector256.Sum(Vector256s<Int16>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<UInt16>.Demo):\t{0}", Vector256.Sum(Vector256s<UInt16>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<Int32>.Demo):\t{0}", Vector256.Sum(Vector256s<Int32>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<UInt32>.Demo):\t{0}", Vector256.Sum(Vector256s<UInt32>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<Int64>.Demo):\t{0}", Vector256.Sum(Vector256s<Int64>.Demo));
+                WriteLine(tw, indent, "Sum(Vector256s<UInt64>.Demo):\t{0}", Vector256.Sum(Vector256s<UInt64>.Demo));
+
                 // ToScalar<T>(Vector256<T>)	
                 // Converts the given vector to a scalar containing the value of the first element.
+                WriteLine(tw, indent, "ToScalar(Vector256s<Single>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Single>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<Double>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Double>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<SByte>.Demo):\t{0}", Vector256.ToScalar(Vector256s<SByte>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<Byte>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Byte>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<Int16>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Int16>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<UInt16>.Demo):\t{0}", Vector256.ToScalar(Vector256s<UInt16>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<Int32>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Int32>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<UInt32>.Demo):\t{0}", Vector256.ToScalar(Vector256s<UInt32>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<Int64>.Demo):\t{0}", Vector256.ToScalar(Vector256s<Int64>.Demo));
+                WriteLine(tw, indent, "ToScalar(Vector256s<UInt64>.Demo):\t{0}", Vector256.ToScalar(Vector256s<UInt64>.Demo));
+
                 // TryCopyTo<T>(Vector256<T>, Span<T>)	
                 // Tries to copy a Vector<T> to a given span.
+                // Ignore.
+
                 // Widen(Vector256<Byte>)	
                 // Widens a Vector256<T> into two Vector256<T>.
                 // Widen(Vector256<Int16>)	
@@ -1265,14 +1466,92 @@ namespace IntrinsicsLib {
                 // Widens a Vector256<T> into two Vector256<T>.
                 // Widen(Vector256<UInt32>)	
                 // Widens a Vector256<T> into two Vector256<T>.
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<Single>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<Single>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<SByte>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<SByte>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<Byte>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<Byte>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<Int16>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<Int16>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<UInt16>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<UInt16>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<Int32>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<Int32>.Demo):\t{0}, {1}", low, high);
+                }
+                if (true) {
+                    (var low, var high) = Vector256.Widen(Vector256s<UInt32>.Demo);
+                    WriteLine(tw, indent, "Widen(Vector256s<UInt32>.Demo):\t{0}, {1}", low, high);
+                }
+
                 // WithElement<T>(Vector256<T>, Int32, T)	
                 // Creates a new Vector256<T> with the element at the specified index set to the specified value and the remaining elements set to the same value as that in the given vector.
+                if (true) {
+                    shift = 1;
+                    WriteLine(tw, indent, "shift:\t{0}", shift);
+                    WriteLine(tw, indent, "WithElement(Vector256s<Single>.Demo, shift):\t{0}", Vector256.WithElement(Vector256s<Single>.Demo, shift, Scalars<Single>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<Double>.Demo, shift, Scalars<Single>.V1):\t{0}", Vector256.WithElement(Vector256s<Double>.Demo, shift, Scalars<Single>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<SByte>.Demo, shift, Scalars<SByte>.V1):\t{0}", Vector256.WithElement(Vector256s<SByte>.Demo, shift, Scalars<SByte>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<Byte>.Demo, shift, Scalars<Byte>.V1):\t{0}", Vector256.WithElement(Vector256s<Byte>.Demo, shift, Scalars<Byte>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<Int16>.Demo, shift, Scalars<Int16>.V1):\t{0}", Vector256.WithElement(Vector256s<Int16>.Demo, shift, Scalars<Int16>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<UInt16>.Demo, shift, Scalars<UInt16>.V1):\t{0}", Vector256.WithElement(Vector256s<UInt16>.Demo, shift, Scalars<UInt16>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<Int32>.Demo, shift, Scalars<Int32>.V1):\t{0}", Vector256.WithElement(Vector256s<Int32>.Demo, shift, Scalars<Int32>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<UInt32>.Demo, shift, Scalars<UInt32>.V1):\t{0}", Vector256.WithElement(Vector256s<UInt32>.Demo, shift, Scalars<UInt32>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<Int64>.Demo, shift, Scalars<Int64>.V1):\t{0}", Vector256.WithElement(Vector256s<Int64>.Demo, shift, Scalars<Int64>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<UInt64>.Demo, shift, Scalars<UInt64>.V1):\t{0}", Vector256.WithElement(Vector256s<UInt64>.Demo, shift, Scalars<UInt64>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<IntPtr>.Demo, shift, Scalars<IntPtr>.V1):\t{0}", Vector256.WithElement(Vector256s<IntPtr>.Demo, shift, Scalars<IntPtr>.V1));
+                    WriteLine(tw, indent, "WithElement(Vector256s<UIntPtr>.Demo, shift, Scalars<UIntPtr>.V1):\t{0}", Vector256.WithElement(Vector256s<UIntPtr>.Demo, shift, Scalars<UIntPtr>.V1));
+                }
+
                 // WithLower<T>(Vector256<T>, Vector128<T>)	
                 // Creates a new Vector256<T> with the lower 128 bits set to the specified value and the upper 128 bits set to the same value as that in the given vector.
+                WriteLine(tw, indent, "WithLower(Vector256s<Single>.Demo, Vector128s<Single>.V2):\t{0}", Vector256.WithLower(Vector256s<Single>.Demo, Vector128s<Single>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<Double>.Demo, Vector128s<Double>.V2):\t{0}", Vector256.WithLower(Vector256s<Double>.Demo, Vector128s<Double>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<SByte>.Demo, Vector128s<SByte>.V2):\t{0}", Vector256.WithLower(Vector256s<SByte>.Demo, Vector128s<SByte>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<Byte>.Demo, Vector128s<Byte>.V2):\t{0}", Vector256.WithLower(Vector256s<Byte>.Demo, Vector128s<Byte>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<Int16>.Demo, Vector128s<Int16>.V2):\t{0}", Vector256.WithLower(Vector256s<Int16>.Demo, Vector128s<Int16>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<UInt16>.Demo, Vector128s<UInt16>.V2):\t{0}", Vector256.WithLower(Vector256s<UInt16>.Demo, Vector128s<UInt16>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<Int32>.Demo, Vector128s<Int32>.V2):\t{0}", Vector256.WithLower(Vector256s<Int32>.Demo, Vector128s<Int32>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<UInt32>.Demo, Vector128s<UInt32>.V2):\t{0}", Vector256.WithLower(Vector256s<UInt32>.Demo, Vector128s<UInt32>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<Int64>.Demo, Vector128s<Int64>.V2):\t{0}", Vector256.WithLower(Vector256s<Int64>.Demo, Vector128s<Int64>.V2));
+                WriteLine(tw, indent, "WithLower(Vector256s<UInt64>.Demo, Vector128s<UInt64>.V2):\t{0}", Vector256.WithLower(Vector256s<UInt64>.Demo, Vector128s<UInt64>.V2));
+
                 // WithUpper<T>(Vector256<T>, Vector128<T>)	
                 // Creates a new Vector256<T> with the upper 128 bits set to the specified value and the lower 128 bits set to the same value as that in the given vector.
+                WriteLine(tw, indent, "WithUpper(Vector256s<Single>.Demo, Vector128s<Single>.V2):\t{0}", Vector256.WithUpper(Vector256s<Single>.Demo, Vector128s<Single>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<Double>.Demo, Vector128s<Double>.V2):\t{0}", Vector256.WithUpper(Vector256s<Double>.Demo, Vector128s<Double>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<SByte>.Demo, Vector128s<SByte>.V2):\t{0}", Vector256.WithUpper(Vector256s<SByte>.Demo, Vector128s<SByte>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<Byte>.Demo, Vector128s<Byte>.V2):\t{0}", Vector256.WithUpper(Vector256s<Byte>.Demo, Vector128s<Byte>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<Int16>.Demo, Vector128s<Int16>.V2):\t{0}", Vector256.WithUpper(Vector256s<Int16>.Demo, Vector128s<Int16>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<UInt16>.Demo, Vector128s<UInt16>.V2):\t{0}", Vector256.WithUpper(Vector256s<UInt16>.Demo, Vector128s<UInt16>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<Int32>.Demo, Vector128s<Int32>.V2):\t{0}", Vector256.WithUpper(Vector256s<Int32>.Demo, Vector128s<Int32>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<UInt32>.Demo, Vector128s<UInt32>.V2):\t{0}", Vector256.WithUpper(Vector256s<UInt32>.Demo, Vector128s<UInt32>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<Int64>.Demo, Vector128s<Int64>.V2):\t{0}", Vector256.WithUpper(Vector256s<Int64>.Demo, Vector128s<Int64>.V2));
+                WriteLine(tw, indent, "WithUpper(Vector256s<UInt64>.Demo, Vector128s<UInt64>.V2):\t{0}", Vector256.WithUpper(Vector256s<UInt64>.Demo, Vector128s<UInt64>.V2));
+
                 // Xor<T>(Vector256<T>, Vector256<T>)	
                 // Computes the exclusive-or of two vectors.
+                WriteLine(tw, indent, "Xor(Vector256s<Single>.Demo, Vector256s<Single>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Single>.Demo, Vector256s<Single>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<Double>.Demo, Vector256s<Double>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Double>.Demo, Vector256s<Double>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<SByte>.Demo, Vector256s<SByte>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<SByte>.Demo, Vector256s<SByte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<Byte>.Demo, Vector256s<Byte>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Byte>.Demo, Vector256s<Byte>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<Int16>.Demo, Vector256s<Int16>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Int16>.Demo, Vector256s<Int16>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<UInt16>.Demo, Vector256s<UInt16>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<UInt16>.Demo, Vector256s<UInt16>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<Int32>.Demo, Vector256s<Int32>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Int32>.Demo, Vector256s<Int32>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<UInt32>.Demo, Vector256s<UInt32>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<UInt32>.Demo, Vector256s<UInt32>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<Int64>.Demo, Vector256s<Int64>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<Int64>.Demo, Vector256s<Int64>.XyzwWMask));
+                WriteLine(tw, indent, "Xor(Vector256s<UInt64>.Demo, Vector256s<UInt64>.XyzwWMask):\t{0}", Vector256.Xor(Vector256s<UInt64>.Demo, Vector256s<UInt64>.XyzwWMask));
             }
 
 #else
