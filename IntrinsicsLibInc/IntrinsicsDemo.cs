@@ -29,7 +29,7 @@ namespace IntrinsicsLib {
 #endif
         ;
 
-        public static bool ShowFull = true;
+        public static bool ShowFull = false;
 
         // srcArray: array.
         private const int srcArraySize = 256;
@@ -88,7 +88,7 @@ namespace IntrinsicsLib {
         public static void Run(TextWriter writer, string indent) {
             try {
                 RunCommon(writer, indent);
-                //RunX86(writer, indent);
+                RunX86(writer, indent);
                 RunArm(writer, indent);
             } catch (Exception ex) {
                 writer.WriteLine(ex);

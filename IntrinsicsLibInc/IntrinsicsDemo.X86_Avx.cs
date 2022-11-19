@@ -2361,9 +2361,9 @@ namespace IntrinsicsLib {
             // VPERMPS ymm, ymm/m256, ymm
             // PermuteVar8x32(Vector256<UInt32>, Vector256<UInt32>)	__m256i _mm256_permutevar8x32_epi32 (__m256i a, __m256i idx)
             // VPERMD ymm, ymm/m256, ymm
-            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.Serial));
-            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.Serial));
-            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.Serial):\t{0}", Avx2.PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.Serial));
+            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.SerialDesc):\t{0}", Avx2.PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.SerialDesc));
+            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialDesc):\t{0}", Avx2.PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.SerialDesc));
+            WriteLine(writer, indent, "PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialDesc):\t{0}", Avx2.PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.SerialDesc));
             WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<Single>.Demo, Vector256s<Int32>.V1));
             WriteLine(writer, indent, "PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<Int32>.Demo, Vector256s<Int32>.V1));
             WriteLine(writer, indent, "PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V1):\t{0}", Avx2.PermuteVar8x32(Vector256s<UInt32>.Demo, Vector256s<UInt32>.V1));
@@ -2694,8 +2694,8 @@ namespace IntrinsicsLib {
             // VPSHUFB ymm, ymm, ymm/m256
             // Shuffle(Vector256<UInt32>, Byte)	__m256i _mm256_shuffle_epi32 (__m256i a, const int imm8)
             // VPSHUFD ymm, ymm/m256, imm8
-            WriteLine(writer, indent, "Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial):\t{0}", Avx2.Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.Serial));
-            WriteLine(writer, indent, "Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.Serial):\t{0}", Avx2.Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.Serial));
+            WriteLine(writer, indent, "Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.SerialDesc):\t{0}", Avx2.Shuffle(Vector256s<Byte>.Demo, Vector256s<Byte>.SerialDesc));
+            WriteLine(writer, indent, "Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.SerialDesc):\t{0}", Avx2.Shuffle(Vector256s<SByte>.Demo, Vector256s<SByte>.SerialDesc));
             // Shuffle int - control: Reverse order based on 128 bits.
             WriteLine(writer, indent, "Shuffle(Vector256s<Int32>.Demo, 0b0001_1011):\t{0}", Avx2.Shuffle(Vector256s<Int32>.Demo, 0b0001_1011));
             WriteLine(writer, indent, "Shuffle(Vector256s<UInt32>.Demo, 0b0001_1011):\t{0}", Avx2.Shuffle(Vector256s<UInt32>.Demo, 0b0001_1011));
