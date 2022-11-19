@@ -83,7 +83,7 @@ namespace Zyl.VectorTraits {
             if (typeof(T) == typeof(Single)) {
                 return (T)(object)BitUtil.Int32BitsToSingle((Int32)src);
             } else if (typeof(T) == typeof(Double)) {
-                return (T)(object)BitConverter.Int64BitsToDouble(src);
+                return (T)(object)BitUtil.Int64BitsToDouble(src);
             } else if (typeof(T) == typeof(SByte)) {
                 return (T)(object)(SByte)src;
             } else if (typeof(T) == typeof(Int16)) {
@@ -123,7 +123,7 @@ namespace Zyl.VectorTraits {
             if (typeof(T) == typeof(Single)) {
                 return (Int64)BitUtil.SingleToInt32Bits((Single)(object)src);
             } else if (typeof(T) == typeof(Double)) {
-                return (Int64)BitConverter.DoubleToInt64Bits((Double)(object)src);
+                return (Int64)BitUtil.DoubleToInt64Bits((Double)(object)src);
             } else if (typeof(T) == typeof(SByte)) {
                 return (Int64)(SByte)(object)src;
             } else if (typeof(T) == typeof(Int16)) {
@@ -373,12 +373,12 @@ namespace Zyl.VectorTraits {
                     SignBits = 1;
                     ExponentBits = 11;
                     MantissaBits = 52;
-                    SignMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x8000000000000000L);
-                    ExponentMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x7FF0000000000000L);
-                    MantissaMask = (T)(object)BitConverter.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL);
-                    NonSignMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x8000000000000000L);
-                    NonExponentMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x7FF0000000000000L);
-                    NonMantissaMask = (T)(object)BitConverter.Int64BitsToDouble(~(Int64)0x000FFFFFFFFFFFFFL);
+                    SignMask = (T)(object)BitUtil.Int64BitsToDouble((Int64)0x8000000000000000L);
+                    ExponentMask = (T)(object)BitUtil.Int64BitsToDouble((Int64)0x7FF0000000000000L);
+                    MantissaMask = (T)(object)BitUtil.Int64BitsToDouble((Int64)0x000FFFFFFFFFFFFFL);
+                    NonSignMask = (T)(object)BitUtil.Int64BitsToDouble(~(Int64)0x8000000000000000L);
+                    NonExponentMask = (T)(object)BitUtil.Int64BitsToDouble(~(Int64)0x7FF0000000000000L);
+                    NonMantissaMask = (T)(object)BitUtil.Int64BitsToDouble(~(Int64)0x000FFFFFFFFFFFFFL);
                     Epsilon = (T)(object)Double.Epsilon;
                     MaxValue = (T)(object)Double.MaxValue;
                     MinValue = (T)(object)Double.MinValue;

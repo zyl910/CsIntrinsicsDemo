@@ -306,7 +306,7 @@ namespace Zyl.VectorTraits {
             if (src is Single srcSingle) {
                 rt = BitUtil.SingleToInt32Bits(srcSingle).ToString(format, null);
             } else if (src is Double srcDouble) {
-                rt = BitConverter.DoubleToInt64Bits(srcDouble).ToString(format, null);
+                rt = BitUtil.DoubleToInt64Bits(srcDouble).ToString(format, null);
 #if NET5_0_OR_GREATER
             } else if (src is Half srcHalf) {
                 rt = BitUtil.HalfToInt16Bits(srcHalf).ToString(format, null);

@@ -103,6 +103,55 @@ namespace Zyl.VectorTraits {
             return Unsafe.As<UInt32, Single>(ref value);
 #endif // NET6_0_OR_GREATER
         }
+        /// <summary>
+        /// Converts a double-precision floating-point value into a 64-bit integer (将单精度浮点值转换为 64 位整数).
+        /// </summary>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 64-bit integer whose bits are identical to value (一个64位整数，表示转换的单精度浮点值).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Int64 DoubleToInt64Bits(Double value) {
+            return BitConverter.DoubleToInt64Bits(value);
+        }
+
+        /// <summary>
+        /// Converts a double-precision floating-point value into a 64-bit unsigned integer (将指定的单精度浮点数转换为 64 位无符号整数).
+        /// </summary>
+        /// <param name="value">The number to convert (欲转换的值).</param>
+        /// <returns>A 64-bit integer whose bits are identical to value (一个64位无符号整数，表示转换的单精度浮点值).</returns>
+        [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UInt64 DoubleToUInt64Bits(Double value) {
+#if NET6_0_OR_GREATER
+            return BitConverter.DoubleToUInt64Bits(value);
+#else
+            return Unsafe.As<Double, UInt64>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Reinterprets the specified 64-bit signed integer value as a double-precision floating-point value (将指定的 64 位有符号整数值重新解释为单精度浮点值).
+        /// </summary>
+        /// <param name="value">The 64-bit signed integer value to convert (欲转换的64位带符号整数值).</param>
+        /// <returns>A double-precision floating-point value that represents the converted integer (表示根据整数转换后的单精度浮点值).</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Double Int64BitsToDouble(Int64 value) {
+            return BitConverter.Int64BitsToDouble(value);
+        }
+
+        /// <summary>
+        /// Reinterprets the specified 64-bit unsigned integer value as a double-precision floating-point value (将指定的 64 位无符号整数转换为单精度浮点数).
+        /// </summary>
+        /// <param name="value">The 64-bit unsigned integer value to convert (欲转换的64位无符号整数值).</param>
+        /// <returns>A double-precision floating-point value that represents the converted integer (表示根据整数转换后的单精度浮点值).</returns>
+        [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Double UInt64BitsToDouble(UInt64 value) {
+#if NET6_0_OR_GREATER
+            return BitConverter.UInt64BitsToDouble(value);
+#else
+            return Unsafe.As<UInt64, Double>(ref value);
+#endif // NET6_0_OR_GREATER
+        }
 
 #if NET5_0_OR_GREATER
         /// <summary>
