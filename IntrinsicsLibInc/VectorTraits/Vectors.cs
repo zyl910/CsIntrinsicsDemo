@@ -654,6 +654,8 @@ namespace Zyl.VectorTraits {
         // -- Specified value --
         /// <summary>Serial Value (顺序值). e.g. 0, 1, 2, 3 ...</summary>
         public static readonly Vector<T> Serial;
+        /// <summary>Serial Value descend (顺序值降序). e.g. (Count-1), (Count-2), ... 2, 1, 0</summary>
+        public static readonly Vector<T> SerialDesc;
         /// <summary>Negative serial Value (负数顺序值). e.g. 0, -1, -2, -3 ...</summary>
         public static readonly Vector<T> SerialNegative;
         /// <summary>Demo Value (演示值). It is a value constructed for testing purposes (它是为测试目的而构造的值).</summary>
@@ -766,6 +768,7 @@ namespace Zyl.VectorTraits {
             VReciprocal4294967295 = Vectors.Create<T>(ElementVReciprocal4294967295);
             // -- Specified value --
             Serial = Vectors.CreateByDoubleLoop<T>(0, 1);
+            SerialDesc = Vectors.CreateByDoubleLoop<T>(Vector<T>.Count - 1, -1);
             SerialNegative = Vectors.CreateByDoubleLoop<T>(0, -1);
             Demo = Vectors.CreateByFunc<T>(Vectors.GenerateDemoElement<T>);
             int bitLen = ElementByteSize * 8;
