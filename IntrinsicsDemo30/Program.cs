@@ -6,12 +6,12 @@ namespace IntrinsicsDemo30 {
     class Program {
         static void Main(string[] args) {
             string indent = "";
-            TextWriter tw = Console.Out;
-            tw.WriteLine("IntrinsicsDemo30");
-            tw.WriteLine();
-            IntrinsicsDemo.OutputEnvironment(tw, indent);
-            tw.WriteLine();
-            IntrinsicsDemo.Run(tw, indent);
+            TextWriter writer = Console.Out;
+            writer.WriteLine("IntrinsicsDemo30");
+            writer.WriteLine();
+            IntrinsicsDemo.OutputEnvironment(writer, indent);
+            writer.WriteLine();
+            IntrinsicsDemo.Run(writer, indent);
         }
     }
 }
