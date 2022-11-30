@@ -10,6 +10,8 @@ namespace IntrinsicsDemo30 {
             writer.WriteLine("IntrinsicsDemo30");
             writer.WriteLine();
             IntrinsicsDemo.OutputEnvironment(writer, indent);
+            writer.WriteLine("(Press Any Key to Continue)");
+            Console.ReadKey();
             writer.WriteLine();
             IntrinsicsDemo.Run(writer, indent);
         }
