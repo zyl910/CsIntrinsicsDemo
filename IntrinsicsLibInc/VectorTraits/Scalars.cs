@@ -30,17 +30,17 @@ namespace Zyl.VectorTraits {
             } else if (typeof(T) == typeof(Int64)) {
                 return (T)(object)(Int64)src;
             } else if (typeof(T) == typeof(Byte)) {
-                return (T)(object)(Byte)src;
+                return (T)(object)((0 != (Byte)src) ? (Byte)src : (Byte)(SByte)src);
             } else if (typeof(T) == typeof(UInt16)) {
-                return (T)(object)(UInt16)src;
+                return (T)(object)((0 != (UInt16)src) ? (UInt16)src : (UInt16)(Int16)src);
             } else if (typeof(T) == typeof(UInt32)) {
-                return (T)(object)(UInt32)src;
+                return (T)(object)((0 != (UInt32)src) ? (UInt32)src : (UInt32)(Int32)src);
             } else if (typeof(T) == typeof(UInt64)) {
-                return (T)(object)(UInt64)src;
+                return (T)(object)((0 != (UInt64)src) ? (UInt64)src : (UInt64)(Int64)src);
             } else if (typeof(T) == typeof(IntPtr)) {
                 return (T)(object)(IntPtr)(long)src;
             } else if (typeof(T) == typeof(UIntPtr)) {
-                return (T)(object)(UIntPtr)(ulong)src;
+                return (T)(object)((0 != (UIntPtr)src) ? (UIntPtr)src : (UIntPtr)(IntPtr)src);
 #if NET5_0_OR_GREATER
             } else if (typeof(T) == typeof(Half)) {
                 return (T)(object)(Half)src;

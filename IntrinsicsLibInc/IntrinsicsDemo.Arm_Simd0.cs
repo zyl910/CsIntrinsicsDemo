@@ -6,6 +6,7 @@ using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.Arm;
 #endif // #if NET5_0_OR_GREATER
 using System.Text;
+using Zyl.VectorTraits;
 
 namespace IntrinsicsLib {
     partial class IntrinsicsDemo {
@@ -1174,6 +1175,7 @@ namespace IntrinsicsLib {
             // RoundToZeroScalar(Vector64<Single>)	float32_t vrnds_f32 (float32_t a); A32: VRINTZ.F32 Sd, Sm; A64: FRINTZ Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
         }
         public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
+            string indentNext = indent + IndentNextSeparator;
             // ShiftArithmetic(Vector128<Int16>, Vector128<Int16>)	int16x8_t vshlq_s16 (int16x8_t a, int16x8_t b); A32: VSHL.S16 Qd, Qn, Qm; A64: SSHL Vd.8H, Vn.8H, Vm.8H
             // ShiftArithmetic(Vector128<Int32>, Vector128<Int32>)	int32x4_t vshlq_s32 (int32x4_t a, int32x4_t b); A32: VSHL.S32 Qd, Qn, Qm; A64: SSHL Vd.4S, Vn.4S, Vm.4S
             // ShiftArithmetic(Vector128<Int64>, Vector128<Int64>)	int64x2_t vshlq_s64 (int64x2_t a, int64x2_t b); A32: VSHL.S64 Qd, Qn, Qm; A64: SSHL Vd.2D, Vn.2D, Vm.2D
@@ -1353,6 +1355,10 @@ namespace IntrinsicsLib {
             // ShiftRightAndInsert(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vsri_n_u32(uint32x2_t a, uint32x2_t b, __builtin_constant_p(n)); A32: VSRI.32 Dd, Dm, #n; A64: SRI Vd.2S, Vn.2S, #n
             // ShiftRightAndInsertScalar(Vector64<Int64>, Vector64<Int64>, Byte)	int64_t vsrid_n_s64(int64_t a, int64_t b, __builtin_constant_p(n)) A32: VSRI.64 Dd, Dm, #n A64: SRI Dd, Dn, #n
             // ShiftRightAndInsertScalar(Vector64<UInt64>, Vector64<UInt64>, Byte)	uint64_t vsrid_n_u64(uint64_t a, uint64_t b, __builtin_constant_p(n)) A32: VSRI.64 Dd, Dm, #n A64: SRI Dd, Dn, #n
+
+            // 1、Vector shift right by constant: vshr -> ri = ai >> b;The results are truncated. 
+            // right shifts each element in a vector by an immediate value, and places the results in the destination vector
+            // 将向量中的每个元素右移一个直接值，并将结果放在目标向量中.
             // ShiftRightArithmetic(Vector128<Int16>, Byte)	int16x8_t vshrq_n_s16 (int16x8_t a, const int n); A32: VSHR.S16 Qd, Qm, #n; A64: SSHR Vd.8H, Vn.8H, #n
             // ShiftRightArithmetic(Vector128<Int32>, Byte)	int32x4_t vshrq_n_s32 (int32x4_t a, const int n); A32: VSHR.S32 Qd, Qm, #n; A64: SSHR Vd.4S, Vn.4S, #n
             // ShiftRightArithmetic(Vector128<Int64>, Byte)	int64x2_t vshrq_n_s64 (int64x2_t a, const int n); A32: VSHR.S64 Qd, Qm, #n; A64: SSHR Vd.2D, Vn.2D, #n
@@ -1360,6 +1366,36 @@ namespace IntrinsicsLib {
             // ShiftRightArithmetic(Vector64<Int16>, Byte)	int16x4_t vshr_n_s16 (int16x4_t a, const int n); A32: VSHR.S16 Dd, Dm, #n; A64: SSHR Vd.4H, Vn.4H, #n
             // ShiftRightArithmetic(Vector64<Int32>, Byte)	int32x2_t vshr_n_s32 (int32x2_t a, const int n); A32: VSHR.S32 Dd, Dm, #n; A64: SSHR Vd.2S, Vn.2S, #n
             // ShiftRightArithmetic(Vector64<SByte>, Byte)	int8x8_t vshr_n_s8 (int8x8_t a, const int n); A32: VSHR.S8 Dd, Dm, #n; A64: SSHR Vd.8B, Vn.8B, #n
+            if (true) {
+                Vector128<sbyte> demo = Vector128s<sbyte>.Demo;
+                WriteLine(writer, indent, "ShiftRightArithmetic<sbyte>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<short> demo = Vector128s<short>.Demo;
+                WriteLine(writer, indent, "ShiftRightArithmetic<short>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<int> demo = Vector128s<int>.Demo;
+                WriteLine(writer, indent, "ShiftRightArithmetic<int>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<long> demo = Vector128s<long>.Demo;
+                WriteLine(writer, indent, "ShiftRightArithmetic<long>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                }
+            }
+
+
             // ShiftRightArithmeticAdd(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vsraq_n_s16 (int16x8_t a, int16x8_t b, const int n); A32: VSRA.S16 Qd, Qm, #n; A64: SSRA Vd.8H, Vn.8H, #n
             // ShiftRightArithmeticAdd(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vsraq_n_s32 (int32x4_t a, int32x4_t b, const int n); A32: VSRA.S32 Qd, Qm, #n; A64: SSRA Vd.4S, Vn.4S, #n
             // ShiftRightArithmeticAdd(Vector128<Int64>, Vector128<Int64>, Byte)	int64x2_t vsraq_n_s64 (int64x2_t a, int64x2_t b, const int n); A32: VSRA.S64 Qd, Qm, #n; A64: SSRA Vd.2D, Vn.2D, #n
@@ -1409,6 +1445,10 @@ namespace IntrinsicsLib {
             // ShiftRightArithmeticRoundedNarrowingSaturateUpper(Vector64<SByte>, Vector128<Int16>, Byte)	int8x16_t vqrshrn_high_n_s16 (int8x8_t r, int16x8_t a, const int n); A32: VQRSHRN.S16 Dd+1, Dn, #n; A64: SQRSHRN2 Vd.16B, Vn.8H, #n
             // ShiftRightArithmeticRoundedScalar(Vector64<Int64>, Byte)	int64x1_t vrshr_n_s64 (int64x1_t a, const int n); A32: VRSHR.S64 Dd, Dm, #n; A64: SRSHR Dd, Dn, #n
             // ShiftRightArithmeticScalar(Vector64<Int64>, Byte)	int64x1_t vshr_n_s64 (int64x1_t a, const int n); A32: VSHR.S64 Dd, Dm, #n; A64: SSHR Dd, Dn, #n
+
+            // 1、Vector shift right by constant: vshr -> ri = ai >> b;The results are truncated. 
+            // right shifts each element in a vector by an immediate value, and places the results in the destination vector
+            // 将向量中的每个元素右移一个直接值，并将结果放在目标向量中.
             // ShiftRightLogical(Vector128<Byte>, Byte)	uint8x16_t vshrq_n_u8 (uint8x16_t a, const int n); A32: VSHR.U8 Qd, Qm, #n; A64: USHR Vd.16B, Vn.16B, #n
             // ShiftRightLogical(Vector128<Int16>, Byte)	uint16x8_t vshrq_n_u16 (uint16x8_t a, const int n); A32: VSHR.U16 Qd, Qm, #n; A64: USHR Vd.8H, Vn.8H, #n
             // ShiftRightLogical(Vector128<Int32>, Byte)	uint32x4_t vshrq_n_u32 (uint32x4_t a, const int n); A32: VSHR.U32 Qd, Qm, #n; A64: USHR Vd.4S, Vn.4S, #n
@@ -1423,6 +1463,35 @@ namespace IntrinsicsLib {
             // ShiftRightLogical(Vector64<SByte>, Byte)	uint8x8_t vshr_n_u8 (uint8x8_t a, const int n); A32: VSHR.U8 Dd, Dm, #n; A64: USHR Vd.8B, Vn.8B, #n
             // ShiftRightLogical(Vector64<UInt16>, Byte)	uint16x4_t vshr_n_u16 (uint16x4_t a, const int n); A32: VSHR.U16 Dd, Dm, #n; A64: USHR Vd.4H, Vn.4H, #n
             // ShiftRightLogical(Vector64<UInt32>, Byte)	uint32x2_t vshr_n_u32 (uint32x2_t a, const int n); A32: VSHR.U32 Dd, Dm, #n; A64: USHR Vd.2S, Vn.2S, #n
+            if (true) {
+                Vector128<byte> demo = Vector128s<byte>.Demo;
+                WriteLine(writer, indent, "ShiftRightLogical<byte>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<ushort> demo = Vector128s<ushort>.Demo;
+                WriteLine(writer, indent, "ShiftRightLogical<ushort>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<uint> demo = Vector128s<uint>.Demo;
+                WriteLine(writer, indent, "ShiftRightLogical<uint>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                }
+            }
+            if (true) {
+                Vector128<ulong> demo = Vector128s<ulong>.Demo;
+                WriteLine(writer, indent, "ShiftRightLogical<ulong>, demo:\t{0}", demo);
+                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                }
+            }
+
             // ShiftRightLogicalAdd(Vector128<Byte>, Vector128<Byte>, Byte)	uint8x16_t vsraq_n_u8 (uint8x16_t a, uint8x16_t b, const int n); A32: VSRA.U8 Qd, Qm, #n; A64: USRA Vd.16B, Vn.16B, #n
             // ShiftRightLogicalAdd(Vector128<Int16>, Vector128<Int16>, Byte)	uint16x8_t vsraq_n_u16 (uint16x8_t a, uint16x8_t b, const int n); A32: VSRA.U16 Qd, Qm, #n; A64: USRA Vd.8H, Vn.8H, #n
             // ShiftRightLogicalAdd(Vector128<Int32>, Vector128<Int32>, Byte)	uint32x4_t vsraq_n_u32 (uint32x4_t a, uint32x4_t b, const int n); A32: VSRA.U32 Qd, Qm, #n; A64: USRA Vd.4S, Vn.4S, #n
@@ -1519,8 +1588,10 @@ namespace IntrinsicsLib {
             // ShiftRightLogicalRoundedNarrowingUpper(Vector64<UInt32>, Vector128<UInt64>, Byte)	uint32x4_t vrshrn_high_n_u64 (uint32x2_t r, uint64x2_t a, const int n); A32: VRSHRN.I64 Dd+1, Qm, #n; A64: RSHRN2 Vd.4S, Vn.2D, #n
             // ShiftRightLogicalRoundedScalar(Vector64<Int64>, Byte)	uint64x1_t vrshr_n_u64 (uint64x1_t a, const int n); A32: VRSHR.U64 Dd, Dm, #n; A64: URSHR Dd, Dn, #n
             // ShiftRightLogicalRoundedScalar(Vector64<UInt64>, Byte)	uint64x1_t vrshr_n_u64 (uint64x1_t a, const int n); A32: VRSHR.U64 Dd, Dm, #n; A64: URSHR Dd, Dn, #n
+
             // ShiftRightLogicalScalar(Vector64<Int64>, Byte)	uint64x1_t vshr_n_u64 (uint64x1_t a, const int n); A32: VSHR.U64 Dd, Dm, #n; A64: USHR Dd, Dn, #n
             // ShiftRightLogicalScalar(Vector64<UInt64>, Byte)	uint64x1_t vshr_n_u64 (uint64x1_t a, const int n); A32: VSHR.U64 Dd, Dm, #n; A64: USHR Dd, Dn, #n
+
             // SignExtendWideningLower(Vector64<Int16>)	int32x4_t vmovl_s16 (int16x4_t a); A32: VMOVL.S16 Qd, Dm; A64: SXTL Vd.4S, Vn.4H
             // SignExtendWideningLower(Vector64<Int32>)	int64x2_t vmovl_s32 (int32x2_t a); A32: VMOVL.S32 Qd, Dm; A64: SXTL Vd.2D, Vn.2S
             // SignExtendWideningLower(Vector64<SByte>)	int16x8_t vmovl_s8 (int8x8_t a); A32: VMOVL.S8 Qd, Dm; A64: SXTL Vd.8H, Vn.8B
