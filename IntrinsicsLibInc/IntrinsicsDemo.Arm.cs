@@ -19,6 +19,14 @@ namespace IntrinsicsLib {
             // bool isSupported = ArmBase.IsSupported;
             // if (!isSupported) return;
             RunArmSupported(writer, indent);
+            RunArm_ArmBase(writer, indent);
+            // Simd.
+            RunArm_AdvSimd(writer, indent);
+            RunArm_AdvSimd_64(writer, indent);
+            RunArm_Dp(writer, indent);
+            RunArm_Dp_64(writer, indent);
+            RunArm_Rdm(writer, indent);
+            RunArm_Rdm_64(writer, indent);
 #else
             return;
 #endif // #if NET5_0_OR_GREATER
@@ -52,6 +60,26 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "Sha256.IsSupported:\t{0}", Sha256.IsSupported);
             WriteLine(writer, indent, "Sha256.Arm64.IsSupported:\t{0}", Sha256.Arm64.IsSupported);
         }
+
+        /// <summary>
+        /// Run Arm ArmBase. https://learn.microsoft.com/en-us/dotnet/api/system.runtime.intrinsics.arm.armbase?view=net-7.0
+        /// </summary>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        public unsafe static void RunArm_ArmBase(TextWriter writer, string indent) {
+            if (null == writer) return;
+            if (null == indent) indent = "";
+            string indentNext = indent + IndentNextSeparator;
+            if (ArmBase.IsSupported) {
+                writer.WriteLine();
+            }
+            writer.WriteLine(indent + string.Format("-- ArmBase.IsSupported:\t{0}", ArmBase.IsSupported));
+            if (!ArmBase.IsSupported) {
+                return;
+            }
+
+        }
+
 #endif // #if NET5_0_OR_GREATER
     }
 }

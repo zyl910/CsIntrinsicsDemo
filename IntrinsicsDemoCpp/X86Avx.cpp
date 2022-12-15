@@ -162,5 +162,7 @@ void testX86Avx() {
     Narrow_Int16();
     Narrow_Int64();
     Widen_SByte();
+    uint8_t = _MM_SHUFFLE(3, 2, 1, 0);
+
 }
 
