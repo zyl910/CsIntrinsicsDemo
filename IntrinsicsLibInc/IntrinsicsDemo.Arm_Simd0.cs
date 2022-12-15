@@ -28,6 +28,25 @@ namespace IntrinsicsLib {
                 return;
             }
 
+            RunArm_AdvSimd_A(writer, indent);
+            RunArm_AdvSimd_B(writer, indent);
+            RunArm_AdvSimd_C(writer, indent);
+            RunArm_AdvSimd_D(writer, indent);
+            RunArm_AdvSimd_E(writer, indent);
+            RunArm_AdvSimd_F(writer, indent);
+            RunArm_AdvSimd_I(writer, indent);
+            RunArm_AdvSimd_L(writer, indent);
+            RunArm_AdvSimd_M(writer, indent);
+            RunArm_AdvSimd_N(writer, indent);
+            RunArm_AdvSimd_O(writer, indent);
+            RunArm_AdvSimd_P(writer, indent);
+            RunArm_AdvSimd_R(writer, indent);
+            RunArm_AdvSimd_S(writer, indent);
+            RunArm_AdvSimd_V(writer, indent);
+            RunArm_AdvSimd_X(writer, indent);
+            RunArm_AdvSimd_Z(writer, indent);
+        }
+        public unsafe static void RunArm_AdvSimd_A(TextWriter writer, string indent) {
             // Abs(Vector128<Int16>)	int16x8_t vabsq_s16 (int16x8_t a); A32: VABS.S16 Qd, Qm; A64: ABS Vd.8H, Vn.8H
             // Abs(Vector128<Int32>)	int32x4_t vabsq_s32 (int32x4_t a); A32: VABS.S32 Qd, Qm; A64: ABS Vd.4S, Vn.4S
             // Abs(Vector128<SByte>)	int8x16_t vabsq_s8 (int8x16_t a); A32: VABS.S8 Qd, Qm; A64: ABS Vd.16B, Vn.16B
@@ -237,6 +256,8 @@ namespace IntrinsicsLib {
             // And(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vand_u16 (uint16x4_t a, uint16x4_t b); A32: VAND Dd, Dn, Dm; A64: AND Vd.8B, Vn.8B, Vm.8B
             // And(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vand_u32 (uint32x2_t a, uint32x2_t b); A32: VAND Dd, Dn, Dm; A64: AND Vd.8B, Vn.8B, Vm.8B
             // And(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vand_u64 (uint64x1_t a, uint64x1_t b); A32: VAND Dd, Dn, Dm; A64: AND Vd.8B, Vn.8B, Vm.8B
+        }
+        public unsafe static void RunArm_AdvSimd_B(TextWriter writer, string indent) {
             // BitwiseClear(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vbicq_u8 (uint8x16_t a, uint8x16_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B
             // BitwiseClear(Vector128<Double>, Vector128<Double>)	float64x2_t vbicq_f64 (float64x2_t a, float64x2_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // BitwiseClear(Vector128<Int16>, Vector128<Int16>)	int16x8_t vbicq_s16 (int16x8_t a, int16x8_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B
@@ -277,6 +298,8 @@ namespace IntrinsicsLib {
             // BitwiseSelect(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vbsl_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vbsl_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt64>, Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vbsl_u64 (uint64x1_t a, uint64x1_t b, uint64x1_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
+        }
+        public unsafe static void RunArm_AdvSimd_C(TextWriter writer, string indent) {
             // Ceiling(Vector128<Single>)	float32x4_t vrndpq_f32 (float32x4_t a); A32: VRINTP.F32 Qd, Qm; A64: FRINTP Vd.4S, Vn.4S
             // Ceiling(Vector64<Single>)	float32x2_t vrndp_f32 (float32x2_t a); A32: VRINTP.F32 Dd, Dm; A64: FRINTP Vd.2S, Vn.2S
             // CeilingScalar(Vector64<Double>)	float64x1_t vrndp_f64 (float64x1_t a); A32: VRINTP.F64 Dd, Dm; A64: FRINTP Dd, Dn
@@ -401,6 +424,8 @@ namespace IntrinsicsLib {
             // ConvertToUInt32RoundToZero(Vector128<Single>)	uint32x4_t vcvtq_u32_f32 (float32x4_t a); A32: VCVT.U32.F32 Qd, Qm; A64: FCVTZU Vd.4S, Vn.4S
             // ConvertToUInt32RoundToZero(Vector64<Single>)	uint32x2_t vcvt_u32_f32 (float32x2_t a); A32: VCVT.U32.F32 Dd, Dm; A64: FCVTZU Vd.2S, Vn.2S
             // ConvertToUInt32RoundToZeroScalar(Vector64<Single>)	uint32_t vcvts_u32_f32 (float32_t a); A32: VCVT.U32.F32 Sd, Sm; A64: FCVTZU Sd, Sn
+        }
+        public unsafe static void RunArm_AdvSimd_D(TextWriter writer, string indent) {
             // DivideScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vdiv_f64 (float64x1_t a, float64x1_t b); A32: VDIV.F64 Dd, Dn, Dm; A64: FDIV Dd, Dn, Dm
             // DivideScalar(Vector64<Single>, Vector64<Single>)	float32_t vdivs_f32 (float32_t a, float32_t b); A32: VDIV.F32 Sd, Sn, Sm; A64: FDIV Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // DuplicateSelectedScalarToVector128(Vector128<Byte>, Byte)	uint8x16_t vdupq_lane_u8 (uint8x16_t vec, const int lane); A32: VDUP.8 Qd, Dm[index]; A64: DUP Vd.16B, Vn.B[index]
@@ -445,7 +470,8 @@ namespace IntrinsicsLib {
             // DuplicateToVector64(Single)	float32x2_t vdup_n_f32 (float32_t value); A32: VDUP Dd, Dm[0]; A64: DUP Vd.2S, Vn.S[0]
             // DuplicateToVector64(UInt16)	uint16x4_t vdup_n_u16 (uint16_t value); A32: VDUP.16 Dd, Rt; A64: DUP Vd.4H, Rn
             // DuplicateToVector64(UInt32)	uint32x2_t vdup_n_u32 (uint32_t value); A32: VDUP.32 Dd, Rt; A64: DUP Vd.2S, Rn
-            // Equals(Object)	Determines whether the specified object is equal to the current object.; (Inherited from Object)
+        }
+        public unsafe static void RunArm_AdvSimd_E(TextWriter writer, string indent) {
             // Extract(Vector128<Byte>, Byte)	uint8_t vgetq_lane_u8 (uint8x16_t v, const int lane); A32: VMOV.U8 Rt, Dn[lane]; A64: UMOV Wd, Vn.B[lane]
             // Extract(Vector128<Double>, Byte)	float64_t vgetq_lane_f64 (float64x2_t v, const int lane); A32: VMOV.F64 Dd, Dm; A64: DUP Dd, Vn.D[lane]
             // Extract(Vector128<Int16>, Byte)	int16_t vgetq_lane_s16 (int16x8_t v, const int lane); A32: VMOV.S16 Rt, Dn[lane]; A64: SMOV Wd, Vn.H[lane]
@@ -510,6 +536,8 @@ namespace IntrinsicsLib {
             // ExtractVector64(Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vext_f32 (float32x2_t a, float32x2_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*4); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*4)
             // ExtractVector64(Vector64<UInt16>, Vector64<UInt16>, Byte)	uint16x4_t vext_s16 (uint16x4_t a, uint16x4_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*2); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*2)
             // ExtractVector64(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vext_s32 (uint32x2_t a, uint32x2_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*4); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*4)
+        }
+        public unsafe static void RunArm_AdvSimd_F(TextWriter writer, string indent) {
             // Floor(Vector128<Single>)	float32x4_t vrndmq_f32 (float32x4_t a); A32: VRINTM.F32 Qd, Qm; A64: FRINTM Vd.4S, Vn.4S
             // Floor(Vector64<Single>)	float32x2_t vrndm_f32 (float32x2_t a); A32: VRINTM.F32 Dd, Dm; A64: FRINTM Vd.2S, Vn.2S
             // FloorScalar(Vector64<Double>)	float64x1_t vrndm_f64 (float64x1_t a); A32: VRINTM.F64 Dd, Dm; A64: FRINTM Dd, Dn
@@ -562,8 +590,8 @@ namespace IntrinsicsLib {
             // FusedSubtractHalving(Vector64<SByte>, Vector64<SByte>)	int8x8_t vhsub_s8 (int8x8_t a, int8x8_t b); A32: VHSUB.S8 Dd, Dn, Dm; A64: SHSUB Vd.8B, Vn.8B, Vm.8B
             // FusedSubtractHalving(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vhsub_u16 (uint16x4_t a, uint16x4_t b); A32: VHSUB.U16 Dd, Dn, Dm; A64: UHSUB Vd.4H, Vn.4H, Vm.4H
             // FusedSubtractHalving(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vhsub_u32 (uint32x2_t a, uint32x2_t b); A32: VHSUB.U32 Dd, Dn, Dm; A64: UHSUB Vd.2S, Vn.2S, Vm.2S
-            // GetHashCode()	Serves as the default hash function.; (Inherited from Object)
-            // GetType()	Gets the Type of the current instance.; (Inherited from Object)
+        }
+        public unsafe static void RunArm_AdvSimd_I(TextWriter writer, string indent) {
             // Insert(Vector128<Byte>, Byte, Byte)	uint8x16_t vsetq_lane_u8 (uint8_t a, uint8x16_t v, const int lane); A32: VMOV.8 Dd[lane], Rt; A64: INS Vd.B[lane], Wn
             // Insert(Vector128<Double>, Byte, Double)	float64x2_t vsetq_lane_f64 (float64_t a, float64x2_t v, const int lane); A32: VMOV.F64 Dd, Dm; A64: INS Vd.D[lane], Vn.D[0]
             // Insert(Vector128<Int16>, Byte, Int16)	int16x8_t vsetq_lane_s16 (int16_t a, int16x8_t v, const int lane); A32: VMOV.16 Dd[lane], Rt; A64: INS Vd.H[lane], Wn
@@ -584,6 +612,8 @@ namespace IntrinsicsLib {
             // InsertScalar(Vector128<Double>, Byte, Vector64<Double>)	float64x2_t vcopyq_lane_f64 (float64x2_t a, const int lane1, float64x1_t b, const int lane2) A32: VMOV.F64 Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
             // InsertScalar(Vector128<Int64>, Byte, Vector64<Int64>)	int64x2_t vcopyq_lane_s64 (int64x2_t a, const int lane1, int64x1_t b, const int lane2) A32: VMOV Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
             // InsertScalar(Vector128<UInt64>, Byte, Vector64<UInt64>)	uint64x2_t vcopyq_lane_u64 (uint64x2_t a, const int lane1, uint64x1_t b, const int lane2) A32: VMOV Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
+        }
+        public unsafe static void RunArm_AdvSimd_L(TextWriter writer, string indent) {
             // LeadingSignCount(Vector128<Int16>)	int16x8_t vclsq_s16 (int16x8_t a); A32: VCLS.S16 Qd, Qm; A64: CLS Vd.8H, Vn.8H
             // LeadingSignCount(Vector128<Int32>)	int32x4_t vclsq_s32 (int32x4_t a); A32: VCLS.S32 Qd, Qm; A64: CLS Vd.4S, Vn.4S
             // LeadingSignCount(Vector128<SByte>)	int8x16_t vclsq_s8 (int8x16_t a); A32: VCLS.S8 Qd, Qm; A64: CLS Vd.16B, Vn.16B
@@ -653,6 +683,8 @@ namespace IntrinsicsLib {
             // LoadVector64(UInt16*)	uint16x4_t vld1_u16 (uint16_t const * ptr); A32: VLD1.16 Dd, [Rn]; A64: LD1 Vt.4H, [Xn]
             // LoadVector64(UInt32*)	uint32x2_t vld1_u32 (uint32_t const * ptr); A32: VLD1.32 Dd, [Rn]; A64: LD1 Vt.2S, [Xn]
             // LoadVector64(UInt64*)	uint64x1_t vld1_u64 (uint64_t const * ptr); A32: VLD1.64 Dd, [Rn]; A64: LD1 Vt.1D, [Xn]
+        }
+        public unsafe static void RunArm_AdvSimd_M(TextWriter writer, string indent) {
             // Max(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmaxq_u8 (uint8x16_t a, uint8x16_t b); A32: VMAX.U8 Qd, Qn, Qm; A64: UMAX Vd.16B, Vn.16B, Vm.16B
             // Max(Vector128<Int16>, Vector128<Int16>)	int16x8_t vmaxq_s16 (int16x8_t a, int16x8_t b); A32: VMAX.S16 Qd, Qn, Qm; A64: SMAX Vd.8H, Vn.8H, Vm.8H
             // Max(Vector128<Int32>, Vector128<Int32>)	int32x4_t vmaxq_s32 (int32x4_t a, int32x4_t b); A32: VMAX.S32 Qd, Qn, Qm; A64: SMAX Vd.4S, Vn.4S, Vm.4S
@@ -988,6 +1020,8 @@ namespace IntrinsicsLib {
             // MultiplyWideningUpperAndSubtract(Vector128<UInt16>, Vector128<Byte>, Vector128<Byte>)	uint16x8_t vmlsl_high_u8 (uint16x8_t a, uint8x16_t b, uint8x16_t c); A32: VMLSL.U8 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpperAndSubtract(Vector128<UInt32>, Vector128<UInt16>, Vector128<UInt16>)	uint32x4_t vmlsl_high_u16 (uint32x4_t a, uint16x8_t b, uint16x8_t c); A32: VMLSL.U16 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpperAndSubtract(Vector128<UInt64>, Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vmlsl_high_u32 (uint64x2_t a, uint32x4_t b, uint32x4_t c); A32: VMLSL.U32 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.2D, Vn.4S, Vm.4S
+        }
+        public unsafe static void RunArm_AdvSimd_N(TextWriter writer, string indent) {
             // Negate(Vector128<Int16>)	int16x8_t vnegq_s16 (int16x8_t a); A32: VNEG.S16 Qd, Qm; A64: NEG Vd.8H, Vn.8H
             // Negate(Vector128<Int32>)	int32x4_t vnegq_s32 (int32x4_t a); A32: VNEG.S32 Qd, Qm; A64: NEG Vd.4S, Vn.4S
             // Negate(Vector128<SByte>)	int8x16_t vnegq_s8 (int8x16_t a); A32: VNEG.S8 Qd, Qm; A64: NEG Vd.16B, Vn.16B
@@ -1024,6 +1058,8 @@ namespace IntrinsicsLib {
             // Not(Vector64<UInt16>)	uint16x4_t vmvn_u16 (uint16x4_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
             // Not(Vector64<UInt32>)	uint32x2_t vmvn_u32 (uint32x2_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
             // Not(Vector64<UInt64>)	uint64x1_t vmvn_u64 (uint64x1_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
+        }
+        public unsafe static void RunArm_AdvSimd_O(TextWriter writer, string indent) {
             // Or(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vorrq_u8 (uint8x16_t a, uint8x16_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B
             // Or(Vector128<Double>, Vector128<Double>)	float64x2_t vorrq_f64 (float64x2_t a, float64x2_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // Or(Vector128<Int16>, Vector128<Int16>)	int16x8_t vorrq_s16 (int16x8_t a, int16x8_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B
@@ -1064,6 +1100,8 @@ namespace IntrinsicsLib {
             // OrNot(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vorn_u16 (uint16x4_t a, uint16x4_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
             // OrNot(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vorn_u32 (uint32x2_t a, uint32x2_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
             // OrNot(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vorn_u64 (uint64x1_t a, uint64x1_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
+        }
+        public unsafe static void RunArm_AdvSimd_P(TextWriter writer, string indent) {
             // PolynomialMultiply(Vector128<Byte>, Vector128<Byte>)	poly8x16_t vmulq_p8 (poly8x16_t a, poly8x16_t b); A32: VMUL.P8 Qd, Qn, Qm; A64: PMUL Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiply(Vector128<SByte>, Vector128<SByte>)	poly8x16_t vmulq_p8 (poly8x16_t a, poly8x16_t b); A32: VMUL.P8 Qd, Qn, Qm; A64: PMUL Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiply(Vector64<Byte>, Vector64<Byte>)	poly8x8_t vmul_p8 (poly8x8_t a, poly8x8_t b); A32: VMUL.P8 Dd, Dn, Dm; A64: PMUL Vd.8B, Vn.8B, Vm.8B
@@ -1076,6 +1114,8 @@ namespace IntrinsicsLib {
             // PopCount(Vector128<SByte>)	int8x16_t vcntq_s8 (int8x16_t a); A32: VCNT.I8 Qd, Qm; A64: CNT Vd.16B, Vn.16B
             // PopCount(Vector64<Byte>)	uint8x8_t vcnt_u8 (uint8x8_t a); A32: VCNT.I8 Dd, Dm; A64: CNT Vd.8B, Vn.8B
             // PopCount(Vector64<SByte>)	int8x8_t vcnt_s8 (int8x8_t a); A32: VCNT.I8 Dd, Dm; A64: CNT Vd.8B, Vn.8B
+        }
+        public unsafe static void RunArm_AdvSimd_R(TextWriter writer, string indent) {
             // ReciprocalEstimate(Vector128<Single>)	float32x4_t vrecpeq_f32 (float32x4_t a); A32: VRECPE.F32 Qd, Qm; A64: FRECPE Vd.4S, Vn.4S
             // ReciprocalEstimate(Vector128<UInt32>)	uint32x4_t vrecpeq_u32 (uint32x4_t a); A32: VRECPE.U32 Qd, Qm; A64: URECPE Vd.4S, Vn.4S
             // ReciprocalEstimate(Vector64<Single>)	float32x2_t vrecpe_f32 (float32x2_t a); A32: VRECPE.F32 Dd, Dm; A64: FRECPE Vd.2S, Vn.2S
@@ -1132,6 +1172,8 @@ namespace IntrinsicsLib {
             // RoundToZero(Vector64<Single>)	float32x2_t vrnd_f32 (float32x2_t a); A32: VRINTZ.F32 Dd, Dm; A64: FRINTZ Vd.2S, Vn.2S
             // RoundToZeroScalar(Vector64<Double>)	float64x1_t vrnd_f64 (float64x1_t a); A32: VRINTZ.F64 Dd, Dm; A64: FRINTZ Dd, Dn
             // RoundToZeroScalar(Vector64<Single>)	float32_t vrnds_f32 (float32_t a); A32: VRINTZ.F32 Sd, Sm; A64: FRINTZ Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+        }
+        public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
             // ShiftArithmetic(Vector128<Int16>, Vector128<Int16>)	int16x8_t vshlq_s16 (int16x8_t a, int16x8_t b); A32: VSHL.S16 Qd, Qn, Qm; A64: SSHL Vd.8H, Vn.8H, Vm.8H
             // ShiftArithmetic(Vector128<Int32>, Vector128<Int32>)	int32x4_t vshlq_s32 (int32x4_t a, int32x4_t b); A32: VSHL.S32 Qd, Qn, Qm; A64: SSHL Vd.4S, Vn.4S, Vm.4S
             // ShiftArithmetic(Vector128<Int64>, Vector128<Int64>)	int64x2_t vshlq_s64 (int64x2_t a, int64x2_t b); A32: VSHL.S64 Qd, Qn, Qm; A64: SSHL Vd.2D, Vn.2D, Vm.2D
@@ -1608,11 +1650,14 @@ namespace IntrinsicsLib {
             // SubtractWideningUpper(Vector128<UInt32>, Vector128<UInt16>)	uint32x4_t vsubw_high_u16 (uint32x4_t a, uint16x8_t b); A32: VSUBW.U16 Qd, Qn, Dm+1; A64: USUBW2 Vd.4S, Vn.4S, Vm.8H
             // SubtractWideningUpper(Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vsubl_high_u32 (uint32x4_t a, uint32x4_t b); A32: VSUBL.U32 Qd, Dn+1, Dm+1; A64: USUBL2 Vd.2D, Vn.4S, Vm.4S
             // SubtractWideningUpper(Vector128<UInt64>, Vector128<UInt32>)	uint64x2_t vsubw_high_u32 (uint64x2_t a, uint32x4_t b); A32: VSUBW.U32 Qd, Qn, Dm+1; A64: USUBW2 Vd.2D, Vn.2D, Vm.4S
-            // ToString()	Returns a string that represents the current object.; (Inherited from Object)
+        }
+        public unsafe static void RunArm_AdvSimd_V(TextWriter writer, string indent) {
             // VectorTableLookup(Vector128<Byte>, Vector64<Byte>)	uint8x8_t vqvtbl1_u8(uint8x16_t t, uint8x8_t idx); A32: VTBL Dd, {Dn, Dn+1}, Dm; A64: TBL Vd.8B, {Vn.16B}, Vm.8B
             // VectorTableLookup(Vector128<SByte>, Vector64<SByte>)	int8x8_t vqvtbl1_s8(int8x16_t t, uint8x8_t idx); A32: VTBL Dd, {Dn, Dn+1}, Dm; A64: TBL Vd.8B, {Vn.16B}, Vm.8B
             // VectorTableLookupExtension(Vector64<Byte>, Vector128<Byte>, Vector64<Byte>)	uint8x8_t vqvtbx1_u8(uint8x8_t r, uint8x16_t t, uint8x8_t idx); A32: VTBX Dd, {Dn, Dn+1}, Dm; A64: TBX Vd.8B, {Vn.16B}, Vm.8B
             // VectorTableLookupExtension(Vector64<SByte>, Vector128<SByte>, Vector64<SByte>)	int8x8_t vqvtbx1_s8(int8x8_t r, int8x16_t t, uint8x8_t idx); A32: VTBX Dd, {Dn, Dn+1}, Dm; A64: TBX Vd.8B, {Vn.16B}, Vm.8B
+        }
+        public unsafe static void RunArm_AdvSimd_X(TextWriter writer, string indent) {
             // Xor(Vector128<Byte>, Vector128<Byte>)	uint8x16_t veorq_u8 (uint8x16_t a, uint8x16_t b); A32: VEOR Qd, Qn, Qm; A64: EOR Vd.16B, Vn.16B, Vm.16B
             // Xor(Vector128<Double>, Vector128<Double>)	float64x2_t veorq_f64 (float64x2_t a, float64x2_t b); A32: VEOR Qd, Qn, Qm; A64: EOR Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // Xor(Vector128<Int16>, Vector128<Int16>)	int16x8_t veorq_s16 (int16x8_t a, int16x8_t b); A32: VEOR Qd, Qn, Qm; A64: EOR Vd.16B, Vn.16B, Vm.16B
@@ -1633,6 +1678,8 @@ namespace IntrinsicsLib {
             // Xor(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t veor_u16 (uint16x4_t a, uint16x4_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
             // Xor(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t veor_u32 (uint32x2_t a, uint32x2_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
             // Xor(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t veor_u64 (uint64x1_t a, uint64x1_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
+        }
+        public unsafe static void RunArm_AdvSimd_Z(TextWriter writer, string indent) {
             // ZeroExtendWideningLower(Vector64<Byte>)	uint16x8_t vmovl_u8 (uint8x8_t a); A32: VMOVL.U8 Qd, Dm; A64: UXTL Vd.8H, Vn.8B
             // ZeroExtendWideningLower(Vector64<Int16>)	uint32x4_t vmovl_u16 (uint16x4_t a); A32: VMOVL.U16 Qd, Dm; A64: UXTL Vd.4S, Vn.4H
             // ZeroExtendWideningLower(Vector64<Int32>)	uint64x2_t vmovl_u32 (uint32x2_t a); A32: VMOVL.U32 Qd, Dm; A64: UXTL Vd.2D, Vn.2S
@@ -1666,6 +1713,23 @@ namespace IntrinsicsLib {
                 return;
             }
 
+            RunArm_AdvSimd_64_A(writer, indent);
+            RunArm_AdvSimd_64_C(writer, indent);
+            RunArm_AdvSimd_64_D(writer, indent);
+            RunArm_AdvSimd_64_F(writer, indent);
+            RunArm_AdvSimd_64_I(writer, indent);
+            RunArm_AdvSimd_64_L(writer, indent);
+            RunArm_AdvSimd_64_M(writer, indent);
+            RunArm_AdvSimd_64_N(writer, indent);
+            RunArm_AdvSimd_64_R(writer, indent);
+            RunArm_AdvSimd_64_S(writer, indent);
+            RunArm_AdvSimd_64_T(writer, indent);
+            RunArm_AdvSimd_64_U(writer, indent);
+            RunArm_AdvSimd_64_V(writer, indent);
+            RunArm_AdvSimd_64_Z(writer, indent);
+
+        }
+        public unsafe static void RunArm_AdvSimd_64_A(TextWriter writer, string indent) {
             // Abs(Vector128<Double>)	float64x2_t vabsq_f64 (float64x2_t a); A64: FABS Vd.2D, Vn.2D
             // Abs(Vector128<Int64>)	int64x2_t vabsq_s64 (int64x2_t a); A64: ABS Vd.2D, Vn.2D
             // AbsoluteCompareGreaterThan(Vector128<Double>, Vector128<Double>)	uint64x2_t vcagtq_f64 (float64x2_t a, float64x2_t b); A64: FACGT Vd.2D, Vn.2D, Vm.2D
@@ -1752,6 +1816,8 @@ namespace IntrinsicsLib {
             // AddSaturateScalar(Vector64<UInt32>, Vector64<Int32>)	uint32_t vsqadds_u32 (uint32_t a, int32_t b); A64: USQADD Sd, Sn
             // AddSaturateScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32_t vqadds_u32 (uint32_t a, uint32_t b); A64: UQADD Sd, Sn, Sm
             // AddSaturateScalar(Vector64<UInt64>, Vector64<Int64>)	uint64x1_t vsqadd_u64 (uint64x1_t a, int64x1_t b); A64: USQADD Dd, Dn
+        }
+        public unsafe static void RunArm_AdvSimd_64_C(TextWriter writer, string indent) {
             // Ceiling(Vector128<Double>)	float64x2_t vrndpq_f64 (float64x2_t a); A64: FRINTP Vd.2D, Vn.2D
             // CompareEqual(Vector128<Double>, Vector128<Double>)	uint64x2_t vceqq_f64 (float64x2_t a, float64x2_t b); A64: FCMEQ Vd.2D, Vn.2D, Vm.2D
             // CompareEqual(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vceqq_s64 (int64x2_t a, int64x2_t b); A64: CMEQ Vd.2D, Vn.2D, Vm.2D
@@ -1824,6 +1890,8 @@ namespace IntrinsicsLib {
             // ConvertToUInt64RoundToPositiveInfinityScalar(Vector64<Double>)	uint64x1_t vcvtp_u64_f64 (float64x1_t a); A64: FCVTPU Dd, Dn
             // ConvertToUInt64RoundToZero(Vector128<Double>)	uint64x2_t vcvtq_u64_f64 (float64x2_t a); A64: FCVTZU Vd.2D, Vn.2D
             // ConvertToUInt64RoundToZeroScalar(Vector64<Double>)	uint64x1_t vcvt_u64_f64 (float64x1_t a); A64: FCVTZU Dd, Dn
+        }
+        public unsafe static void RunArm_AdvSimd_64_D(TextWriter writer, string indent) {
             // Divide(Vector128<Double>, Vector128<Double>)	float64x2_t vdivq_f64 (float64x2_t a, float64x2_t b); A64: FDIV Vd.2D, Vn.2D, Vm.2D
             // Divide(Vector128<Single>, Vector128<Single>)	float32x4_t vdivq_f32 (float32x4_t a, float32x4_t b); A64: FDIV Vd.4S, Vn.4S, Vm.4S
             // Divide(Vector64<Single>, Vector64<Single>)	float32x2_t vdiv_f32 (float32x2_t a, float32x2_t b); A64: FDIV Vd.2S, Vn.2S, Vm.2S
@@ -1842,6 +1910,8 @@ namespace IntrinsicsLib {
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int16>)	uint8_t vqmovunh_s16 (int16_t a) A64: SQXTUN Bd, Hn
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int32>)	uint16_t vqmovuns_s32 (int32_t a) A64: SQXTUN Hd, Sn
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int64>)	uint32_t vqmovund_s64 (int64_t a) A64: SQXTUN Sd, Dn
+        }
+        public unsafe static void RunArm_AdvSimd_64_F(TextWriter writer, string indent) {
             // Floor(Vector128<Double>)	float64x2_t vrndmq_f64 (float64x2_t a); A64: FRINTM Vd.2D, Vn.2D
             // FusedMultiplyAdd(Vector128<Double>, Vector128<Double>, Vector128<Double>)	float64x2_t vfmaq_f64 (float64x2_t a, float64x2_t b, float64x2_t c); A64: FMLA Vd.2D, Vn.2D, Vm.2D
             // FusedMultiplyAddByScalar(Vector128<Double>, Vector128<Double>, Vector64<Double>)	float64x2_t vfmaq_n_f64 (float64x2_t a, float64x2_t b, float64_t n); A64: FMLA Vd.2D, Vn.2D, Vm.D[0]
@@ -1867,6 +1937,8 @@ namespace IntrinsicsLib {
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Double>, Vector64<Double>, Vector128<Double>, Byte)	float64_t vfmsd_laneq_f64 (float64_t a, float64_t b, float64x2_t v, const int lane); A64: FMLS Dd, Dn, Vm.D[lane]
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector128<Single>, Byte)	float32_t vfmss_laneq_f32 (float32_t a, float32_t b, float32x4_t v, const int lane); A64: FMLS Sd, Sn, Vm.S[lane]
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32_t vfmss_lane_f32 (float32_t a, float32_t b, float32x2_t v, const int lane); A64: FMLS Sd, Sn, Vm.S[lane]
+        }
+        public unsafe static void RunArm_AdvSimd_64_I(TextWriter writer, string indent) {
             // InsertSelectedScalar(Vector128<Byte>, Byte, Vector128<Byte>, Byte)	uint8x16_t vcopyq_laneq_u8 (uint8x16_t a, const int lane1, uint8x16_t b, const int lane2); A64: INS Vd.B[lane1], Vn.B[lane2]
             // InsertSelectedScalar(Vector128<Byte>, Byte, Vector64<Byte>, Byte)	uint8x16_t vcopyq_lane_u8 (uint8x16_t a, const int lane1, uint8x8_t b, const int lane2); A64: INS Vd.B[lane1], Vn.B[lane2]
             // InsertSelectedScalar(Vector128<Double>, Byte, Vector128<Double>, Byte)	float64x2_t vcopyq_laneq_f64 (float64x2_t a, const int lane1, float64x2_t b, const int lane2); A64: INS Vd.D[lane1], Vn.D[lane2]
@@ -1898,6 +1970,8 @@ namespace IntrinsicsLib {
             // InsertSelectedScalar(Vector64<UInt16>, Byte, Vector64<UInt16>, Byte)	uint16x4_t vcopy_lane_u16 (uint16x4_t a, const int lane1, uint16x4_t b, const int lane2); A64: INS Vd.H[lane1], Vn.H[lane2]
             // InsertSelectedScalar(Vector64<UInt32>, Byte, Vector128<UInt32>, Byte)	uint32x2_t vcopy_laneq_u32 (uint32x2_t a, const int lane1, uint32x4_t b, const int lane2); A64: INS Vd.S[lane1], Vn.S[lane2]
             // InsertSelectedScalar(Vector64<UInt32>, Byte, Vector64<UInt32>, Byte)	uint32x2_t vcopy_lane_u32 (uint32x2_t a, const int lane1, uint32x2_t b, const int lane2); A64: INS Vd.S[lane1], Vn.S[lane2]
+        }
+        public unsafe static void RunArm_AdvSimd_64_L(TextWriter writer, string indent) {
             // LoadAndReplicateToVector128(Double*)	float64x2_t vld1q_dup_f64 (float64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
             // LoadAndReplicateToVector128(Int64*)	int64x2_t vld1q_dup_s64 (int64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
             // LoadAndReplicateToVector128(UInt64*)	uint64x2_t vld1q_dup_u64 (uint64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
@@ -1947,6 +2021,8 @@ namespace IntrinsicsLib {
             // LoadPairVector64NonTemporal(UInt16*)	A64: LDNP Dt1, Dt2, [Xn]
             // LoadPairVector64NonTemporal(UInt32*)	A64: LDNP Dt1, Dt2, [Xn]
             // LoadPairVector64NonTemporal(UInt64*)	A64: LDNP Dt1, Dt2, [Xn]
+        }
+        public unsafe static void RunArm_AdvSimd_64_M(TextWriter writer, string indent) {
             // Max(Vector128<Double>, Vector128<Double>)	float64x2_t vmaxq_f64 (float64x2_t a, float64x2_t b); A64: FMAX Vd.2D, Vn.2D, Vm.2D
             // MaxAcross(Vector128<Byte>)	uint8_t vmaxvq_u8 (uint8x16_t a); A64: UMAXV Bd, Vn.16B
             // MaxAcross(Vector128<Int16>)	int16_t vmaxvq_s16 (int16x8_t a); A64: SMAXV Hd, Vn.8H
@@ -1978,7 +2054,6 @@ namespace IntrinsicsLib {
             // MaxPairwiseScalar(Vector64<Single>)	float32_t vpmaxs_f32 (float32x2_t a); A64: FMAXP Sd, Vn.2S
             // MaxScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmax_f64 (float64x1_t a, float64x1_t b); A64: FMAX Dd, Dn, Dm
             // MaxScalar(Vector64<Single>, Vector64<Single>)	float32_t vmaxs_f32 (float32_t a, float32_t b); A64: FMAX Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
-            // MemberwiseClone()	Creates a shallow copy of the current Object.; (Inherited from Object)
             // Min(Vector128<Double>, Vector128<Double>)	float64x2_t vminq_f64 (float64x2_t a, float64x2_t b); A64: FMIN Vd.2D, Vn.2D, Vm.2D
             // MinAcross(Vector128<Byte>)	uint8_t vminvq_u8 (uint8x16_t a); A64: UMINV Bd, Vn.16B
             // MinAcross(Vector128<Int16>)	int16_t vminvq_s16 (int16x8_t a); A64: SMINV Hd, Vn.8H
@@ -2058,6 +2133,8 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector128<Int32>, Byte)	int32_t vqrdmulhs_laneq_s32 (int32_t a, int32x4_t v, const int lane) A64: SQRDMULH Sd, Sn, Vm.S[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqrdmulhs_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQRDMULH Sd, Sn, Vm.S[lane]
             // MultiplyScalarBySelectedScalar(Vector64<Double>, Vector128<Double>, Byte)	float64_t vmuld_laneq_f64 (float64_t a, float64x2_t v, const int lane); A64: FMUL Dd, Dn, Vm.D[lane]
+        }
+        public unsafe static void RunArm_AdvSimd_64_N(TextWriter writer, string indent) {
             // Negate(Vector128<Double>)	float64x2_t vnegq_f64 (float64x2_t a); A64: FNEG Vd.2D, Vn.2D
             // Negate(Vector128<Int64>)	int64x2_t vnegq_s64 (int64x2_t a); A64: NEG Vd.2D, Vn.2D
             // NegateSaturate(Vector128<Int64>)	int64x2_t vqnegq_s64 (int64x2_t a); A64: SQNEG Vd.2D, Vn.2D
@@ -2066,6 +2143,8 @@ namespace IntrinsicsLib {
             // NegateSaturateScalar(Vector64<Int64>)	int64_t vqnegd_s64 (int64_t a); A64: SQNEG Dd, Dn
             // NegateSaturateScalar(Vector64<SByte>)	int8_t vqnegb_s8 (int8_t a); A64: SQNEG Bd, Bn
             // NegateScalar(Vector64<Int64>)	int64x1_t vneg_s64 (int64x1_t a); A64: NEG Dd, Dn
+        }
+        public unsafe static void RunArm_AdvSimd_64_R(TextWriter writer, string indent) {
             // ReciprocalEstimate(Vector128<Double>)	float64x2_t vrecpeq_f64 (float64x2_t a); A64: FRECPE Vd.2D, Vn.2D
             // ReciprocalEstimateScalar(Vector64<Double>)	float64x1_t vrecpe_f64 (float64x1_t a); A64: FRECPE Dd, Dn
             // ReciprocalEstimateScalar(Vector64<Single>)	float32_t vrecpes_f32 (float32_t a); A64: FRECPE Sd, Sn
@@ -2089,6 +2168,8 @@ namespace IntrinsicsLib {
             // RoundToNegativeInfinity(Vector128<Double>)	float64x2_t vrndmq_f64 (float64x2_t a); A64: FRINTM Vd.2D, Vn.2D
             // RoundToPositiveInfinity(Vector128<Double>)	float64x2_t vrndpq_f64 (float64x2_t a); A64: FRINTP Vd.2D, Vn.2D
             // RoundToZero(Vector128<Double>)	float64x2_t vrndq_f64 (float64x2_t a); A64: FRINTZ Vd.2D, Vn.2D
+        }
+        public unsafe static void RunArm_AdvSimd_64_S(TextWriter writer, string indent) {
             // ShiftArithmeticRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqrshlh_s16 (int16_t a, int16_t b); A64: SQRSHL Hd, Hn, Hm
             // ShiftArithmeticRoundedSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqrshls_s32 (int32_t a, int32_t b); A64: SQRSHL Sd, Sn, Sm
             // ShiftArithmeticRoundedSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqrshlb_s8 (int8_t a, int8_t b); A64: SQRSHL Bd, Bn, Bm
@@ -2196,6 +2277,8 @@ namespace IntrinsicsLib {
             // SubtractSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqsubb_s8 (int8_t a, int8_t b); A64: SQSUB Bd, Bn, Bm
             // SubtractSaturateScalar(Vector64<UInt16>, Vector64<UInt16>)	uint16_t vqsubh_u16 (uint16_t a, uint16_t b); A64: UQSUB Hd, Hn, Hm
             // SubtractSaturateScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32_t vqsubs_u32 (uint32_t a, uint32_t b); A64: UQSUB Sd, Sn, Sm
+        }
+        public unsafe static void RunArm_AdvSimd_64_T(TextWriter writer, string indent) {
             // TransposeEven(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vtrn1q_u8(uint8x16_t a, uint8x16_t b); A64: TRN1 Vd.16B, Vn.16B, Vm.16B
             // TransposeEven(Vector128<Double>, Vector128<Double>)	float64x2_t vtrn1q_f64(float64x2_t a, float64x2_t b); A64: TRN1 Vd.2D, Vn.2D, Vm.2D
             // TransposeEven(Vector128<Int16>, Vector128<Int16>)	int16x8_t vtrn1q_s16(int16x8_t a, int16x8_t b); A64: TRN1 Vd.8H, Vn.8H, Vm.8H
@@ -2230,6 +2313,8 @@ namespace IntrinsicsLib {
             // TransposeOdd(Vector64<Single>, Vector64<Single>)	float32x2_t vtrn2_f32(float32x2_t a, float32x2_t b); A64: TRN2 Vd.2S, Vn.2S, Vm.2S
             // TransposeOdd(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vtrn2_u16(uint16x4_t a, uint16x4_t b); A64: TRN2 Vd.4H, Vn.4H, Vm.4H
             // TransposeOdd(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vtrn2_u32(uint32x2_t a, uint32x2_t b); A64: TRN2 Vd.2S, Vn.2S, Vm.2S
+        }
+        public unsafe static void RunArm_AdvSimd_64_U(TextWriter writer, string indent) {
             // UnzipEven(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vuzp1q_u8(uint8x16_t a, uint8x16_t b); A64: UZP1 Vd.16B, Vn.16B, Vm.16B
             // UnzipEven(Vector128<Double>, Vector128<Double>)	float64x2_t vuzp1q_f64(float64x2_t a, float64x2_t b); A64: UZP1 Vd.2D, Vn.2D, Vm.2D
             // UnzipEven(Vector128<Int16>, Vector128<Int16>)	int16x8_t vuzp1q_s16(int16x8_t a, int16x8_t b); A64: UZP1 Vd.8H, Vn.8H, Vm.8H
@@ -2264,10 +2349,14 @@ namespace IntrinsicsLib {
             // UnzipOdd(Vector64<Single>, Vector64<Single>)	float32x2_t vuzp2_f32(float32x2_t a, float32x2_t b); A64: UZP2 Vd.2S, Vn.2S, Vm.2S
             // UnzipOdd(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vuzp2_u16(uint16x4_t a, uint16x4_t b); A64: UZP2 Vd.4H, Vn.4H, Vm.4H
             // UnzipOdd(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vuzp2_u32(uint32x2_t a, uint32x2_t b); A64: UZP2 Vd.2S, Vn.2S, Vm.2S
+        }
+        public unsafe static void RunArm_AdvSimd_64_V(TextWriter writer, string indent) {
             // VectorTableLookup(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vqvtbl1q_u8(uint8x16_t t, uint8x16_t idx); A64: TBL Vd.16B, {Vn.16B}, Vm.16B
             // VectorTableLookup(Vector128<SByte>, Vector128<SByte>)	int8x16_t vqvtbl1q_s8(int8x16_t t, uint8x16_t idx); A64: TBL Vd.16B, {Vn.16B}, Vm.16B
             // VectorTableLookupExtension(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vqvtbx1q_u8(uint8x16_t r, int8x16_t t, uint8x16_t idx); A64: TBX Vd.16B, {Vn.16B}, Vm.16B
             // VectorTableLookupExtension(Vector128<SByte>, Vector128<SByte>, Vector128<SByte>)	int8x16_t vqvtbx1q_s8(int8x16_t r, int8x16_t t, uint8x16_t idx); A64: TBX Vd.16B, {Vn.16B}, Vm.16B
+        }
+        public unsafe static void RunArm_AdvSimd_64_Z(TextWriter writer, string indent) {
             // ZipHigh(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vzip2q_u8(uint8x16_t a, uint8x16_t b); A64: ZIP2 Vd.16B, Vn.16B, Vm.16B
             // ZipHigh(Vector128<Double>, Vector128<Double>)	float64x2_t vzip2q_f64(float64x2_t a, float64x2_t b); A64: ZIP2 Vd.2D, Vn.2D, Vm.2D
             // ZipHigh(Vector128<Int16>, Vector128<Int16>)	int16x8_t vzip2q_s16(int16x8_t a, int16x8_t b); A64: ZIP2 Vd.8H, Vn.8H, Vm.8H
