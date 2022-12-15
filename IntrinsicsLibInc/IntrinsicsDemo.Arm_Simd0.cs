@@ -1370,31 +1370,30 @@ namespace IntrinsicsLib {
                 Vector128<sbyte> demo = Vector128s<sbyte>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmetic<sbyte>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmetic<short>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmetic<int>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmetic<long>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightArithmetic(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmetic(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
-
 
             // ShiftRightArithmeticAdd(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vsraq_n_s16 (int16x8_t a, int16x8_t b, const int n); A32: VSRA.S16 Qd, Qm, #n; A64: SSRA Vd.8H, Vn.8H, #n
             // ShiftRightArithmeticAdd(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vsraq_n_s32 (int32x4_t a, int32x4_t b, const int n); A32: VSRA.S32 Qd, Qm, #n; A64: SSRA Vd.4S, Vn.4S, #n
@@ -1467,28 +1466,28 @@ namespace IntrinsicsLib {
                 Vector128<byte> demo = Vector128s<byte>.Demo;
                 WriteLine(writer, indent, "ShiftRightLogical<byte>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, {1}):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<ushort> demo = Vector128s<ushort>.Demo;
                 WriteLine(writer, indent, "ShiftRightLogical<ushort>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, {1}):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<uint> demo = Vector128s<uint>.Demo;
                 WriteLine(writer, indent, "ShiftRightLogical<uint>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, {1}):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<ulong> demo = Vector128s<ulong>.Demo;
                 WriteLine(writer, indent, "ShiftRightLogical<ulong>, demo:\t{0}", demo);
                 for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
-                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, (byte)shiftAmount):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount));
+                    WriteLine(writer, indentNext, "ShiftRightLogical(demo, {1}):\t{0}", AdvSimd.ShiftRightLogical(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
 
