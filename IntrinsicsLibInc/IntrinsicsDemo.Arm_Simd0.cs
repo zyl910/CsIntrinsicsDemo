@@ -1196,6 +1196,21 @@ namespace IntrinsicsLib {
         }
         public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
+            // 1、Vector shift left: vshl -> ri = ai << bi; (negative values shift right) 
+            // left shifts each element in a vector by an amount specified in the corresponding element in the second input vector. The shift amount is the signed integer value of the least significant byte of the element in the second input vector. The bits shifted out of each element are lost.If the signed integer value is negative, it results in a right shift
+            // 将一个向量中的每个元素左移一个在第二个输入向量中的相应元素中指定的量。移位量是第二个输入向量中元素的最低有效字节的有符号整数值。从每个元素移出的比特都丢失了。如果有符号整数值为负，则会导致右移
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/vshl_s8
+            // for e = 0 to elements-1
+            //     shift = SInt(Elem[operand2, e, esize]<7:0>);
+            //     if rounding then
+            //         round_const = 1 << (-shift - 1); // 0 for left shift, 2^(n-1) for right shift 
+            //     element = (Int(Elem[operand1, e, esize], unsigned) + round_const) << shift;
+            //     if saturating then
+            //         (Elem[result, e, esize], sat) = SatQ(element, esize, unsigned);
+            //         if sat then FPSR.QC = '1';
+            //     else
+            //         Elem[result, e, esize] = element<esize-1:0>;
+            // 
             // ShiftArithmetic(Vector128<Int16>, Vector128<Int16>)	int16x8_t vshlq_s16 (int16x8_t a, int16x8_t b); A32: VSHL.S16 Qd, Qn, Qm; A64: SSHL Vd.8H, Vn.8H, Vm.8H
             // ShiftArithmetic(Vector128<Int32>, Vector128<Int32>)	int32x4_t vshlq_s32 (int32x4_t a, int32x4_t b); A32: VSHL.S32 Qd, Qn, Qm; A64: SSHL Vd.4S, Vn.4S, Vm.4S
             // ShiftArithmetic(Vector128<Int64>, Vector128<Int64>)	int64x2_t vshlq_s64 (int64x2_t a, int64x2_t b); A32: VSHL.S64 Qd, Qn, Qm; A64: SSHL Vd.2D, Vn.2D, Vm.2D
@@ -1203,6 +1218,8 @@ namespace IntrinsicsLib {
             // ShiftArithmetic(Vector64<Int16>, Vector64<Int16>)	int16x4_t vshl_s16 (int16x4_t a, int16x4_t b); A32: VSHL.S16 Dd, Dn, Dm; A64: SSHL Vd.4H, Vn.4H, Vm.4H
             // ShiftArithmetic(Vector64<Int32>, Vector64<Int32>)	int32x2_t vshl_s32 (int32x2_t a, int32x2_t b); A32: VSHL.S32 Dd, Dn, Dm; A64: SSHL Vd.2S, Vn.2S, Vm.2S
             // ShiftArithmetic(Vector64<SByte>, Vector64<SByte>)	int8x8_t vshl_s8 (int8x8_t a, int8x8_t b); A32: VSHL.S8 Dd, Dn, Dm; A64: SSHL Vd.8B, Vn.8B, Vm.8B
+            // ShiftArithmeticScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vshl_s64 (int64x1_t a, int64x1_t b); A32: VSHL.S64 Dd, Dn, Dm; A64: SSHL Dd, Dn, Dm
+
             // ShiftArithmeticRounded(Vector128<Int16>, Vector128<Int16>)	int16x8_t vrshlq_s16 (int16x8_t a, int16x8_t b); A32: VRSHL.S16 Qd, Qn, Qm; A64: SRSHL Vd.8H, Vn.8H, Vm.8H
             // ShiftArithmeticRounded(Vector128<Int32>, Vector128<Int32>)	int32x4_t vrshlq_s32 (int32x4_t a, int32x4_t b); A32: VRSHL.S32 Qd, Qn, Qm; A64: SRSHL Vd.4S, Vn.4S, Vm.4S
             // ShiftArithmeticRounded(Vector128<Int64>, Vector128<Int64>)	int64x2_t vrshlq_s64 (int64x2_t a, int64x2_t b); A32: VRSHL.S64 Qd, Qn, Qm; A64: SRSHL Vd.2D, Vn.2D, Vm.2D
@@ -1227,7 +1244,6 @@ namespace IntrinsicsLib {
             // ShiftArithmeticSaturate(Vector64<Int32>, Vector64<Int32>)	int32x2_t vqshl_s32 (int32x2_t a, int32x2_t b); A32: VQSHL.S32 Dd, Dn, Dm; A64: SQSHL Vd.2S, Vn.2S, Vm.2S
             // ShiftArithmeticSaturate(Vector64<SByte>, Vector64<SByte>)	int8x8_t vqshl_s8 (int8x8_t a, int8x8_t b); A32: VQSHL.S8 Dd, Dn, Dm; A64: SQSHL Vd.8B, Vn.8B, Vm.8B
             // ShiftArithmeticSaturateScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vqshl_s64 (int64x1_t a, int64x1_t b); A32: VQSHL.S64 Dd, Dn, Dm; A64: SQSHL Dd, Dn, Dm
-            // ShiftArithmeticScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vshl_s64 (int64x1_t a, int64x1_t b); A32: VSHL.S64 Dd, Dn, Dm; A64: SSHL Dd, Dn, Dm
             // ShiftLeftAndInsert(Vector128<Byte>, Vector128<Byte>, Byte)	uint8x16_t vsliq_n_u8(uint8x16_t a, uint8x16_t b, __builtin_constant_p(n)) A32: VSLI.8 Qd, Qm, #n A64: SLI Vd.16B, Vn.16B, #n
             // ShiftLeftAndInsert(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vsliq_n_s16(int16x8_t a, int16x8_t b, __builtin_constant_p(n)) A32: VSLI.16 Qd, Qm, #n A64: SLI Vd.8H, Vn.8H, #n
             // ShiftLeftAndInsert(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vsliq_n_s32(int32x4_t a, int32x4_t b, __builtin_constant_p(n)) A32: VSLI.32 Qd, Qm, #n A64: SLI Vd.4S, Vn.4S, #n
@@ -1245,6 +1261,9 @@ namespace IntrinsicsLib {
             // ShiftLeftAndInsertScalar(Vector64<Int64>, Vector64<Int64>, Byte)	int64_t vslid_n_s64(int64_t a, int64_t b, __builtin_constant_p(n)) A32: VSLI.64 Dd, Dm, #n A64: SLI Dd, Dn, #n
             // ShiftLeftAndInsertScalar(Vector64<UInt64>, Vector64<UInt64>, Byte)	uint64_t vslid_n_u64(uint64_t a, uint64_t b, __builtin_constant_p(n)) A32: VSLI.64 Dd, Dm, #n A64: SLI Dd, Dn, #n
 
+            // 2、Vector shift left by constant: vshl -> ri = ai << b; 
+            // left shifts each element in a vector by an immediate value, and places the results in the destination vector. The bits shifted out of the left of each element are lost
+            // 将向量中的每个元素左移一个直接值，并将结果放在目标向量中。移出每个元素左边的比特丢失
             // ShiftLeftLogical(Vector128<Byte>, Byte)	uint8x16_t vshlq_n_u8 (uint8x16_t a, const int n); A32: VSHL.I8 Qd, Qm, #n; A64: SHL Vd.16B, Vn.16B, #n
             // ShiftLeftLogical(Vector128<Int16>, Byte)	int16x8_t vshlq_n_s16 (int16x8_t a, const int n); A32: VSHL.I16 Qd, Qm, #n; A64: SHL Vd.8H, Vn.8H, #n
             // ShiftLeftLogical(Vector128<Int64>, Byte)	int64x2_t vshlq_n_s64 (int64x2_t a, const int n); A32: VSHL.I64 Qd, Qm, #n; A64: SHL Vd.2D, Vn.2D, #n
@@ -1468,7 +1487,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticAdd<short>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticAdd<short>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1476,7 +1495,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticAdd<int>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticAdd<int>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1484,7 +1503,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticAdd<long>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticAdd<long>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1552,7 +1571,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<byte> demo = Vector64s<byte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<short>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<byte>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1560,7 +1579,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<ushort> demo = Vector64s<ushort>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<int>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<ushort>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1568,7 +1587,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<uint> demo = Vector64s<uint>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<long>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<uint>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1580,7 +1599,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<sbyte> demo = Vector64s<sbyte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<long>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<sbyte>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1588,7 +1607,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<short> demo = Vector64s<short>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<short>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<short>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1596,7 +1615,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<int> demo = Vector64s<int>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<int>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<int>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1663,7 +1682,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<short>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<short>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1671,7 +1690,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<int>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<int>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1679,7 +1698,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<long>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedAdd<long>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedAdd(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedAdd(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1749,7 +1768,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<sbyte> demo = Vector64s<sbyte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<long>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<sbyte>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1757,7 +1776,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<short> demo = Vector64s<short>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<short>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<short>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
@@ -1765,7 +1784,7 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector64<int> demo = Vector64s<int>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
-                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<int>, demo:\t{0}", demo);
+                WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<int>, demo={0}, serial={1}", demo, serial);
                 for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
