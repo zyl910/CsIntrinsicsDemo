@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
+using Zyl.VectorTraits;
 
 namespace IntrinsicsLib {
     partial class IntrinsicsDemo {
@@ -22,12 +23,19 @@ namespace IntrinsicsLib {
 #endif
             RunX86Supported(writer, indent);
             if (!isSupported) return;
-            // Sse
-            // Avx
-            RunX86Avx(writer, indent);
-            RunX86Avx2(writer, indent);
-            RunX86Fma(writer, indent);
-            RunX86AvxVnni(writer, indent);
+            //RunX86Avx(writer, indent);
+            //RunX86Avx2(writer, indent);
+            //RunX86Fma(writer, indent);
+            //RunX86AvxVnni(writer, indent);
+            Action<TextWriter, string>[] list = {
+                // Sse
+                // Avx
+                RunX86Avx,
+                RunX86Avx2,
+                RunX86Fma,
+                RunX86AvxVnni,
+            };
+            TraitsUtil.InvokeArray(writer, indent, list);
         }
 
         /// <summary>

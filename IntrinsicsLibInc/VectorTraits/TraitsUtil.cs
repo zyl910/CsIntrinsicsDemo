@@ -582,6 +582,58 @@ namespace Zyl.VectorTraits {
             return WriteLine(null, textWriter, format, args);
         }
 
+        /// <summary>
+        /// Invoke array - Default OnAfter action - Output exception (数组调用 - 默认的 OnAfter 动作 - 输出异常).
+        /// </summary>
+        /// <param name="action">Source action.</param>
+        /// <param name="ex">The excetion. If the value is null, action is successful run.</param>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <param name="actionName">The action name.</param>
+        public static void InvokeArray_Default_OnAfter(Action<TextWriter, string> action, Exception? ex, TextWriter writer, string indent, string actionName) {
+            if (null == ex) return;
+            writer.WriteLine(indent + "Invoke {0} fail! {1}", actionName, ex.ToString());
+        }
+
+        /// <summary>
+        /// Invoke array (数组调用). With these parameters: <paramref name="onafter"/> .
+        /// </summary>
+        /// <param name="onafter">The action that is triggered after the invoke item (在每项调用之后触发的操作). null is <see cref="InvokeArray_Default_OnAfter"/>.</param>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <param name="list">The list.</param>
+        public static void InvokeArray(Action<Action<TextWriter, string>, Exception?, TextWriter, string, string>? onafter, TextWriter writer, string indent, params Action<TextWriter, string>[] list) {
+            if (null == onafter) onafter = InvokeArray_Default_OnAfter;
+            foreach (Action<TextWriter, string> action in list) {
+                string actionName = "";
+                // Get name.
+                try {
+                    if (null != action.Method) {
+                        actionName = action.Method.Name;
+                    }
+                } catch {
+                }
+                // Invoke.
+                Exception? ex0 = null;
+                try {
+                    action(writer, indent);
+                } catch (Exception ex) {
+                    ex0 = ex;
+                }
+                onafter(action, ex0, writer, indent, actionName);
+            }
+        }
+
+        /// <summary>
+        /// Invoke array (数组调用).
+        /// </summary>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        /// <param name="list">The list.</param>
+        public static void InvokeArray(TextWriter writer, string indent, params Action<TextWriter, string>[] list) {
+            InvokeArray(null, writer, indent, list);
+        }
+
 
     }
 }

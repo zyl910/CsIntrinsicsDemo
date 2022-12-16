@@ -29,23 +29,43 @@ namespace IntrinsicsLib {
                 return;
             }
 
-            RunArm_AdvSimd_A(writer, indent);
-            RunArm_AdvSimd_B(writer, indent);
-            RunArm_AdvSimd_C(writer, indent);
-            RunArm_AdvSimd_D(writer, indent);
-            RunArm_AdvSimd_E(writer, indent);
-            RunArm_AdvSimd_F(writer, indent);
-            RunArm_AdvSimd_I(writer, indent);
-            RunArm_AdvSimd_L(writer, indent);
-            RunArm_AdvSimd_M(writer, indent);
-            RunArm_AdvSimd_N(writer, indent);
-            RunArm_AdvSimd_O(writer, indent);
-            RunArm_AdvSimd_P(writer, indent);
-            RunArm_AdvSimd_R(writer, indent);
-            RunArm_AdvSimd_S(writer, indent);
-            RunArm_AdvSimd_V(writer, indent);
-            RunArm_AdvSimd_X(writer, indent);
-            RunArm_AdvSimd_Z(writer, indent);
+            //RunArm_AdvSimd_A(writer, indent);
+            //RunArm_AdvSimd_B(writer, indent);
+            //RunArm_AdvSimd_C(writer, indent);
+            //RunArm_AdvSimd_D(writer, indent);
+            //RunArm_AdvSimd_E(writer, indent);
+            //RunArm_AdvSimd_F(writer, indent);
+            //RunArm_AdvSimd_I(writer, indent);
+            //RunArm_AdvSimd_L(writer, indent);
+            //RunArm_AdvSimd_M(writer, indent);
+            //RunArm_AdvSimd_N(writer, indent);
+            //RunArm_AdvSimd_O(writer, indent);
+            //RunArm_AdvSimd_P(writer, indent);
+            //RunArm_AdvSimd_R(writer, indent);
+            //RunArm_AdvSimd_S(writer, indent);
+            //RunArm_AdvSimd_V(writer, indent);
+            //RunArm_AdvSimd_X(writer, indent);
+            //RunArm_AdvSimd_Z(writer, indent);
+            Action<TextWriter, string>[] list = {
+                RunArm_AdvSimd_A,
+                RunArm_AdvSimd_B,
+                RunArm_AdvSimd_C,
+                RunArm_AdvSimd_D,
+                RunArm_AdvSimd_E,
+                RunArm_AdvSimd_F,
+                RunArm_AdvSimd_I,
+                RunArm_AdvSimd_L,
+                RunArm_AdvSimd_M,
+                RunArm_AdvSimd_N,
+                RunArm_AdvSimd_O,
+                RunArm_AdvSimd_P,
+                RunArm_AdvSimd_R,
+                RunArm_AdvSimd_S,
+                RunArm_AdvSimd_V,
+                RunArm_AdvSimd_X,
+                RunArm_AdvSimd_Z,
+            };
+            TraitsUtil.InvokeArray(writer, indent, list);
         }
         public unsafe static void RunArm_AdvSimd_A(TextWriter writer, string indent) {
             // Abs(Vector128<Int16>)	int16x8_t vabsq_s16 (int16x8_t a); A32: VABS.S16 Qd, Qm; A64: ABS Vd.8H, Vn.8H
@@ -1479,21 +1499,21 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateLower<short>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateLower<int>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateLower<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1507,21 +1527,21 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedLower<short>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedLower<int>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedLower<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1533,7 +1553,7 @@ namespace IntrinsicsLib {
                 Vector64<byte> demo = Vector64s<byte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<short>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1541,7 +1561,7 @@ namespace IntrinsicsLib {
                 Vector64<ushort> demo = Vector64s<ushort>.Demo;
                 Vector128<int> serial = Vector128s<int>.Serial;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<int>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1549,7 +1569,7 @@ namespace IntrinsicsLib {
                 Vector64<uint> demo = Vector64s<uint>.Demo;
                 Vector128<long> serial = Vector128s<long>.Serial;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUnsignedUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1561,7 +1581,7 @@ namespace IntrinsicsLib {
                 Vector64<sbyte> demo = Vector64s<sbyte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
                 WriteLine(writer, indent, "ShiftRightArithmeticNarrowingSaturateUpper<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1674,21 +1694,21 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateLower<short>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateLower<int>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateLower<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1704,21 +1724,21 @@ namespace IntrinsicsLib {
             if (true) {
                 Vector128<short> demo = Vector128s<short>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower<short>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<int> demo = Vector128s<int>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower<int>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 16; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
             if (true) {
                 Vector128<long> demo = Vector128s<long>.Demo;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 32; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUnsignedLower(demo, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -1730,7 +1750,7 @@ namespace IntrinsicsLib {
                 Vector64<sbyte> demo = Vector64s<sbyte>.Demo;
                 Vector128<short> serial = Vector128s<short>.Serial;
                 WriteLine(writer, indent, "ShiftRightArithmeticRoundedNarrowingSaturateUpper<long>, demo:\t{0}", demo);
-                for (int shiftAmount = 1; shiftAmount <= 64; ++shiftAmount) {
+                for (int shiftAmount = 1; shiftAmount <= 8; ++shiftAmount) {
                     WriteLine(writer, indentNext, "ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, {1}):\t{0}", AdvSimd.ShiftRightArithmeticRoundedNarrowingSaturateUpper(demo, serial, (byte)shiftAmount), shiftAmount);
                 }
             }
@@ -2089,20 +2109,37 @@ namespace IntrinsicsLib {
                 return;
             }
 
-            RunArm_AdvSimd_64_A(writer, indent);
-            RunArm_AdvSimd_64_C(writer, indent);
-            RunArm_AdvSimd_64_D(writer, indent);
-            RunArm_AdvSimd_64_F(writer, indent);
-            RunArm_AdvSimd_64_I(writer, indent);
-            RunArm_AdvSimd_64_L(writer, indent);
-            RunArm_AdvSimd_64_M(writer, indent);
-            RunArm_AdvSimd_64_N(writer, indent);
-            RunArm_AdvSimd_64_R(writer, indent);
-            RunArm_AdvSimd_64_S(writer, indent);
-            RunArm_AdvSimd_64_T(writer, indent);
-            RunArm_AdvSimd_64_U(writer, indent);
-            RunArm_AdvSimd_64_V(writer, indent);
-            RunArm_AdvSimd_64_Z(writer, indent);
+            //RunArm_AdvSimd_64_A(writer, indent);
+            //RunArm_AdvSimd_64_C(writer, indent);
+            //RunArm_AdvSimd_64_D(writer, indent);
+            //RunArm_AdvSimd_64_F(writer, indent);
+            //RunArm_AdvSimd_64_I(writer, indent);
+            //RunArm_AdvSimd_64_L(writer, indent);
+            //RunArm_AdvSimd_64_M(writer, indent);
+            //RunArm_AdvSimd_64_N(writer, indent);
+            //RunArm_AdvSimd_64_R(writer, indent);
+            //RunArm_AdvSimd_64_S(writer, indent);
+            //RunArm_AdvSimd_64_T(writer, indent);
+            //RunArm_AdvSimd_64_U(writer, indent);
+            //RunArm_AdvSimd_64_V(writer, indent);
+            //RunArm_AdvSimd_64_Z(writer, indent);
+            Action<TextWriter, string>[] list = {
+                RunArm_AdvSimd_64_A,
+                RunArm_AdvSimd_64_C,
+                RunArm_AdvSimd_64_D,
+                RunArm_AdvSimd_64_F,
+                RunArm_AdvSimd_64_I,
+                RunArm_AdvSimd_64_L,
+                RunArm_AdvSimd_64_M,
+                RunArm_AdvSimd_64_N,
+                RunArm_AdvSimd_64_R,
+                RunArm_AdvSimd_64_S,
+                RunArm_AdvSimd_64_T,
+                RunArm_AdvSimd_64_U,
+                RunArm_AdvSimd_64_V,
+                RunArm_AdvSimd_64_Z,
+            };
+            TraitsUtil.InvokeArray(writer, indent, list);
 
         }
         public unsafe static void RunArm_AdvSimd_64_A(TextWriter writer, string indent) {
