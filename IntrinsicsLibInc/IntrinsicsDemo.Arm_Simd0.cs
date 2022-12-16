@@ -1219,6 +1219,67 @@ namespace IntrinsicsLib {
             // ShiftArithmetic(Vector64<Int32>, Vector64<Int32>)	int32x2_t vshl_s32 (int32x2_t a, int32x2_t b); A32: VSHL.S32 Dd, Dn, Dm; A64: SSHL Vd.2S, Vn.2S, Vm.2S
             // ShiftArithmetic(Vector64<SByte>, Vector64<SByte>)	int8x8_t vshl_s8 (int8x8_t a, int8x8_t b); A32: VSHL.S8 Dd, Dn, Dm; A64: SSHL Vd.8B, Vn.8B, Vm.8B
             // ShiftArithmeticScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vshl_s64 (int64x1_t a, int64x1_t b); A32: VSHL.S64 Dd, Dn, Dm; A64: SSHL Dd, Dn, Dm
+            try {
+                if (true) {
+                    Vector128<sbyte> demo = Vector128.Create((sbyte)-3);
+                    Vector128<sbyte> vcount = Vector128.Create((sbyte)7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8);
+                    WriteLine(writer, indent, "ShiftArithmetic<sbyte>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                }
+                if (true) {
+                    Vector128<short> demo = Vector128.Create((short)-3);
+                    Vector128<short> vcount = Vector128.Create((short)15, 14, 1, 0, -1, -14, -15, -16);
+                    WriteLine(writer, indent, "ShiftArithmetic<short>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                }
+                if (true) {
+                    Vector128<int> demo = Vector128.Create((int)-3);
+                    Vector128<int> vcount = Vector128.Create((int)31, 30, -31, -32);
+                    WriteLine(writer, indent, "ShiftArithmetic<int>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                }
+                if (true) {
+                    Vector128<long> demo = Vector128.Create((long)-3);
+                    Vector128<long> vcount = Vector128.Create((long)63, -63);
+                    WriteLine(writer, indent, "ShiftArithmetic<long>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                    vcount = Vector128.Create((long)63, -64);
+                    WriteLine(writer, indent, "ShiftArithmetic<long>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                }
+                if (true) {
+                    // Try to go out of range.
+                    Vector128<sbyte> demo = Vector128.Create((sbyte)-3);
+                    Vector128<sbyte> vcount = Vector128.Create((sbyte)8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8);
+                    WriteLine(writer, indent, "ShiftArithmetic<sbyte>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                    vcount = Vector128.Create((sbyte)8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -3, -5, -6, -7, -8, -9);
+                    WriteLine(writer, indent, "ShiftArithmetic<sbyte>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                    vcount = Vector128.Create((sbyte)8, 7, 16, 15, 3, 2, 1, 0, -1, -2, -3, -5, -16, -17, -8, -9);
+                    WriteLine(writer, indent, "ShiftArithmetic<sbyte>, demo={0}, vcount={1}", demo, vcount);
+                    WriteLine(writer, indentNext, "ShiftArithmetic(demo, serial):\t{0}", AdvSimd.ShiftArithmetic(demo, vcount));
+                    // -- 发现 Arm支持变量值超出范围，且符合逻辑。左移超出范围时会变0，算术右移超出范围时会变“全符号位”（0或-1。因为“对负数做足够多次算术右移”时会变为-1）。
+                    // ShiftArithmetic<sbyte>, demo=<-3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3>, vcount=<8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8>	# (FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD), (08 07 06 05 03 02 01 00 FF FE FD FC FB FA F9 F8)
+                    // 	ShiftArithmetic(demo, serial):	<0, -128, 64, -96, -24, -12, -6, -3, -2, -1, -1, -1, -1, -1, -1, -1>	# (00 80 40 A0 E8 F4 FA FD FE FF FF FF FF FF FF FF)
+                    // ShiftArithmetic<sbyte>, demo=<-3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3>, vcount=<8, 7, 6, 5, 3, 2, 1, 0, -1, -2, -3, -5, -6, -7, -8, -9>	# (FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD), (08 07 06 05 03 02 01 00 FF FE FD FB FA F9 F8 F7)
+                    // 	ShiftArithmetic(demo, serial):	<0, -128, 64, -96, -24, -12, -6, -3, -2, -1, -1, -1, -1, -1, -1, -1>	# (00 80 40 A0 E8 F4 FA FD FE FF FF FF FF FF FF FF)
+                    // ShiftArithmetic<sbyte>, demo=<-3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3>, vcount=<8, 7, 16, 15, 3, 2, 1, 0, -1, -2, -3, -5, -16, -17, -8, -9>	# (FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD FD), (08 07 10 0F 03 02 01 00 FF FE FD FB F0 EF F8 F7)
+                    // 	ShiftArithmetic(demo, serial):	<0, -128, 0, 0, -24, -12, -6, -3, -2, -1, -1, -1, -1, -1, -1, -1>	# (00 80 00 00 E8 F4 FA FD FE FF FF FF FF FF FF FF)
+                    // -- X86的变量算术右移也是支持超出范围的。但它的移位参数必须为无符号数，无法反向移位。且Avx2仅支持32位元素，Avx512才支持16、64位元素。
+                    // ShiftRightArithmeticVariable(Vector128<Int32>, Vector128<UInt32>)	
+                    // __m128i _mm_srav_epi32 (__m128i a, __m128i count)
+                    // VPSRAVD xmm, xmm, xmm/m128
+                    // https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html
+                    // IF count[i+31:i] < 32
+                    // 	dst[i+31:i] := SignExtend32(a[i+31:i] >> count[i+31:i])
+                    // ELSE
+                    // 	dst[i+31:i] := (a[i+31] ? 0xFFFFFFFF : 0)
+                    // FI
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
 
             // ShiftArithmeticRounded(Vector128<Int16>, Vector128<Int16>)	int16x8_t vrshlq_s16 (int16x8_t a, int16x8_t b); A32: VRSHL.S16 Qd, Qn, Qm; A64: SRSHL Vd.8H, Vn.8H, Vm.8H
             // ShiftArithmeticRounded(Vector128<Int32>, Vector128<Int32>)	int32x4_t vrshlq_s32 (int32x4_t a, int32x4_t b); A32: VRSHL.S32 Qd, Qn, Qm; A64: SRSHL Vd.4S, Vn.4S, Vm.4S
