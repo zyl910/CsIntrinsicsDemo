@@ -15,6 +15,9 @@ namespace IntrinsicsLib {
     /// Demo for Intrinsics function and Vector types (内在函数及向量类型的Demo).
     /// </summary>
     public partial class IntrinsicsDemo {
+        /// <summary>Element - Negative number. -19 = 0b1...11101101 = 0xF...FED .</summary>
+        const int elementNegative = -19;
+
         /// <summary>Indent next separator.</summary>
         public static readonly string IndentNextSeparator = "\t";
 
