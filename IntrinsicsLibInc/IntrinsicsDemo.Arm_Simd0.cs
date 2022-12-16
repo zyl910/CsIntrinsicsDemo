@@ -1658,21 +1658,22 @@ namespace IntrinsicsLib {
                 if (true) {
                     Vector64<sbyte> demo = Vector64s<sbyte>.Demo;
                     WriteLine(writer, indent, "ShiftLeftLogicalWideningLower<sbyte>, demo:\t{0}", demo);
-                    for (int shiftAmount = 0; shiftAmount <= 8; ++shiftAmount) {
+                    for (int shiftAmount = 0; shiftAmount <= 7; ++shiftAmount) {
                         WriteLine(writer, indentNext, "ShiftLeftLogicalWideningLower(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningLower(demo, (byte)shiftAmount), shiftAmount);
                     }
+                    // 8: System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
                 }
                 if (true) {
                     Vector64<short> demo = Vector64s<short>.Demo;
                     WriteLine(writer, indent, "ShiftLeftLogicalWideningLower<short>, demo:\t{0}", demo);
-                    for (int shiftAmount = 0; shiftAmount <= 16; ++shiftAmount) {
+                    for (int shiftAmount = 0; shiftAmount <= 15; ++shiftAmount) {
                         WriteLine(writer, indentNext, "ShiftLeftLogicalWideningLower(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningLower(demo, (byte)shiftAmount), shiftAmount);
                     }
                 }
                 if (true) {
                     Vector64<int> demo = Vector64s<int>.Demo;
                     WriteLine(writer, indent, "ShiftLeftLogicalWideningLower<int>, demo:\t{0}", demo);
-                    for (int shiftAmount = 0; shiftAmount <= 32; ++shiftAmount) {
+                    for (int shiftAmount = 0; shiftAmount <= 31; ++shiftAmount) {
                         WriteLine(writer, indentNext, "ShiftLeftLogicalWideningLower(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningLower(demo.AsUInt32(), (byte)shiftAmount), shiftAmount);
                     }
                 }
@@ -1687,21 +1688,21 @@ namespace IntrinsicsLib {
                     if (true) {
                         Vector128<sbyte> demo = Vector128s<sbyte>.Demo;
                         WriteLine(writer, indent, "ShiftLeftLogicalWideningUpper<sbyte>, demo:\t{0}", demo);
-                        for (int shiftAmount = 0; shiftAmount <= 8; ++shiftAmount) {
+                        for (int shiftAmount = 0; shiftAmount <= 7; ++shiftAmount) {
                             WriteLine(writer, indentNext, "ShiftLeftLogicalWideningUpper(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningUpper(demo, (byte)shiftAmount), shiftAmount);
                         }
                     }
                     if (true) {
                         Vector128<short> demo = Vector128s<short>.Demo;
                         WriteLine(writer, indent, "ShiftLeftLogicalWideningUpper<short>, demo:\t{0}", demo);
-                        for (int shiftAmount = 0; shiftAmount <= 16; ++shiftAmount) {
+                        for (int shiftAmount = 0; shiftAmount <= 15; ++shiftAmount) {
                             WriteLine(writer, indentNext, "ShiftLeftLogicalWideningUpper(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningUpper(demo, (byte)shiftAmount), shiftAmount);
                         }
                     }
                     if (true) {
                         Vector128<int> demo = Vector128s<int>.Demo;
                         WriteLine(writer, indent, "ShiftLeftLogicalWideningUpper<int>, demo:\t{0}", demo);
-                        for (int shiftAmount = 0; shiftAmount <= 32; ++shiftAmount) {
+                        for (int shiftAmount = 0; shiftAmount <= 31; ++shiftAmount) {
                             WriteLine(writer, indentNext, "ShiftLeftLogicalWideningUpper(demo, {1}):\t{0}", AdvSimd.ShiftLeftLogicalWideningUpper(demo.AsUInt32(), (byte)shiftAmount), shiftAmount);
                         }
                     }
