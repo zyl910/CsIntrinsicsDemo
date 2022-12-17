@@ -1197,6 +1197,7 @@ namespace IntrinsicsLib {
         public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
             unchecked {
+                // Mnemonic: `r[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0/-1 .
                 // 1、Vector shift left: vshl -> ri = ai << bi; (negative values shift right) 
                 // left shifts each element in a vector by an amount specified in the corresponding element in the second input vector. The shift amount is the signed integer value of the least significant byte of the element in the second input vector. The bits shifted out of each element are lost.If the signed integer value is negative, it results in a right shift
                 // 将一个向量中的每个元素左移一个在第二个输入向量中的相应元素中指定的量。移位量是第二个输入向量中元素的最低有效字节的有符号整数值。从每个元素移出的比特都丢失了。如果有符号整数值为负，则会导致右移
@@ -1282,6 +1283,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
+                // Mnemonic: `r[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0 .
                 // 3、Vector rounding shift left(饱和指令):  
                 // vrshl -> ri = ai << bi;(negative values shift right) 
                 // If the shift value is positive, the operation is a left shift. Otherwise, it is a rounding right shift. left shifts each element in a vector of integers and places the results in the destination vector. It is similar to VSHL.  
@@ -1336,11 +1338,33 @@ namespace IntrinsicsLib {
                         vcount = Vector128.Create((sbyte)8, 7, 16, 15, 3, 2, 1, 0, -1, -2, -3, -5, -16, -17, -8, -9);
                         WriteLine(writer, indent, "ShiftArithmeticRounded<sbyte>, demo={0}, vcount={1}", demo, vcount);
                         WriteLine(writer, indentNext, "ShiftArithmeticRounded(demo, serial):\t{0}", AdvSimd.ShiftArithmeticRounded(demo, vcount));
+                        // ShiftArithmetic(demo, serial):	
+                        // <-128, 64, -96, -48, 104, -76, -38, -19, -10, -5, -3, -2, -1, -1, -1, -1>	# (80 40 A0 D0 68 B4 DA ED F6 FB FD FE FF FF FF FF)
+                        // ShiftArithmeticRounded(demo, serial):
+                        // <-128, 64, -96, -48, 104, -76, -38, -19, -9, -5, -2, -1, -1, 0, 0, 0>	# (80 40 A0 D0 68 B4 DA ED F7 FB FE FF FF 00 00 00)
+                        // f(e, shift)= (e + (1 << (-shift - 1))) << shift
+                        // f(-19, -1) = (-19 + (1 << (-(-1) - 1))) << (-1) = (-19 + (1 << 0)) >> 1 = (-19 + 1) >> 1 = -18 >> 1 = -9
+                        // f(-19, -2) = (-19 + (1 << (-(-2) - 1))) << (-2) = (-19 + (1 << 1)) >> 2 = (-19 + 2) >> 2 = -17 >> 2 = floor(-4.25) = -5
+                        // f(-19, -3) = (-19 + (1 << (-(-3) - 1))) << (-3) = (-19 + (1 << 2)) >> 3 = (-19 + 4) >> 3 = -15 >> 3 = floor(-1.875) = -2
+                        // f(-19, -4) = (-19 + (1 << (-(-4) - 1))) << (-4) = (-19 + (1 << 3)) >> 4 = (-19 + 8) >> 4 = -11 >> 4 = floor(-0.6875) = -1
+                        // f(-19, -5) = (-19 + (1 << (-(-5) - 1))) << (-5) = (-19 + (1 << 4)) >> 5 = (-19 +16) >> 5 =  -3 >> 5 = floor(-0.09375) = -1
+                        // f(-19, -6) = (-19 + (1 << (-(-6) - 1))) << (-6) = (-19 + (1 << 5)) >> 6 = (-19 +32) >> 6 =  13 >> 6 = floor(0.203125) = 0
+                        // for e = 0 to elements-1
+                        //     shift = SInt(Elem[operand2, e, esize]<7:0>);
+                        //     if rounding then
+                        //         round_const = 1 << (-shift - 1); // 0 for left shift, 2^(n-1) for right shift 
+                        //     element = (Int(Elem[operand1, e, esize], unsigned) + round_const) << shift;
+                        //     if saturating then
+                        //         (Elem[result, e, esize], sat) = SatQ(element, esize, unsigned);
+                        //         if sat then FPSR.QC = '1';
+                        //     else
+                        //         Elem[result, e, esize] = element<esize-1:0>;
                     }
                 } catch (Exception ex) {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
+                // Mnemonic: `r[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0 .
                 // 4、Vector saturating rounding shift left(饱和指令): 
                 // vqrshl -> ri = ai << bi;(negative values shift right) 
                 // left shifts each element in a vector of integers and places the results in the destination vector.It is similar to VSHL. The difference is that the shifted value is rounded, and the sticky QC flag is set if saturation occurs.
@@ -1393,11 +1417,15 @@ namespace IntrinsicsLib {
                         vcount = Vector128.Create((sbyte)8, 7, 16, 15, 3, 2, 1, 0, -1, -2, -3, -5, -16, -17, -8, -9);
                         WriteLine(writer, indent, "ShiftArithmeticRoundedSaturate<sbyte>, demo={0}, vcount={1}", demo, vcount);
                         WriteLine(writer, indentNext, "ShiftArithmeticRoundedSaturate(demo, serial):\t{0}", AdvSimd.ShiftArithmeticRoundedSaturate(demo, vcount));
+                        demo = Vector128.Create((sbyte)-elementNegative);
+                        WriteLine(writer, indent, "ShiftArithmeticRoundedSaturate<sbyte>, demo={0}, vcount={1}", demo, vcount);
+                        WriteLine(writer, indentNext, "ShiftArithmeticRoundedSaturate(demo, serial):\t{0}", AdvSimd.ShiftArithmeticRoundedSaturate(demo, vcount));
                     }
                 } catch (Exception ex) {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
+                // Mnemonic: `r[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0/-1 .
                 // 2、Vector saturating shift left(饱和指令):  
                 // vqshl -> ri = ai << bi;(negative values shift right) 
                 // If the shift value is positive, the operation is a left shift. Otherwise, it is a truncating right shift. left shifts each element in a vector of integers and places the results in the destination vector. It is similar to VSHL.  
@@ -1457,6 +1485,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
+                // Mnemonic: `r[i] := ConditionalSelect(GetBitsMask(shiftAmount), a[i], b[i] << shiftAmount)`. Tip: `GetBitsMask(shiftAmount) = (1 << shiftAmount) - 1`
                 // 2、Vector shift left and insert: vsli ->; The least significant bit in each element 
                 // in the destination vector is unchanged. left shifts each element in the second input vector by an immediate value, and inserts the results in the destination vector. 
                 // It does not affect the lowest n significant bits of the elements in the destination register. Bits shifted out of the left of each element are lost. The first input vector holds the elements of the destination vector before the operation is performed.
@@ -1511,6 +1540,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
+                // Mnemonic: `r[i] := value[i] << shiftAmount`
                 // 2、Vector shift left by constant: vshl -> ri = ai << b; 
                 // left shifts each element in a vector by an immediate value, and places the results in the destination vector. The bits shifted out of the left of each element are lost
                 // 将向量中的每个元素左移一个直接值，并将结果放在目标向量中。移出每个元素左边的比特丢失
@@ -1558,6 +1588,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
+                // Mnemonic: `r[i] := saturate(value[i] << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
                 // 6、Vector saturating shift left by constant: vqshl -> ri = sat(ai << b);  
                 // left shifts each element in a vector of integers by an immediate value, and places the results in the destination vector,and the sticky QC flag is set if saturation occurs.
                 // 将整数向量中的每个元素左移一个即时值，并将结果放在目标向量中，如果发生饱和，则设置粘性QC标志。
@@ -1606,6 +1637,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
+                // Mnemonic: `r[i] := saturate(toUnsigned(max(0, value[i])) << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
                 // 7、Vector signed->unsigned saturating shift left by constant: vqshlu -> ri = ai << b;  
                 // left shifts each element in a vector of integers by an immediate value, places the results in the destination vector, the sticky QC flag is set if saturation occurs, and indicates that the results are unsigned even though the operands are signed.
                 // 将整数向量中的每个元素左移一个即时值，将结果放在目标向量中，如果发生饱和，则设置sticky QC标志，并指示即使操作数是有符号的，结果也是无符号的。
@@ -1646,6 +1678,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
+                // Mnemonic: `r[i] := toWiden(value[i]) << shiftAmount`
                 // 14、Vector widening shift left by constant: vshll -> ri = ai << b;  
                 // left shifts each element in a vector of integers by an immediate value, and place the results in the destination vector. Bits shifted out of the left of each element are lost and values are sign extended or zero extended.
                 // 将整数向量中的每个元素左移一个直接值，并将结果放在目标向量中。从每个元素左侧移出的位丢失，值扩展为符号扩展或0扩展。
@@ -1678,6 +1711,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
+                // Mnemonic: `r[i] := toWiden(value[i+(vcount/2)]) << shiftAmount`
                 // ShiftLeftLogicalWideningUpper(Vector128<Byte>, Byte)	uint16x8_t vshll_high_n_u8 (uint8x16_t a, const int n); A32: VSHLL.U8 Qd, Dm+1, #n; A64: USHLL2 Vd.8H, Vn.16B, #n
                 // ShiftLeftLogicalWideningUpper(Vector128<Int16>, Byte)	int32x4_t vshll_high_n_s16 (int16x8_t a, const int n); A32: VSHLL.S16 Qd, Dm+1, #n; A64: SSHLL2 Vd.4S, Vn.8H, #n
                 // ShiftLeftLogicalWideningUpper(Vector128<Int32>, Byte)	int64x2_t vshll_high_n_s32 (int32x4_t a, const int n); A32: VSHLL.S32 Qd, Dm+1, #n; A64: SSHLL2 Vd.2D, Vn.4S, #n
