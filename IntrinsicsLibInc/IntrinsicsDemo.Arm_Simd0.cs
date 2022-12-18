@@ -1197,7 +1197,7 @@ namespace IntrinsicsLib {
         public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
             unchecked {
-                // Mnemonic: `r[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0/-1 .
+                // Mnemonic: `rt[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0/-1 .
                 // 1、Vector shift left: vshl -> ri = ai << bi; (negative values shift right) 
                 // left shifts each element in a vector by an amount specified in the corresponding element in the second input vector. The shift amount is the signed integer value of the least significant byte of the element in the second input vector. The bits shifted out of each element are lost.If the signed integer value is negative, it results in a right shift
                 // 将一个向量中的每个元素左移一个在第二个输入向量中的相应元素中指定的量。移位量是第二个输入向量中元素的最低有效字节的有符号整数值。从每个元素移出的比特都丢失了。如果有符号整数值为负，则会导致右移
@@ -1283,7 +1283,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
-                // Mnemonic: `r[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0 .
+                // Mnemonic: `rt[i] := (count[i]>=0)?(value[i] << count[i]):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range when shifting left, the result is 0. If the shift amount is out of range when shifting right, the result is 0 .
                 // 3、Vector rounding shift left(饱和指令):  
                 // vrshl -> ri = ai << bi;(negative values shift right) 
                 // If the shift value is positive, the operation is a left shift. Otherwise, it is a rounding right shift. left shifts each element in a vector of integers and places the results in the destination vector. It is similar to VSHL.  
@@ -1364,7 +1364,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
-                // Mnemonic: `r[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0 .
+                // Mnemonic: `rt[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `round(value[i] / pow(2,-count[i])) = intDiv(value[i], pow(2,-count[i])) = (value[i] + (1 << (-count[i] - 1))) >> -count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0 .
                 // 4、Vector saturating rounding shift left(饱和指令): 
                 // vqrshl -> ri = ai << bi;(negative values shift right) 
                 // left shifts each element in a vector of integers and places the results in the destination vector.It is similar to VSHL. The difference is that the shifted value is rounded, and the sticky QC flag is set if saturation occurs.
@@ -1425,7 +1425,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
-                // Mnemonic: `r[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0/-1 .
+                // Mnemonic: `rt[i] := (count[i]>=0)?(saturate(value[i] << count[i])):(value[i] >> -count[i])`, `>>` is mean `floor(value[i] / pow(2,-count[i]))`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary. If the shift amount is out of range when shifting right, the result is 0/-1 .
                 // 2、Vector saturating shift left(饱和指令):  
                 // vqshl -> ri = ai << bi;(negative values shift right) 
                 // If the shift value is positive, the operation is a left shift. Otherwise, it is a truncating right shift. left shifts each element in a vector of integers and places the results in the destination vector. It is similar to VSHL.  
@@ -1485,7 +1485,7 @@ namespace IntrinsicsLib {
                     writer.WriteLine(indent + ex.ToString());
                 }
 
-                // Mnemonic: `r[i] := ConditionalSelect(GetBitsMask(shiftAmount), a[i], b[i] << shiftAmount)`. Tip: `GetBitsMask(shiftAmount) = (1 << shiftAmount) - 1`
+                // Mnemonic: `rt[i] := ConditionalSelect(GetBitsMask(shiftAmount), a[i], b[i] << shiftAmount)`. Tip: `GetBitsMask(shiftAmount) = (1 << shiftAmount) - 1`
                 // 2、Vector shift left and insert: vsli ->; The least significant bit in each element 
                 // in the destination vector is unchanged. left shifts each element in the second input vector by an immediate value, and inserts the results in the destination vector. 
                 // It does not affect the lowest n significant bits of the elements in the destination register. Bits shifted out of the left of each element are lost. The first input vector holds the elements of the destination vector before the operation is performed.
@@ -1540,7 +1540,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
-                // Mnemonic: `r[i] := value[i] << shiftAmount`
+                // Mnemonic: `rt[i] := value[i] << shiftAmount`
                 // 2、Vector shift left by constant: vshl -> ri = ai << b; 
                 // left shifts each element in a vector by an immediate value, and places the results in the destination vector. The bits shifted out of the left of each element are lost
                 // 将向量中的每个元素左移一个直接值，并将结果放在目标向量中。移出每个元素左边的比特丢失
@@ -1588,7 +1588,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
-                // Mnemonic: `r[i] := saturate(value[i] << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
+                // Mnemonic: `rt[i] := saturate(value[i] << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
                 // 6、Vector saturating shift left by constant: vqshl -> ri = sat(ai << b);  
                 // left shifts each element in a vector of integers by an immediate value, and places the results in the destination vector,and the sticky QC flag is set if saturation occurs.
                 // 将整数向量中的每个元素左移一个即时值，并将结果放在目标向量中，如果发生饱和，则设置粘性QC标志。
@@ -1637,7 +1637,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
-                // Mnemonic: `r[i] := saturate(toUnsigned(max(0, value[i])) << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
+                // Mnemonic: `rt[i] := saturate(toUnsigned(max(0, value[i])) << count[i]`. If the shift amount is out of range or the number overflows when shifting left, the result will saturate to the boundary.
                 // 7、Vector signed->unsigned saturating shift left by constant: vqshlu -> ri = ai << b;  
                 // left shifts each element in a vector of integers by an immediate value, places the results in the destination vector, the sticky QC flag is set if saturation occurs, and indicates that the results are unsigned even though the operands are signed.
                 // 将整数向量中的每个元素左移一个即时值，将结果放在目标向量中，如果发生饱和，则设置sticky QC标志，并指示即使操作数是有符号的，结果也是无符号的。
@@ -1678,7 +1678,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
-                // Mnemonic: `r[i] := toWiden(value[i]) << shiftAmount`
+                // Mnemonic: `rt[i] := toWiden(value[i]) << shiftAmount`
                 // 14、Vector widening shift left by constant: vshll -> ri = ai << b;  
                 // left shifts each element in a vector of integers by an immediate value, and place the results in the destination vector. Bits shifted out of the left of each element are lost and values are sign extended or zero extended.
                 // 将整数向量中的每个元素左移一个直接值，并将结果放在目标向量中。从每个元素左侧移出的位丢失，值扩展为符号扩展或0扩展。
@@ -1711,7 +1711,7 @@ namespace IntrinsicsLib {
                     }
                 }
 
-                // Mnemonic: `r[i] := toWiden(value[i+(vcount/2)]) << shiftAmount`
+                // Mnemonic: `rt[i] := toWiden(value[i+(vcount/2)]) << shiftAmount`
                 // ShiftLeftLogicalWideningUpper(Vector128<Byte>, Byte)	uint16x8_t vshll_high_n_u8 (uint8x16_t a, const int n); A32: VSHLL.U8 Qd, Dm+1, #n; A64: USHLL2 Vd.8H, Vn.16B, #n
                 // ShiftLeftLogicalWideningUpper(Vector128<Int16>, Byte)	int32x4_t vshll_high_n_s16 (int16x8_t a, const int n); A32: VSHLL.S16 Qd, Dm+1, #n; A64: SSHLL2 Vd.4S, Vn.8H, #n
                 // ShiftLeftLogicalWideningUpper(Vector128<Int32>, Byte)	int64x2_t vshll_high_n_s32 (int32x4_t a, const int n); A32: VSHLL.S32 Qd, Dm+1, #n; A64: SSHLL2 Vd.2D, Vn.4S, #n
@@ -3018,10 +3018,71 @@ namespace IntrinsicsLib {
             }
         }
         public unsafe static void RunArm_AdvSimd_V(TextWriter writer, string indent) {
+            string indentNext = indent + IndentNextSeparator;
+            // 1、Table lookup: vtbl -> 
+            // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range return 0.  
+            // The table is in Vector1 and uses one(or two or three or four)D registers.
+            // 使用控制向量中的字节索引在表中查找字节值并生成新向量。超出范围的索引返回0。
+            // 该表位于Vector1中，并使用一个(或两个、三个或四个)D寄存器。
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtbl1_u8
+            // result = if is_tbl then Zeros() else V[d];
+            // for i = 0 to elements - 1
+            //     index = UInt(Elem[indices, i, 8]);
+            //     if index < 16 * regs then
+            //         Elem[result, i, 8] = Elem[table, index, 8];
             // VectorTableLookup(Vector128<Byte>, Vector64<Byte>)	uint8x8_t vqvtbl1_u8(uint8x16_t t, uint8x8_t idx); A32: VTBL Dd, {Dn, Dn+1}, Dm; A64: TBL Vd.8B, {Vn.16B}, Vm.8B
             // VectorTableLookup(Vector128<SByte>, Vector64<SByte>)	int8x8_t vqvtbl1_s8(int8x16_t t, uint8x8_t idx); A32: VTBL Dd, {Dn, Dn+1}, Dm; A64: TBL Vd.8B, {Vn.16B}, Vm.8B
+            if (true) {
+                Vector128<byte> t = Vector128s<byte>.SerialNegative;
+                Vector64<byte> idx = Vector64s<byte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64s<byte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64s<byte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+            }
+            if (true) {
+                Vector128<sbyte> t = Vector128s<sbyte>.SerialNegative;
+                Vector64<sbyte> idx = Vector64s<sbyte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64s<sbyte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64s<sbyte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+            }
+
+            // 2、Extended table lookup: vtbx -> 
+            // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range leave the destination element unchanged.
+            // The table is in Vector2 and uses one(or two or three or four) D register. Vector1 contains the elements of the destination vector.
+            // 使用控制向量中的字节索引在表中查找字节值并生成新向量。超出范围的索引保持目标元素不变。
+            // 该表位于Vector2中，并使用一个(或两个、三个或四个)D寄存器。Vector1包含目标向量的元素。
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtbx1
+            // This intrinsic compiles to the following instructions:
+            // MOVI Vtmp.8B,#8
+            // CMHS Vtmp.8B,Vm.8B,Vtmp.8B
+            // TBL Vtmp1.8B,{Vn.16B},Vm.8B
+            // BIF Vd.8B,Vtmp1.8B,Vtmp.8B
             // VectorTableLookupExtension(Vector64<Byte>, Vector128<Byte>, Vector64<Byte>)	uint8x8_t vqvtbx1_u8(uint8x8_t r, uint8x16_t t, uint8x8_t idx); A32: VTBX Dd, {Dn, Dn+1}, Dm; A64: TBX Vd.8B, {Vn.16B}, Vm.8B
             // VectorTableLookupExtension(Vector64<SByte>, Vector128<SByte>, Vector64<SByte>)	int8x8_t vqvtbx1_s8(int8x8_t r, int8x16_t t, uint8x8_t idx); A32: VTBX Dd, {Dn, Dn+1}, Dm; A64: TBX Vd.8B, {Vn.16B}, Vm.8B
+            if (true) {
+                Vector64<sbyte> r = Vector64s<sbyte>.Serial;
+                Vector128<sbyte> t = Vector128s<sbyte>.SerialNegative;
+                Vector64<sbyte> idx = Vector64s<sbyte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
+                idx = Vector64s<sbyte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
+                idx = Vector64s<sbyte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookupExtension<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
+            }
         }
         public unsafe static void RunArm_AdvSimd_X(TextWriter writer, string indent) {
             // Xor(Vector128<Byte>, Vector128<Byte>)	uint8x16_t veorq_u8 (uint8x16_t a, uint8x16_t b); A32: VEOR Qd, Qn, Qm; A64: EOR Vd.16B, Vn.16B, Vm.16B
@@ -3734,10 +3795,71 @@ namespace IntrinsicsLib {
             // UnzipOdd(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vuzp2_u32(uint32x2_t a, uint32x2_t b); A64: UZP2 Vd.2S, Vn.2S, Vm.2S
         }
         public unsafe static void RunArm_AdvSimd_64_V(TextWriter writer, string indent) {
+            string indentNext = indent + IndentNextSeparator;
+            // 1、Table lookup: vtbl -> 
+            // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range return 0.  
+            // The table is in Vector1 and uses one(or two or three or four)D registers.
+            // 使用控制向量中的字节索引在表中查找字节值并生成新向量。超出范围的索引返回0。
+            // 该表位于Vector1中，并使用一个(或两个、三个或四个)D寄存器。
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtbl1_u8
+            // result = if is_tbl then Zeros() else V[d];
+            // for i = 0 to elements - 1
+            //     index = UInt(Elem[indices, i, 8]);
+            //     if index < 16 * regs then
+            //         Elem[result, i, 8] = Elem[table, index, 8];
             // VectorTableLookup(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vqvtbl1q_u8(uint8x16_t t, uint8x16_t idx); A64: TBL Vd.16B, {Vn.16B}, Vm.16B
             // VectorTableLookup(Vector128<SByte>, Vector128<SByte>)	int8x16_t vqvtbl1q_s8(int8x16_t t, uint8x16_t idx); A64: TBL Vd.16B, {Vn.16B}, Vm.16B
+            if (true) {
+                Vector128<byte> t = Vector128s<byte>.SerialNegative;
+                Vector128<byte> idx = Vector128s<byte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+                idx = Vector128s<byte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+                idx = Vector128s<byte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+            }
+            if (true) {
+                Vector128<sbyte> t = Vector128s<sbyte>.SerialNegative;
+                Vector128<sbyte> idx = Vector128s<sbyte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+                idx = Vector128s<sbyte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+                idx = Vector128s<sbyte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
+            }
+
+            // 2、Extended table lookup: vtbx -> 
+            // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range leave the destination element unchanged.
+            // The table is in Vector2 and uses one(or two or three or four) D register. Vector1 contains the elements of the destination vector.
+            // 使用控制向量中的字节索引在表中查找字节值并生成新向量。超出范围的索引保持目标元素不变。
+            // 该表位于Vector2中，并使用一个(或两个、三个或四个)D寄存器。Vector1包含目标向量的元素。
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtbx1
+            // This intrinsic compiles to the following instructions:
+            // MOVI Vtmp.8B,#8
+            // CMHS Vtmp.8B,Vm.8B,Vtmp.8B
+            // TBL Vtmp1.8B,{Vn.16B},Vm.8B
+            // BIF Vd.8B,Vtmp1.8B,Vtmp.8B
             // VectorTableLookupExtension(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vqvtbx1q_u8(uint8x16_t r, int8x16_t t, uint8x16_t idx); A64: TBX Vd.16B, {Vn.16B}, Vm.16B
             // VectorTableLookupExtension(Vector128<SByte>, Vector128<SByte>, Vector128<SByte>)	int8x16_t vqvtbx1q_s8(int8x16_t r, int8x16_t t, uint8x16_t idx); A64: TBX Vd.16B, {Vn.16B}, Vm.16B
+            if (true) {
+                Vector128<sbyte> r = Vector128s<sbyte>.Serial;
+                Vector128<sbyte> t = Vector128s<sbyte>.SerialNegative;
+                Vector128<sbyte> idx = Vector128s<sbyte>.Serial;
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookupExtension(r, t, idx));
+                idx = Vector128s<sbyte>.SerialDesc;
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookupExtension(r, t, idx));
+                idx = Vector128s<sbyte>.Demo;
+                WriteLine(writer, indent, "VectorTableLookupExtension<byte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookupExtension(r, t, idx));
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_Z(TextWriter writer, string indent) {
             // ZipHigh(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vzip2q_u8(uint8x16_t a, uint8x16_t b); A64: ZIP2 Vd.16B, Vn.16B, Vm.16B
