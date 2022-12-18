@@ -3019,6 +3019,7 @@ namespace IntrinsicsLib {
         }
         public unsafe static void RunArm_AdvSimd_V(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
+            // Mnemonic: `rt[i] := (checkRange(idx[i])) ? t[idx[i]] : 0`, `checkRange(idx[i]) := 0<=idx[i] && idx[i]<t.Count` .
             // 1、Table lookup: vtbl -> 
             // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range return 0.  
             // The table is in Vector1 and uses one(or two or three or four)D registers.
@@ -3053,7 +3054,13 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
                 idx = Vector64s<sbyte>.Demo;
-                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64.Create(-128, -2, 127, -1, 4, 16, 8, 7);
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
+                idx = Vector64.Create(8, 9, 10, 11, 14, 15, 16, 17);
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.VectorTableLookup(t, idx));
             }
 
@@ -3080,8 +3087,14 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
                 idx = Vector64s<sbyte>.Demo;
-                WriteLine(writer, indent, "VectorTableLookupExtension<byte>, idx={0}", idx);
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookupExtension(r, t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
+                idx = Vector64.Create(-128, -2, 127, -1, 4, 16, 8, 7);
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
+                idx = Vector64.Create(8, 9, 10, 11, 14, 15, 16, 17);
+                WriteLine(writer, indent, "VectorTableLookupExtension<sbyte>, idx={0}", idx);
+                WriteLine(writer, indentNext, "VectorTableLookupExtension(t, idx):\t{0}", AdvSimd.VectorTableLookupExtension(r, t, idx));
             }
         }
         public unsafe static void RunArm_AdvSimd_X(TextWriter writer, string indent) {
@@ -3796,6 +3809,7 @@ namespace IntrinsicsLib {
         }
         public unsafe static void RunArm_AdvSimd_64_V(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
+            // Mnemonic: `rt[i] := (checkRange(idx[i])) ? t[idx[i]] : 0`, `checkRange(idx[i]) := 0<=idx[i] && idx[i]<t.Count` .
             // 1、Table lookup: vtbl -> 
             // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range return 0.  
             // The table is in Vector1 and uses one(or two or three or four)D registers.
@@ -3830,10 +3844,11 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
                 idx = Vector128s<sbyte>.Demo;
-                WriteLine(writer, indent, "VectorTableLookup<byte>, idx={0}", idx);
+                WriteLine(writer, indent, "VectorTableLookup<sbyte>, idx={0}", idx);
                 WriteLine(writer, indentNext, "VectorTableLookup(t, idx):\t{0}", AdvSimd.Arm64.VectorTableLookup(t, idx));
             }
 
+            // Mnemonic: `rt[i] := (checkRange(idx[i])) ? t[idx[i]] : r[i]`, `checkRange(idx[i]) := 0<=idx[i] && idx[i]<t.Count` .
             // 2、Extended table lookup: vtbx -> 
             // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range leave the destination element unchanged.
             // The table is in Vector2 and uses one(or two or three or four) D register. Vector1 contains the elements of the destination vector.
