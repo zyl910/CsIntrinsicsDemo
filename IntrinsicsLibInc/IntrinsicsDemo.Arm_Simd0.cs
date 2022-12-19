@@ -3511,6 +3511,7 @@ namespace IntrinsicsLib {
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
             }
+
             // DuplicateSelectedScalarToVector128(Vector128<Double>, Byte)	float64x2_t vdupq_laneq_f64 (float64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<Int64>, Byte)	int64x2_t vdupq_laneq_s64 (int64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<UInt64>, Byte)	uint64x2_t vdupq_laneq_u64 (uint64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
@@ -3914,6 +3915,20 @@ namespace IntrinsicsLib {
             // SubtractSaturateScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32_t vqsubs_u32 (uint32_t a, uint32_t b); A64: UQSUB Sd, Sn, Sm
         }
         public unsafe static void RunArm_AdvSimd_64_T(TextWriter writer, string indent) {
+            // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-transposition-operations
+            // int8x8x2_t vtrn_s8 (int8x8_t __a, int8x8_t __b);  
+            // 1、Transpose elements: vtrn -> 
+            // treats the elements of its input vectors as elements of 2 x 2 matrices, and transposes the matrices.
+            // Essentially, it exchanges the elements with odd indices from Vector1 with the elements with even indices from Vector2.
+            // 将输入向量的元素视为2 × 2矩阵的元素，并对矩阵进行转置。
+            // 本质上，它将来自Vector1的奇数下标的元素与来自Vector2的偶数下标的元素交换。
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtrn1q_u8
+            // Transpose vectors (primary). This instruction reads corresponding even-numbered vector elements from the two source SIMD&FP registers, starting at zero, places each result into consecutive elements of a vector, and writes the vector to the destination SIMD&FP register. Vector elements from the first source register are placed into even-numbered elements of the destination vector, starting at zero, while vector elements from the second source register are placed into odd-numbered elements of the destination vector.
+            // 转置向量(主)。这条指令从两个源SIMD&FP寄存器读取相应的偶数向量元素，从0开始，将每个结果放入一个向量的连续元素中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的向量元素被放入目标向量的偶数元素中，从0开始，而来自第二个源寄存器的向量元素被放入目标向量的奇数元素中。
+            // for p = 0 to pairs-1
+            //     Elem[result, 2*p+0, esize] = Elem[operand1, 2*p+part, esize];
+            //     Elem[result, 2*p+1, esize] = Elem[operand2, 2*p+part, esize];
             // TransposeEven(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vtrn1q_u8(uint8x16_t a, uint8x16_t b); A64: TRN1 Vd.16B, Vn.16B, Vm.16B
             // TransposeEven(Vector128<Double>, Vector128<Double>)	float64x2_t vtrn1q_f64(float64x2_t a, float64x2_t b); A64: TRN1 Vd.2D, Vn.2D, Vm.2D
             // TransposeEven(Vector128<Int16>, Vector128<Int16>)	int16x8_t vtrn1q_s16(int16x8_t a, int16x8_t b); A64: TRN1 Vd.8H, Vn.8H, Vm.8H
@@ -3931,6 +3946,27 @@ namespace IntrinsicsLib {
             // TransposeEven(Vector64<Single>, Vector64<Single>)	float32x2_t vtrn1_f32(float32x2_t a, float32x2_t b); A64: TRN1 Vd.2S, Vn.2S, Vm.2S
             // TransposeEven(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vtrn1_u16(uint16x4_t a, uint16x4_t b); A64: TRN1 Vd.4H, Vn.4H, Vm.4H
             // TransposeEven(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vtrn1_u32(uint32x2_t a, uint32x2_t b); A64: TRN1 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "TransposeEven(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "TransposeEven(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeEven(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtrn2q_u8
+            // Transpose vectors (secondary). This instruction reads corresponding odd-numbered vector elements from the two source SIMD&FP registers, places each result into consecutive elements of a vector, and writes the vector to the destination SIMD&FP register. Vector elements from the first source register are placed into even-numbered elements of the destination vector, starting at zero, while vector elements from the second source register are placed into odd-numbered elements of the destination vector.
+            // 转置向量(次要的)。这条指令从两个源SIMD&FP寄存器读取相应的奇数向量元素，将每个结果放入一个向量的连续元素中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的向量元素被放入目标向量的偶数元素中，从0开始，而来自第二个源寄存器的向量元素被放入目标向量的奇数元素中。
+            // for p = 0 to pairs-1
+            //     Elem[result, 2*p+0, esize] = Elem[operand1, 2*p+part, esize];
+            //     Elem[result, 2*p+1, esize] = Elem[operand2, 2*p+part, esize];
             // TransposeOdd(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vtrn2q_u8(uint8x16_t a, uint8x16_t b); A64: TRN2 Vd.16B, Vn.16B, Vm.16B
             // TransposeOdd(Vector128<Double>, Vector128<Double>)	float64x2_t vtrn2q_f64(float64x2_t a, float64x2_t b); A64: TRN2 Vd.2D, Vn.2D, Vm.2D
             // TransposeOdd(Vector128<Int16>, Vector128<Int16>)	int16x8_t vtrn2q_s16(int16x8_t a, int16x8_t b); A64: TRN2 Vd.8H, Vn.8H, Vm.8H
@@ -3948,8 +3984,36 @@ namespace IntrinsicsLib {
             // TransposeOdd(Vector64<Single>, Vector64<Single>)	float32x2_t vtrn2_f32(float32x2_t a, float32x2_t b); A64: TRN2 Vd.2S, Vn.2S, Vm.2S
             // TransposeOdd(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vtrn2_u16(uint16x4_t a, uint16x4_t b); A64: TRN2 Vd.4H, Vn.4H, Vm.4H
             // TransposeOdd(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vtrn2_u32(uint32x2_t a, uint32x2_t b); A64: TRN2 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "TransposeOdd(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.TransposeOdd(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_U(TextWriter writer, string indent) {
+            // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-transposition-operations
+            // De-Interleave elements
+            // int8x8x2_t    vuzp_s8(int8x8_t a, int8x8_t b);         // VUZP.8 d0,d0 
+            // 3、De-Interleave elements(Unzip elements):  
+            // vuzp -> (Vector Unzip) de-interleaves the elements of two vectors. 
+            // De-interleaving is the inverse process of interleaving.
+            // 解交错两个向量的元素。
+            // 解交织是交织的逆过程。
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vuzp1q_u8
+            // Unzip vectors (primary). This instruction reads corresponding even-numbered vector elements from the two source SIMD&FP registers, starting at zero, places the result from the first source register into consecutive elements in the lower half of a vector, and the result from the second source register into consecutive elements in the upper half of a vector, and writes the vector to the destination SIMD&FP register.
+            // bits(datasize*2) zipped = operandh:operandl;
+            // for e = 0 to elements-1
+            //     Elem[result, e, esize] = Elem[zipped, 2*e+part, esize];
             // UnzipEven(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vuzp1q_u8(uint8x16_t a, uint8x16_t b); A64: UZP1 Vd.16B, Vn.16B, Vm.16B
             // UnzipEven(Vector128<Double>, Vector128<Double>)	float64x2_t vuzp1q_f64(float64x2_t a, float64x2_t b); A64: UZP1 Vd.2D, Vn.2D, Vm.2D
             // UnzipEven(Vector128<Int16>, Vector128<Int16>)	int16x8_t vuzp1q_s16(int16x8_t a, int16x8_t b); A64: UZP1 Vd.8H, Vn.8H, Vm.8H
@@ -3967,6 +4031,27 @@ namespace IntrinsicsLib {
             // UnzipEven(Vector64<Single>, Vector64<Single>)	float32x2_t vuzp1_f32(float32x2_t a, float32x2_t b); A64: UZP1 Vd.2S, Vn.2S, Vm.2S
             // UnzipEven(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vuzp1_u16(uint16x4_t a, uint16x4_t b); A64: UZP1 Vd.4H, Vn.4H, Vm.4H
             // UnzipEven(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vuzp1_u32(uint32x2_t a, uint32x2_t b); A64: UZP1 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "UnzipEven(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "UnzipEven(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipEven(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vuzp2q_u8
+            // Unzip vectors (secondary). This instruction reads corresponding odd-numbered vector elements from the two source SIMD&FP registers, places the result from the first source register into consecutive elements in the lower half of a vector, and the result from the second source register into consecutive elements in the upper half of a vector, and writes the vector to the destination SIMD&FP register.
+            // 解压缩向量(次要)。该指令从两个源SIMD&FP寄存器读取相应的奇数向量元素，将第一个源寄存器的结果放入向量下半部分的连续元素中，将第二个源寄存器的结果放入向量上半部分的连续元素中，并将该向量写入目标SIMD&FP寄存器。
+            // bits(datasize*2) zipped = operandh:operandl;
+            // for e = 0 to elements-1
+            //     Elem[result, e, esize] = Elem[zipped, 2*e+part, esize];
             // UnzipOdd(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vuzp2q_u8(uint8x16_t a, uint8x16_t b); A64: UZP2 Vd.16B, Vn.16B, Vm.16B
             // UnzipOdd(Vector128<Double>, Vector128<Double>)	float64x2_t vuzp2q_f64(float64x2_t a, float64x2_t b); A64: UZP2 Vd.2D, Vn.2D, Vm.2D
             // UnzipOdd(Vector128<Int16>, Vector128<Int16>)	int16x8_t vuzp2q_s16(int16x8_t a, int16x8_t b); A64: UZP2 Vd.8H, Vn.8H, Vm.8H
@@ -3984,6 +4069,20 @@ namespace IntrinsicsLib {
             // UnzipOdd(Vector64<Single>, Vector64<Single>)	float32x2_t vuzp2_f32(float32x2_t a, float32x2_t b); A64: UZP2 Vd.2S, Vn.2S, Vm.2S
             // UnzipOdd(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vuzp2_u16(uint16x4_t a, uint16x4_t b); A64: UZP2 Vd.4H, Vn.4H, Vm.4H
             // UnzipOdd(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vuzp2_u32(uint32x2_t a, uint32x2_t b); A64: UZP2 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "UnzipOdd(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.UnzipOdd(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_V(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
@@ -4055,6 +4154,19 @@ namespace IntrinsicsLib {
             }
         }
         public unsafe static void RunArm_AdvSimd_64_Z(TextWriter writer, string indent) {
+            // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-transposition-operations
+            // Interleave elements
+            // int8x8x2_t    vzip_s8(int8x8_t a, int8x8_t b);         // VZIP.8 d0,d0 
+            // 2、Interleave elements(Zip elements):  
+            // vzip ->  (Vector Zip) interleaves the elements of two vectors.
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vzip2q_u8
+            // Zip vectors (secondary). This instruction reads adjacent vector elements from the upper half of two source SIMD&FP registers as pairs, interleaves the pairs and places them into a vector, and writes the vector to the destination SIMD&FP register. The first pair from the first source register is placed into the two lowest vector elements, with subsequent pairs taken alternately from each source register.
+            // 压缩向量(次要)。这条指令从两个源SIMD&FP寄存器的上半部分读取相邻的向量元素作为对，将这些对交叉并将它们放入一个向量中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的第一对被放入两个最低的向量元素中，随后的对交替从每个源寄存器中取出。
+            // integer base = part * pairs;
+            // for p = 0 to pairs-1
+            //     Elem[result, 2*p+0, esize] = Elem[operand1, base+p, esize];
+            //     Elem[result, 2*p+1, esize] = Elem[operand2, base+p, esize];
             // ZipHigh(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vzip2q_u8(uint8x16_t a, uint8x16_t b); A64: ZIP2 Vd.16B, Vn.16B, Vm.16B
             // ZipHigh(Vector128<Double>, Vector128<Double>)	float64x2_t vzip2q_f64(float64x2_t a, float64x2_t b); A64: ZIP2 Vd.2D, Vn.2D, Vm.2D
             // ZipHigh(Vector128<Int16>, Vector128<Int16>)	int16x8_t vzip2q_s16(int16x8_t a, int16x8_t b); A64: ZIP2 Vd.8H, Vn.8H, Vm.8H
@@ -4072,6 +4184,28 @@ namespace IntrinsicsLib {
             // ZipHigh(Vector64<Single>, Vector64<Single>)	float32x2_t vzip2_f32(float32x2_t a, float32x2_t b); A64: ZIP2 Vd.2S, Vn.2S, Vm.2S
             // ZipHigh(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vzip2_u16(uint16x4_t a, uint16x4_t b); A64: ZIP2 Vd.4H, Vn.4H, Vm.4H
             // ZipHigh(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vzip2_u32(uint32x2_t a, uint32x2_t b); A64: ZIP2 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "ZipHigh(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "ZipHigh(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipHigh(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vzip1q_u8
+            // Zip vectors (primary). This instruction reads adjacent vector elements from the lower half of two source SIMD&FP registers as pairs, interleaves the pairs and places them into a vector, and writes the vector to the destination SIMD&FP register. The first pair from the first source register is placed into the two lowest vector elements, with subsequent pairs taken alternately from each source register.
+            // 压缩向量(主要)。这条指令从两个源SIMD&FP寄存器的下半部分读取相邻的向量元素作为对，将这些对交叉并将它们放入一个向量中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的第一对被放入两个最低的向量元素中，随后的对交替从每个源寄存器中取出。
+            // integer base = part * pairs;
+            // for p = 0 to pairs-1
+            //     Elem[result, 2*p+0, esize] = Elem[operand1, base+p, esize];
+            //     Elem[result, 2*p+1, esize] = Elem[operand2, base+p, esize];
             // ZipLow(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vzip1q_u8(uint8x16_t a, uint8x16_t b); A64: ZIP1 Vd.16B, Vn.16B, Vm.16B
             // ZipLow(Vector128<Double>, Vector128<Double>)	float64x2_t vzip1q_f64(float64x2_t a, float64x2_t b); A64: ZIP1 Vd.2D, Vn.2D, Vm.2D
             // ZipLow(Vector128<Int16>, Vector128<Int16>)	int16x8_t vzip1q_s16(int16x8_t a, int16x8_t b); A64: ZIP1 Vd.8H, Vn.8H, Vm.8H
@@ -4089,6 +4223,20 @@ namespace IntrinsicsLib {
             // ZipLow(Vector64<Single>, Vector64<Single>)	float32x2_t vzip1_f32(float32x2_t a, float32x2_t b); A64: ZIP1 Vd.2S, Vn.2S, Vm.2S
             // ZipLow(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vzip1_u16(uint16x4_t a, uint16x4_t b); A64: ZIP1 Vd.4H, Vn.4H, Vm.4H
             // ZipLow(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vzip1_u32(uint32x2_t a, uint32x2_t b); A64: ZIP1 Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "ZipLow(Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+                WriteLine(writer, indent, "ZipLow(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Arm64.ZipLow(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
 
         }
 
