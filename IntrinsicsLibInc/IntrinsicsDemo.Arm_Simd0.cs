@@ -449,6 +449,21 @@ namespace IntrinsicsLib {
         public unsafe static void RunArm_AdvSimd_D(TextWriter writer, string indent) {
             // DivideScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vdiv_f64 (float64x1_t a, float64x1_t b); A32: VDIV.F64 Dd, Dn, Dm; A64: FDIV Dd, Dn, Dm
             // DivideScalar(Vector64<Single>, Vector64<Single>)	float32_t vdivs_f32 (float32_t a, float32_t b); A32: VDIV.F32 Sd, Sn, Sm; A64: FDIV Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            try {
+                WriteLine(writer, indent, "DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2));
+                WriteLine(writer, indent, "DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2));
+                WriteLine(writer, indent, "DivideScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+                WriteLine(writer, indent, "DivideScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-setting-all-lanes-to-the-same-value
+            // NEON intrinsics for setting all lanes to the same value
+            // 2、Load all lanes of the vector to the value of a lane of a vector:  
+            // vdup/vmov -> ri = a[b]; 
+            // duplicates a scalar into every element of the destination vector.
+            // 将一个标量复制到目标向量的每个元素中。
             // DuplicateSelectedScalarToVector128(Vector128<Byte>, Byte)	uint8x16_t vdupq_lane_u8 (uint8x16_t vec, const int lane); A32: VDUP.8 Qd, Dm[index]; A64: DUP Vd.16B, Vn.B[index]
             // DuplicateSelectedScalarToVector128(Vector128<Int16>, Byte)	int16x8_t vdupq_lane_s16 (int16x8_t vec, const int lane); A32: VDUP.16 Qd, Dm[index]; A64: DUP Vd.8H, Vn.H[index]
             // DuplicateSelectedScalarToVector128(Vector128<Int32>, Byte)	int32x4_t vdupq_lane_s32 (int32x4_t vec, const int lane); A32: VDUP.32 Qd, Dm[index]; A64: DUP Vd.4S, Vn.S[index]
@@ -463,6 +478,27 @@ namespace IntrinsicsLib {
             // DuplicateSelectedScalarToVector128(Vector64<Single>, Byte)	float32x4_t vdupq_lane_f32 (float32x2_t vec, const int lane); A32: VDUP.32 Qd, Dm[index]; A64: DUP Vd.4S, Vn.S[index]
             // DuplicateSelectedScalarToVector128(Vector64<UInt16>, Byte)	uint16x8_t vdupq_lane_u16 (uint16x4_t vec, const int lane); A32: VDUP.16 Qd, Dm[index]; A64: DUP Vd.8H, Vn.H[index]
             // DuplicateSelectedScalarToVector128(Vector64<UInt32>, Byte)	uint32x4_t vdupq_lane_u32 (uint32x2_t vec, const int lane); A32: VDUP.32 Qd, Dm[index]; A64: DUP Vd.4S, Vn.S[index]
+            for (byte i = 0; i <= 7; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<byte>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<byte>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 3; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<ushort>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<ushort>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<uint>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<uint>.Serial, i), i);
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<float>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 7; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 3; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, i), i);
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, i), i);
+            }
+
             // DuplicateSelectedScalarToVector64(Vector128<Byte>, Byte)	uint8x8_t vdup_laneq_u8 (uint8x16_t vec, const int lane); A32: VDUP.8 Dd, Dm[index]; A64: DUP Vd.8B, Vn.B[index]
             // DuplicateSelectedScalarToVector64(Vector128<Int16>, Byte)	int16x4_t vdup_laneq_s16 (int16x8_t vec, const int lane); A32: VDUP.16 Dd, Dm[index]; A64: DUP Vd.4H, Vn.H[index]
             // DuplicateSelectedScalarToVector64(Vector128<Int32>, Byte)	int32x2_t vdup_laneq_s32 (int32x4_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
@@ -477,6 +513,8 @@ namespace IntrinsicsLib {
             // DuplicateSelectedScalarToVector64(Vector64<Single>, Byte)	float32x2_t vdup_lane_f32 (float32x2_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
             // DuplicateSelectedScalarToVector64(Vector64<UInt16>, Byte)	uint16x4_t vdup_lane_u16 (uint16x4_t vec, const int lane); A32: VDUP.16 Dd, Dm[index]; A64: DUP Vd.4H, Vn.H[index]
             // DuplicateSelectedScalarToVector64(Vector64<UInt32>, Byte)	uint32x2_t vdup_lane_u32 (uint32x2_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
+            // ignore.
+
             // DuplicateToVector128(Byte)	uint8x16_t vdupq_n_u8 (uint8_t value); A32: VDUP.8 Qd, Rt; A64: DUP Vd.16B, Rn
             // DuplicateToVector128(Int16)	int16x8_t vdupq_n_s16 (int16_t value); A32: VDUP.16 Qd, Rt; A64: DUP Vd.8H, Rn
             // DuplicateToVector128(Int32)	int32x4_t vdupq_n_s32 (int32_t value); A32: VDUP.32 Qd, Rt; A64: DUP Vd.4S, Rn
@@ -484,6 +522,11 @@ namespace IntrinsicsLib {
             // DuplicateToVector128(Single)	float32x4_t vdupq_n_f32 (float32_t value); A32: VDUP Qd, Dm[0]; A64: DUP Vd.4S, Vn.S[0]
             // DuplicateToVector128(UInt16)	uint16x8_t vdupq_n_u16 (uint16_t value); A32: VDUP.16 Qd, Rt; A64: DUP Vd.8H, Rn
             // DuplicateToVector128(UInt32)	uint32x4_t vdupq_n_u32 (uint32_t value); A32: VDUP.32 Qd, Rt; A64: DUP Vd.4S, Rn
+            WriteLine(writer, indent, "DuplicateToVector128((sbyte)-8):\t{0}", AdvSimd.DuplicateToVector128((sbyte)-8));
+            WriteLine(writer, indent, "DuplicateToVector128((short)-16):\t{0}", AdvSimd.DuplicateToVector128((short)-16));
+            WriteLine(writer, indent, "DuplicateToVector128((int)-32):\t{0}", AdvSimd.DuplicateToVector128((int)-32));
+            WriteLine(writer, indent, "DuplicateToVector128((float)-32.5):\t{0}", AdvSimd.DuplicateToVector128((float)-32.5));
+
             // DuplicateToVector64(Byte)	uint8x8_t vdup_n_u8 (uint8_t value); A32: VDUP.8 Dd, Rt; A64: DUP Vd.8B, Rn
             // DuplicateToVector64(Int16)	int16x4_t vdup_n_s16 (int16_t value); A32: VDUP.16 Dd, Rt; A64: DUP Vd.4H, Rn
             // DuplicateToVector64(Int32)	int32x2_t vdup_n_s32 (int32_t value); A32: VDUP.32 Dd, Rt; A64: DUP Vd.2S, Rn
@@ -491,6 +534,7 @@ namespace IntrinsicsLib {
             // DuplicateToVector64(Single)	float32x2_t vdup_n_f32 (float32_t value); A32: VDUP Dd, Dm[0]; A64: DUP Vd.2S, Vn.S[0]
             // DuplicateToVector64(UInt16)	uint16x4_t vdup_n_u16 (uint16_t value); A32: VDUP.16 Dd, Rt; A64: DUP Vd.4H, Rn
             // DuplicateToVector64(UInt32)	uint32x2_t vdup_n_u32 (uint32_t value); A32: VDUP.32 Dd, Rt; A64: DUP Vd.2S, Rn
+            // ignore.
         }
         public unsafe static void RunArm_AdvSimd_E(TextWriter writer, string indent) {
             // vmov -> r = a[b];
@@ -3457,12 +3501,29 @@ namespace IntrinsicsLib {
             // Divide(Vector128<Double>, Vector128<Double>)	float64x2_t vdivq_f64 (float64x2_t a, float64x2_t b); A64: FDIV Vd.2D, Vn.2D, Vm.2D
             // Divide(Vector128<Single>, Vector128<Single>)	float32x4_t vdivq_f32 (float32x4_t a, float32x4_t b); A64: FDIV Vd.4S, Vn.4S, Vm.4S
             // Divide(Vector64<Single>, Vector64<Single>)	float32x2_t vdiv_f32 (float32x2_t a, float32x2_t b); A64: FDIV Vd.2S, Vn.2S, Vm.2S
+            try {
+                WriteLine(writer, indent, "Divide(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.Serial, Vector64s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.Serial, Vector128s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<double>.Serial, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.Serial, Vector128s<double>.V2));
+                WriteLine(writer, indent, "Divide(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.Demo, Vector64s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.Demo, Vector128s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.Demo, Vector128s<double>.V2));
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
             // DuplicateSelectedScalarToVector128(Vector128<Double>, Byte)	float64x2_t vdupq_laneq_f64 (float64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<Int64>, Byte)	int64x2_t vdupq_laneq_s64 (int64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<UInt64>, Byte)	uint64x2_t vdupq_laneq_u64 (uint64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<ulong>.Serial, {1}):\t{0}", AdvSimd.Arm64.DuplicateSelectedScalarToVector128(Vector128s<ulong>.Serial, i), i);
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.DuplicateSelectedScalarToVector128(Vector128s<double>.Serial, i), i);
+            }
+
             // DuplicateToVector128(Double)	float64x2_t vdupq_n_f64 (float64_t value); A64: DUP Vd.2D, Vn.D[0]
             // DuplicateToVector128(Int64)	int64x2_t vdupq_n_s64 (int64_t value); A64: DUP Vd.2D, Rn
             // DuplicateToVector128(UInt64)	uint64x2_t vdupq_n_s64 (uint64_t value); A64: DUP Vd.2D, Rn
+            WriteLine(writer, indent, "DuplicateToVector128((long)-64):\t{0}", AdvSimd.Arm64.DuplicateToVector128((long)-64));
+            WriteLine(writer, indent, "DuplicateToVector128((double)-64.5):\t{0}", AdvSimd.Arm64.DuplicateToVector128((double)-64.5));
         }
         public unsafe static void RunArm_AdvSimd_64_E(TextWriter writer, string indent) {
             // ExtractNarrowingSaturateScalar(Vector64<Int16>)	int8_t vqmovnh_s16 (int16_t a) A64: SQXTN Bd, Hn
