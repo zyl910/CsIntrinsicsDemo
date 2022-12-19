@@ -493,6 +493,13 @@ namespace IntrinsicsLib {
             // DuplicateToVector64(UInt32)	uint32x2_t vdup_n_u32 (uint32_t value); A32: VDUP.32 Dd, Rt; A64: DUP Vd.2S, Rn
         }
         public unsafe static void RunArm_AdvSimd_E(TextWriter writer, string indent) {
+            // vmov -> r = a[b];
+            // returns the value from the specified lane of a vector. 
+            // Extract lanes from a vector and put into a register.  
+            // These intrinsics extract a single lane (element) from a vector.
+            // 返回向量的指定车道的值。
+            // 从向量中提取车道并放入寄存器。
+            // 这些intrinsic从向量中提取单个通道(元素)。
             // Extract(Vector128<Byte>, Byte)	uint8_t vgetq_lane_u8 (uint8x16_t v, const int lane); A32: VMOV.U8 Rt, Dn[lane]; A64: UMOV Wd, Vn.B[lane]
             // Extract(Vector128<Double>, Byte)	float64_t vgetq_lane_f64 (float64x2_t v, const int lane); A32: VMOV.F64 Dd, Dm; A64: DUP Dd, Vn.D[lane]
             // Extract(Vector128<Int16>, Byte)	int16_t vgetq_lane_s16 (int16x8_t v, const int lane); A32: VMOV.S16 Rt, Dn[lane]; A64: SMOV Wd, Vn.H[lane]
@@ -510,36 +517,116 @@ namespace IntrinsicsLib {
             // Extract(Vector64<Single>, Byte)	float32_t vget_lane_f32 (float32x2_t v, const int lane); A32: VMOV.F32 Sd, Sm; A64: DUP Sd, Vn.S[lane]
             // Extract(Vector64<UInt16>, Byte)	uint16_t vget_lane_u16 (uint16x4_t v, const int lane); A32: VMOV.U16 Rt, Dn[lane]; A64: UMOV Wd, Vn.H[lane]
             // Extract(Vector64<UInt32>, Byte)	uint32_t vget_lane_u32 (uint32x2_t v, const int lane); A32: VMOV.32 Rt, Dn[lane]; A64: UMOV Wd, Vn.S[lane]
+            for (byte i = 1; i <= 3; ++i) {
+                WriteLine(writer, indent, "Extract(Vector128s<sbyte>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<sbyte>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<byte>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<byte>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<short>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<short>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<ushort>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<ushort>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<int>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<int>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<uint>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<uint>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<float>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<float>.Demo, i), i);
+            }
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "Extract(Vector128s<long>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<long>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<ulong>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<ulong>.Demo, i), i);
+                WriteLine(writer, indent, "Extract(Vector128s<double>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<double>.Demo, i), i);
+            }
+
+            // 1、Vector narrow integer(窄指令): vmovn -> ri = ai[0...8]; 
+            // copies the least significant half of each element of a quadword vector into the corresponding elements of a doubleword vector.
+            // 将四字向量的每个元素的最低有效度的一半复制到双字向量的相应元素中。
             // ExtractNarrowingLower(Vector128<Int16>)	int8x8_t vmovn_s16 (int16x8_t a); A32: VMOVN.I16 Dd, Qm; A64: XTN Vd.8B, Vn.8H
             // ExtractNarrowingLower(Vector128<Int32>)	int16x4_t vmovn_s32 (int32x4_t a); A32: VMOVN.I32 Dd, Qm; A64: XTN Vd.4H, Vn.4S
             // ExtractNarrowingLower(Vector128<Int64>)	int32x2_t vmovn_s64 (int64x2_t a); A32: VMOVN.I64 Dd, Qm; A64: XTN Vd.2S, Vn.2D
             // ExtractNarrowingLower(Vector128<UInt16>)	uint8x8_t vmovn_u16 (uint16x8_t a); A32: VMOVN.I16 Dd, Qm; A64: XTN Vd.8B, Vn.8H
             // ExtractNarrowingLower(Vector128<UInt32>)	uint16x4_t vmovn_u32 (uint32x4_t a); A32: VMOVN.I32 Dd, Qm; A64: XTN Vd.4H, Vn.4S
             // ExtractNarrowingLower(Vector128<UInt64>)	uint32x2_t vmovn_u64 (uint64x2_t a); A32: VMOVN.I64 Dd, Qm; A64: XTN Vd.2S, Vn.2D
+            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<sbyte>.Demo));
+            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<byte>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<byte>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<ushort>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<ulong>.Demo));
+            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<float>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<float>.Demo));
+            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<double>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<double>.Demo));
+
+            // 3、Vector saturating narrow integer(窄指令): vqmovn -> 
+            // copies each element of the operand vector to the corresponding element of the destination vector.  
+            // The result element is half the width of  the operand element, and values are saturated to the result width. 
+            // The results are the same type as the operands.
+            // 将操作数向量的每个元素复制到目标向量的相应元素。
+            // 结果元素是操作数元素宽度的一半，值饱和于结果宽度。
+            // 结果与操作数的类型相同。
             // ExtractNarrowingSaturateLower(Vector128<Int16>)	int8x8_t vqmovn_s16 (int16x8_t a) A32: VQMOVN.S16 Dd, Qm A64: SQXTN Vd.8B, Vn.8H
             // ExtractNarrowingSaturateLower(Vector128<Int32>)	int16x4_t vqmovn_s32 (int32x4_t a) A32: VQMOVN.S32 Dd, Qm A64: SQXTN Vd.4H, Vn.4S
             // ExtractNarrowingSaturateLower(Vector128<Int64>)	int32x2_t vqmovn_s64 (int64x2_t a) A32: VQMOVN.S64 Dd, Qm A64: SQXTN Vd.2S, Vn.2D
             // ExtractNarrowingSaturateLower(Vector128<UInt16>)	uint8x8_t vqmovn_u16 (uint16x8_t a) A32: VQMOVN.U16 Dd, Qm A64: UQXTN Vd.8B, Vn.8H
             // ExtractNarrowingSaturateLower(Vector128<UInt32>)	uint16x4_t vqmovn_u32 (uint32x4_t a) A32: VQMOVN.U32 Dd, Qm A64: UQXTN Vd.4H, Vn.4S
             // ExtractNarrowingSaturateLower(Vector128<UInt64>)	uint32x2_t vqmovn_u64 (uint64x2_t a) A32: VQMOVN.U64 Dd, Qm A64: UQXTN Vd.2S, Vn.2D
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<ushort>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<ulong>.Demo));
+
+            // 4、Vector saturating narrow integer signed->unsigned(窄指令):
+            // copies each element of the operand vector to the corresponding element of the destination vector. 
+            // The result element is half the width of the operand element, and values are saturated to the result width. 
+            // The elements in the operand are signed and the elements in the result are unsigned.
             // ExtractNarrowingSaturateUnsignedLower(Vector128<Int16>)	uint8x8_t vqmovun_s16 (int16x8_t a) A32: VQMOVUN.S16 Dd, Qm A64: SQXTUN Vd.8B, Vn.8H
             // ExtractNarrowingSaturateUnsignedLower(Vector128<Int32>)	uint16x4_t vqmovun_s32 (int32x4_t a) A32: VQMOVUN.S32 Dd, Qm A64: SQXTUN Vd.4H, Vn.4S
             // ExtractNarrowingSaturateUnsignedLower(Vector128<Int64>)	uint32x2_t vqmovun_s64 (int64x2_t a) A32: VQMOVUN.S64 Dd, Qm A64: SQXTUN Vd.2S, Vn.2D
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedLower(Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedLower(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedLower(Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedLower(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedLower(Vector128s<long>.Demo));
+
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<Byte>, Vector128<Int16>)	uint8x16_t vqmovun_high_s16 (uint8x8_t r, int16x8_t a) A32: VQMOVUN.S16 Dd+1, Qm A64: SQXTUN2 Vd.16B, Vn.8H
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<UInt16>, Vector128<Int32>)	uint16x8_t vqmovun_high_s32 (uint16x4_t r, int32x4_t a) A32: VQMOVUN.S32 Dd+1, Qm A64: SQXTUN2 Vd.8H, Vn.4S
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<UInt32>, Vector128<Int64>)	uint32x4_t vqmovun_high_s64 (uint32x2_t r, int64x2_t a) A32: VQMOVUN.S64 Dd+1, Qm A64: SQXTUN2 Vd.4S, Vn.2D
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedUpper(Vector64s<byte>.Serial, Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedUpper(Vector64s<byte>.Serial, Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedUpper(Vector64s<ushort>.Serial, Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedUpper(Vector64s<ushort>.Serial, Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedUpper(Vector64s<uint>.Serial, Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedUpper(Vector64s<uint>.Serial, Vector128s<long>.Demo));
+
             // ExtractNarrowingSaturateUpper(Vector64<Byte>, Vector128<UInt16>)	uint8x16_t vqmovn_high_u16 (uint8x8_t r, uint16x8_t a) A32: VQMOVN.U16 Dd+1, Qm A64: UQXTN2 Vd.16B, Vn.8H
             // ExtractNarrowingSaturateUpper(Vector64<Int16>, Vector128<Int32>)	int16x8_t vqmovn_high_s32 (int16x4_t r, int32x4_t a) A32: VQMOVN.S32 Dd+1, Qm A64: SQXTN2 Vd.8H, Vn.4S
             // ExtractNarrowingSaturateUpper(Vector64<Int32>, Vector128<Int64>)	int32x4_t vqmovn_high_s64 (int32x2_t r, int64x2_t a) A32: VQMOVN.S64 Dd+1, Qm A64: SQXTN2 Vd.4S, Vn.2D
             // ExtractNarrowingSaturateUpper(Vector64<SByte>, Vector128<Int16>)	int8x16_t vqmovn_high_s16 (int8x8_t r, int16x8_t a) A32: VQMOVN.S16 Dd+1, Qm A64: SQXTN2 Vd.16B, Vn.8H
             // ExtractNarrowingSaturateUpper(Vector64<UInt16>, Vector128<UInt32>)	uint16x8_t vqmovn_high_u32 (uint16x4_t r, uint32x4_t a) A32: VQMOVN.U32 Dd+1, Qm A64: UQXTN2 Vd.8H, Vn.4S
             // ExtractNarrowingSaturateUpper(Vector64<UInt32>, Vector128<UInt64>)	uint32x4_t vqmovn_high_u64 (uint32x2_t r, uint64x2_t a) A32: VQMOVN.U64 Dd+1, Qm A64: UQXTN2 Vd.4S, Vn.2D
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<sbyte>.Serial, Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<sbyte>.Serial, Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<short>.Serial, Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<short>.Serial, Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<int>.Serial, Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<int>.Serial, Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<byte>.Serial, Vector128s<ushort>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<byte>.Serial, Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo));
+
             // ExtractNarrowingUpper(Vector64<Byte>, Vector128<UInt16>)	uint8x16_t vmovn_high_u16 (uint8x8_t r, uint16x8_t a); A32: VMOVN.I16 Dd+1, Qm; A64: XTN2 Vd.16B, Vn.8H
             // ExtractNarrowingUpper(Vector64<Int16>, Vector128<Int32>)	int16x8_t vmovn_high_s32 (int16x4_t r, int32x4_t a); A32: VMOVN.I32 Dd+1, Qm; A64: XTN2 Vd.8H, Vn.4S
             // ExtractNarrowingUpper(Vector64<Int32>, Vector128<Int64>)	int32x4_t vmovn_high_s64 (int32x2_t r, int64x2_t a); A32: VMOVN.I64 Dd+1, Qm; A64: XTN2 Vd.4S, Vn.2D
             // ExtractNarrowingUpper(Vector64<SByte>, Vector128<Int16>)	int8x16_t vmovn_high_s16 (int8x8_t r, int16x8_t a); A32: VMOVN.I16 Dd+1, Qm; A64: XTN2 Vd.16B, Vn.8H
             // ExtractNarrowingUpper(Vector64<UInt16>, Vector128<UInt32>)	uint16x8_t vmovn_high_u32 (uint16x4_t r, uint32x4_t a); A32: VMOVN.I32 Dd+1, Qm; A64: XTN2 Vd.8H, Vn.4S
             // ExtractNarrowingUpper(Vector64<UInt32>, Vector128<UInt64>)	uint32x4_t vmovn_high_u64 (uint32x2_t r, uint64x2_t a); A32: VMOVN.I64 Dd+1, Qm; A64: XTN2 Vd.4S, Vn.2D
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<sbyte>.Serial, Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<sbyte>.Serial, Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<short>.Serial, Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<short>.Serial, Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<int>.Serial, Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<int>.Serial, Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<byte>.Serial, Vector128s<ushort>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<byte>.Serial, Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo));
+
+            // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-vector-extraction
+            // NEON intrinsics for vector extraction
+            // Vector extract: vext -> 
+            // extracts n elements from the lower end of the second operand vector and the remaining elements from the higher end of the first, and combines them to form the result vector.
+            // The elements from the second operand are placed in the most significant part of the result vector.
+            // The elements from the first operand are placed in the least significant part of the result vector.
+            // This intrinsic cycles the elements through the lanes if the two input vectors are the same.
+            // 从第二个操作数向量的下端提取n个元素，从第一个操作数向量的上端提取剩余元素，并将它们组合成结果向量。
+            // 来自第二个操作数的元素被放置在结果向量最重要的部分。
+            // 第一个操作数的元素被放置在结果向量中最不重要的部分。
+            // 如果两个输入向量相同，这个内禀循环元素通过通道。
             // ExtractVector128(Vector128<Byte>, Vector128<Byte>, Byte)	uint8x16_t vextq_s8 (uint8x16_t a, uint8x16_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #n; A64: EXT Vd.16B, Vn.16B, Vm.16B, #n
             // ExtractVector128(Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vextq_f64 (float64x2_t a, float64x2_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #(n*8); A64: EXT Vd.16B, Vn.16B, Vm.16B, #(n*8)
             // ExtractVector128(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vextq_s16 (int16x8_t a, int16x8_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #(n*2); A64: EXT Vd.16B, Vn.16B, Vm.16B, #(n*2)
@@ -550,6 +637,22 @@ namespace IntrinsicsLib {
             // ExtractVector128(Vector128<UInt16>, Vector128<UInt16>, Byte)	uint16x8_t vextq_s16 (uint16x8_t a, uint16x8_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #(n*2); A64: EXT Vd.16B, Vn.16B, Vm.16B, #(n*2)
             // ExtractVector128(Vector128<UInt32>, Vector128<UInt32>, Byte)	uint32x4_t vextq_s32 (uint32x4_t a, uint32x4_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #(n*4); A64: EXT Vd.16B, Vn.16B, Vm.16B, #(n*4)
             // ExtractVector128(Vector128<UInt64>, Vector128<UInt64>, Byte)	uint64x2_t vextq_s64 (uint64x2_t a, uint64x2_t b, const int n); A32: VEXT.8 Qd, Qn, Qm, #(n*8); A64: EXT Vd.16B, Vn.16B, Vm.16B, #(n*8)
+            for (byte i = 0; i <= 15; ++i) {
+                //WriteLine(writer, indent, "ExtractVector128(Vector128s<sbyte>.Serial, Vector128s<sbyte>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<sbyte>.Serial, Vector128s<sbyte>.Demo, i), i);
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<byte>.Serial, Vector128s<byte>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<byte>.Serial, Vector128s<byte>.Demo, i), i);
+            }
+            for (byte i = 0; i <= 7; ++i) {
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<ushort>.Serial, Vector128s<ushort>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<ushort>.Serial, Vector128s<ushort>.Demo, i), i);
+            }
+            for (byte i = 0; i <= 3; ++i) {
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<uint>.Serial, Vector128s<uint>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<uint>.Serial, Vector128s<uint>.Demo, i), i);
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<float>.Serial, Vector128s<float>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<float>.Serial, Vector128s<float>.Demo, i), i);
+            }
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<ulong>.Serial, Vector128s<ulong>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<ulong>.Serial, Vector128s<ulong>.Demo, i), i);
+                WriteLine(writer, indent, "ExtractVector128(Vector128s<double>.Serial, Vector128s<double>.Demo, i), {1}):\t{0}", AdvSimd.ExtractVector128(Vector128s<double>.Serial, Vector128s<double>.Demo, i), i);
+            }
+
             // ExtractVector64(Vector64<Byte>, Vector64<Byte>, Byte)	uint8x8_t vext_s8 (uint8x8_t a, uint8x8_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #n; A64: EXT Vd.8B, Vn.8B, Vm.8B, #n
             // ExtractVector64(Vector64<Int16>, Vector64<Int16>, Byte)	int16x4_t vext_s16 (int16x4_t a, int16x4_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*2); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*2)
             // ExtractVector64(Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vext_s32 (int32x2_t a, int32x2_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*4); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*4)
@@ -557,6 +660,7 @@ namespace IntrinsicsLib {
             // ExtractVector64(Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vext_f32 (float32x2_t a, float32x2_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*4); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*4)
             // ExtractVector64(Vector64<UInt16>, Vector64<UInt16>, Byte)	uint16x4_t vext_s16 (uint16x4_t a, uint16x4_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*2); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*2)
             // ExtractVector64(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vext_s32 (uint32x2_t a, uint32x2_t b, const int n); A32: VEXT.8 Dd, Dn, Dm, #(n*4); A64: EXT Vd.8B, Vn.8B, Vm.8B, #(n*4)
+            // ignore.
         }
         public unsafe static void RunArm_AdvSimd_F(TextWriter writer, string indent) {
             // Floor(Vector128<Single>)	float32x4_t vrndmq_f32 (float32x4_t a); A32: VRINTM.F32 Qd, Qm; A64: FRINTM Vd.4S, Vn.4S
@@ -3171,6 +3275,7 @@ namespace IntrinsicsLib {
                 RunArm_AdvSimd_64_A,
                 RunArm_AdvSimd_64_C,
                 RunArm_AdvSimd_64_D,
+                RunArm_AdvSimd_64_E,
                 RunArm_AdvSimd_64_F,
                 RunArm_AdvSimd_64_I,
                 RunArm_AdvSimd_64_L,
@@ -3358,15 +3463,27 @@ namespace IntrinsicsLib {
             // DuplicateToVector128(Double)	float64x2_t vdupq_n_f64 (float64_t value); A64: DUP Vd.2D, Vn.D[0]
             // DuplicateToVector128(Int64)	int64x2_t vdupq_n_s64 (int64_t value); A64: DUP Vd.2D, Rn
             // DuplicateToVector128(UInt64)	uint64x2_t vdupq_n_s64 (uint64_t value); A64: DUP Vd.2D, Rn
+        }
+        public unsafe static void RunArm_AdvSimd_64_E(TextWriter writer, string indent) {
             // ExtractNarrowingSaturateScalar(Vector64<Int16>)	int8_t vqmovnh_s16 (int16_t a) A64: SQXTN Bd, Hn
             // ExtractNarrowingSaturateScalar(Vector64<Int32>)	int16_t vqmovns_s32 (int32_t a) A64: SQXTN Hd, Sn
             // ExtractNarrowingSaturateScalar(Vector64<Int64>)	int32_t vqmovnd_s64 (int64_t a) A64: SQXTN Sd, Dn
             // ExtractNarrowingSaturateScalar(Vector64<UInt16>)	uint8_t vqmovnh_u16 (uint16_t a) A64: UQXTN Bd, Hn
             // ExtractNarrowingSaturateScalar(Vector64<UInt32>)	uint16_t vqmovns_u32 (uint32_t a) A64: UQXTN Hd, Sn
             // ExtractNarrowingSaturateScalar(Vector64<UInt64>)	uint32_t vqmovnd_u64 (uint64_t a) A64: UQXTN Sd, Dn
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<short>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<ushort>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<ushort>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<int>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<uint>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<uint>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<long>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateScalar(Vector64s<ulong>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateScalar(Vector64s<ulong>.Demo));
+
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int16>)	uint8_t vqmovunh_s16 (int16_t a) A64: SQXTUN Bd, Hn
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int32>)	uint16_t vqmovuns_s32 (int32_t a) A64: SQXTUN Hd, Sn
             // ExtractNarrowingSaturateUnsignedScalar(Vector64<Int64>)	uint32_t vqmovund_s64 (int64_t a) A64: SQXTUN Sd, Dn
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedScalar(Vector64s<short>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateUnsignedScalar(Vector64s<short>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedScalar(Vector64s<int>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateUnsignedScalar(Vector64s<int>.Demo));
+            WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateUnsignedScalar(Vector64s<long>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_64_F(TextWriter writer, string indent) {
             // Floor(Vector128<Double>)	float64x2_t vrndmq_f64 (float64x2_t a); A64: FRINTM Vd.2D, Vn.2D
