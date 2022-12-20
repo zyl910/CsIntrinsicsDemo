@@ -214,6 +214,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AbsoluteDifferenceWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial):\t{0}", AdvSimd.AbsoluteDifferenceWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial));
             WriteLine(writer, indent, "AbsoluteDifferenceWideningUpperAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial):\t{0}", AdvSimd.AbsoluteDifferenceWideningUpperAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial));
 
+            // 例如 `(sbyte)-128` 会被饱和为 `-127`
             // 2、Saturating absolute(饱和指令): vqabs -> ri = sat(|ai|); 
             // returns the absolute value of each element in a vector. If any of the results overflow, they are saturated and the sticky QC flag is set.
             // 返回向量中每个元素的绝对值。如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
@@ -285,6 +286,9 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.AddHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2));
             WriteLine(writer, indent, "AddHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.AddHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
 
+            // Mnemonic: `rt[i] := (i<center)?( a[i2]+a[i2+1] ):( b[i2]+b[i2+1] )`, `i2 := (i*2)%T.Count`, `center := T.Count/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[0]+a[1], b[0]+b[1]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[0]+a[1], a[2]+a[3], b[0]+b[1], b[2]+b[3]}` .
             // 1、Pairwise add(正常指令):  
             // vpadd -> r0 = a0 + a1, ..., r3 = a6 + a7, r4 = b0 + b1, ..., r7 = b6 + b7 
             // adds adjacent pairs of elements of two vectors,  and places the results in the destination vector.
@@ -304,6 +308,9 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.AddPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2));
             WriteLine(writer, indent, "AddPairwise(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.AddPairwise(Vector64s<float>.Demo, Vector64s<float>.V2));
 
+            // Mnemonic: `rt[i] := widen( a[i2]+a[i2+1] )`, `i2 := i*2`.
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}) = {a[0]+a[1], a[2]+a[3]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}) = {a[0]+a[1], a[2]+a[3], a[4]+a[5], a[6]+a[7]}` .
             // 2、Long pairwise add: vpaddl vpaddl -> r0 = a0 + a1, ..., r3 = a6 + a7; 
             // adds adjacent pairs of elements of a vector, sign extends or zero extends the results to twice their original width, and places the final results in the destination vector
             // 添加向量的相邻元素对，符号扩展或0扩展结果到其原始宽度的两倍，并将最终结果放置在目标向量中
@@ -351,6 +358,9 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddPairwiseWideningAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.AddPairwiseWideningAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2));
             WriteLine(writer, indent, "AddPairwiseWideningAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.AddPairwiseWideningAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2));
 
+            // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vraddhn_s16
+            // Rounding Add returning High Narrow. This instruction adds each vector element in the first source SIMD&FP register to the corresponding vector element in the second source SIMD&FP register, places the most significant half of the result into a vector, and writes the vector to the lower or upper half of the destination SIMD&FP register.
+            // 四舍五入添加返回High Narrow。这条指令将第一个源SIMD&FP寄存器中的每个向量元素添加到第二个源SIMD&FP寄存器中的相应向量元素，将结果的最有效的一半放入一个向量中，并将该向量写入目标SIMD&FP寄存器的下半部分或上半部分。
             // 8、Vector rounding add high half(窄指令): vraddhn -> ri = ai + bi;  
             // selecting High half, The results are rounded
             // 选择高一半，结果是四舍五入
@@ -380,6 +390,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<int>.Demo, Vector128s<long>.Demo, Vector128s<long>.V2));
             WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<uint>.Demo, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
 
+            // Mnemonic: `rt[i] := saturate( a[i] + b[i] )`.
             // 6、Vector saturating add(饱和指令): vqadd -> ri = sat(ai + bi);  
             // the results are saturated if they overflow
             // 如果溢出，结果就是饱和的
@@ -3664,6 +3675,9 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddAcrossWidening(Vector128s<int>.Demo):\t{0}", AdvSimd.Arm64.AddAcrossWidening(Vector128s<int>.Demo));
             WriteLine(writer, indent, "AddAcrossWidening(Vector128s<uint>.Demo):\t{0}", AdvSimd.Arm64.AddAcrossWidening(Vector128s<uint>.Demo));
 
+            // Mnemonic: `rt[i] := (i<center)?( a[i2]+a[i2+1] ):( b[i2]+b[i2+1] )`, `i2 := (i*2)%T.Count`, `center := T.Count/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[0]+a[1], b[0]+b[1]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[0]+a[1], a[2]+a[3], b[0]+b[1], b[2]+b[3]}` .
             // 1、Pairwise add(正常指令):  
             // vpadd -> r0 = a0 + a1, ..., r3 = a6 + a7, r4 = b0 + b1, ..., r7 = b6 + b7 
             // adds adjacent pairs of elements of two vectors,  and places the results in the destination vector.
@@ -3693,6 +3707,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddPairwise(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.AddPairwise(Vector128s<float>.Demo, Vector128s<float>.V2));
             WriteLine(writer, indent, "AddPairwise(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.AddPairwise(Vector128s<double>.Demo, Vector128s<double>.V2));
 
+            // Mnemonic: `rt[i] := saturate( a[i] + b[i] )`.
             // AddSaturate(Vector128<Byte>, Vector128<SByte>)	uint8x16_t vsqaddq_u8 (uint8x16_t a, int8x16_t b); A64: USQADD Vd.16B, Vn.16B
             // AddSaturate(Vector128<Int16>, Vector128<UInt16>)	int16x8_t vuqaddq_s16 (int16x8_t a, uint16x8_t b); A64: SUQADD Vd.8H, Vn.8H
             // AddSaturate(Vector128<Int32>, Vector128<UInt32>)	int32x4_t vuqaddq_s32 (int32x4_t a, uint32x4_t b); A64: SUQADD Vd.4S, Vn.4S
