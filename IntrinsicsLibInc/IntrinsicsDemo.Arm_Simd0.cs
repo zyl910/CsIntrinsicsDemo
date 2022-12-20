@@ -447,17 +447,23 @@ namespace IntrinsicsLib {
             // ConvertToUInt32RoundToZeroScalar(Vector64<Single>)	uint32_t vcvts_u32_f32 (float32_t a); A32: VCVT.U32.F32 Sd, Sm; A64: FCVTZU Sd, Sn
         }
         public unsafe static void RunArm_AdvSimd_D(TextWriter writer, string indent) {
+            // X86 SSE+: _mm_div_ss, _mm_div_sd
+            // Mnemonic: `rt[0] := a[i] / b[i]`.
+            // ?Mnemonic: `rt[i] := (0==i)?( a[i] / b[i] ):0`.
             // DivideScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vdiv_f64 (float64x1_t a, float64x1_t b); A32: VDIV.F64 Dd, Dn, Dm; A64: FDIV Dd, Dn, Dm
             // DivideScalar(Vector64<Single>, Vector64<Single>)	float32_t vdivs_f32 (float32_t a, float32_t b); A32: VDIV.F32 Sd, Sn, Sm; A64: FDIV Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             try {
-                WriteLine(writer, indent, "DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2));
-                WriteLine(writer, indent, "DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2));
+                //WriteLine(writer, indent, "DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.Serial, Vector64s<float>.V2));
+                //WriteLine(writer, indent, "DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.Serial, Vector64s<double>.V2));
                 WriteLine(writer, indent, "DivideScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
                 WriteLine(writer, indent, "DivideScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+                WriteLine(writer, indent, "DivideScalar(Vector64s<float>.InterlacedSign, Vector64s<float>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<float>.InterlacedSign, Vector64s<float>.V2));
+                WriteLine(writer, indent, "DivideScalar(Vector64s<double>.InterlacedSign, Vector64s<double>.V2):\t{0}", AdvSimd.DivideScalar(Vector64s<double>.InterlacedSign, Vector64s<double>.V2));
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
             }
 
+            // Mnemonic: `rt[i] := vec[lane]`.
             // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-setting-all-lanes-to-the-same-value
             // NEON intrinsics for setting all lanes to the same value
             // 2、Load all lanes of the vector to the value of a lane of a vector:  
@@ -488,17 +494,8 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<uint>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<uint>.Serial, i), i);
                 WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector128(Vector128s<float>.Serial, i), i);
             }
-            for (byte i = 0; i <= 7; ++i) {
-                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, i), i);
-            }
-            for (byte i = 0; i <= 3; ++i) {
-                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, i), i);
-            }
-            for (byte i = 0; i <= 1; ++i) {
-                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, i), i);
-                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, i), i);
-            }
 
+            // Mnemonic: `rt[i] := vec[lane]`.
             // DuplicateSelectedScalarToVector64(Vector128<Byte>, Byte)	uint8x8_t vdup_laneq_u8 (uint8x16_t vec, const int lane); A32: VDUP.8 Dd, Dm[index]; A64: DUP Vd.8B, Vn.B[index]
             // DuplicateSelectedScalarToVector64(Vector128<Int16>, Byte)	int16x4_t vdup_laneq_s16 (int16x8_t vec, const int lane); A32: VDUP.16 Dd, Dm[index]; A64: DUP Vd.4H, Vn.H[index]
             // DuplicateSelectedScalarToVector64(Vector128<Int32>, Byte)	int32x2_t vdup_laneq_s32 (int32x4_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
@@ -513,8 +510,19 @@ namespace IntrinsicsLib {
             // DuplicateSelectedScalarToVector64(Vector64<Single>, Byte)	float32x2_t vdup_lane_f32 (float32x2_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
             // DuplicateSelectedScalarToVector64(Vector64<UInt16>, Byte)	uint16x4_t vdup_lane_u16 (uint16x4_t vec, const int lane); A32: VDUP.16 Dd, Dm[index]; A64: DUP Vd.4H, Vn.H[index]
             // DuplicateSelectedScalarToVector64(Vector64<UInt32>, Byte)	uint32x2_t vdup_lane_u32 (uint32x2_t vec, const int lane); A32: VDUP.32 Dd, Dm[index]; A64: DUP Vd.2S, Vn.S[index]
-            // ignore.
+            for (byte i = 0; i <= 7; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<byte>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 3; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<ushort>.Serial, i), i);
+            }
+            for (byte i = 0; i <= 1; ++i) {
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<uint>.Serial, i), i);
+                WriteLine(writer, indent, "DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, {1}):\t{0}", AdvSimd.DuplicateSelectedScalarToVector64(Vector64s<float>.Serial, i), i);
+            }
 
+            // X86 SSE+: _mm_set1_epi8, _mm_set1_epi16 (pshufd、punpcklqdq 等指令组合); Avx2: _mm_broadcastd_epi32
+            // Mnemonic: `rt[i] := value`.
             // DuplicateToVector128(Byte)	uint8x16_t vdupq_n_u8 (uint8_t value); A32: VDUP.8 Qd, Rt; A64: DUP Vd.16B, Rn
             // DuplicateToVector128(Int16)	int16x8_t vdupq_n_s16 (int16_t value); A32: VDUP.16 Qd, Rt; A64: DUP Vd.8H, Rn
             // DuplicateToVector128(Int32)	int32x4_t vdupq_n_s32 (int32_t value); A32: VDUP.32 Qd, Rt; A64: DUP Vd.4S, Rn
@@ -527,6 +535,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "DuplicateToVector128((int)-32):\t{0}", AdvSimd.DuplicateToVector128((int)-32));
             WriteLine(writer, indent, "DuplicateToVector128((float)-32.5):\t{0}", AdvSimd.DuplicateToVector128((float)-32.5));
 
+            // Mnemonic: `rt[i] := value`.
             // DuplicateToVector64(Byte)	uint8x8_t vdup_n_u8 (uint8_t value); A32: VDUP.8 Dd, Rt; A64: DUP Vd.8B, Rn
             // DuplicateToVector64(Int16)	int16x4_t vdup_n_s16 (int16_t value); A32: VDUP.16 Dd, Rt; A64: DUP Vd.4H, Rn
             // DuplicateToVector64(Int32)	int32x2_t vdup_n_s32 (int32_t value); A32: VDUP.32 Dd, Rt; A64: DUP Vd.2S, Rn
@@ -537,6 +546,8 @@ namespace IntrinsicsLib {
             // ignore.
         }
         public unsafe static void RunArm_AdvSimd_E(TextWriter writer, string indent) {
+            // X86 SSE2+: _mm_extract_epi16, _mm_extract_epi32
+            // Mnemonic: `rt := vec[lane]`.
             // vmov -> r = a[b];
             // returns the value from the specified lane of a vector. 
             // Extract lanes from a vector and put into a register.  
@@ -576,6 +587,7 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "Extract(Vector128s<double>.Demo, {1}):\t{0}", AdvSimd.Extract(Vector128s<double>.Demo, i), i);
             }
 
+            // Mnemonic: `rt[i] := narrow(a[i] && T.LOW_MASK)`.
             // 1、Vector narrow integer(窄指令): vmovn -> ri = ai[0...8]; 
             // copies the least significant half of each element of a quadword vector into the corresponding elements of a doubleword vector.
             // 将四字向量的每个元素的最低有效度的一半复制到双字向量的相应元素中。
@@ -585,17 +597,15 @@ namespace IntrinsicsLib {
             // ExtractNarrowingLower(Vector128<UInt16>)	uint8x8_t vmovn_u16 (uint16x8_t a); A32: VMOVN.I16 Dd, Qm; A64: XTN Vd.8B, Vn.8H
             // ExtractNarrowingLower(Vector128<UInt32>)	uint16x4_t vmovn_u32 (uint32x4_t a); A32: VMOVN.I32 Dd, Qm; A64: XTN Vd.4H, Vn.4S
             // ExtractNarrowingLower(Vector128<UInt64>)	uint32x2_t vmovn_u64 (uint64x2_t a); A32: VMOVN.I64 Dd, Qm; A64: XTN Vd.2S, Vn.2D
-            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<sbyte>.Demo));
-            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<byte>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<byte>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<short>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<short>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<ushort>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<ushort>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<int>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<uint>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<long>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<ulong>.Demo));
-            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<float>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<float>.Demo));
-            //WriteLine(writer, indent, "ExtractNarrowingLower(Vector128s<double>.Demo):\t{0}", AdvSimd.ExtractNarrowingLower(Vector128s<double>.Demo));
 
+            // X86 SSE2+: _mm_packs_epi16, _mm_packs_epi32
+            // Mnemonic: `rt[i] := narrowSaturate(a[i]) = narrow(clamp(a[i], T.MinValue, T.MaxValue))`.
             // 3、Vector saturating narrow integer(窄指令): vqmovn -> 
             // copies each element of the operand vector to the corresponding element of the destination vector.  
             // The result element is half the width of  the operand element, and values are saturated to the result width. 
@@ -616,6 +626,8 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<long>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingSaturateLower(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateLower(Vector128s<ulong>.Demo));
 
+            // X86 SSE2+: _mm_packus_epi16, _mm_packus_epi32
+            // Mnemonic: `rt[i] := narrowSaturateUnsigned(a[i]) = narrow(clamp(a[i], TRT.MinValue, TRT.MaxValue))`.
             // 4、Vector saturating narrow integer signed->unsigned(窄指令):
             // copies each element of the operand vector to the corresponding element of the destination vector. 
             // The result element is half the width of the operand element, and values are saturated to the result width. 
@@ -627,6 +639,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedLower(Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedLower(Vector128s<int>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedLower(Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedLower(Vector128s<long>.Demo));
 
+            // Mnemonic: `rt[i] := (i>=center)?narrowSaturateUnsigned(a[i-center]),r[i]`, `center := T.Count/2`.
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<Byte>, Vector128<Int16>)	uint8x16_t vqmovun_high_s16 (uint8x8_t r, int16x8_t a) A32: VQMOVUN.S16 Dd+1, Qm A64: SQXTUN2 Vd.16B, Vn.8H
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<UInt16>, Vector128<Int32>)	uint16x8_t vqmovun_high_s32 (uint16x4_t r, int32x4_t a) A32: VQMOVUN.S32 Dd+1, Qm A64: SQXTUN2 Vd.8H, Vn.4S
             // ExtractNarrowingSaturateUnsignedUpper(Vector64<UInt32>, Vector128<Int64>)	uint32x4_t vqmovun_high_s64 (uint32x2_t r, int64x2_t a) A32: VQMOVUN.S64 Dd+1, Qm A64: SQXTUN2 Vd.4S, Vn.2D
@@ -634,6 +647,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedUpper(Vector64s<ushort>.Serial, Vector128s<int>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedUpper(Vector64s<ushort>.Serial, Vector128s<int>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedUpper(Vector64s<uint>.Serial, Vector128s<long>.Demo):\t{0}", AdvSimd.ExtractNarrowingSaturateUnsignedUpper(Vector64s<uint>.Serial, Vector128s<long>.Demo));
 
+            // Mnemonic: `rt[i] := (i>=center)?narrowSaturate(a[i-center]),r[i]`, `center := T.Count/2`.
             // ExtractNarrowingSaturateUpper(Vector64<Byte>, Vector128<UInt16>)	uint8x16_t vqmovn_high_u16 (uint8x8_t r, uint16x8_t a) A32: VQMOVN.U16 Dd+1, Qm A64: UQXTN2 Vd.16B, Vn.8H
             // ExtractNarrowingSaturateUpper(Vector64<Int16>, Vector128<Int32>)	int16x8_t vqmovn_high_s32 (int16x4_t r, int32x4_t a) A32: VQMOVN.S32 Dd+1, Qm A64: SQXTN2 Vd.8H, Vn.4S
             // ExtractNarrowingSaturateUpper(Vector64<Int32>, Vector128<Int64>)	int32x4_t vqmovn_high_s64 (int32x2_t r, int64x2_t a) A32: VQMOVN.S64 Dd+1, Qm A64: SQXTN2 Vd.4S, Vn.2D
@@ -660,6 +674,8 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<ushort>.Serial, Vector128s<uint>.Demo));
             WriteLine(writer, indent, "ExtractNarrowingUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo):\t{0}", AdvSimd.ExtractNarrowingUpper(Vector64s<uint>.Serial, Vector128s<ulong>.Demo));
 
+            // X86 SSSE3+: 反向的 _mm_alignr_epi8. `vextq_s8(a, b, n) = (n>0)?_mm_alignr_epi8(b, a, T.ByteCount - n): a`
+            // Mnemonic: `rt[i] := (n+i < T.Count)?a[n+i],b[n+i - T.Count]`. Byte shift left .
             // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-vector-extraction
             // NEON intrinsics for vector extraction
             // Vector extract: vext -> 
@@ -3498,20 +3514,26 @@ namespace IntrinsicsLib {
             // ConvertToUInt64RoundToZeroScalar(Vector64<Double>)	uint64x1_t vcvt_u64_f64 (float64x1_t a); A64: FCVTZU Dd, Dn
         }
         public unsafe static void RunArm_AdvSimd_64_D(TextWriter writer, string indent) {
+            // X86 SSE2+: _mm_div_ps, _mm_div_pd
+            // Mnemonic: `rt[0] := a[i] / b[i]`.
             // Divide(Vector128<Double>, Vector128<Double>)	float64x2_t vdivq_f64 (float64x2_t a, float64x2_t b); A64: FDIV Vd.2D, Vn.2D, Vm.2D
             // Divide(Vector128<Single>, Vector128<Single>)	float32x4_t vdivq_f32 (float32x4_t a, float32x4_t b); A64: FDIV Vd.4S, Vn.4S, Vm.4S
             // Divide(Vector64<Single>, Vector64<Single>)	float32x2_t vdiv_f32 (float32x2_t a, float32x2_t b); A64: FDIV Vd.2S, Vn.2S, Vm.2S
             try {
-                WriteLine(writer, indent, "Divide(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.Serial, Vector64s<float>.V2));
-                WriteLine(writer, indent, "Divide(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.Serial, Vector128s<float>.V2));
-                WriteLine(writer, indent, "Divide(Vector128s<double>.Serial, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.Serial, Vector128s<double>.V2));
+                //WriteLine(writer, indent, "Divide(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.Serial, Vector64s<float>.V2));
+                //WriteLine(writer, indent, "Divide(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.Serial, Vector128s<float>.V2));
+                //WriteLine(writer, indent, "Divide(Vector128s<double>.Serial, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.Serial, Vector128s<double>.V2));
                 WriteLine(writer, indent, "Divide(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.Demo, Vector64s<float>.V2));
                 WriteLine(writer, indent, "Divide(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.Demo, Vector128s<float>.V2));
                 WriteLine(writer, indent, "Divide(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.Demo, Vector128s<double>.V2));
+                WriteLine(writer, indent, "Divide(Vector64s<float>.InterlacedSign, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector64s<float>.InterlacedSign, Vector64s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<float>.InterlacedSign, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<float>.InterlacedSign, Vector128s<float>.V2));
+                WriteLine(writer, indent, "Divide(Vector128s<double>.InterlacedSign, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Divide(Vector128s<double>.InterlacedSign, Vector128s<double>.V2));
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
             }
 
+            // Mnemonic: `rt[i] := vec[lane]`.
             // DuplicateSelectedScalarToVector128(Vector128<Double>, Byte)	float64x2_t vdupq_laneq_f64 (float64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<Int64>, Byte)	int64x2_t vdupq_laneq_s64 (int64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
             // DuplicateSelectedScalarToVector128(Vector128<UInt64>, Byte)	uint64x2_t vdupq_laneq_u64 (uint64x2_t vec, const int lane); A64: DUP Vd.2D, Vn.D[index]
@@ -3520,6 +3542,7 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "DuplicateSelectedScalarToVector128(Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.DuplicateSelectedScalarToVector128(Vector128s<double>.Serial, i), i);
             }
 
+            // Mnemonic: `rt[i] := vec[lane]`.
             // DuplicateToVector128(Double)	float64x2_t vdupq_n_f64 (float64_t value); A64: DUP Vd.2D, Vn.D[0]
             // DuplicateToVector128(Int64)	int64x2_t vdupq_n_s64 (int64_t value); A64: DUP Vd.2D, Rn
             // DuplicateToVector128(UInt64)	uint64x2_t vdupq_n_s64 (uint64_t value); A64: DUP Vd.2D, Rn
@@ -3923,6 +3946,11 @@ namespace IntrinsicsLib {
             // 将输入向量的元素视为2 × 2矩阵的元素，并对矩阵进行转置。
             // 本质上，它将来自Vector1的奇数下标的元素与来自Vector2的偶数下标的元素交换。
 
+            // Mnemonic: `rt[i] := (0==(i&1))?( a[i&~1] ):( b[i&~1] )`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[0], b[0]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[0], b[0], a[2], b[2]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[0], b[0], a[2], b[2], a[4], b[4], a[6], b[6]}` .
+            // Example of element-16: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15]}) = {a[0], b[0], a[2], b[2], a[4], b[4], a[6], b[6], a[8], b[8], a[10], b[10], a[12], b[12], a[14], b[14]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtrn1q_u8
             // Transpose vectors (primary). This instruction reads corresponding even-numbered vector elements from the two source SIMD&FP registers, starting at zero, places each result into consecutive elements of a vector, and writes the vector to the destination SIMD&FP register. Vector elements from the first source register are placed into even-numbered elements of the destination vector, starting at zero, while vector elements from the second source register are placed into odd-numbered elements of the destination vector.
             // 转置向量(主)。这条指令从两个源SIMD&FP寄存器读取相应的偶数向量元素，从0开始，将每个结果放入一个向量的连续元素中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的向量元素被放入目标向量的偶数元素中，从0开始，而来自第二个源寄存器的向量元素被放入目标向量的奇数元素中。
@@ -3961,6 +3989,11 @@ namespace IntrinsicsLib {
                 writer.WriteLine(indent + ex.ToString());
             }
 
+            // Mnemonic: `rt[i] := (0==(i&1))?( a[i&~1 + 1] ):( b[i&~1 + 1] )`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[1], b[1]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[1], b[1], a[3], b[3]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[1], b[1], a[3], b[3], a[5], b[5], a[7], b[7]}` .
+            // Example of element-16: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15]}) = {a[1], b[1], a[3], b[3], a[5], b[5], a[7], b[7], a[9], b[9], a[11], b[11], a[13], b[13], a[15], b[15]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vtrn2q_u8
             // Transpose vectors (secondary). This instruction reads corresponding odd-numbered vector elements from the two source SIMD&FP registers, places each result into consecutive elements of a vector, and writes the vector to the destination SIMD&FP register. Vector elements from the first source register are placed into even-numbered elements of the destination vector, starting at zero, while vector elements from the second source register are placed into odd-numbered elements of the destination vector.
             // 转置向量(次要的)。这条指令从两个源SIMD&FP寄存器读取相应的奇数向量元素，将每个结果放入一个向量的连续元素中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的向量元素被放入目标向量的偶数元素中，从0开始，而来自第二个源寄存器的向量元素被放入目标向量的奇数元素中。
@@ -4009,6 +4042,10 @@ namespace IntrinsicsLib {
             // 解交错两个向量的元素。
             // 解交织是交织的逆过程。
 
+            // Mnemonic: `rt[i] := (i<center)?( a[i2] ):( b[i2] )`, `i2 := (i*2)%T.Count`, `center := T.Count/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[0], b[0]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[0], a[2], b[0], b[2]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[0], a[2], a[4], a[6], b[0], b[2], b[4], b[6]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vuzp1q_u8
             // Unzip vectors (primary). This instruction reads corresponding even-numbered vector elements from the two source SIMD&FP registers, starting at zero, places the result from the first source register into consecutive elements in the lower half of a vector, and the result from the second source register into consecutive elements in the upper half of a vector, and writes the vector to the destination SIMD&FP register.
             // bits(datasize*2) zipped = operandh:operandl;
@@ -4046,6 +4083,10 @@ namespace IntrinsicsLib {
                 writer.WriteLine(indent + ex.ToString());
             }
 
+            // Mnemonic: `rt[i] := (i<center)?( a[i2] ):( b[i2] )`, `i2 := (i*2)%T.Count + 1`, `center := T.Count/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[1], b[1]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[1], a[3], b[1], b[3]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[1], a[3], a[5], a[7], b[1], b[3], b[5], b[7]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vuzp2q_u8
             // Unzip vectors (secondary). This instruction reads corresponding odd-numbered vector elements from the two source SIMD&FP registers, places the result from the first source register into consecutive elements in the lower half of a vector, and the result from the second source register into consecutive elements in the upper half of a vector, and writes the vector to the destination SIMD&FP register.
             // 解压缩向量(次要)。该指令从两个源SIMD&FP寄存器读取相应的奇数向量元素，将第一个源寄存器的结果放入向量下半部分的连续元素中，将第二个源寄存器的结果放入向量上半部分的连续元素中，并将该向量写入目标SIMD&FP寄存器。
@@ -4086,6 +4127,7 @@ namespace IntrinsicsLib {
         }
         public unsafe static void RunArm_AdvSimd_64_V(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
+            // X86 SSSE3+: _mm_shuffle_epi8
             // Mnemonic: `rt[i] := (checkRange(idx[i])) ? t[idx[i]] : 0`, `checkRange(idx[i]) := 0<=idx[i] && idx[i]<t.Count` .
             // 1、Table lookup: vtbl -> 
             // uses byte indexes in a control vector to look up byte values in a table and generate a new vector. Indexes out of range return 0.  
@@ -4160,6 +4202,13 @@ namespace IntrinsicsLib {
             // 2、Interleave elements(Zip elements):  
             // vzip ->  (Vector Zip) interleaves the elements of two vectors.
 
+            // My guess:
+            // ZipLow(ZipLow(a,b), ZipLow(a,b)) = TransposeEven(a,b)
+            // ZipHigh(ZipHigh(a,b), ZipHigh(a,b)) = TransposeOdd(a,b)
+            // Mnemonic: `rt[i] := (0==(i&1))?( a[i2] ):( b[i2] )`, `i2 := (i+T.Count)/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[1], b[1]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[2], b[2], a[3], b[3]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[4], b[4], a[5], b[5], a[6], b[6], a[7], b[7]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vzip2q_u8
             // Zip vectors (secondary). This instruction reads adjacent vector elements from the upper half of two source SIMD&FP registers as pairs, interleaves the pairs and places them into a vector, and writes the vector to the destination SIMD&FP register. The first pair from the first source register is placed into the two lowest vector elements, with subsequent pairs taken alternately from each source register.
             // 压缩向量(次要)。这条指令从两个源SIMD&FP寄存器的上半部分读取相邻的向量元素作为对，将这些对交叉并将它们放入一个向量中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的第一对被放入两个最低的向量元素中，随后的对交替从每个源寄存器中取出。
@@ -4199,6 +4248,10 @@ namespace IntrinsicsLib {
                 writer.WriteLine(indent + ex.ToString());
             }
 
+            // Mnemonic: `rt[i] := (0==(i&1))?( a[i2] ):( b[i2] )`, `i2 := i/2`.
+            // Example of element-2: `f({a[0], a[1]}, {b[0], b[1]}) = {a[0], b[0]}` .
+            // Example of element-4: `f({a[0], a[1], a[2], a[3]}, {b[0], b[1], b[2], b[3]}) = {a[0], b[0], a[1], b[1]}` .
+            // Example of element-8: `f({a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]}, {b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7]}) = {a[0], b[0], a[1], b[1], a[2], b[2], a[3], b[3]}` .
             // https://developer.arm.com/architectures/instruction-sets/intrinsics/#q=vzip1q_u8
             // Zip vectors (primary). This instruction reads adjacent vector elements from the lower half of two source SIMD&FP registers as pairs, interleaves the pairs and places them into a vector, and writes the vector to the destination SIMD&FP register. The first pair from the first source register is placed into the two lowest vector elements, with subsequent pairs taken alternately from each source register.
             // 压缩向量(主要)。这条指令从两个源SIMD&FP寄存器的下半部分读取相邻的向量元素作为对，将这些对交叉并将它们放入一个向量中，并将该向量写入目标SIMD&FP寄存器。来自第一个源寄存器的第一对被放入两个最低的向量元素中，随后的对交替从每个源寄存器中取出。
