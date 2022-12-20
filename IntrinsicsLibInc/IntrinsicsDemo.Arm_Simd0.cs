@@ -384,11 +384,11 @@ namespace IntrinsicsLib {
             // AddRoundedHighNarrowingUpper(Vector64<UInt16>, Vector128<UInt32>, Vector128<UInt32>)	uint16x8_t vraddhn_high_u32 (uint16x4_t r, uint32x4_t a, uint32x4_t b); A32: VRADDHN.I32 Dd+1, Qn, Qm; A64: RADDHN2 Vd.8H, Vn.4S, Vm.4S
             // AddRoundedHighNarrowingUpper(Vector64<UInt32>, Vector128<UInt64>, Vector128<UInt64>)	uint32x4_t vraddhn_high_u64 (uint32x2_t r, uint64x2_t a, uint64x2_t b); A32: VRADDHN.I64 Dd+1, Qn, Qm; A64: RADDHN2 Vd.4S, Vn.2D, Vm.2D
             WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2));
-            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<byte>.Demo, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
-            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<short>.Demo, Vector128s<int>.Demo, Vector128s<int>.V2));
-            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<ushort>.Demo, Vector128s<uint>.Demo, Vector128s<uint>.V2));
-            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<int>.Demo, Vector128s<long>.Demo, Vector128s<long>.V2));
-            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<uint>.Demo, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2));
+            WriteLine(writer, indent, "AddRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.AddRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
 
             // Mnemonic: `rt[i] := saturate( a[i] + b[i] )`.
             // 6、Vector saturating add(饱和指令): vqadd -> ri = sat(ai + bi);  
@@ -496,6 +496,9 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "And(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.And(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_B(TextWriter writer, string indent) {
+            // 5、Bit Clear(正常指令): vbic -> ri = ~ai & bi; 
+            // VBIC (Vector Bitwise Clear) performs a bitwise logical AND complement operation between values in two registers, and places the results in the destination register.
+            // VBIC (Vector Bitwise Clear)在两个寄存器中的值之间执行按位逻辑与补操作，并将结果放入目标寄存器。
             // BitwiseClear(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vbicq_u8 (uint8x16_t a, uint8x16_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B
             // BitwiseClear(Vector128<Double>, Vector128<Double>)	float64x2_t vbicq_f64 (float64x2_t a, float64x2_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // BitwiseClear(Vector128<Int16>, Vector128<Int16>)	int16x8_t vbicq_s16 (int16x8_t a, int16x8_t b); A32: VBIC Qd, Qn, Qm; A64: BIC Vd.16B, Vn.16B, Vm.16B
@@ -516,6 +519,17 @@ namespace IntrinsicsLib {
             // BitwiseClear(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vbic_u16 (uint16x4_t a, uint16x4_t b); A32: VBIC Dd, Dn, Dm; A64: BIC Vd.8B, Vn.8B, Vm.8B
             // BitwiseClear(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vbic_u32 (uint32x2_t a, uint32x2_t b); A32: VBIC Dd, Dn, Dm; A64: BIC Vd.8B, Vn.8B, Vm.8B
             // BitwiseClear(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vbic_u64 (uint64x1_t a, uint64x1_t b); A32: VBIC Dd, Dn, Dm; A64: BIC Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<ulongfloatDemo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+
             // BitwiseSelect(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vbslq_u8 (uint8x16_t a, uint8x16_t b, uint8x16_t c); A32: VBSL Qd, Qn, Qm; A64: BSL Vd.16B, Vn.16B, Vm.16B
             // BitwiseSelect(Vector128<Double>, Vector128<Double>, Vector128<Double>)	float64x2_t vbslq_f64 (uint64x2_t a, float64x2_t b, float64x2_t c); A32: VBSL Qd, Qn, Qm; A64: BSL Vd.16B, Vn.16B, Vm.16B
             // BitwiseSelect(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>)	int16x8_t vbslq_s16 (uint16x8_t a, int16x8_t b, int16x8_t c); A32: VBSL Qd, Qn, Qm; A64: BSL Vd.16B, Vn.16B, Vm.16B
@@ -536,6 +550,12 @@ namespace IntrinsicsLib {
             // BitwiseSelect(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vbsl_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vbsl_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt64>, Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vbsl_u64 (uint64x1_t a, uint64x1_t b, uint64x1_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<byte>.SerialNegative, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<byte>.XyXMask, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<short>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<short>.XyXMask, Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<int>.SerialNegative, Vector128s<short>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<int>.XyXMask, Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<long>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<long>.XyXMask, Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<float>.SerialNegative, Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<float>.XyXMask, Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<double>.SerialNegative, Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<double>.XyXMask, Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_C(TextWriter writer, string indent) {
             // Ceiling(Vector128<Single>)	float32x4_t vrndpq_f32 (float32x4_t a); A32: VRINTP.F32 Qd, Qm; A64: FRINTP Vd.4S, Vn.4S
