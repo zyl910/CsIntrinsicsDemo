@@ -527,7 +527,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "BitwiseClear(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
             WriteLine(writer, indent, "BitwiseClear(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
             WriteLine(writer, indent, "BitwiseClear(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseClear(Vector128s<ulongfloatDemo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseClear(Vector128s<float>Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
             WriteLine(writer, indent, "BitwiseClear(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseClear(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
 
             // BitwiseSelect(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vbslq_u8 (uint8x16_t a, uint8x16_t b, uint8x16_t c); A32: VBSL Qd, Qn, Qm; A64: BSL Vd.16B, Vn.16B, Vm.16B
@@ -558,10 +558,16 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "BitwiseSelect(Vector128s<double>.SerialNegative, Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<double>.XyXMask, Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_C(TextWriter writer, string indent) {
+            // 3、towards +Inf
             // Ceiling(Vector128<Single>)	float32x4_t vrndpq_f32 (float32x4_t a); A32: VRINTP.F32 Qd, Qm; A64: FRINTP Vd.4S, Vn.4S
             // Ceiling(Vector64<Single>)	float32x2_t vrndp_f32 (float32x2_t a); A32: VRINTP.F32 Dd, Dm; A64: FRINTP Vd.2S, Vn.2S
             // CeilingScalar(Vector64<Double>)	float64x1_t vrndp_f64 (float64x1_t a); A32: VRINTP.F64 Dd, Dm; A64: FRINTP Dd, Dn
             // CeilingScalar(Vector64<Single>)	float32_t vrndps_f32 (float32_t a); A32: VRINTP.F32 Sd, Sm; A64: FRINTP Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "Ceiling(Vector128s<float>.Demo):\t{0}", AdvSimd.Ceiling(Vector128s<float>.Demo));
+
+            // 1、Vector compare equal(正常指令): vceq -> ri = ai == bi ? 1...1 : 0...0;  
+            // If they are equal, the corresponding element in the destination vector is set to all ones. 
+            // Otherwise, it is set to all zeros
             // CompareEqual(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vceqq_u8 (uint8x16_t a, uint8x16_t b); A32: VCEQ.I8 Qd, Qn, Qm; A64: CMEQ Vd.16B, Vn.16B, Vm.16B
             // CompareEqual(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vceqq_s16 (int16x8_t a, int16x8_t b); A32: VCEQ.I16 Qd, Qn, Qm; A64: CMEQ Vd.8H, Vn.8H, Vm.8H
             // CompareEqual(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vceqq_s32 (int32x4_t a, int32x4_t b); A32: VCEQ.I32 Qd, Qn, Qm; A64: CMEQ Vd.4S, Vn.4S, Vm.4S
@@ -576,6 +582,16 @@ namespace IntrinsicsLib {
             // CompareEqual(Vector64<Single>, Vector64<Single>)	uint32x2_t vceq_f32 (float32x2_t a, float32x2_t b); A32: VCEQ.F32 Dd, Dn, Dm; A64: FCMEQ Vd.2S, Vn.2S, Vm.2S
             // CompareEqual(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vceq_u16 (uint16x4_t a, uint16x4_t b); A32: VCEQ.I16 Dd, Dn, Dm; A64: CMEQ Vd.4H, Vn.4H, Vm.4H
             // CompareEqual(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vceq_u32 (uint32x2_t a, uint32x2_t b); A32: VCEQ.I32 Dd, Dn, Dm; A64: CMEQ Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "CompareEqual(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<byte>.Demo, Vector128s<byte>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<byte>.Demo, Vector128s<byte>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<short>.Demo, Vector128s<short>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<short>.Demo, Vector128s<short>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<ushort>.Demo, Vector128s<ushort>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<ushort>.Demo, Vector128s<ushort>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<int>.Demo, Vector128s<int>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<int>.Demo, Vector128s<int>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<uint>.Demo, Vector128s<uint>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<uint>.Demo, Vector128s<uint>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<float>.Demo, Vector128s<float>.V0):\t{0}", AdvSimd.CompareEqual(Vector128s<float>.Demo, Vector128s<float>.V0));
+
+            // 4、Vector compare greater-than(正常指令): vcgt -> ri = ai > bi ? 1...1:0...0; 
+            // If it is greater than it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros
             // CompareGreaterThan(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vcgtq_u8 (uint8x16_t a, uint8x16_t b); A32: VCGT.U8 Qd, Qn, Qm; A64: CMHI Vd.16B, Vn.16B, Vm.16B
             // CompareGreaterThan(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vcgtq_s16 (int16x8_t a, int16x8_t b); A32: VCGT.S16 Qd, Qn, Qm; A64: CMGT Vd.8H, Vn.8H, Vm.8H
             // CompareGreaterThan(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vcgtq_s32 (int32x4_t a, int32x4_t b); A32: VCGT.S32 Qd, Qn, Qm; A64: CMGT Vd.4S, Vn.4S, Vm.4S
@@ -590,6 +606,16 @@ namespace IntrinsicsLib {
             // CompareGreaterThan(Vector64<Single>, Vector64<Single>)	uint32x2_t vcgt_f32 (float32x2_t a, float32x2_t b); A32: VCGT.F32 Dd, Dn, Dm; A64: FCMGT Vd.2S, Vn.2S, Vm.2S
             // CompareGreaterThan(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vcgt_u16 (uint16x4_t a, uint16x4_t b); A32: VCGT.U16 Dd, Dn, Dm; A64: CMHI Vd.4H, Vn.4H, Vm.4H
             // CompareGreaterThan(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vcgt_u32 (uint32x2_t a, uint32x2_t b); A32: VCGT.U32 Dd, Dn, Dm; A64: CMHI Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<byte>.Demo, Vector128s<byte>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<byte>.Demo, Vector128s<byte>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<short>.Demo, Vector128s<short>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<short>.Demo, Vector128s<short>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<ushort>.Demo, Vector128s<ushort>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<ushort>.Demo, Vector128s<ushort>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<int>.Demo, Vector128s<int>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<int>.Demo, Vector128s<int>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<uint>.Demo, Vector128s<uint>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<uint>.Demo, Vector128s<uint>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<float>.Demo, Vector128s<float>.V0):\t{0}", AdvSimd.CompareGreaterThan(Vector128s<float>.Demo, Vector128s<float>.V0));
+
+            // 2、Vector compare greater-than or equal(正常指令): vcge-> ri = ai >= bi ? 1...1:0...0; 
+            // If it is greater than or equal to it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros.
             // CompareGreaterThanOrEqual(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vcgeq_u8 (uint8x16_t a, uint8x16_t b); A32: VCGE.U8 Qd, Qn, Qm; A64: CMHS Vd.16B, Vn.16B, Vm.16B
             // CompareGreaterThanOrEqual(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vcgeq_s16 (int16x8_t a, int16x8_t b); A32: VCGE.S16 Qd, Qn, Qm; A64: CMGE Vd.8H, Vn.8H, Vm.8H
             // CompareGreaterThanOrEqual(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vcgeq_s32 (int32x4_t a, int32x4_t b); A32: VCGE.S32 Qd, Qn, Qm; A64: CMGE Vd.4S, Vn.4S, Vm.4S
@@ -604,6 +630,16 @@ namespace IntrinsicsLib {
             // CompareGreaterThanOrEqual(Vector64<Single>, Vector64<Single>)	uint32x2_t vcge_f32 (float32x2_t a, float32x2_t b); A32: VCGE.F32 Dd, Dn, Dm; A64: FCMGE Vd.2S, Vn.2S, Vm.2S
             // CompareGreaterThanOrEqual(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vcge_u16 (uint16x4_t a, uint16x4_t b); A32: VCGE.U16 Dd, Dn, Dm; A64: CMHS Vd.4H, Vn.4H, Vm.4H
             // CompareGreaterThanOrEqual(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vcge_u32 (uint32x2_t a, uint32x2_t b); A32: VCGE.U32 Dd, Dn, Dm; A64: CMHS Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<byte>.Demo, Vector128s<byte>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<byte>.Demo, Vector128s<byte>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<short>.Demo, Vector128s<short>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<short>.Demo, Vector128s<short>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<ushort>.Demo, Vector128s<ushort>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<ushort>.Demo, Vector128s<ushort>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<int>.Demo, Vector128s<int>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<int>.Demo, Vector128s<int>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<uint>.Demo, Vector128s<uint>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<uint>.Demo, Vector128s<uint>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<float>.Demo, Vector128s<float>.V0):\t{0}", AdvSimd.CompareGreaterThanOrEqual(Vector128s<float>.Demo, Vector128s<float>.V0));
+
+            // 5、Vector compare less-than(正常指令): vclt -> ri = ai < bi ? 1...1:0...0; 
+            // If it is less than it, the corresponding element in the destination vector is set to all ones.Otherwise, it is set to all zeros
             // CompareLessThan(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vcltq_u8 (uint8x16_t a, uint8x16_t b); A32: VCLT.U8 Qd, Qn, Qm; A64: CMHI Vd.16B, Vn.16B, Vm.16B
             // CompareLessThan(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vcltq_s16 (int16x8_t a, int16x8_t b); A32: VCLT.S16 Qd, Qn, Qm; A64: CMGT Vd.8H, Vn.8H, Vm.8H
             // CompareLessThan(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vcltq_s32 (int32x4_t a, int32x4_t b); A32: VCLT.S32 Qd, Qn, Qm; A64: CMGT Vd.4S, Vn.4S, Vm.4S
@@ -618,6 +654,8 @@ namespace IntrinsicsLib {
             // CompareLessThan(Vector64<Single>, Vector64<Single>)	uint32x2_t vclt_f32 (float32x2_t a, float32x2_t b); A32: VCLT.F32 Dd, Dn, Dm; A64: FCMGT Vd.2S, Vn.2S, Vm.2S
             // CompareLessThan(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vclt_u16 (uint16x4_t a, uint16x4_t b); A32: VCLT.U16 Dd, Dn, Dm; A64: CMHI Vd.4H, Vn.4H, Vm.4H
             // CompareLessThan(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vclt_u32 (uint32x2_t a, uint32x2_t b); A32: VCLT.U32 Dd, Dn, Dm; A64: CMHI Vd.2S, Vn.2S, Vm.2S
+            // 3、Vector compare less-than or equal(正常指令): vcle -> ri = ai <= bi ? 1...1:0...0; 
+            // If it is less than or equal to it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros.
             // CompareLessThanOrEqual(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vcleq_u8 (uint8x16_t a, uint8x16_t b); A32: VCLE.U8 Qd, Qn, Qm; A64: CMHS Vd.16B, Vn.16B, Vm.16B
             // CompareLessThanOrEqual(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vcleq_s16 (int16x8_t a, int16x8_t b); A32: VCLE.S16 Qd, Qn, Qm; A64: CMGE Vd.8H, Vn.8H, Vm.8H
             // CompareLessThanOrEqual(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vcleq_s32 (int32x4_t a, int32x4_t b); A32: VCLE.S32 Qd, Qn, Qm; A64: CMGE Vd.4S, Vn.4S, Vm.4S
@@ -632,6 +670,10 @@ namespace IntrinsicsLib {
             // CompareLessThanOrEqual(Vector64<Single>, Vector64<Single>)	uint32x2_t vcle_f32 (float32x2_t a, float32x2_t b); A32: VCLE.F32 Dd, Dn, Dm; A64: FCMGE Vd.2S, Vn.2S, Vm.2S
             // CompareLessThanOrEqual(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vcle_u16 (uint16x4_t a, uint16x4_t b); A32: VCLE.U16 Dd, Dn, Dm; A64: CMHS Vd.4H, Vn.4H, Vm.4H
             // CompareLessThanOrEqual(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vcle_u32 (uint32x2_t a, uint32x2_t b); A32: VCLE.U32 Dd, Dn, Dm; A64: CMHS Vd.2S, Vn.2S, Vm.2S
+            // Ignore
+
+            // 10、正常指令，vtst -> ri = (ai & bi != 0) ? 1...1:0...0; 
+            // bitwise logical ANDs each element in a vector with the corresponding element of a second vector.If the result is not zero, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros
             // CompareTest(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vtstq_u8 (uint8x16_t a, uint8x16_t b); A32: VTST.8 Qd, Qn, Qm; A64: CMTST Vd.16B, Vn.16B, Vm.16B
             // CompareTest(Vector128<Int16>, Vector128<Int16>)	uint16x8_t vtstq_s16 (int16x8_t a, int16x8_t b); A32: VTST.16 Qd, Qn, Qm; A64: CMTST Vd.8H, Vn.8H, Vm.8H
             // CompareTest(Vector128<Int32>, Vector128<Int32>)	uint32x4_t vtstq_s32 (int32x4_t a, int32x4_t b); A32: VTST.32 Qd, Qn, Qm; A64: CMTST Vd.4S, Vn.4S, Vm.4S
@@ -646,42 +688,75 @@ namespace IntrinsicsLib {
             // CompareTest(Vector64<Single>, Vector64<Single>)	uint32x2_t vtst_f32 (float32x2_t a, float32x2_t b); A32: VTST.32 Dd, Dn, Dm; A64: CMTST Vd.2S, Vn.2S, Vm.2S The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // CompareTest(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vtst_u16 (uint16x4_t a, uint16x4_t b); A32: VTST.16 Dd, Dn, Dm; A64: CMTST Vd.4H, Vn.4H, Vm.4H
             // CompareTest(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vtst_u32 (uint32x2_t a, uint32x2_t b); A32: VTST.32 Dd, Dn, Dm; A64: CMTST Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<short>.Demo, Vector128s<short>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<short>.Demo, Vector128s<short>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<int>.Demo, Vector128s<int>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<int>.Demo, Vector128s<int>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<float>.Demo, Vector128s<float>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<float>.Demo, Vector128s<float>.V0));
+
+            // 1、Convert from float: vcvt ->, convert from floating-point to integer.
             // ConvertToInt32RoundAwayFromZero(Vector128<Single>)	int32x4_t vcvtaq_s32_f32 (float32x4_t a); A32: VCVTA.S32.F32 Qd, Qm; A64: FCVTAS Vd.4S, Vn.4S
             // ConvertToInt32RoundAwayFromZero(Vector64<Single>)	int32x2_t vcvta_s32_f32 (float32x2_t a); A32: VCVTA.S32.F32 Dd, Dm; A64: FCVTAS Vd.2S, Vn.2S
             // ConvertToInt32RoundAwayFromZeroScalar(Vector64<Single>)	int32_t vcvtas_s32_f32 (float32_t a); A32: VCVTA.S32.F32 Sd, Sm; A64: FCVTAS Sd, Sn
+            WriteLine(writer, indent, "ConvertToInt32RoundAwayFromZero(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToInt32RoundAwayFromZero(Vector128s<float>.Demo));
+
             // ConvertToInt32RoundToEven(Vector128<Single>)	int32x4_t vcvtnq_s32_f32 (float32x4_t a); A32: VCVTN.S32.F32 Qd, Qm; A64: FCVTNS Vd.4S, Vn.4S
             // ConvertToInt32RoundToEven(Vector64<Single>)	int32x2_t vcvtn_s32_f32 (float32x2_t a); A32: VCVTN.S32.F32 Dd, Dm; A64: FCVTNS Vd.2S, Vn.2S
             // ConvertToInt32RoundToEvenScalar(Vector64<Single>)	int32_t vcvtns_s32_f32 (float32_t a); A32: VCVTN.S32.F32 Sd, Sm; A64: FCVTNS Sd, Sn
+            WriteLine(writer, indent, "ConvertToInt32RoundToEven(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToInt32RoundToEven(Vector128s<float>.Demo));
+
             // ConvertToInt32RoundToNegativeInfinity(Vector128<Single>)	int32x4_t vcvtmq_s32_f32 (float32x4_t a); A32: VCVTM.S32.F32 Qd, Qm; A64: FCVTMS Vd.4S, Vn.4S
             // ConvertToInt32RoundToNegativeInfinity(Vector64<Single>)	int32x2_t vcvtm_s32_f32 (float32x2_t a); A32: VCVTM.S32.F32 Dd, Dm; A64: FCVTMS Vd.2S, Vn.2S
             // ConvertToInt32RoundToNegativeInfinityScalar(Vector64<Single>)	int32_t vcvtms_s32_f32 (float32_t a); A32: VCVTM.S32.F32 Sd, Sm; A64: FCVTMS Sd, Sn
+            WriteLine(writer, indent, "ConvertToInt32RoundToNegativeInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToInt32RoundToNegativeInfinity(Vector128s<float>.Demo));
+
             // ConvertToInt32RoundToPositiveInfinity(Vector128<Single>)	int32x4_t vcvtpq_s32_f32 (float32x4_t a); A32: VCVTP.S32.F32 Qd, Qm; A64: FCVTPS Vd.4S, Vn.4S
             // ConvertToInt32RoundToPositiveInfinity(Vector64<Single>)	int32x2_t vcvtp_s32_f32 (float32x2_t a); A32: VCVTP.S32.F32 Dd, Dm; A64: FCVTPS Vd.2S, Vn.2S
             // ConvertToInt32RoundToPositiveInfinityScalar(Vector64<Single>)	int32_t vcvtps_s32_f32 (float32_t a); A32: VCVTP.S32.F32 Sd, Sm; A64: FCVTPS Sd, Sn
+            WriteLine(writer, indent, "ConvertToInt32RoundToPositiveInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToInt32RoundToPositiveInfinity(Vector128s<float>.Demo));
+
             // ConvertToInt32RoundToZero(Vector128<Single>)	int32x4_t vcvtq_s32_f32 (float32x4_t a); A32: VCVT.S32.F32 Qd, Qm; A64: FCVTZS Vd.4S, Vn.4S
             // ConvertToInt32RoundToZero(Vector64<Single>)	int32x2_t vcvt_s32_f32 (float32x2_t a); A32: VCVT.S32.F32 Dd, Dm; A64: FCVTZS Vd.2S, Vn.2S
             // ConvertToInt32RoundToZeroScalar(Vector64<Single>)	int32_t vcvts_s32_f32 (float32_t a); A32: VCVT.S32.F32 Sd, Sm; A64: FCVTZS Sd, Sn
+            WriteLine(writer, indent, "ConvertToInt32RoundToZero(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToInt32RoundToZero(Vector128s<float>.Demo));
+
+            // 2、Convert to float: vcvt ->, convert from integer to floating-point.
             // ConvertToSingle(Vector128<Int32>)	float32x4_t vcvtq_f32_s32 (int32x4_t a); A32: VCVT.F32.S32 Qd, Qm; A64: SCVTF Vd.4S, Vn.4S
             // ConvertToSingle(Vector128<UInt32>)	float32x4_t vcvtq_f32_u32 (uint32x4_t a); A32: VCVT.F32.U32 Qd, Qm; A64: UCVTF Vd.4S, Vn.4S
             // ConvertToSingle(Vector64<Int32>)	float32x2_t vcvt_f32_s32 (int32x2_t a); A32: VCVT.F32.S32 Dd, Dm; A64: SCVTF Vd.2S, Vn.2S
             // ConvertToSingle(Vector64<UInt32>)	float32x2_t vcvt_f32_u32 (uint32x2_t a); A32: VCVT.F32.U32 Dd, Dm; A64: UCVTF Vd.2S, Vn.2S
             // ConvertToSingleScalar(Vector64<Int32>)	float32_t vcvts_f32_s32 (int32_t a); A32: VCVT.F32.S32 Sd, Sm; A64: SCVTF Sd, Sn
             // ConvertToSingleScalar(Vector64<UInt32>)	float32_t vcvts_f32_u32 (uint32_t a); A32: VCVT.F32.U32 Sd, Sm; A64: UCVTF Sd, Sn
+            WriteLine(writer, indent, "ConvertToSingle(Vector128s<int>.Demo):\t{0}", AdvSimd.ConvertToSingle(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ConvertToSingle(Vector128s<uint>.Demo):\t{0}", AdvSimd.ConvertToSingle(Vector128s<uint>.Demo));
+
+            // 1、Convert from float: vcvt ->, convert from floating-point to integer.
             // ConvertToUInt32RoundAwayFromZero(Vector128<Single>)	uint32x4_t vcvtaq_u32_f32 (float32x4_t a); A32: VCVTA.U32.F32 Qd, Qm; A64: FCVTAU Vd.4S, Vn.4S
             // ConvertToUInt32RoundAwayFromZero(Vector64<Single>)	uint32x2_t vcvta_u32_f32 (float32x2_t a); A32: VCVTA.U32.F32 Dd, Dm; A64: FCVTAU Vd.2S, Vn.2S
             // ConvertToUInt32RoundAwayFromZeroScalar(Vector64<Single>)	uint32_t vcvtas_u32_f32 (float32_t a); A32: VCVTA.U32.F32 Sd, Sm; A64: FCVTAU Sd, Sn
+            WriteLine(writer, indent, "ConvertToUInt32RoundAwayFromZero(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToUInt32RoundAwayFromZero(Vector128s<float>.Demo));
+
             // ConvertToUInt32RoundToEven(Vector128<Single>)	uint32x4_t vcvtnq_u32_f32 (float32x4_t a); A32: VCVTN.U32.F32 Qd, Qm; A64: FCVTNU Vd.4S, Vn.4S
             // ConvertToUInt32RoundToEven(Vector64<Single>)	uint32x2_t vcvtn_u32_f32 (float32x2_t a); A32: VCVTN.U32.F32 Dd, Dm; A64: FCVTNU Vd.2S, Vn.2S
             // ConvertToUInt32RoundToEvenScalar(Vector64<Single>)	uint32_t vcvtns_u32_f32 (float32_t a); A32: VCVTN.U32.F32 Sd, Sm; A64: FCVTNU Sd, Sn
+            WriteLine(writer, indent, "ConvertToUInt32RoundToEven(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToUInt32RoundToEven(Vector128s<float>.Demo));
+
             // ConvertToUInt32RoundToNegativeInfinity(Vector128<Single>)	uint32x4_t vcvtmq_u32_f32 (float32x4_t a); A32: VCVTM.U32.F32 Qd, Qm; A64: FCVTMU Vd.4S, Vn.4S
             // ConvertToUInt32RoundToNegativeInfinity(Vector64<Single>)	uint32x2_t vcvtm_u32_f32 (float32x2_t a); A32: VCVTM.U32.F32 Dd, Dm; A64: FCVTMU Vd.2S, Vn.2S
             // ConvertToUInt32RoundToNegativeInfinityScalar(Vector64<Single>)	uint32_t vcvtms_u32_f32 (float32_t a); A32: VCVTM.U32.F32 Sd, Sm; A64: FCVTMU Sd, Sn
+            WriteLine(writer, indent, "ConvertToUInt32RoundToNegativeInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToUInt32RoundToNegativeInfinity(Vector128s<float>.Demo));
+
             // ConvertToUInt32RoundToPositiveInfinity(Vector128<Single>)	uint32x4_t vcvtpq_u32_f32 (float32x4_t a); A32: VCVTP.U32.F32 Qd, Qm; A64: FCVTPU Vd.4S, Vn.4S
             // ConvertToUInt32RoundToPositiveInfinity(Vector64<Single>)	uint32x2_t vcvtp_u32_f32 (float32x2_t a); A32: VCVTP.U32.F32 Dd, Dm; A64: FCVTPU Vd.2S, Vn.2S
             // ConvertToUInt32RoundToPositiveInfinityScalar(Vector64<Single>)	uint32_t vcvtps_u32_f32 (float32_t a); A32: VCVTP.U32.F32 Sd, Sm; A64: FCVTPU Sd, Sn
+            WriteLine(writer, indent, "ConvertToUInt32RoundToPositiveInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToUInt32RoundToPositiveInfinity(Vector128s<float>.Demo));
+
             // ConvertToUInt32RoundToZero(Vector128<Single>)	uint32x4_t vcvtq_u32_f32 (float32x4_t a); A32: VCVT.U32.F32 Qd, Qm; A64: FCVTZU Vd.4S, Vn.4S
             // ConvertToUInt32RoundToZero(Vector64<Single>)	uint32x2_t vcvt_u32_f32 (float32x2_t a); A32: VCVT.U32.F32 Dd, Dm; A64: FCVTZU Vd.2S, Vn.2S
             // ConvertToUInt32RoundToZeroScalar(Vector64<Single>)	uint32_t vcvts_u32_f32 (float32_t a); A32: VCVT.U32.F32 Sd, Sm; A64: FCVTZU Sd, Sn
+            WriteLine(writer, indent, "ConvertToUInt32RoundToZero(Vector128s<float>.Demo):\t{0}", AdvSimd.ConvertToUInt32RoundToZero(Vector128s<float>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_D(TextWriter writer, string indent) {
             // X86 SSE+: _mm_div_ss, _mm_div_sd
@@ -3775,7 +3850,13 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "AddSaturateScalar(Vector64s<ulong>.Demo, Vector64s<long>.V2):\t{0}", AdvSimd.Arm64.AddSaturateScalar(Vector64s<ulong>.Demo, Vector64s<long>.V2));
         }
         public unsafe static void RunArm_AdvSimd_64_C(TextWriter writer, string indent) {
+            // 3、towards +Inf
             // Ceiling(Vector128<Double>)	float64x2_t vrndpq_f64 (float64x2_t a); A64: FRINTP Vd.2D, Vn.2D
+            WriteLine(writer, indent, "Ceiling(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.Ceiling(Vector128s<double>.Demo));
+
+            // 1、Vector compare equal(正常指令): vceq -> ri = ai == bi ? 1...1 : 0...0;  
+            // If they are equal, the corresponding element in the destination vector is set to all ones. 
+            // Otherwise, it is set to all zeros
             // CompareEqual(Vector128<Double>, Vector128<Double>)	uint64x2_t vceqq_f64 (float64x2_t a, float64x2_t b); A64: FCMEQ Vd.2D, Vn.2D, Vm.2D
             // CompareEqual(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vceqq_s64 (int64x2_t a, int64x2_t b); A64: CMEQ Vd.2D, Vn.2D, Vm.2D
             // CompareEqual(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vceqq_u64 (uint64x2_t a, uint64x2_t b); A64: CMEQ Vd.2D, Vn.2D, Vm.2D
@@ -3783,9 +3864,25 @@ namespace IntrinsicsLib {
             // CompareEqualScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vceq_s64 (int64x1_t a, int64x1_t b); A64: CMEQ Dd, Dn, Dm
             // CompareEqualScalar(Vector64<Single>, Vector64<Single>)	uint32_t vceqs_f32 (float32_t a, float32_t b); A64: FCMEQ Sd, Sn, Sm
             // CompareEqualScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vceq_u64 (uint64x1_t a, uint64x1_t b); A64: CMEQ Dd, Dn, Dm
+            WriteLine(writer, indent, "CompareEqual(Vector128s<long>.Demo, Vector128s<long>.V0):\t{0}", AdvSimd.Arm64.CompareEqual(Vector128s<long>.Demo, Vector128s<long>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<ulong>.Demo, Vector128s<ulong>.V0):\t{0}", AdvSimd.Arm64.CompareEqual(Vector128s<ulong>.Demo, Vector128s<ulong>.V0));
+            WriteLine(writer, indent, "CompareEqual(Vector128s<double>.Demo, Vector128s<double>.V0):\t{0}", AdvSimd.Arm64.CompareEqual(Vector128s<double>.Demo, Vector128s<double>.V0));
+
+            // 4、Vector compare greater-than(正常指令): vcgt -> ri = ai > bi ? 1...1:0...0; 
+            // If it is greater than it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros
             // CompareGreaterThan(Vector128<Double>, Vector128<Double>)	uint64x2_t vcgtq_f64 (float64x2_t a, float64x2_t b); A64: FCMGT Vd.2D, Vn.2D, Vm.2D
             // CompareGreaterThan(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vcgtq_s64 (int64x2_t a, int64x2_t b); A64: CMGT Vd.2D, Vn.2D, Vm.2D
             // CompareGreaterThan(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vcgtq_u64 (uint64x2_t a, uint64x2_t b); A64: CMHI Vd.2D, Vn.2D, Vm.2D
+            // CompareGreaterThanScalar(Vector64<Double>, Vector64<Double>)	uint64x1_t vcgt_f64 (float64x1_t a, float64x1_t b); A64: FCMGT Dd, Dn, Dm
+            // CompareGreaterThanScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vcgt_s64 (int64x1_t a, int64x1_t b); A64: CMGT Dd, Dn, Dm
+            // CompareGreaterThanScalar(Vector64<Single>, Vector64<Single>)	uint32_t vcgts_f32 (float32_t a, float32_t b); A64: FCMGT Sd, Sn, Sm
+            // CompareGreaterThanScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vcgt_u64 (uint64x1_t a, uint64x1_t b); A64: CMHI Dd, Dn, Dm
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<long>.Demo, Vector128s<long>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThan(Vector128s<long>.Demo, Vector128s<long>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<ulong>.Demo, Vector128s<ulong>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThan(Vector128s<ulong>.Demo, Vector128s<ulong>.V0));
+            WriteLine(writer, indent, "CompareGreaterThan(Vector128s<double>.Demo, Vector128s<double>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThan(Vector128s<double>.Demo, Vector128s<double>.V0));
+
+            // 2、Vector compare greater-than or equal(正常指令): vcge-> ri = ai >= bi ? 1...1:0...0; 
+            // If it is greater than or equal to it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros.
             // CompareGreaterThanOrEqual(Vector128<Double>, Vector128<Double>)	uint64x2_t vcgeq_f64 (float64x2_t a, float64x2_t b); A64: FCMGE Vd.2D, Vn.2D, Vm.2D
             // CompareGreaterThanOrEqual(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vcgeq_s64 (int64x2_t a, int64x2_t b); A64: CMGE Vd.2D, Vn.2D, Vm.2D
             // CompareGreaterThanOrEqual(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vcgeq_u64 (uint64x2_t a, uint64x2_t b); A64: CMHS Vd.2D, Vn.2D, Vm.2D
@@ -3793,13 +3890,21 @@ namespace IntrinsicsLib {
             // CompareGreaterThanOrEqualScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vcge_s64 (int64x1_t a, int64x1_t b); A64: CMGE Dd, Dn, Dm
             // CompareGreaterThanOrEqualScalar(Vector64<Single>, Vector64<Single>)	uint32_t vcges_f32 (float32_t a, float32_t b); A64: FCMGE Sd, Sn, Sm
             // CompareGreaterThanOrEqualScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vcge_u64 (uint64x1_t a, uint64x1_t b); A64: CMHS Dd, Dn, Dm
-            // CompareGreaterThanScalar(Vector64<Double>, Vector64<Double>)	uint64x1_t vcgt_f64 (float64x1_t a, float64x1_t b); A64: FCMGT Dd, Dn, Dm
-            // CompareGreaterThanScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vcgt_s64 (int64x1_t a, int64x1_t b); A64: CMGT Dd, Dn, Dm
-            // CompareGreaterThanScalar(Vector64<Single>, Vector64<Single>)	uint32_t vcgts_f32 (float32_t a, float32_t b); A64: FCMGT Sd, Sn, Sm
-            // CompareGreaterThanScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vcgt_u64 (uint64x1_t a, uint64x1_t b); A64: CMHI Dd, Dn, Dm
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<long>.Demo, Vector128s<long>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThanOrEqual(Vector128s<long>.Demo, Vector128s<long>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<ulong>.Demo, Vector128s<ulong>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThanOrEqual(Vector128s<ulong>.Demo, Vector128s<ulong>.V0));
+            WriteLine(writer, indent, "CompareGreaterThanOrEqual(Vector128s<double>.Demo, Vector128s<double>.V0):\t{0}", AdvSimd.Arm64.CompareGreaterThanOrEqual(Vector128s<double>.Demo, Vector128s<double>.V0));
+
+            // 5、Vector compare less-than(正常指令): vclt -> ri = ai < bi ? 1...1:0...0; 
+            // If it is less than it, the corresponding element in the destination vector is set to all ones.Otherwise, it is set to all zeros
             // CompareLessThan(Vector128<Double>, Vector128<Double>)	uint64x2_t vcltq_f64 (float64x2_t a, float64x2_t b); A64: FCMGT Vd.2D, Vn.2D, Vm.2D
             // CompareLessThan(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vcltq_s64 (int64x2_t a, int64x2_t b); A64: CMGT Vd.2D, Vn.2D, Vm.2D
             // CompareLessThan(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vcltq_u64 (uint64x2_t a, uint64x2_t b); A64: CMHI Vd.2D, Vn.2D, Vm.2D
+            // CompareLessThanScalar(Vector64<Double>, Vector64<Double>)	uint64x1_t vclt_f64 (float64x1_t a, float64x1_t b); A64: FCMGT Dd, Dn, Dm
+            // CompareLessThanScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vclt_s64 (int64x1_t a, int64x1_t b); A64: CMGT Dd, Dn, Dm
+            // CompareLessThanScalar(Vector64<Single>, Vector64<Single>)	uint32_t vclts_f32 (float32_t a, float32_t b); A64: FCMGT Sd, Sn, Sm
+            // CompareLessThanScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vclt_u64 (uint64x1_t a, uint64x1_t b); A64: CMHI Dd, Dn, Dm
+            // 3、Vector compare less-than or equal(正常指令): vcle -> ri = ai <= bi ? 1...1:0...0; 
+            // If it is less than or equal to it, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros.
             // CompareLessThanOrEqual(Vector128<Double>, Vector128<Double>)	uint64x2_t vcleq_f64 (float64x2_t a, float64x2_t b); A64: FCMGE Vd.2D, Vn.2D, Vm.2D
             // CompareLessThanOrEqual(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vcleq_s64 (int64x2_t a, int64x2_t b); A64: CMGE Vd.2D, Vn.2D, Vm.2D
             // CompareLessThanOrEqual(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vcleq_u64 (uint64x2_t a, uint64x2_t b); A64: CMHS Vd.2D, Vn.2D, Vm.2D
@@ -3807,46 +3912,78 @@ namespace IntrinsicsLib {
             // CompareLessThanOrEqualScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vcle_s64 (int64x1_t a, int64x1_t b); A64: CMGE Dd, Dn, Dm
             // CompareLessThanOrEqualScalar(Vector64<Single>, Vector64<Single>)	uint32_t vcles_f32 (float32_t a, float32_t b); A64: FCMGE Sd, Sn, Sm
             // CompareLessThanOrEqualScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vcle_u64 (uint64x1_t a, uint64x1_t b); A64: CMHS Dd, Dn, Dm
-            // CompareLessThanScalar(Vector64<Double>, Vector64<Double>)	uint64x1_t vclt_f64 (float64x1_t a, float64x1_t b); A64: FCMGT Dd, Dn, Dm
-            // CompareLessThanScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vclt_s64 (int64x1_t a, int64x1_t b); A64: CMGT Dd, Dn, Dm
-            // CompareLessThanScalar(Vector64<Single>, Vector64<Single>)	uint32_t vclts_f32 (float32_t a, float32_t b); A64: FCMGT Sd, Sn, Sm
-            // CompareLessThanScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vclt_u64 (uint64x1_t a, uint64x1_t b); A64: CMHI Dd, Dn, Dm
             // CompareTest(Vector128<Double>, Vector128<Double>)	uint64x2_t vtstq_f64 (float64x2_t a, float64x2_t b); A64: CMTST Vd.2D, Vn.2D, Vm.2D The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // CompareTest(Vector128<Int64>, Vector128<Int64>)	uint64x2_t vtstq_s64 (int64x2_t a, int64x2_t b); A64: CMTST Vd.2D, Vn.2D, Vm.2D
             // CompareTest(Vector128<UInt64>, Vector128<UInt64>)	uint64x2_t vtstq_u64 (uint64x2_t a, uint64x2_t b); A64: CMTST Vd.2D, Vn.2D, Vm.2D
+            // 10、正常指令，vtst -> ri = (ai & bi != 0) ? 1...1:0...0; 
+            // bitwise logical ANDs each element in a vector with the corresponding element of a second vector.If the result is not zero, the corresponding element in the destination vector is set to all ones. Otherwise, it is set to all zeros
             // CompareTestScalar(Vector64<Double>, Vector64<Double>)	uint64x1_t vtst_f64 (float64x1_t a, float64x1_t b); A64: CMTST Dd, Dn, Dm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // CompareTestScalar(Vector64<Int64>, Vector64<Int64>)	uint64x1_t vtst_s64 (int64x1_t a, int64x1_t b); A64: CMTST Dd, Dn, Dm
             // CompareTestScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vtst_u64 (uint64x1_t a, uint64x1_t b); A64: CMTST Dd, Dn, Dm
+            // Ignore
+
             // ConvertToDouble(Vector128<Int64>)	float64x2_t vcvtq_f64_s64 (int64x2_t a); A64: SCVTF Vd.2D, Vn.2D
             // ConvertToDouble(Vector128<UInt64>)	float64x2_t vcvtq_f64_u64 (uint64x2_t a); A64: UCVTF Vd.2D, Vn.2D
             // ConvertToDouble(Vector64<Single>)	float64x2_t vcvt_f64_f32 (float32x2_t a); A64: FCVTL Vd.2D, Vn.2S
             // ConvertToDoubleScalar(Vector64<Int64>)	float64x1_t vcvt_f64_s64 (int64x1_t a); A64: SCVTF Dd, Dn
             // ConvertToDoubleScalar(Vector64<UInt64>)	float64x1_t vcvt_f64_u64 (uint64x1_t a); A64: UCVTF Dd, Dn
+            WriteLine(writer, indent, "ConvertToDouble(Vector128s<long>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDouble(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ConvertToDouble(Vector128s<ulong>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDouble(Vector128s<ulong>.Demo));
+
             // ConvertToDoubleUpper(Vector128<Single>)	float64x2_t vcvt_high_f64_f32 (float32x4_t a); A64: FCVTL2 Vd.2D, Vn.4S
+            WriteLine(writer, indent, "ConvertToDoubleUpper(Vector128s<float>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDoubleUpper(Vector128s<float>.Demo));
+
             // ConvertToInt64RoundAwayFromZero(Vector128<Double>)	int64x2_t vcvtaq_s64_f64 (float64x2_t a); A64: FCVTAS Vd.2D, Vn.2D
             // ConvertToInt64RoundAwayFromZeroScalar(Vector64<Double>)	int64x1_t vcvta_s64_f64 (float64x1_t a); A64: FCVTAS Dd, Dn
+            WriteLine(writer, indent, "ConvertToInt64RoundAwayFromZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToInt64RoundAwayFromZero(Vector128s<double>.Demo));
+
             // ConvertToInt64RoundToEven(Vector128<Double>)	int64x2_t vcvtnq_s64_f64 (float64x2_t a); A64: FCVTNS Vd.2D, Vn.2D
             // ConvertToInt64RoundToEvenScalar(Vector64<Double>)	int64x1_t vcvtn_s64_f64 (float64x1_t a); A64: FCVTNS Dd, Dn
+            WriteLine(writer, indent, "ConvertToInt64RoundToEven(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToInt64RoundToEven(Vector128s<double>.Demo));
+
             // ConvertToInt64RoundToNegativeInfinity(Vector128<Double>)	int64x2_t vcvtmq_s64_f64 (float64x2_t a); A64: FCVTMS Vd.2D, Vn.2D
             // ConvertToInt64RoundToNegativeInfinityScalar(Vector64<Double>)	int64x1_t vcvtm_s64_f64 (float64x1_t a); A64: FCVTMS Dd, Dn
+            WriteLine(writer, indent, "ConvertToInt64RoundToNegativeInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToInt64RoundToNegativeInfinity(Vector128s<double>.Demo));
+
             // ConvertToInt64RoundToPositiveInfinity(Vector128<Double>)	int64x2_t vcvtpq_s64_f64 (float64x2_t a); A64: FCVTPS Vd.2D, Vn.2D
             // ConvertToInt64RoundToPositiveInfinityScalar(Vector64<Double>)	int64x1_t vcvtp_s64_f64 (float64x1_t a); A64: FCVTPS Dd, Dn
+            WriteLine(writer, indent, "ConvertToInt64RoundToPositiveInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToInt64RoundToPositiveInfinity(Vector128s<double>.Demo));
+
             // ConvertToInt64RoundToZero(Vector128<Double>)	int64x2_t vcvtq_s64_f64 (float64x2_t a); A64: FCVTZS Vd.2D, Vn.2D
             // ConvertToInt64RoundToZeroScalar(Vector64<Double>)	int64x1_t vcvt_s64_f64 (float64x1_t a); A64: FCVTZS Dd, Dn
+            WriteLine(writer, indent, "ConvertToInt64RoundToZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToInt64RoundToZero(Vector128s<double>.Demo));
+
             // ConvertToSingleLower(Vector128<Double>)	float32x2_t vcvt_f32_f64 (float64x2_t a); A64: FCVTN Vd.2S, Vn.2D
+            WriteLine(writer, indent, "ConvertToSingleLower(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToSingleLower(Vector128s<double>.Demo));
+
             // ConvertToSingleRoundToOddLower(Vector128<Double>)	float32x2_t vcvtx_f32_f64 (float64x2_t a); A64: FCVTXN Vd.2S, Vn.2D
+            WriteLine(writer, indent, "ConvertToSingleRoundToOddLower(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToSingleRoundToOddLower(Vector128s<double>.Demo));
+
             // ConvertToSingleRoundToOddUpper(Vector64<Single>, Vector128<Double>)	float32x4_t vcvtx_high_f32_f64 (float32x2_t r, float64x2_t a); A64: FCVTXN2 Vd.4S, Vn.2D
+            WriteLine(writer, indent, "ConvertToSingleRoundToOddUpper(Vector64s<float>.SerialNegative, Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToSingleRoundToOddUpper(Vector64s<float>.SerialNegative, Vector128s<double>.Demo));
+
             // ConvertToSingleUpper(Vector64<Single>, Vector128<Double>)	float32x4_t vcvt_high_f32_f64 (float32x2_t r, float64x2_t a); A64: FCVTN2 Vd.4S, Vn.2D
+            WriteLine(writer, indent, "ConvertToSingleUpper(Vector64s<float>.SerialNegative, Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToSingleUpper(Vector64s<float>.SerialNegative, Vector128s<double>.Demo));
+
             // ConvertToUInt64RoundAwayFromZero(Vector128<Double>)	uint64x2_t vcvtaq_u64_f64 (float64x2_t a); A64: FCVTAU Vd.2D, Vn.2D
             // ConvertToUInt64RoundAwayFromZeroScalar(Vector64<Double>)	uint64x1_t vcvta_u64_f64 (float64x1_t a); A64: FCVTAU Dd, Dn
+            WriteLine(writer, indent, "ConvertToUInt64RoundAwayFromZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToUInt64RoundAwayFromZero(Vector128s<double>.Demo));
+
             // ConvertToUInt64RoundToEven(Vector128<Double>)	uint64x2_t vcvtnq_u64_f64 (float64x2_t a); A64: FCVTNU Vd.2D, Vn.2D
             // ConvertToUInt64RoundToEvenScalar(Vector64<Double>)	uint64x1_t vcvtn_u64_f64 (float64x1_t a); A64: FCVTNU Dd, Dn
+            WriteLine(writer, indent, "ConvertToUInt64RoundToEven(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToUInt64RoundToEven(Vector128s<double>.Demo));
+
             // ConvertToUInt64RoundToNegativeInfinity(Vector128<Double>)	uint64x2_t vcvtmq_u64_f64 (float64x2_t a); A64: FCVTMU Vd.2D, Vn.2D
             // ConvertToUInt64RoundToNegativeInfinityScalar(Vector64<Double>)	uint64x1_t vcvtm_u64_f64 (float64x1_t a); A64: FCVTMU Dd, Dn
+            WriteLine(writer, indent, "ConvertToUInt64RoundToNegativeInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToUInt64RoundToNegativeInfinity(Vector128s<double>.Demo));
+
             // ConvertToUInt64RoundToPositiveInfinity(Vector128<Double>)	uint64x2_t vcvtpq_u64_f64 (float64x2_t a); A64: FCVTPU Vd.2D, Vn.2D
             // ConvertToUInt64RoundToPositiveInfinityScalar(Vector64<Double>)	uint64x1_t vcvtp_u64_f64 (float64x1_t a); A64: FCVTPU Dd, Dn
+            WriteLine(writer, indent, "ConvertToUInt64RoundToPositiveInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToUInt64RoundToPositiveInfinity(Vector128s<double>.Demo));
+
             // ConvertToUInt64RoundToZero(Vector128<Double>)	uint64x2_t vcvtq_u64_f64 (float64x2_t a); A64: FCVTZU Vd.2D, Vn.2D
             // ConvertToUInt64RoundToZeroScalar(Vector64<Double>)	uint64x1_t vcvt_u64_f64 (float64x1_t a); A64: FCVTZU Dd, Dn
+            WriteLine(writer, indent, "ConvertToUInt64RoundToZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ConvertToUInt64RoundToZero(Vector128s<double>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_64_D(TextWriter writer, string indent) {
             // X86 SSE2+: _mm_div_ps, _mm_div_pd
