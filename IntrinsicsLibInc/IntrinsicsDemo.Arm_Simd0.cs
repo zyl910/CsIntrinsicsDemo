@@ -1035,10 +1035,16 @@ namespace IntrinsicsLib {
             // ignore.
         }
         public unsafe static void RunArm_AdvSimd_F(TextWriter writer, string indent) {
+            // 4、towards -Inf
             // Floor(Vector128<Single>)	float32x4_t vrndmq_f32 (float32x4_t a); A32: VRINTM.F32 Qd, Qm; A64: FRINTM Vd.4S, Vn.4S
             // Floor(Vector64<Single>)	float32x2_t vrndm_f32 (float32x2_t a); A32: VRINTM.F32 Dd, Dm; A64: FRINTM Vd.2S, Vn.2S
             // FloorScalar(Vector64<Double>)	float64x1_t vrndm_f64 (float64x1_t a); A32: VRINTM.F64 Dd, Dm; A64: FRINTM Dd, Dn
             // FloorScalar(Vector64<Single>)	float32_t vrndms_f32 (float32_t a); A32: VRINTM.F32 Sd, Sm; A64: FRINTM Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "Floor(Vector128s<float>.Demo):\t{0}", AdvSimd.Floor(Vector128s<float>.Demo));
+
+            // 4、Vector halving add: vhadd -> ri = (ai + bi) >> 1;  
+            // shifts each result right one bit, Results are truncated
+            // 将每个结果右移一位，结果被截断
             // FusedAddHalving(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vhaddq_u8 (uint8x16_t a, uint8x16_t b); A32: VHADD.U8 Qd, Qn, Qm; A64: UHADD Vd.16B, Vn.16B, Vm.16B
             // FusedAddHalving(Vector128<Int16>, Vector128<Int16>)	int16x8_t vhaddq_s16 (int16x8_t a, int16x8_t b); A32: VHADD.S16 Qd, Qn, Qm; A64: SHADD Vd.8H, Vn.8H, Vm.8H
             // FusedAddHalving(Vector128<Int32>, Vector128<Int32>)	int32x4_t vhaddq_s32 (int32x4_t a, int32x4_t b); A32: VHADD.S32 Qd, Qn, Qm; A64: SHADD Vd.4S, Vn.4S, Vm.4S
@@ -1051,6 +1057,16 @@ namespace IntrinsicsLib {
             // FusedAddHalving(Vector64<SByte>, Vector64<SByte>)	int8x8_t vhadd_s8 (int8x8_t a, int8x8_t b); A32: VHADD.S8 Dd, Dn, Dm; A64: SHADD Vd.8B, Vn.8B, Vm.8B
             // FusedAddHalving(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vhadd_u16 (uint16x4_t a, uint16x4_t b); A32: VHADD.U16 Dd, Dn, Dm; A64: UHADD Vd.4H, Vn.4H, Vm.4H
             // FusedAddHalving(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vhadd_u32 (uint32x2_t a, uint32x2_t b); A32: VHADD.U32 Dd, Dn, Dm; A64: UHADD Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "FusedAddHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.FusedAddHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+
+            // 5、Vector rounding halving add: vrhadd -> ri = (ai + bi + 1) >> 1;  
+            // shifts each result right one bit, Results are rounded
+            // 将每个结果右移一位，结果四舍五入
             // FusedAddRoundedHalving(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vrhaddq_u8 (uint8x16_t a, uint8x16_t b); A32: VRHADD.U8 Qd, Qn, Qm; A64: URHADD Vd.16B, Vn.16B, Vm.16B
             // FusedAddRoundedHalving(Vector128<Int16>, Vector128<Int16>)	int16x8_t vrhaddq_s16 (int16x8_t a, int16x8_t b); A32: VRHADD.S16 Qd, Qn, Qm; A64: SRHADD Vd.8H, Vn.8H, Vm.8H
             // FusedAddRoundedHalving(Vector128<Int32>, Vector128<Int32>)	int32x4_t vrhaddq_s32 (int32x4_t a, int32x4_t b); A32: VRHADD.S32 Qd, Qn, Qm; A64: SRHADD Vd.4S, Vn.4S, Vm.4S
@@ -1063,18 +1079,48 @@ namespace IntrinsicsLib {
             // FusedAddRoundedHalving(Vector64<SByte>, Vector64<SByte>)	int8x8_t vrhadd_s8 (int8x8_t a, int8x8_t b); A32: VRHADD.S8 Dd, Dn, Dm; A64: SRHADD Vd.8B, Vn.8B, Vm.8B
             // FusedAddRoundedHalving(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vrhadd_u16 (uint16x4_t a, uint16x4_t b); A32: VRHADD.U16 Dd, Dn, Dm; A64: URHADD Vd.4H, Vn.4H, Vm.4H
             // FusedAddRoundedHalving(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vrhadd_u32 (uint32x2_t a, uint32x2_t b); A32: VRHADD.U32 Dd, Dn, Dm; A64: URHADD Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "FusedAddRoundedHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.FusedAddRoundedHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+
+            // 12、Fused multiply accumulate: vfma -> ri = ai + bi * ci;  
+            // The result of the multiply is not rounded before the accumulation
+            // 乘法的结果在累加之前没有被四舍五入.
             // FusedMultiplyAdd(Vector128<Single>, Vector128<Single>, Vector128<Single>)	float32x4_t vfmaq_f32 (float32x4_t a, float32x4_t b, float32x4_t c); A32: VFMA.F32 Qd, Qn, Qm; A64: FMLA Vd.4S, Vn.4S, Vm.4S
             // FusedMultiplyAdd(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32x2_t vfma_f32 (float32x2_t a, float32x2_t b, float32x2_t c); A32: VFMA.F32 Dd, Dn, Dm; A64: FMLA Vd.2S, Vn.2S, Vm.2S
-            // FusedMultiplyAddNegatedScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfnma_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFNMA.F64 Dd, Dn, Dm; A64: FNMADD Dd, Dn, Dm, Da The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
-            // FusedMultiplyAddNegatedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfnmas_f32 (float32_t a, float32_t b, float32_t c); A32: VFNMA.F32 Sd, Sn, Sm; A64: FNMADD Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplyAdd(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3):\t{0}", AdvSimd.FusedMultiplyAdd(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3));
+            WriteLine(writer, indent, "FusedMultiplyAdd(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplyAdd(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
             // FusedMultiplyAddScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfma_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFMA.F64 Dd, Dn, Dm; A64: FMADD Dd, Dn, Dm, Da
             // FusedMultiplyAddScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfmas_f32 (float32_t a, float32_t b, float32_t c); A32: VFMA.F32 Sd, Sn, Sm; A64: FMADD Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplyAddScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplyAddScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
+            // FusedMultiplyAddNegatedScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfnma_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFNMA.F64 Dd, Dn, Dm; A64: FNMADD Dd, Dn, Dm, Da The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            // FusedMultiplyAddNegatedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfnmas_f32 (float32_t a, float32_t b, float32_t c); A32: VFNMA.F32 Sd, Sn, Sm; A64: FNMADD Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplyAddNegatedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplyAddNegatedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
+            // 13、Fused multiply subtract: vfms -> ri = ai - bi * ci;  
+            // The result of the multiply is not rounded before the subtraction
+            // 乘的结果在减法之前没有四舍五入
             // FusedMultiplySubtract(Vector128<Single>, Vector128<Single>, Vector128<Single>)	float32x4_t vfmsq_f32 (float32x4_t a, float32x4_t b, float32x4_t c); A32: VFMS.F32 Qd, Qn, Qm; A64: FMLS Vd.4S, Vn.4S, Vm.4S
             // FusedMultiplySubtract(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32x2_t vfms_f32 (float32x2_t a, float32x2_t b, float32x2_t c); A32: VFMS.F32 Dd, Dn, Dm; A64: FMLS Vd.2S, Vn.2S, Vm.2S
-            // FusedMultiplySubtractNegatedScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfnms_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFNMS.F64 Dd, Dn, Dm; A64: FNMSUB Dd, Dn, Dm, Da The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
-            // FusedMultiplySubtractNegatedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfnmss_f32 (float32_t a, float32_t b, float32_t c); A32: VFNMS.F32 Sd, Sn, Sm; A64: FNMSUB Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplySubtract(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3):\t{0}", AdvSimd.FusedMultiplySubtract(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3));
+            WriteLine(writer, indent, "FusedMultiplySubtract(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplySubtract(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
             // FusedMultiplySubtractScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfms_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFMS.F64 Dd, Dn, Dm; A64: FMSUB Dd, Dn, Dm, Da
             // FusedMultiplySubtractScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfmss_f32 (float32_t a, float32_t b, float32_t c); A32: VFMS.F32 Sd, Sn, Sm; A64: FMSUB Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplySubtractScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplySubtractScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
+            // FusedMultiplySubtractNegatedScalar(Vector64<Double>, Vector64<Double>, Vector64<Double>)	float64x1_t vfnms_f64 (float64x1_t a, float64x1_t b, float64x1_t c); A32: VFNMS.F64 Dd, Dn, Dm; A64: FNMSUB Dd, Dn, Dm, Da The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            // FusedMultiplySubtractNegatedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32_t vfnmss_f32 (float32_t a, float32_t b, float32_t c); A32: VFNMS.F32 Sd, Sn, Sm; A64: FNMSUB Sd, Sn, Sm, Sa The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "FusedMultiplySubtractNegatedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3):\t{0}", AdvSimd.FusedMultiplySubtractNegatedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector64s<float>.V3));
+
+            // 5、Vector halving subtract: vhsub -> ri = (ai - bi) >> 1;  
+            // shifts each result right one bit, The results are truncated.
+            // 将每个结果右移一位，结果被截断。
             // FusedSubtractHalving(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vhsubq_u8 (uint8x16_t a, uint8x16_t b); A32: VHSUB.U8 Qd, Qn, Qm; A64: UHSUB Vd.16B, Vn.16B, Vm.16B
             // FusedSubtractHalving(Vector128<Int16>, Vector128<Int16>)	int16x8_t vhsubq_s16 (int16x8_t a, int16x8_t b); A32: VHSUB.S16 Qd, Qn, Qm; A64: SHSUB Vd.8H, Vn.8H, Vm.8H
             // FusedSubtractHalving(Vector128<Int32>, Vector128<Int32>)	int32x4_t vhsubq_s32 (int32x4_t a, int32x4_t b); A32: VHSUB.S32 Qd, Qn, Qm; A64: SHSUB Vd.4S, Vn.4S, Vm.4S
@@ -1087,6 +1133,12 @@ namespace IntrinsicsLib {
             // FusedSubtractHalving(Vector64<SByte>, Vector64<SByte>)	int8x8_t vhsub_s8 (int8x8_t a, int8x8_t b); A32: VHSUB.S8 Dd, Dn, Dm; A64: SHSUB Vd.8B, Vn.8B, Vm.8B
             // FusedSubtractHalving(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vhsub_u16 (uint16x4_t a, uint16x4_t b); A32: VHSUB.U16 Dd, Dn, Dm; A64: UHSUB Vd.4H, Vn.4H, Vm.4H
             // FusedSubtractHalving(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vhsub_u32 (uint32x2_t a, uint32x2_t b); A32: VHSUB.U32 Dd, Dn, Dm; A64: UHSUB Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "FusedSubtractHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.FusedSubtractHalving(Vector128s<uint>.Demo, Vector128s<uint>.V2));
         }
         public unsafe static void RunArm_AdvSimd_I(TextWriter writer, string indent) {
             // Insert(Vector128<Byte>, Byte, Byte)	uint8x16_t vsetq_lane_u8 (uint8_t a, uint8x16_t v, const int lane); A32: VMOV.8 Dd[lane], Rt; A64: INS Vd.B[lane], Wn
@@ -4043,31 +4095,91 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "ExtractNarrowingSaturateUnsignedScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.ExtractNarrowingSaturateUnsignedScalar(Vector64s<long>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_64_F(TextWriter writer, string indent) {
+            // 4、towards -Inf
             // Floor(Vector128<Double>)	float64x2_t vrndmq_f64 (float64x2_t a); A64: FRINTM Vd.2D, Vn.2D
+            WriteLine(writer, indent, "Floor(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.Floor(Vector128s<double>.Demo));
+
+            // 12、Fused multiply accumulate: vfma -> ri = ai + bi * ci;  
+            // The result of the multiply is not rounded before the accumulation
+            // 乘法的结果在累加之前没有被四舍五入.
             // FusedMultiplyAdd(Vector128<Double>, Vector128<Double>, Vector128<Double>)	float64x2_t vfmaq_f64 (float64x2_t a, float64x2_t b, float64x2_t c); A64: FMLA Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "FusedMultiplyAdd(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3):\t{0}", AdvSimd.Arm64.FusedMultiplyAdd(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3));
+
             // FusedMultiplyAddByScalar(Vector128<Double>, Vector128<Double>, Vector64<Double>)	float64x2_t vfmaq_n_f64 (float64x2_t a, float64x2_t b, float64_t n); A64: FMLA Vd.2D, Vn.2D, Vm.D[0]
             // FusedMultiplyAddByScalar(Vector128<Single>, Vector128<Single>, Vector64<Single>)	float32x4_t vfmaq_n_f32 (float32x4_t a, float32x4_t b, float32_t n); A64: FMLA Vd.4S, Vn.4S, Vm.S[0]
             // FusedMultiplyAddByScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32x2_t vfma_n_f32 (float32x2_t a, float32x2_t b, float32_t n); A64: FMLA Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "FusedMultiplyAddByScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3):\t{0}", AdvSimd.Arm64.FusedMultiplyAddByScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector64s<double>.V3));
+
             // FusedMultiplyAddBySelectedScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vfmaq_laneq_f64 (float64x2_t a, float64x2_t b, float64x2_t v, const int lane); A64: FMLA Vd.2D, Vn.2D, Vm.D[lane]
             // FusedMultiplyAddBySelectedScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>, Byte)	float32x4_t vfmaq_laneq_f32 (float32x4_t a, float32x4_t b, float32x4_t v, const int lane); A64: FMLA Vd.4S, Vn.4S, Vm.S[lane]
             // FusedMultiplyAddBySelectedScalar(Vector128<Single>, Vector128<Single>, Vector64<Single>, Byte)	float32x4_t vfmaq_lane_f32 (float32x4_t a, float32x4_t b, float32x2_t v, const int lane); A64: FMLA Vd.4S, Vn.4S, Vm.S[lane]
             // FusedMultiplyAddBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector128<Single>, Byte)	float32x2_t vfma_laneq_f32 (float32x2_t a, float32x2_t b, float32x4_t v, const int lane); A64: FMLA Vd.2S, Vn.2S, Vm.S[lane]
             // FusedMultiplyAddBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vfma_lane_f32 (float32x2_t a, float32x2_t b, float32x2_t v, const int lane); A64: FMLA Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // FusedMultiplyAddScalarBySelectedScalar(Vector64<Double>, Vector64<Double>, Vector128<Double>, Byte)	float64_t vfmad_laneq_f64 (float64_t a, float64_t b, float64x2_t v, const int lane); A64: FMLA Dd, Dn, Vm.D[lane]
             // FusedMultiplyAddScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector128<Single>, Byte)	float32_t vfmas_laneq_f32 (float32_t a, float32_t b, float32x4_t v, const int lane); A64: FMLA Sd, Sn, Vm.S[lane]
             // FusedMultiplyAddScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32_t vfmas_lane_f32 (float32_t a, float32_t b, float32x2_t v, const int lane); A64: FMLA Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.V3, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 13、Fused multiply subtract: vfms -> ri = ai - bi * ci;  
+            // The result of the multiply is not rounded before the subtraction
+            // 乘的结果在减法之前没有四舍五入
             // FusedMultiplySubtract(Vector128<Double>, Vector128<Double>, Vector128<Double>)	float64x2_t vfmsq_f64 (float64x2_t a, float64x2_t b, float64x2_t c); A64: FMLS Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "FusedMultiplySubtract(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3):\t{0}", AdvSimd.Arm64.FusedMultiplySubtract(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3));
+
             // FusedMultiplySubtractByScalar(Vector128<Double>, Vector128<Double>, Vector64<Double>)	float64x2_t vfmsq_n_f64 (float64x2_t a, float64x2_t b, float64_t n); A64: FMLS Vd.2D, Vn.2D, Vm.D[0]
             // FusedMultiplySubtractByScalar(Vector128<Single>, Vector128<Single>, Vector64<Single>)	float32x4_t vfmsq_n_f32 (float32x4_t a, float32x4_t b, float32_t n); A64: FMLS Vd.4S, Vn.4S, Vm.S[0]
             // FusedMultiplySubtractByScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>)	float32x2_t vfms_n_f32 (float32x2_t a, float32x2_t b, float32_t n); A64: FMLS Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "FusedMultiplySubtractByScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractByScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector64s<double>.V3));
+
             // FusedMultiplySubtractBySelectedScalar(Vector128<Double>, Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vfmsq_laneq_f64 (float64x2_t a, float64x2_t b, float64x2_t v, const int lane); A64: FMLS Vd.2D, Vn.2D, Vm.D[lane]
             // FusedMultiplySubtractBySelectedScalar(Vector128<Single>, Vector128<Single>, Vector128<Single>, Byte)	float32x4_t vfmsq_laneq_f32 (float32x4_t a, float32x4_t b, float32x4_t v, const int lane); A64: FMLS Vd.4S, Vn.4S, Vm.S[lane]
             // FusedMultiplySubtractBySelectedScalar(Vector128<Single>, Vector128<Single>, Vector64<Single>, Byte)	float32x4_t vfmsq_lane_f32 (float32x4_t a, float32x4_t b, float32x2_t v, const int lane); A64: FMLS Vd.4S, Vn.4S, Vm.S[lane]
             // FusedMultiplySubtractBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector128<Single>, Byte)	float32x2_t vfms_laneq_f32 (float32x2_t a, float32x2_t b, float32x4_t v, const int lane); A64: FMLS Vd.2S, Vn.2S, Vm.S[lane]
             // FusedMultiplySubtractBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vfms_lane_f32 (float32x2_t a, float32x2_t b, float32x2_t v, const int lane); A64: FMLS Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Double>, Vector64<Double>, Vector128<Double>, Byte)	float64_t vfmsd_laneq_f64 (float64_t a, float64_t b, float64x2_t v, const int lane); A64: FMLS Dd, Dn, Vm.D[lane]
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector128<Single>, Byte)	float32_t vfmss_laneq_f32 (float32_t a, float32_t b, float32x4_t v, const int lane); A64: FMLS Sd, Sn, Vm.S[lane]
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32_t vfmss_lane_f32 (float32_t a, float32_t b, float32x2_t v, const int lane); A64: FMLS Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.V3, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_I(TextWriter writer, string indent) {
             // InsertSelectedScalar(Vector128<Byte>, Byte, Vector128<Byte>, Byte)	uint8x16_t vcopyq_laneq_u8 (uint8x16_t a, const int lane1, uint8x16_t b, const int lane2); A64: INS Vd.B[lane1], Vn.B[lane2]
