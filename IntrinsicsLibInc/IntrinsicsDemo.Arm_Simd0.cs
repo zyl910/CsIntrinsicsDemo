@@ -1158,9 +1158,29 @@ namespace IntrinsicsLib {
             // Insert(Vector64<Single>, Byte, Single)	float32x2_t vset_lane_f32 (float32_t a, float32x2_t v, const int lane); A32: VMOV.F32 Sd, Sm; A64: INS Vd.S[lane], Vn.S[0]
             // Insert(Vector64<UInt16>, Byte, UInt16)	uint16x4_t vset_lane_u16 (uint16_t a, uint16x4_t v, const int lane); A32: VMOV.16 Dd[lane], Rt; A64: INS Vd.H[lane], Wn
             // Insert(Vector64<UInt32>, Byte, UInt32)	uint32x2_t vset_lane_u32 (uint32_t a, uint32x2_t v, const int lane); A32: VMOV.32 Dd[lane], Rt; A64: INS Vd.S[lane], Wn
+            try {
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "Insert(Vector128s<byte>.Demo, {1}, Scalars<byte>.V1):\t{0}", AdvSimd.Insert(Vector128s<byte>.Demo, i, Scalars<byte>.V1), i);
+                    WriteLine(writer, indent, "Insert(Vector128s<short>.Demo, {1}, Scalars<short>.V1):\t{0}", AdvSimd.Insert(Vector128s<short>.Demo, i, Scalars<short>.V1), i);
+                    WriteLine(writer, indent, "Insert(Vector128s<int>.Demo, {1}, Scalars<int>.V1):\t{0}", AdvSimd.Insert(Vector128s<int>.Demo, i, Scalars<int>.V1), i);
+                    WriteLine(writer, indent, "Insert(Vector128s<long>.Demo, {1}, Scalars<long>.V1):\t{0}", AdvSimd.Insert(Vector128s<long>.Demo, i, Scalars<long>.V1), i);
+                    WriteLine(writer, indent, "Insert(Vector128s<float>.Demo, {1}, Scalars<float>.V1):\t{0}", AdvSimd.Insert(Vector128s<float>.Demo, i, Scalars<float>.V1), i);
+                    WriteLine(writer, indent, "Insert(Vector128s<double>.Demo, {1}, Scalars<double>.V1):\t{0}", AdvSimd.Insert(Vector128s<double>.Demo, i, Scalars<double>.V1), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // InsertScalar(Vector128<Double>, Byte, Vector64<Double>)	float64x2_t vcopyq_lane_f64 (float64x2_t a, const int lane1, float64x1_t b, const int lane2) A32: VMOV.F64 Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
             // InsertScalar(Vector128<Int64>, Byte, Vector64<Int64>)	int64x2_t vcopyq_lane_s64 (int64x2_t a, const int lane1, int64x1_t b, const int lane2) A32: VMOV Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
             // InsertScalar(Vector128<UInt64>, Byte, Vector64<UInt64>)	uint64x2_t vcopyq_lane_u64 (uint64x2_t a, const int lane1, uint64x1_t b, const int lane2) A32: VMOV Dd, Dm A64: INS Vd.D[lane1], Vn.D[0]
+            try {
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "InsertScalar(Vector128s<double>.Demo, {1}, Vector64s<double>.SerialNegative):\t{0}", AdvSimd.InsertScalar(Vector128s<double>.Demo, i, Vector64s<double>.SerialNegative), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_L(TextWriter writer, string indent) {
             // LeadingSignCount(Vector128<Int16>)	int16x8_t vclsq_s16 (int16x8_t a); A32: VCLS.S16 Qd, Qm; A64: CLS Vd.8H, Vn.8H
@@ -4213,6 +4233,40 @@ namespace IntrinsicsLib {
             // InsertSelectedScalar(Vector64<UInt16>, Byte, Vector64<UInt16>, Byte)	uint16x4_t vcopy_lane_u16 (uint16x4_t a, const int lane1, uint16x4_t b, const int lane2); A64: INS Vd.H[lane1], Vn.H[lane2]
             // InsertSelectedScalar(Vector64<UInt32>, Byte, Vector128<UInt32>, Byte)	uint32x2_t vcopy_laneq_u32 (uint32x2_t a, const int lane1, uint32x4_t b, const int lane2); A64: INS Vd.S[lane1], Vn.S[lane2]
             // InsertSelectedScalar(Vector64<UInt32>, Byte, Vector64<UInt32>, Byte)	uint32x2_t vcopy_lane_u32 (uint32x2_t a, const int lane1, uint32x2_t b, const int lane2); A64: INS Vd.S[lane1], Vn.S[lane2]
+            try {
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<byte>.Demo, {1}, Vector128s<byte>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<byte>.Demo, i, Vector128s<byte>.SerialNegative, j), i, j);
+                    }
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<short>.Demo, {1}, Vector128s<short>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<short>.Demo, i, Vector128s<short>.SerialNegative, j), i, j);
+                    }
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<int>.Demo, {1}, Vector128s<int>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<int>.Demo, i, Vector128s<int>.SerialNegative, j), i, j);
+                    }
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<long>.Demo, {1}, Vector128s<long>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<long>.Demo, i, Vector128s<long>.SerialNegative, j), i, j);
+                    }
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<float>.Demo, {1}, Vector128s<float>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<float>.Demo, i, Vector128s<float>.SerialNegative, j), i, j);
+                    }
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    for (byte j = 0; j <= 1; ++j) {
+                        WriteLine(writer, indent, "InsertSelectedScalar(Vector128s<double>.Demo, {1}, Vector128s<double>.SerialNegative, {2}):\t{0}", AdvSimd.Arm64.InsertSelectedScalar(Vector128s<double>.Demo, i, Vector128s<double>.SerialNegative, j), i, j);
+                    }
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_L(TextWriter writer, string indent) {
             // LoadAndReplicateToVector128(Double*)	float64x2_t vld1q_dup_f64 (float64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
