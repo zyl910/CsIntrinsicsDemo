@@ -1262,9 +1262,10 @@ namespace IntrinsicsLib {
             }
             fixed (void* p0 = &Vector128s<long>.SerialNegative) {
                 long* p = (long*)p0;
-                for (byte i = 1; i <= 3; ++i) {
+                for (byte i = 1; i <= 1; ++i) {
                     WriteLine(writer, indent, "LoadAndInsertScalar(Vector128s<long>.Demo, {1}, p):\t{0}", AdvSimd.LoadAndInsertScalar(Vector128s<long>.Demo, i, p), i);
                 }
+                // i=2: Invoke RunArm_AdvSimd_L fail! System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
             }
 
             // 3、Load all lanes of vector with same value from memory: vld1 ->  
@@ -1519,10 +1520,10 @@ namespace IntrinsicsLib {
             // MultiplyAddBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmla_lane_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLA.I32 Dd, Dn, Dm[lane]; A64: MLA Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1574,13 +1575,13 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmul_lane_u32 (uint32x2_t a, uint32x2_t v, const int lane); A32: VMUL.I32 Dd, Dn, Dm[lane]; A64: MUL Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1603,10 +1604,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLower(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmull_lane_u32 (uint32x2_t a, uint32x2_t v, const int lane); A32: VMULL.U32 Qd, Dn, Dm[lane]; A64: UMULL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1627,10 +1628,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlal_lane_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLAL.U32 Qd, Dn, Dm[lane]; A64: UMLAL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1651,10 +1652,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlsl_lane_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLSL.U32 Qd, Dn, Dm[lane]; A64: UMLSL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1676,10 +1677,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpper(Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmull_high_lane_u32 (uint32x4_t a, uint32x2_t v, const int lane); A32: VMULL.U32 Qd, Dn+1, Dm[lane]; A64: UMULL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1695,10 +1696,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<UInt64>, Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlal_high_lane_u32 (uint64x2_t a, uint32x4_t b, uint32x2_t v, const int lane); A32: VMLAL.U32 Qd, Dn+1, Dm[lane]; A64: UMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1714,10 +1715,10 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<UInt64>, Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlsl_high_lane_u32 (uint64x2_t a, uint32x4_t b, uint32x2_t v, const int lane); A32: VMLSL.U32 Qd, Dn+1, Dm[lane]; A64: UMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1755,10 +1756,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqdmulh_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQDMULH.S32 Dd, Dn, Dm[lane] A64: SQDMULH Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1828,10 +1829,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlal_lane_s32 (int64x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn, Dm[lane] A64: SQDMLAL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1849,10 +1850,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlsl_lane_s32 (int64x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn, Dm[lane] A64: SQDMLSL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1888,10 +1889,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmull_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQDMULL.S32 Qd, Dn, Dm[lane] A64: SQDMULL Vd.2D, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1913,10 +1914,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmull_high_lane_s32 (int32x4_t a, int32x2_t v, const int lane) A32: VQDMULL.S32 Qd, Dn+1, Dm[lane] A64: SQDMULL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1948,10 +1949,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlal_high_lane_s32 (int64x2_t a, int32x4_t b, int32x2_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -1963,10 +1964,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlsl_high_lane_s32 (int64x2_t a, int32x4_t b, int32x2_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -2007,10 +2008,10 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqrdmulh_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQRDMULH.S32 Dd, Dn, Dm[lane] A64: SQRDMULH Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -2037,7 +2038,7 @@ namespace IntrinsicsLib {
             // MultiplyScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32_t vmuls_lane_f32 (float32_t a, float32x2_t v, const int lane); A32: VMUL.F32 Sd, Sn, Dm[lane]; A64: FMUL Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -2104,10 +2105,10 @@ namespace IntrinsicsLib {
             // MultiplySubtractBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmls_lane_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLS.I32 Dd, Dn, Dm[lane]; A64: MLS Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -4771,10 +4772,10 @@ namespace IntrinsicsLib {
             // FusedMultiplyAddBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vfma_lane_f32 (float32x2_t a, float32x2_t b, float32x2_t v, const int lane); A64: FMLA Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -4785,10 +4786,10 @@ namespace IntrinsicsLib {
             // FusedMultiplyAddScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32_t vfmas_lane_f32 (float32_t a, float32_t b, float32x2_t v, const int lane); A64: FMLA Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplyAddScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplyAddScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -4812,10 +4813,10 @@ namespace IntrinsicsLib {
             // FusedMultiplySubtractBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vfms_lane_f32 (float32x2_t a, float32x2_t b, float32x2_t v, const int lane); A64: FMLS Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -4826,10 +4827,10 @@ namespace IntrinsicsLib {
             // FusedMultiplySubtractScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Vector64<Single>, Byte)	float32_t vfmss_lane_f32 (float32_t a, float32_t b, float32x2_t v, const int lane); A64: FMLS Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<float>.Demo, Vector64s<float>.V2, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.V3, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.V3, i), i);
+                    WriteLine(writer, indent, "FusedMultiplySubtractScalarBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.FusedMultiplySubtractScalarBySelectedScalar(Vector64s<double>.Demo, Vector64s<double>.V2, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5146,7 +5147,7 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalar(Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vmulq_laneq_f64 (float64x2_t a, float64x2_t v, const int lane); A64: FMUL Vd.2D, Vn.2D, Vm.D[lane]
             try {
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5163,10 +5164,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqdmulhs_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQDMULH Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5193,10 +5194,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmulls_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQDMULL Dd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5208,10 +5209,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmlals_lane_s32 (int64_t a, int32_t b, int32x2_t v, const int lane) A64: SQDMLAL Dd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5223,10 +5224,10 @@ namespace IntrinsicsLib {
             // MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmlsls_lane_s32 (int64_t a, int32_t b, int32x2_t v, const int lane) A64: SQDMLSL Dd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5252,10 +5253,10 @@ namespace IntrinsicsLib {
             // MultiplyExtendedBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vmulx_lane_f32 (float32x2_t a, float32x2_t v, const int lane); A64: FMULX Vd.2S, Vn.2S, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5271,10 +5272,10 @@ namespace IntrinsicsLib {
             // MultiplyExtendedScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32_t vmulxs_lane_f32 (float32_t a, float32x2_t v, const int lane); A64: FMULX Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5291,10 +5292,10 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqrdmulhs_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQRDMULH Sd, Sn, Vm.S[lane]
             try {
                 for (byte i = 0; i <= 7; ++i) {
-                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.Serial, i), i);
                 }
                 for (byte i = 0; i <= 3; ++i) {
-                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
@@ -5303,7 +5304,7 @@ namespace IntrinsicsLib {
             // MultiplyScalarBySelectedScalar(Vector64<Double>, Vector128<Double>, Byte)	float64_t vmuld_laneq_f64 (float64_t a, float64x2_t v, const int lane); A64: FMUL Dd, Dn, Vm.D[lane]
             try {
                 for (byte i = 0; i <= 1; ++i) {
-                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, i), i);
+                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.Serial, {1}):\t{0}", AdvSimd.Arm64.MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.Serial, i), i);
                 }
             } catch (Exception ex) {
                 writer.WriteLine(indent + ex.ToString());
