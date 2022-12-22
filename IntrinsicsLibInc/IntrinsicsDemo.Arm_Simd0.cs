@@ -2199,6 +2199,7 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial));
         }
         public unsafe static void RunArm_AdvSimd_N(TextWriter writer, string indent) {
+            // 1、Negate(正常指令): vneg -> ri = -ai; negates each element in a vector.
             // Negate(Vector128<Int16>)	int16x8_t vnegq_s16 (int16x8_t a); A32: VNEG.S16 Qd, Qm; A64: NEG Vd.8H, Vn.8H
             // Negate(Vector128<Int32>)	int32x4_t vnegq_s32 (int32x4_t a); A32: VNEG.S32 Qd, Qm; A64: NEG Vd.4S, Vn.4S
             // Negate(Vector128<SByte>)	int8x16_t vnegq_s8 (int8x16_t a); A32: VNEG.S8 Qd, Qm; A64: NEG Vd.16B, Vn.16B
@@ -2207,14 +2208,32 @@ namespace IntrinsicsLib {
             // Negate(Vector64<Int32>)	int32x2_t vneg_s32 (int32x2_t a); A32: VNEG.S32 Dd, Dm; A64: NEG Vd.2S, Vn.2S
             // Negate(Vector64<SByte>)	int8x8_t vneg_s8 (int8x8_t a); A32: VNEG.S8 Dd, Dm; A64: NEG Vd.8B, Vn.8B
             // Negate(Vector64<Single>)	float32x2_t vneg_f32 (float32x2_t a); A32: VNEG.F32 Dd, Dm; A64: FNEG Vd.2S, Vn.2S
+            WriteLine(writer, indent, "Negate(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.Negate(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "Negate(Vector128s<short>.Demo):\t{0}", AdvSimd.Negate(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "Negate(Vector128s<int>.Demo):\t{0}", AdvSimd.Negate(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "Negate(Vector128s<float>.Demo):\t{0}", AdvSimd.Negate(Vector128s<float>.Demo));
+
+            // 2、Saturating Negate: vqneg -> ri = sat(-ai); 
+            // negates each element in a vector. If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 对向量中的每个元素求反。如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // NegateSaturate(Vector128<Int16>)	int16x8_t vqnegq_s16 (int16x8_t a); A32: VQNEG.S16 Qd, Qm; A64: SQNEG Vd.8H, Vn.8H
             // NegateSaturate(Vector128<Int32>)	int32x4_t vqnegq_s32 (int32x4_t a); A32: VQNEG.S32 Qd, Qm; A64: SQNEG Vd.4S, Vn.4S
             // NegateSaturate(Vector128<SByte>)	int8x16_t vqnegq_s8 (int8x16_t a); A32: VQNEG.S8 Qd, Qm; A64: SQNEG Vd.16B, Vn.16B
             // NegateSaturate(Vector64<Int16>)	int16x4_t vqneg_s16 (int16x4_t a); A32: VQNEG.S16 Dd, Dm; A64: SQNEG Vd.4H, Vn.4H
             // NegateSaturate(Vector64<Int32>)	int32x2_t vqneg_s32 (int32x2_t a); A32: VQNEG.S32 Dd, Dm; A64: SQNEG Vd.2S, Vn.2S
             // NegateSaturate(Vector64<SByte>)	int8x8_t vqneg_s8 (int8x8_t a); A32: VQNEG.S8 Dd, Dm; A64: SQNEG Vd.8B, Vn.8B
+            WriteLine(writer, indent, "NegateSaturate(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.NegateSaturate(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "NegateSaturate(Vector128s<short>.Demo):\t{0}", AdvSimd.NegateSaturate(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "NegateSaturate(Vector128s<int>.Demo):\t{0}", AdvSimd.NegateSaturate(Vector128s<int>.Demo));
+
             // NegateScalar(Vector64<Double>)	float64x1_t vneg_f64 (float64x1_t a); A32: VNEG.F64 Dd, Dm; A64: FNEG Dd, Dn
             // NegateScalar(Vector64<Single>)	float32_t vnegs_f32 (float32_t a); A32: VNEG.F32 Sd, Sm; A64: FNEG Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "NegateScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.NegateScalar(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "NegateScalar(Vector64s<double>.Demo):\t{0}", AdvSimd.NegateScalar(Vector64s<double>.Demo));
+
+            // 1、Bitwise not(正常指令): vmvn -> ri = ~ai;  
+            // performs a bitwise inversion of each element from the input vector.
+            // 对输入向量中的每个元素执行逐位反转。
             // Not(Vector128<Byte>)	uint8x16_t vmvnq_u8 (uint8x16_t a); A32: VMVN Qd, Qm; A64: MVN Vd.16B, Vn.16B
             // Not(Vector128<Double>)	float64x2_t vmvnq_f64 (float64x2_t a); A32: VMVN Qd, Qm; A64: MVN Vd.16B, Vn.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // Not(Vector128<Int16>)	int16x8_t vmvnq_s16 (int16x8_t a); A32: VMVN Qd, Qm; A64: MVN Vd.16B, Vn.16B
@@ -2235,6 +2254,13 @@ namespace IntrinsicsLib {
             // Not(Vector64<UInt16>)	uint16x4_t vmvn_u16 (uint16x4_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
             // Not(Vector64<UInt32>)	uint32x2_t vmvn_u32 (uint32x2_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
             // Not(Vector64<UInt64>)	uint64x1_t vmvn_u64 (uint64x1_t a); A32: VMVN Dd, Dm; A64: MVN Vd.8B, Vn.8B
+            WriteLine(writer, indent, "Not(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.Not(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<byte>.Demo):\t{0}", AdvSimd.Not(Vector128s<byte>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<short>.Demo):\t{0}", AdvSimd.Not(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<ushort>.Demo):\t{0}", AdvSimd.Not(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<int>.Demo):\t{0}", AdvSimd.Not(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<uint>.Demo):\t{0}", AdvSimd.Not(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<float>.Demo):\t{0}", AdvSimd.Not(Vector128s<float>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_O(TextWriter writer, string indent) {
             // Or(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vorrq_u8 (uint8x16_t a, uint8x16_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B
@@ -5284,14 +5310,29 @@ namespace IntrinsicsLib {
             }
         }
         public unsafe static void RunArm_AdvSimd_64_N(TextWriter writer, string indent) {
+            // 1、Negate(正常指令): vneg -> ri = -ai; negates each element in a vector.
             // Negate(Vector128<Double>)	float64x2_t vnegq_f64 (float64x2_t a); A64: FNEG Vd.2D, Vn.2D
             // Negate(Vector128<Int64>)	int64x2_t vnegq_s64 (int64x2_t a); A64: NEG Vd.2D, Vn.2D
+            WriteLine(writer, indent, "Negate(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.Negate(Vector128s<double>.Demo));
+            WriteLine(writer, indent, "Negate(Vector128s<long>.Demo):\t{0}", AdvSimd.Arm64.Negate(Vector128s<long>.Demo));
+
+            // 2、Saturating Negate: vqneg -> ri = sat(-ai); 
+            // negates each element in a vector. If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 对向量中的每个元素求反。如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // NegateSaturate(Vector128<Int64>)	int64x2_t vqnegq_s64 (int64x2_t a); A64: SQNEG Vd.2D, Vn.2D
+            WriteLine(writer, indent, "NegateSaturate(Vector128s<long>.Demo):\t{0}", AdvSimd.Arm64.NegateSaturate(Vector128s<long>.Demo));
+
             // NegateSaturateScalar(Vector64<Int16>)	int16_t vqnegh_s16 (int16_t a); A64: SQNEG Hd, Hn
             // NegateSaturateScalar(Vector64<Int32>)	int32_t vqnegs_s32 (int32_t a); A64: SQNEG Sd, Sn
             // NegateSaturateScalar(Vector64<Int64>)	int64_t vqnegd_s64 (int64_t a); A64: SQNEG Dd, Dn
             // NegateSaturateScalar(Vector64<SByte>)	int8_t vqnegb_s8 (int8_t a); A64: SQNEG Bd, Bn
+            WriteLine(writer, indent, "NegateSaturateScalar(Vector64s<sbyte>.Demo):\t{0}", AdvSimd.Arm64.NegateSaturateScalar(Vector64s<sbyte>.Demo));
+            WriteLine(writer, indent, "NegateSaturateScalar(Vector64s<short>.Demo):\t{0}", AdvSimd.Arm64.NegateSaturateScalar(Vector64s<short>.Demo));
+            WriteLine(writer, indent, "NegateSaturateScalar(Vector64s<int>.Demo):\t{0}", AdvSimd.Arm64.NegateSaturateScalar(Vector64s<int>.Demo));
+            WriteLine(writer, indent, "NegateSaturateScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.NegateSaturateScalar(Vector64s<long>.Demo));
+
             // NegateScalar(Vector64<Int64>)	int64x1_t vneg_s64 (int64x1_t a); A64: NEG Dd, Dn
+            WriteLine(writer, indent, "NegateScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.NegateScalar(Vector64s<long>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_64_R(TextWriter writer, string indent) {
             // ReciprocalEstimate(Vector128<Double>)	float64x2_t vrecpeq_f64 (float64x2_t a); A64: FRECPE Vd.2D, Vn.2D
