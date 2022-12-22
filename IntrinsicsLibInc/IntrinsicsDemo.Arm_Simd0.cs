@@ -1313,6 +1313,7 @@ namespace IntrinsicsLib {
             // Ignore
         }
         public unsafe static void RunArm_AdvSimd_M(TextWriter writer, string indent) {
+            // 正常指令, vmax -> ri = ai >= bi ? ai : bi; returns the larger of each pair
             // Max(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmaxq_u8 (uint8x16_t a, uint8x16_t b); A32: VMAX.U8 Qd, Qn, Qm; A64: UMAX Vd.16B, Vn.16B, Vm.16B
             // Max(Vector128<Int16>, Vector128<Int16>)	int16x8_t vmaxq_s16 (int16x8_t a, int16x8_t b); A32: VMAX.S16 Qd, Qn, Qm; A64: SMAX Vd.8H, Vn.8H, Vm.8H
             // Max(Vector128<Int32>, Vector128<Int32>)	int32x4_t vmaxq_s32 (int32x4_t a, int32x4_t b); A32: VMAX.S32 Qd, Qn, Qm; A64: SMAX Vd.4S, Vn.4S, Vm.4S
@@ -1327,10 +1328,46 @@ namespace IntrinsicsLib {
             // Max(Vector64<Single>, Vector64<Single>)	float32x2_t vmax_f32 (float32x2_t a, float32x2_t b); A32: VMAX.F32 Dd, Dn, Dm; A64: FMAX Vd.2S, Vn.2S, Vm.2S
             // Max(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmax_u16 (uint16x4_t a, uint16x4_t b); A32: VMAX.U16 Dd, Dn, Dm; A64: UMAX Vd.4H, Vn.4H, Vm.4H
             // Max(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmax_u32 (uint32x2_t a, uint32x2_t b); A32: VMAX.U32 Dd, Dn, Dm; A64: UMAX Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "Max(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Max(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.Max(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.Max(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.Max(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.Max(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.Max(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "Max(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Max(Vector128s<float>.Demo, Vector128s<float>.V2));
+
+            // Floating-point Maximum Number (vector). This instruction compares corresponding vector elements in the two source SIMD&FP registers, writes the larger of the two floating-point values into a vector, and writes the vector to the destination SIMD&FP register.
+            // 浮点最大数(向量)。这条指令比较两个源SIMD&FP寄存器中对应的向量元素，将两个浮点值中较大的一个写入一个向量，并将该向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     if pair then
+            //         element1 = Elem[concat, 2*e, esize];
+            //         element2 = Elem[concat, (2*e)+1, esize];
+            //     else
+            //         element1 = Elem[operand1, e, esize];
+            //         element2 = Elem[operand2, e, esize];
+            //     if minimum then
+            //         Elem[result, e, esize] = FPMinNum(element1, element2, FPCR[]);
+            //     else
+            //         Elem[result, e, esize] = FPMaxNum(element1, element2, FPCR[]);
             // MaxNumber(Vector128<Single>, Vector128<Single>)	float32x4_t vmaxnmq_f32 (float32x4_t a, float32x4_t b); A32: VMAXNM.F32 Qd, Qn, Qm; A64: FMAXNM Vd.4S, Vn.4S, Vm.4S
             // MaxNumber(Vector64<Single>, Vector64<Single>)	float32x2_t vmaxnm_f32 (float32x2_t a, float32x2_t b); A32: VMAXNM.F32 Dd, Dn, Dm; A64: FMAXNM Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MaxNumber(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.MaxNumber(Vector128s<float>.Demo, Vector128s<float>.V2));
+
+            // vpmaxnms_f32	(float32x2_t a)	Vector arithmetic / Pairwise arithmetic / Pairwise maximum
+            // Floating-point Maximum Number Pairwise (vector). This instruction creates a vector by concatenating the vector elements of the first source SIMD&FP register after the vector elements of the second source SIMD&FP register, reads each pair of adjacent vector elements in the two source SIMD&FP registers, writes the largest of each pair of values into a vector, and writes the vector to the destination SIMD&FP register. All the values in this instruction are floating-point values.
+            // 浮点最大数成对(向量)。这条指令通过将第一个源SIMD&FP寄存器的向量元素连接到第二个源SIMD&FP寄存器的向量元素之后来创建一个向量，读取两个源SIMD&FP寄存器中相邻的每对向量元素，将每对值中最大的一个写入一个向量，并将该向量写入目标SIMD&FP寄存器。这条指令中的所有值都是浮点值。
             // MaxNumberScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmaxnm_f64 (float64x1_t a, float64x1_t b); A32: VMAXNM.F64 Dd, Dn, Dm; A64: FMAXNM Dd, Dn, Dm
             // MaxNumberScalar(Vector64<Single>, Vector64<Single>)	float32_t vmaxnms_f32 (float32_t a, float32_t b); A32: VMAXNM.F32 Sd, Sn, Sm; A64: FMAXNM Sd, Sn, Sm
+            WriteLine(writer, indent, "MaxNumberScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MaxNumberScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MaxNumberScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.MaxNumberScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+
+            // 饱和指令, vpmax -> vpmax r0 = a0 >= a1 ? a0 : a1, ..., r4 = b0 >= b1 ? b0 : b1, ...; 
+            // compares adjacent pairs of elements, and copies the larger of each pair into the destination vector.
+            // The maximums from each pair of the first input vector are stored in the lower half of the destination vector.
+            // The maximums from each pair of the second input vector are stored in the higher half of the destination vector
+            // 比较相邻的元素对，并将每对中较大的元素复制到目标向量中。
+            // 第一个输入向量的每对最大值存储在目标向量的下半部分。
+            // 来自第二个输入向量的每对的最大值存储在目标向量的上半部分
             // MaxPairwise(Vector64<Byte>, Vector64<Byte>)	uint8x8_t vpmax_u8 (uint8x8_t a, uint8x8_t b); A32: VPMAX.U8 Dd, Dn, Dm; A64: UMAXP Vd.8B, Vn.8B, Vm.8B
             // MaxPairwise(Vector64<Int16>, Vector64<Int16>)	int16x4_t vpmax_s16 (int16x4_t a, int16x4_t b); A32: VPMAX.S16 Dd, Dn, Dm; A64: SMAXP Vd.4H, Vn.4H, Vm.4H
             // MaxPairwise(Vector64<Int32>, Vector64<Int32>)	int32x2_t vpmax_s32 (int32x2_t a, int32x2_t b); A32: VPMAX.S32 Dd, Dn, Dm; A64: SMAXP Vd.2S, Vn.2S, Vm.2S
@@ -1338,7 +1375,15 @@ namespace IntrinsicsLib {
             // MaxPairwise(Vector64<Single>, Vector64<Single>)	float32x2_t vpmax_f32 (float32x2_t a, float32x2_t b); A32: VPMAX.F32 Dd, Dn, Dm; A64: FMAXP Vd.2S, Vn.2S, Vm.2S
             // MaxPairwise(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vpmax_u16 (uint16x4_t a, uint16x4_t b); A32: VPMAX.U16 Dd, Dn, Dm; A64: UMAXP Vd.4H, Vn.4H, Vm.4H
             // MaxPairwise(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vpmax_u32 (uint32x2_t a, uint32x2_t b); A32: VPMAX.U32 Dd, Dn, Dm; A64: UMAXP Vd.2S, Vn.2S, Vm.2S
-            // MemberwiseClone()	Creates a shallow copy of the current Object.; (Inherited from Object)
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<ushort>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MaxPairwise(Vector64s<float>.Demo, Vector64s<float>.V2));
+
+            // 正常指令, vmin -> ri = ai >= bi ? bi : ai; returns the smaller of each pair
             // Min(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vminq_u8 (uint8x16_t a, uint8x16_t b); A32: VMIN.U8 Qd, Qn, Qm; A64: UMIN Vd.16B, Vn.16B, Vm.16B
             // Min(Vector128<Int16>, Vector128<Int16>)	int16x8_t vminq_s16 (int16x8_t a, int16x8_t b); A32: VMIN.S16 Qd, Qn, Qm; A64: SMIN Vd.8H, Vn.8H, Vm.8H
             // Min(Vector128<Int32>, Vector128<Int32>)	int32x4_t vminq_s32 (int32x4_t a, int32x4_t b); A32: VMIN.S32 Qd, Qn, Qm; A64: SMIN Vd.4S, Vn.4S, Vm.4S
@@ -1353,10 +1398,30 @@ namespace IntrinsicsLib {
             // Min(Vector64<Single>, Vector64<Single>)	float32x2_t vmin_f32 (float32x2_t a, float32x2_t b); A32: VMIN.F32 Dd, Dn, Dm; A64: FMIN Vd.2S, Vn.2S, Vm.2S
             // Min(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmin_u16 (uint16x4_t a, uint16x4_t b); A32: VMIN.U16 Dd, Dn, Dm; A64: UMIN Vd.4H, Vn.4H, Vm.4H
             // Min(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmin_u32 (uint32x2_t a, uint32x2_t b); A32: VMIN.U32 Dd, Dn, Dm; A64: UMIN Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "Min(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Min(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.Min(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.Min(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.Min(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.Min(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.Min(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "Min(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Min(Vector128s<float>.Demo, Vector128s<float>.V2));
+
             // MinNumber(Vector128<Single>, Vector128<Single>)	float32x4_t vminnmq_f32 (float32x4_t a, float32x4_t b); A32: VMINNM.F32 Qd, Qn, Qm; A64: FMINNM Vd.4S, Vn.4S, Vm.4S
             // MinNumber(Vector64<Single>, Vector64<Single>)	float32x2_t vminnm_f32 (float32x2_t a, float32x2_t b); A32: VMINNM.F32 Dd, Dn, Dm; A64: FMINNM Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MinNumber(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.MinNumber(Vector128s<float>.Demo, Vector128s<float>.V2));
+
             // MinNumberScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vminnm_f64 (float64x1_t a, float64x1_t b); A32: VMINNM.F64 Dd, Dn, Dm; A64: FMINNM Dd, Dn, Dm
             // MinNumberScalar(Vector64<Single>, Vector64<Single>)	float32_t vminnms_f32 (float32_t a, float32_t b); A32: VMINNM.F32 Sd, Sn, Sm; A64: FMINNM Sd, Sn, Sm
+            WriteLine(writer, indent, "MinNumberScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MinNumberScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MinNumberScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.MinNumberScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+
+            // 饱和指令, vpmin -> r0 = a0 >= a1 ? a1 : a0, ..., r4 = b0 >= b1 ? b1 : b0, ...; 
+            // compares adjacent pairs of elements, and copies the smaller of each pair into the destination vector.
+            // The minimums from each pair of the first input vector are stored in the lower half of the destination vector.
+            // The minimums from each pair of the second input vector are stored in the higher half of the destination vector.
+            // 比较相邻的元素对，并将每对中较小的元素复制到目标向量中。
+            // 第一个输入向量的每对的最小值存储在目标向量的下半部分。
+            // 来自第二个输入向量的每对的最小值存储在目标向量的上半部分。
             // MinPairwise(Vector64<Byte>, Vector64<Byte>)	uint8x8_t vpmin_u8 (uint8x8_t a, uint8x8_t b); A32: VPMIN.U8 Dd, Dn, Dm; A64: UMINP Vd.8B, Vn.8B, Vm.8B
             // MinPairwise(Vector64<Int16>, Vector64<Int16>)	int16x4_t vpmin_s16 (int16x4_t a, int16x4_t b); A32: VPMIN.S16 Dd, Dn, Dm; A64: SMINP Vd.4H, Vn.4H, Vm.4H
             // MinPairwise(Vector64<Int32>, Vector64<Int32>)	int32x2_t vpmin_s32 (int32x2_t a, int32x2_t b); A32: VPMIN.S32 Dd, Dn, Dm; A64: SMINP Vd.2S, Vn.2S, Vm.2S
@@ -1364,6 +1429,15 @@ namespace IntrinsicsLib {
             // MinPairwise(Vector64<Single>, Vector64<Single>)	float32x2_t vpmin_f32 (float32x2_t a, float32x2_t b); A32: VPMIN.F32 Dd, Dn, Dm; A64: FMINP Vd.2S, Vn.2S, Vm.2S
             // MinPairwise(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vpmin_u16 (uint16x4_t a, uint16x4_t b); A32: VPMIN.U16 Dd, Dn, Dm; A64: UMINP Vd.4H, Vn.4H, Vm.4H
             // MinPairwise(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vpmin_u32 (uint32x2_t a, uint32x2_t b); A32: VPMIN.U32 Dd, Dn, Dm; A64: UMINP Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MinPairwise(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<ushort>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<uint>.Demo, Vector64s<uint>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MinPairwise(Vector64s<float>.Demo, Vector64s<float>.V2));
+
+            // 1、Vector multiply(正常指令): vmul -> ri = ai * bi;
             // Multiply(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmulq_u8 (uint8x16_t a, uint8x16_t b); A32: VMUL.I8 Qd, Qn, Qm; A64: MUL Vd.16B, Vn.16B, Vm.16B
             // Multiply(Vector128<Int16>, Vector128<Int16>)	int16x8_t vmulq_s16 (int16x8_t a, int16x8_t b); A32: VMUL.I16 Qd, Qn, Qm; A64: MUL Vd.8H, Vn.8H, Vm.8H
             // Multiply(Vector128<Int32>, Vector128<Int32>)	int32x4_t vmulq_s32 (int32x4_t a, int32x4_t b); A32: VMUL.I32 Qd, Qn, Qm; A64: MUL Vd.4S, Vn.4S, Vm.4S
@@ -1378,6 +1452,15 @@ namespace IntrinsicsLib {
             // Multiply(Vector64<Single>, Vector64<Single>)	float32x2_t vmul_f32 (float32x2_t a, float32x2_t b); A32: VMUL.F32 Dd, Dn, Dm; A64: FMUL Vd.2S, Vn.2S, Vm.2S
             // Multiply(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmul_u16 (uint16x4_t a, uint16x4_t b); A32: VMUL.I16 Dd, Dn, Dm; A64: MUL Vd.4H, Vn.4H, Vm.4H
             // Multiply(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmul_u32 (uint32x2_t a, uint32x2_t b); A32: VMUL.I32 Dd, Dn, Dm; A64: MUL Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "Multiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Multiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.Multiply(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.Multiply(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.Multiply(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.Multiply(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.Multiply(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "Multiply(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Multiply(Vector128s<float>.Demo, Vector128s<float>.V2));
+
+            // 2、Vector multiply accumulate: vmla -> ri = ai + bi * ci;
             // MultiplyAdd(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmlaq_u8 (uint8x16_t a, uint8x16_t b, uint8x16_t c); A32: VMLA.I8 Qd, Qn, Qm; A64: MLA Vd.16B, Vn.16B, Vm.16B
             // MultiplyAdd(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>)	int16x8_t vmlaq_s16 (int16x8_t a, int16x8_t b, int16x8_t c); A32: VMLA.I16 Qd, Qn, Qm; A64: MLA Vd.8H, Vn.8H, Vm.8H
             // MultiplyAdd(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>)	int32x4_t vmlaq_s32 (int32x4_t a, int32x4_t b, int32x4_t c); A32: VMLA.I32 Qd, Qn, Qm; A64: MLA Vd.4S, Vn.4S, Vm.4S
@@ -1390,6 +1473,16 @@ namespace IntrinsicsLib {
             // MultiplyAdd(Vector64<SByte>, Vector64<SByte>, Vector64<SByte>)	int8x8_t vmla_s8 (int8x8_t a, int8x8_t b, int8x8_t c); A32: VMLA.I8 Dd, Dn, Dm; A64: MLA Vd.8B, Vn.8B, Vm.8B
             // MultiplyAdd(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmla_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t c); A32: VMLA.I16 Dd, Dn, Dm; A64: MLA Vd.4H, Vn.4H, Vm.4H
             // MultiplyAdd(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmla_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t c); A32: VMLA.I32 Dd, Dn, Dm; A64: MLA Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<sbyte>.V4, Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<sbyte>.V4, Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<byte>.V4, Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<byte>.V4, Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MultiplyAdd(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.MultiplyAdd(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2));
+
+            // 11、Vector multiply accumulate with scalar: vmla -> ri = ai + bi * c; 
+            // multiplies each element in the second vector by a scalar, and adds the results to the corresponding elements of the first vector.
+            // 将第二个向量中的每个元素乘以一个标量，并将结果与第一个向量的相应元素相加。
             // MultiplyAddByScalar(Vector128<Int16>, Vector128<Int16>, Vector64<Int16>)	int16x8_t vmlaq_n_s16 (int16x8_t a, int16x8_t b, int16_t c); A32: VMLA.I16 Qd, Qn, Dm[0]; A64: MLA Vd.8H, Vn.8H, Vm.H[0]
             // MultiplyAddByScalar(Vector128<Int32>, Vector128<Int32>, Vector64<Int32>)	int32x4_t vmlaq_n_s32 (int32x4_t a, int32x4_t b, int32_t c); A32: VMLA.I32 Qd, Qn, Dm[0]; A64: MLA Vd.4S, Vn.4S, Vm.S[0]
             // MultiplyAddByScalar(Vector128<UInt16>, Vector128<UInt16>, Vector64<UInt16>)	uint16x8_t vmlaq_n_u16 (uint16x8_t a, uint16x8_t b, uint16_t c); A32: VMLA.I16 Qd, Qn, Dm[0]; A64: MLA Vd.8H, Vn.8H, Vm.H[0]
@@ -1398,6 +1491,16 @@ namespace IntrinsicsLib {
             // MultiplyAddByScalar(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32x2_t vmla_n_s32 (int32x2_t a, int32x2_t b, int32_t c); A32: VMLA.I32 Dd, Dn, Dm[0]; A64: MLA Vd.2S, Vn.2S, Vm.S[0]
             // MultiplyAddByScalar(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmla_n_u16 (uint16x4_t a, uint16x4_t b, uint16_t c); A32: VMLA.I16 Dd, Dn, Dm[0]; A64: MLA Vd.4H, Vn.4H, Vm.H[0]
             // MultiplyAddByScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmla_n_u32 (uint32x2_t a, uint32x2_t b, uint32_t c); A32: VMLA.I32 Dd, Dn, Dm[0]; A64: MLA Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyAddByScalar(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyAddByScalar(Vector128s<short>.V4, Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyAddByScalar(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.MultiplyAddByScalar(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplyAddByScalar(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyAddByScalar(Vector128s<int>.V4, Vector128s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplyAddByScalar(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.MultiplyAddByScalar(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector64s<uint>.V2));
+
+            // 12、Vector multiply accumulate by scalar: vmla -> ri = ai + bi * c[d]; 
+            // multiplies each element in the second vector by a scalar, and adds the results to the corresponding elements of the first vector.  
+            // The scalar has index d in the third vector.
+            // 将第二个向量中的每个元素乘以一个标量，并将结果与第一个向量的相应元素相加。
+            // 这个标量在第三个向量中有下标d。
             // MultiplyAddBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vmlaq_laneq_s16 (int16x8_t a, int16x8_t b, int16x8_t v, const int lane); A32: VMLA.I16 Qd, Qn, Dm[lane]; A64: MLA Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyAddBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Vector64<Int16>, Byte)	int16x8_t vmlaq_lane_s16 (int16x8_t a, int16x8_t b, int16x4_t v, const int lane); A32: VMLA.I16 Qd, Qn, Dm[lane]; A64: MLA Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyAddBySelectedScalar(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vmlaq_laneq_s32 (int32x4_t a, int32x4_t b, int32x4_t v, const int lane); A32: VMLA.I32 Qd, Qn, Dm[lane]; A64: MLA Vd.4S, Vn.4S, Vm.S[lane]
@@ -1414,6 +1517,20 @@ namespace IntrinsicsLib {
             // MultiplyAddBySelectedScalar(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>, Byte)	uint16x4_t vmla_lane_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t v, const int lane); A32: VMLA.I16 Dd, Dn, Dm[lane]; A64: MLA Vd.4H, Vn.4H, Vm.H[lane]
             // MultiplyAddBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector128<UInt32>, Byte)	uint32x2_t vmla_laneq_u32 (uint32x2_t a, uint32x2_t b, uint32x4_t v, const int lane); A32: VMLA.I32 Dd, Dn, Dm[lane]; A64: MLA Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyAddBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmla_lane_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLA.I32 Dd, Dn, Dm[lane]; A64: MLA Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyAddBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 1、Vector multiply by scalar: vmul -> ri = ai * b;  
+            // multiplies each element in a vector by a scalar, and places the results in the destination vector.
+            // 将向量中的每个元素乘以一个标量，并将结果放在目标向量中。
             // MultiplyByScalar(Vector128<Int16>, Vector64<Int16>)	int16x8_t vmulq_n_s16 (int16x8_t a, int16_t b); A32: VMUL.I16 Qd, Qn, Dm[0]; A64: MUL Vd.8H, Vn.8H, Vm.H[0]
             // MultiplyByScalar(Vector128<Int32>, Vector64<Int32>)	int32x4_t vmulq_n_s32 (int32x4_t a, int32_t b); A32: VMUL.I32 Qd, Qn, Dm[0]; A64: MUL Vd.4S, Vn.4S, Vm.S[0]
             // MultiplyByScalar(Vector128<Single>, Vector64<Single>)	float32x4_t vmulq_n_f32 (float32x4_t a, float32_t b); A32: VMUL.F32 Qd, Qn, Dm[0]; A64: FMUL Vd.4S, Vn.4S, Vm.S[0]
@@ -1424,6 +1541,17 @@ namespace IntrinsicsLib {
             // MultiplyByScalar(Vector64<Single>, Vector64<Single>)	float32x2_t vmul_n_f32 (float32x2_t a, float32_t b); A32: VMUL.F32 Dd, Dn, Dm[0]; A64: FMUL Vd.2S, Vn.2S, Vm.S[0]
             // MultiplyByScalar(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmul_n_u16 (uint16x4_t a, uint16_t b); A32: VMUL.I16 Dd, Dn, Dm[0]; A64: MUL Vd.4H, Vn.4H, Vm.H[0]
             // MultiplyByScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmul_n_u32 (uint32x2_t a, uint32_t b); A32: VMUL.I32 Dd, Dn, Dm[0]; A64: MUL Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyByScalar(Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<ushort>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.MultiplyByScalar(Vector128s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyByScalar(Vector128s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.MultiplyByScalar(Vector128s<uint>.Demo, Vector64s<uint>.V2));
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MultiplyByScalar(Vector128s<float>.Demo, Vector64s<float>.V2));
+
+            // 2、Vector multiply by scalar: -> ri = ai * b[c];  
+            // multiplies the first vector by a scalar.  
+            // The scalar is the element in the second vector with index c.
+            // 将第一个向量乘以一个标量。
+            // 标量是第二个向量中下标为c的元素。
             // MultiplyBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vmulq_laneq_s16 (int16x8_t a, int16x8_t v, const int lane); A32: VMUL.I16 Qd, Qn, Dm[lane]; A64: MUL Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalar(Vector128<Int16>, Vector64<Int16>, Byte)	int16x8_t vmulq_lane_s16 (int16x8_t a, int16x4_t v, const int lane); A32: VMUL.I16 Qd, Qn, Dm[lane]; A64: MUL Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalar(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vmulq_laneq_s32 (int32x4_t a, int32x4_t v, const int lane); A32: VMUL.I32 Qd, Qn, Dm[lane]; A64: MUL Vd.4S, Vn.4S, Vm.S[lane]
@@ -1444,6 +1572,27 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalar(Vector64<UInt16>, Vector64<UInt16>, Byte)	uint16x4_t vmul_lane_u16 (uint16x4_t a, uint16x4_t v, const int lane); A32: VMUL.I16 Dd, Dn, Dm[lane]; A64: MUL Vd.4H, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalar(Vector64<UInt32>, Vector128<UInt32>, Byte)	uint32x2_t vmul_laneq_u32 (uint32x2_t a, uint32x4_t v, const int lane); A32: VMUL.I32 Dd, Dn, Dm[lane]; A64: MUL Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmul_lane_u32 (uint32x2_t a, uint32x2_t v, const int lane); A32: VMUL.I32 Dd, Dn, Dm[lane]; A64: MUL Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 4、Vector long multiply by scalar: vmull -> ri = ai * b[c]; 
+            // multiplies the first vector by a scalar.  
+            // The scalar is the element in the second vector with index c.  
+            // The elements in the result are wider than the elements in input vector.
+            // 将第一个向量乘以一个标量。
+            // 标量是第二个向量中下标为c的元素。
+            // 结果中的元素比输入向量中的元素宽。
             // MultiplyBySelectedScalarWideningLower(Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vmull_laneq_s16 (int16x4_t a, int16x8_t v, const int lane); A32: VMULL.S16 Qd, Dn, Dm[lane]; A64: SMULL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLower(Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vmull_lane_s16 (int16x4_t a, int16x4_t v, const int lane); A32: VMULL.S16 Qd, Dn, Dm[lane]; A64: SMULL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLower(Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vmull_laneq_s32 (int32x2_t a, int32x4_t v, const int lane); A32: VMULL.S32 Qd, Dn, Dm[lane]; A64: SMULL Vd.2D, Vn.2S, Vm.S[lane]
@@ -1452,6 +1601,22 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLower(Vector64<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmull_lane_u16 (uint16x4_t a, uint16x4_t v, const int lane); A32: VMULL.U16 Qd, Dn, Dm[lane]; A64: UMULL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLower(Vector64<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmull_laneq_u32 (uint32x2_t a, uint32x4_t v, const int lane); A32: VMULL.U32 Qd, Dn, Dm[lane]; A64: UMULL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningLower(Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmull_lane_u32 (uint32x2_t a, uint32x2_t v, const int lane); A32: VMULL.U32 Qd, Dn, Dm[lane]; A64: UMULL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLower(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 14、Vector widening multiply accumulate by scalar: vmlal -> ri = ai + bi * c[d]; 
+            // multiplies each element in the second vector by a scalar, and adds the results to the corresponding elements of the first vector. The scalar has index d in the third vector. 
+            // The elements in the result are wider.
+            // 将第二个向量中的每个元素乘以一个标量，并将结果与第一个向量的相应元素相加。这个标量在第三个向量中有下标d。
+            // 结果中的元素更宽。
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vmlal_laneq_s16 (int32x4_t a, int16x4_t b, int16x8_t v, const int lane); A32: VMLAL.S16 Qd, Dn, Dm[lane]; A64: SMLAL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vmlal_lane_s16 (int32x4_t a, int16x4_t b, int16x4_t v, const int lane); A32: VMLAL.S16 Qd, Dn, Dm[lane]; A64: SMLAL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vmlal_laneq_s32 (int64x2_t a, int32x2_t b, int32x4_t v, const int lane); A32: VMLAL.S32 Qd, Dn, Dm[lane]; A64: SMLAL Vd.2D, Vn.2S, Vm.S[lane]
@@ -1460,6 +1625,22 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<UInt32>, Vector64<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmlal_lane_u16 (uint32x4_t a, uint16x4_t b, uint16x4_t v, const int lane); A32: VMLAL.U16 Qd, Dn, Dm[lane]; A64: UMLAL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<UInt64>, Vector64<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmlal_laneq_u32 (uint64x2_t a, uint32x2_t b, uint32x4_t v, const int lane); A32: VMLAL.U32 Qd, Dn, Dm[lane]; A64: UMLAL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningLowerAndAdd(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlal_lane_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLAL.U32 Qd, Dn, Dm[lane]; A64: UMLAL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 20、Vector widening multiply subtract by scalar: vmlsl -> ri = ai - bi * c[d]; 
+            // multiplies each element in the second vector by a scalar, and subtracts them from the corresponding elements of the first vector.  
+            // The scalar has index d in the third vector. The elements in the result are wider.
+            // 将第二个向量中的每个元素乘以一个标量，然后从第一个向量的相应元素中减去它们。
+            // 这个标量在第三个向量中有下标d。结果中的元素更宽。
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vmlsl_laneq_s16 (int32x4_t a, int16x4_t b, int16x8_t v, const int lane); A32: VMLSL.S16 Qd, Dn, Dm[lane]; A64: SMLSL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vmlsl_lane_s16 (int32x4_t a, int16x4_t b, int16x4_t v, const int lane); A32: VMLSL.S16 Qd, Dn, Dm[lane]; A64: SMLSL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vmlsl_laneq_s32 (int64x2_t a, int32x2_t b, int32x4_t v, const int lane); A32: VMLSL.S32 Qd, Dn, Dm[lane]; A64: SMLSL Vd.2D, Vn.2S, Vm.S[lane]
@@ -1468,6 +1649,23 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<UInt32>, Vector64<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmlsl_lane_u16 (uint32x4_t a, uint16x4_t b, uint16x4_t v, const int lane); A32: VMLSL.U16 Qd, Dn, Dm[lane]; A64: UMLSL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<UInt64>, Vector64<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmlsl_laneq_u32 (uint64x2_t a, uint32x2_t b, uint32x4_t v, const int lane); A32: VMLSL.U32 Qd, Dn, Dm[lane]; A64: UMLSL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlsl_lane_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLSL.U32 Qd, Dn, Dm[lane]; A64: UMLSL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // Signed Multiply Long (vector). This instruction multiplies corresponding signed integer values in the lower or upper half of the vectors of the two source SIMD&FP registers, places the results in a vector, and writes the vector to the destination SIMD&FP register.
+            // 有符号乘长（向量）。这条指令将两个源SIMD&FP寄存器的向量的下半部分或上半部分的相应有 符号整数值相乘，将结果放在一个向量中，并将向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     element1 = Int(Elem[operand1, e, esize], unsigned);
+            //     element2 = Int(Elem[operand2, e, esize], unsigned);
+            //     Elem[result, e, 2*esize] = (element1 * element2)<2*esize-1:0>;
             // MultiplyBySelectedScalarWideningUpper(Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vmull_high_laneq_s16 (int16x8_t a, int16x8_t v, const int lane); A32: VMULL.S16 Qd, Dn+1, Dm[lane]; A64: SMULL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpper(Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vmull_high_lane_s16 (int16x8_t a, int16x4_t v, const int lane); A32: VMULL.S16 Qd, Dn+1, Dm[lane]; A64: SMULL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpper(Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vmull_high_laneq_s32 (int32x4_t a, int32x4_t v, const int lane); A32: VMULL.S32 Qd, Dn+1, Dm[lane]; A64: SMULL2 Vd.2D, Vn.4S, Vm.S[lane]
@@ -1476,6 +1674,17 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpper(Vector128<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmull_high_lane_u16 (uint16x8_t a, uint16x4_t v, const int lane); A32: VMULL.U16 Qd, Dn+1, Dm[lane]; A64: UMULL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpper(Vector128<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmull_high_laneq_u32 (uint32x4_t a, uint32x4_t v, const int lane); A32: VMULL.U32 Qd, Dn+1, Dm[lane]; A64: UMULL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningUpper(Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmull_high_lane_u32 (uint32x4_t a, uint32x2_t v, const int lane); A32: VMULL.U32 Qd, Dn+1, Dm[lane]; A64: UMULL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vmlal_high_laneq_s16 (int32x4_t a, int16x8_t b, int16x8_t v, const int lane); A32: VMLAL.S16 Qd, Dn+1, Dm[lane]; A64: SMLAL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vmlal_high_lane_s16 (int32x4_t a, int16x8_t b, int16x4_t v, const int lane); A32: VMLAL.S16 Qd, Dn+1, Dm[lane]; A64: SMLAL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vmlal_high_laneq_s32 (int64x2_t a, int32x4_t b, int32x4_t v, const int lane); A32: VMLAL.S32 Qd, Dn+1, Dm[lane]; A64: SMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
@@ -1484,6 +1693,17 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<UInt32>, Vector128<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmlal_high_lane_u16 (uint32x4_t a, uint16x8_t b, uint16x4_t v, const int lane); A32: VMLAL.U16 Qd, Dn+1, Dm[lane]; A64: UMLAL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<UInt64>, Vector128<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmlal_high_laneq_u32 (uint64x2_t a, uint32x4_t b, uint32x4_t v, const int lane); A32: VMLAL.U32 Qd, Dn+1, Dm[lane]; A64: UMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningUpperAndAdd(Vector128<UInt64>, Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlal_high_lane_u32 (uint64x2_t a, uint32x4_t b, uint32x2_t v, const int lane); A32: VMLAL.U32 Qd, Dn+1, Dm[lane]; A64: UMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vmlsl_high_laneq_s16 (int32x4_t a, int16x8_t b, int16x8_t v, const int lane); A32: VMLSL.S16 Qd, Dn+1, Dm[lane]; A64: SMLSL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vmlsl_high_lane_s16 (int32x4_t a, int16x8_t b, int16x4_t v, const int lane); A32: VMLSL.S16 Qd, Dn+1, Dm[lane]; A64: SMLSL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vmlsl_high_laneq_s32 (int64x2_t a, int32x4_t b, int32x4_t v, const int lane); A32: VMLSL.S32 Qd, Dn+1, Dm[lane]; A64: SMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
@@ -1492,10 +1712,39 @@ namespace IntrinsicsLib {
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<UInt32>, Vector128<UInt16>, Vector64<UInt16>, Byte)	uint32x4_t vmlsl_high_lane_u16 (uint32x4_t a, uint16x8_t b, uint16x4_t v, const int lane); A32: VMLSL.U16 Qd, Dn+1, Dm[lane]; A64: UMLSL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<UInt64>, Vector128<UInt32>, Vector128<UInt32>, Byte)	uint64x2_t vmlsl_high_laneq_u32 (uint64x2_t a, uint32x4_t b, uint32x4_t v, const int lane); A32: VMLSL.U32 Qd, Dn+1, Dm[lane]; A64: UMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128<UInt64>, Vector128<UInt32>, Vector64<UInt32>, Byte)	uint64x2_t vmlsl_high_lane_u32 (uint64x2_t a, uint32x4_t b, uint32x2_t v, const int lane); A32: VMLSL.U32 Qd, Dn+1, Dm[lane]; A64: UMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyBySelectedScalarWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 7、Vector saturating doubling multiply high with scalar: vqdmulh -> ri = sat(ai * b) 
+            // multiplies the elements of the vector by a scalar, and doubles the results. 
+            // It then returns only the high half of the results. 
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将向量的元素乘以一个标量，结果加倍。
+            // 然后它只返回结果的高的一半。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingByScalarSaturateHigh(Vector128<Int16>, Vector64<Int16>)	int16x8_t vqdmulhq_n_s16 (int16x8_t a, int16_t b) A32: VQDMULH.S16 Qd, Qn, Dm[0] A64: SQDMULH Vd.8H, Vn.8H, Vm.H[0]
             // MultiplyDoublingByScalarSaturateHigh(Vector128<Int32>, Vector64<Int32>)	int32x4_t vqdmulhq_n_s32 (int32x4_t a, int32_t b) A32: VQDMULH.S32 Qd, Qn, Dm[0] A64: SQDMULH Vd.4S, Vn.4S, Vm.S[0]
             // MultiplyDoublingByScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>)	int16x4_t vqdmulh_n_s16 (int16x4_t a, int16_t b) A32: VQDMULH.S16 Dd, Dn, Dm[0] A64: SQDMULH Vd.4H, Vn.4H, Vm.H[0]
             // MultiplyDoublingByScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>)	int32x2_t vqdmulh_n_s32 (int32x2_t a, int32_t b) A32: VQDMULH.S32 Dd, Dn, Dm[0] A64: SQDMULH Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingByScalarSaturateHigh(Vector128s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingByScalarSaturateHigh(Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingByScalarSaturateHigh(Vector128s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingByScalarSaturateHigh(Vector128s<int>.Demo, Vector64s<int>.V2));
+
+            // 8、Vector saturating doubling multiply high by scalar:  
+            // vqdmulh -> ri = sat(ai * b[c]); 
+            // multiplies the elements of the first vector by a scalar, and doubles the results.
+            // It then returns only the high half of the results. The scalar has index n in the second vector. 
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将第一个向量的元素乘以一个标量，结果加倍。
+            // 然后它只返回结果的高的一半。标量在第二个向量上的下标是n。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vqdmulhq_laneq_s16 (int16x8_t a, int16x8_t v, const int lane) A32: VQDMULH.S16 Qd, Qn, Dm[lane] A64: SQDMULH Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector128<Int16>, Vector64<Int16>, Byte)	int16x8_t vqdmulhq_lane_s16 (int16x8_t a, int16x4_t v, const int lane) A32: VQDMULH.S16 Qd, Qn, Dm[lane] A64: SQDMULH Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vqdmulhq_laneq_s32 (int32x4_t a, int32x4_t v, const int lane) A32: VQDMULH.S32 Qd, Qn, Dm[lane] A64: SQDMULH Vd.4S, Vn.4S, Vm.S[lane]
@@ -1504,62 +1753,250 @@ namespace IntrinsicsLib {
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>, Byte)	int16x4_t vqdmulh_lane_s16 (int16x4_t a, int16x4_t v, const int lane) A32: VQDMULH.S16 Dd, Dn, Dm[lane] A64: SQDMULH Vd.4H, Vn.4H, Vm.H[lane]
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector128<Int32>, Byte)	int32x2_t vqdmulh_laneq_s32 (int32x2_t a, int32x4_t v, const int lane) A32: VQDMULH.S32 Dd, Dn, Dm[lane] A64: SQDMULH Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqdmulh_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQDMULH.S32 Dd, Dn, Dm[lane] A64: SQDMULH Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 6、Vector saturating doubling multiply high: vqdmulh -> ri = sat(ai * bi);  
+            // doubles the results and returns only the high half of the truncated results
+            // 将结果加倍，只返回截断结果的高一半
             // MultiplyDoublingSaturateHigh(Vector128<Int16>, Vector128<Int16>)	int16x8_t vqdmulhq_s16 (int16x8_t a, int16x8_t b) A32: VQDMULH.S16 Qd, Qn, Qm A64: SQDMULH Vd.8H, Vn.8H, Vm.8H
             // MultiplyDoublingSaturateHigh(Vector128<Int32>, Vector128<Int32>)	int32x4_t vqdmulhq_s32 (int32x4_t a, int32x4_t b) A32: VQDMULH.S32 Qd, Qn, Qm A64: SQDMULH Vd.4S, Vn.4S, Vm.4S
             // MultiplyDoublingSaturateHigh(Vector64<Int16>, Vector64<Int16>)	int16x4_t vqdmulh_s16 (int16x4_t a, int16x4_t b) A32: VQDMULH.S16 Dd, Dn, Dm A64: SQDMULH Vd.4H, Vn.4H, Vm.4H
             // MultiplyDoublingSaturateHigh(Vector64<Int32>, Vector64<Int32>)	int32x2_t vqdmulh_s32 (int32x2_t a, int32x2_t b) A32: VQDMULH.S32 Dd, Dn, Dm A64: SQDMULH Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyDoublingSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2));
+
+            // 8、Vector saturating doubling multiply accumulate long: vqdmlal -> ri = ai + bi * ci; 
+            // multiplies the elements in the second and third vectors, doubles the results and adds the results to the values in the first vector.
+            // The results are saturated if they overflow
+            // 将第二个和第三个向量中的元素相乘，将结果加倍，并将结果与第一个向量中的值相加。
+            // 如果溢出，结果就是饱和的
             // MultiplyDoublingWideningLowerAndAddSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmlal_s16 (int32x4_t a, int16x4_t b, int16x4_t c) A32: VQDMLAL.S16 Qd, Dn, Dm A64: SQDMLAL Vd.4S, Vn.4H, Vm.4H
             // MultiplyDoublingWideningLowerAndAddSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmlal_s32 (int64x2_t a, int32x2_t b, int32x2_t c) A32: VQDMLAL.S32 Qd, Dn, Dm A64: SQDMLAL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerAndAddSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerAndAddSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerAndAddSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerAndAddSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 9、Vector saturating doubling multiply subtract long: vqdmlsl -> ri = ai - bi * ci; 
+            // multiplies the elements in the second and third vectors, doubles the results and subtracts the results from the elements in the first vector.
+            // 将第二个和第三个向量中的元素相乘，将结果加倍，并从第一个向量中的元素中减去结果。
             // MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmlsl_s16 (int32x4_t a, int16x4_t b, int16x4_t c) A32: VQDMLSL.S16 Qd, Dn, Dm A64: SQDMLSL Vd.4S, Vn.4H, Vm.4H
             // MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmlsl_s32 (int64x2_t a, int32x2_t b, int32x2_t c) A32: VQDMLSL.S32 Qd, Dn, Dm A64: SQDMLSL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerAndSubtractSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 15、Vector widening saturating doubling multiply accumulate with scalar:  
+            // vqdmlal -> ri = sat(ai + bi * c); 
+            // multiplies the elements in the second vector by a scalar, and doubles the results.  
+            // It then adds the results to the elements in the first vector. 
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将第二个向量中的元素乘以一个标量，并使结果加倍。
+            // 然后将结果添加到第一个向量中的元素。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmlal_n_s16 (int32x4_t a, int16x4_t b, int16_t c) A32: VQDMLAL.S16 Qd, Dn, Dm[0] A64: SQDMLAL Vd.4S, Vn.4H, Vm.H[0]
             // MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmlal_n_s32 (int64x2_t a, int32x2_t b, int32_t c) A32: VQDMLAL.S32 Qd, Dn, Dm[0] A64: SQDMLAL Vd.2D, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerByScalarAndAddSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 21、Vector widening saturating doubling multiply subtract with scalar:  
+            // vqdmlsl -> ri = sat(ai - bi * c); 
+            // multiplies the elements of the second vector with a scalar and doubles the results.  
+            // It then subtracts the results from the elements in the first vector. 
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将第二个向量的元素与标量相乘，结果加倍。
+            // 然后从第一个向量中的元素中减去结果。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmlsl_n_s16 (int32x4_t a, int16x4_t b, int16_t c) A32: VQDMLSL.S16 Qd, Dn, Dm[0] A64: SQDMLSL Vd.4S, Vn.4H, Vm.H[0]
             // MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmlsl_n_s32 (int64x2_t a, int32x2_t b, int32_t c) A32: VQDMLSL.S32 Qd, Dn, Dm[0] A64: SQDMLSL Vd.2D, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningLowerByScalarAndSubtractSaturate(Vector128s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 16、Vector widening saturating doubling multiply accumulate by scalar:  
+            // vqdmlal -> ri = sat(ai + bi * c[d]) 
+            // multiplies each element in the second vector by a scalar, doubles the results and adds them to the corresponding elements of the first vector. The scalar has index d in the third vector. If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将第二个向量中的每个元素乘以一个标量，结果加倍，并将它们与第一个向量的相应元素相加。这个标量在第三个向量中有下标d。如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmlal_laneq_s16 (int32x4_t a, int16x4_t b, int16x8_t v, const int lane) A32: VQDMLAL.S16 Qd, Dn, Dm[lane] A64: SQDMLAL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmlal_lane_s16 (int32x4_t a, int16x4_t b, int16x4_t v, const int lane) A32: VQDMLAL.S16 Qd, Dn, Dm[lane] A64: SQDMLAL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmlal_laneq_s32 (int64x2_t a, int32x2_t b, int32x4_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn, Dm[lane] A64: SQDMLAL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlal_lane_s32 (int64x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn, Dm[lane] A64: SQDMLAL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 22、Vector widening saturating doubling multiply subtract by scalar: 
+            // vqdmlsl -> ri = sat(ai - bi * c[[d]); 
+            // multiplies each element in the second vector by a scalar, doubles the results and subtracts them from the corresponding elements of the first vector. The scalar has index n in the third vector.
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将第二个向量中的每个元素乘以一个标量，将结果加倍，然后从第一个向量的相应元素中减去它们。这个标量在第三个向量上的下标是n。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmlsl_laneq_s16 (int32x4_t a, int16x4_t b, int16x8_t v, const int lane) A32: VQDMLSL.S16 Qd, Dn, Dm[lane] A64: SQDMLSL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmlsl_lane_s16 (int32x4_t a, int16x4_t b, int16x4_t v, const int lane) A32: VQDMLSL.S16 Qd, Dn, Dm[lane] A64: SQDMLSL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmlsl_laneq_s32 (int64x2_t a, int32x2_t b, int32x4_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn, Dm[lane] A64: SQDMLSL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlsl_lane_s32 (int64x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn, Dm[lane] A64: SQDMLSL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector64s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningLowerBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector64s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 11、Vector saturating doubling long multiply: vqdmull -> ri = ai * bi; 
+            // If any of the results overflow, they are saturated
             // MultiplyDoublingWideningSaturateLower(Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmull_s16 (int16x4_t a, int16x4_t b) A32: VQDMULL.S16 Qd, Dn, Dm A64: SQDMULL Vd.4S, Vn.4H, Vm.4H
             // MultiplyDoublingWideningSaturateLower(Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmull_s32 (int32x2_t a, int32x2_t b) A32: VQDMULL.S32 Qd, Dn, Dm A64: SQDMULL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLower(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLower(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLower(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLower(Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 5、Vector saturating doubling long multiply with scalar: vqdmull -> ri = sat(ai * b); 
+            // multiplies the elements in the vector by a scalar, and doubles the results.  
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将向量中的元素乘以一个标量，并使结果加倍。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningSaturateLowerByScalar(Vector64<Int16>, Vector64<Int16>)	int32x4_t vqdmull_n_s16 (int16x4_t a, int16_t b) A32: VQDMULL.S16 Qd, Dn, Dm[0] A64: SQDMULL Vd.4S, Vn.4H, Vm.H[0]
             // MultiplyDoublingWideningSaturateLowerByScalar(Vector64<Int32>, Vector64<Int32>)	int64x2_t vqdmull_n_s32 (int32x2_t a, int32_t b) A32: VQDMULL.S32 Qd, Dn, Dm[0] A64: SQDMULL Vd.2D, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerByScalar(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerByScalar(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerByScalar(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerByScalar(Vector64s<int>.Demo, Vector64s<int>.V2));
+
+            // 6、Vector saturating doubling long multiply by scalar: vqdmull -> ri = sat(ai * b[c]); 
+            // multiplies the elements in the first vector by a scalar, and doubles the results.  
+            // The scalar has index c in the second vector.
+            // If any of the results overflow, they are saturated and the sticky QC flagis set.
+            // 将第一个向量中的元素乘以一个标量，并使结果加倍。
+            // 这个标量在第二个向量上的下标是c。
+            // 如果任何结果溢出，则它们被饱和，并设置粘性QC标志。
             // MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmull_laneq_s16 (int16x4_t a, int16x8_t v, const int lane) A32: VQDMULL.S16 Qd, Dn, Dm[lane] A64: SQDMULL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmull_lane_s16 (int16x4_t a, int16x4_t v, const int lane) A32: VQDMULL.S16 Qd, Dn, Dm[lane] A64: SQDMULL Vd.4S, Vn.4H, Vm.H[lane]
             // MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmull_laneq_s32 (int32x2_t a, int32x4_t v, const int lane) A32: VQDMULL.S32 Qd, Dn, Dm[lane] A64: SQDMULL Vd.2D, Vn.2S, Vm.S[lane]
             // MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmull_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQDMULL.S32 Qd, Dn, Dm[lane] A64: SQDMULL Vd.2D, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateLowerBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningSaturateUpper(Vector128<Int16>, Vector128<Int16>)	int32x4_t vqdmull_high_s16 (int16x8_t a, int16x8_t b) A32: VQDMULL.S16 Qd, Dn+1, Dm+1 A64: SQDMULL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyDoublingWideningSaturateUpper(Vector128<Int32>, Vector128<Int32>)	int64x2_t vqdmull_high_s32 (int32x4_t a, int32x4_t b) A32: VQDMULL.S32 Qd, Dn+1, Dm+1 A64: SQDMULL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpper(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpper(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpper(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpper(Vector128s<int>.Demo, Vector128s<int>.V2));
+
             // MultiplyDoublingWideningSaturateUpperByScalar(Vector128<Int16>, Vector64<Int16>)	int32x4_t vqdmull_high_n_s16 (int16x8_t a, int16_t b) A32: VQDMULL.S16 Qd, Dn+1, Dm[0] A64: SQDMULL2 Vd.4S, Vn.8H, Vm.H[0]
             // MultiplyDoublingWideningSaturateUpperByScalar(Vector128<Int32>, Vector64<Int32>)	int64x2_t vqdmull_high_n_s32 (int32x4_t a, int32_t b) A32: VQDMULL.S32 Qd, Dn+1, Dm[0] A64: SQDMULL2 Vd.2D, Vn.4S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperByScalar(Vector128s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperByScalar(Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperByScalar(Vector128s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperByScalar(Vector128s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmull_high_laneq_s16 (int16x8_t a, int16x8_t v, const int lane) A32: VQDMULL.S16 Qd, Dn+1, Dm[lane] A64: SQDMULL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmull_high_lane_s16 (int16x8_t a, int16x4_t v, const int lane) A32: VQDMULL.S16 Qd, Dn+1, Dm[lane] A64: SQDMULL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmull_high_laneq_s32 (int32x4_t a, int32x4_t v, const int lane) A32: VQDMULL.S32 Qd, Dn+1, Dm[lane] A64: SQDMULL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmull_high_lane_s32 (int32x4_t a, int32x2_t v, const int lane) A32: VQDMULL.S32 Qd, Dn+1, Dm[lane] A64: SQDMULL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningSaturateUpperBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningUpperAndAddSaturate(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	int32x4_t vqdmlal_high_s16 (int32x4_t a, int16x8_t b, int16x8_t c) A32: VQDMLAL.S16 Qd, Dn+1, Dm+1 A64: SQDMLAL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyDoublingWideningUpperAndAddSaturate(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>)	int64x2_t vqdmlal_high_s32 (int64x2_t a, int32x4_t b, int32x4_t c) A32: VQDMLAL.S32 Qd, Dn+1, Dm+1 A64: SQDMLAL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3));
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3));
+
             // MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	int32x4_t vqdmlsl_high_s16 (int32x4_t a, int16x8_t b, int16x8_t c) A32: VQDMLSL.S16 Qd, Dn+1, Dm+1 A64: SQDMLSL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>)	int64x2_t vqdmlsl_high_s32 (int64x2_t a, int32x4_t b, int32x4_t c) A32: VQDMLSL.S32 Qd, Dn+1, Dm+1 A64: SQDMLSL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3));
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3));
+
             // MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>)	int32x4_t vqdmlal_high_n_s16 (int32x4_t a, int16x8_t b, int16_t c) A32: VQDMLAL.S16 Qd, Dn+1, Dm[0] A64: SQDMLAL2 Vd.4S, Vn.8H, Vm.H[0]
             // MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>)	int64x2_t vqdmlal_high_n_s32 (int64x2_t a, int32x4_t b, int32_t c) A32: VQDMLAL.S32 Qd, Dn+1, Dm[0] A64: SQDMLAL2 Vd.2D, Vn.4S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector64s<short>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector64s<short>.V3));
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector64s<int>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperByScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector64s<int>.V3));
+
             // MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>)	int32x4_t vqdmlsl_high_n_s16 (int32x4_t a, int16x8_t b, int16_t c) A32: VQDMLSL.S16 Qd, Dn+1, Dm[0] A64: SQDMLSL2 Vd.4S, Vn.8H, Vm.H[0]
             // MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>)	int64x2_t vqdmlsl_high_n_s32 (int64x2_t a, int32x4_t b, int32_t c) A32: VQDMLSL.S32 Qd, Dn+1, Dm[0] A64: SQDMLSL2 Vd.2D, Vn.4S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector64s<short>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector64s<short>.V3));
+            WriteLine(writer, indent, "MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector64s<int>.V3):\t{0}", AdvSimd.MultiplyDoublingWideningUpperByScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector64s<int>.V3));
+
             // MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmlal_high_laneq_s16 (int32x4_t a, int16x8_t b, int16x8_t v, const int lane) A32: VQDMLAL.S16 Qd, Dn+1, Dm[lane] A64: SQDMLAL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmlal_high_lane_s16 (int32x4_t a, int16x8_t b, int16x4_t v, const int lane) A32: VQDMLAL.S16 Qd, Dn+1, Dm[lane] A64: SQDMLAL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmlal_high_laneq_s32 (int64x2_t a, int32x4_t b, int32x4_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlal_high_lane_s32 (int64x2_t a, int32x4_t b, int32x2_t v, const int lane) A32: VQDMLAL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLAL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndAddSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>, Byte)	int32x4_t vqdmlsl_high_laneq_s16 (int32x4_t a, int16x8_t b, int16x8_t v, const int lane) A32: VQDMLSL.S16 Qd, Dn+1, Dm[lane] A64: SQDMLSL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128<Int32>, Vector128<Int16>, Vector64<Int16>, Byte)	int32x4_t vqdmlsl_high_lane_s16 (int32x4_t a, int16x8_t b, int16x4_t v, const int lane) A32: VQDMLSL.S16 Qd, Dn+1, Dm[lane] A64: SQDMLSL2 Vd.4S, Vn.8H, Vm.H[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>, Byte)	int64x2_t vqdmlsl_high_laneq_s32 (int64x2_t a, int32x4_t b, int32x4_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
             // MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128<Int64>, Vector128<Int32>, Vector64<Int32>, Byte)	int64x2_t vqdmlsl_high_lane_s32 (int64x2_t a, int32x4_t b, int32x2_t v, const int lane) A32: VQDMLSL.S32 Qd, Dn+1, Dm[lane] A64: SQDMLSL2 Vd.2D, Vn.4S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplyDoublingWideningUpperBySelectedScalarAndSubtractSaturate(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 9、Vector saturating rounding doubling multiply high with scalar:  
+            // vqqrdmulh -> ri = sat(ai * b); 
+            // multiplies the elements of the vector by a scalar and doubles the results.  
+            // It then returns only the high half of the rounded results.  
+            // If any of the results overflow, they are saturated and the sticky QC flag is set.
+            // 将向量的元素乘以一个标量并使结果加倍。
+            // 然后它只返回四舍五入结果的高一半。
+            // 如果任何结果溢出，它们将被饱和，并设置粘性QC标志。
             // MultiplyRoundedDoublingByScalarSaturateHigh(Vector128<Int16>, Vector64<Int16>)	int16x8_t vqrdmulhq_n_s16 (int16x8_t a, int16_t b) A32: VQRDMULH.S16 Qd, Qn, Dm[0] A64: SQRDMULH Vd.8H, Vn.8H, Vm.H[0]
             // MultiplyRoundedDoublingByScalarSaturateHigh(Vector128<Int32>, Vector64<Int32>)	int32x4_t vqrdmulhq_n_s32 (int32x4_t a, int32_t b) A32: VQRDMULH.S32 Qd, Qn, Dm[0] A64: SQRDMULH Vd.4S, Vn.4S, Vm.S[0]
             // MultiplyRoundedDoublingByScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>)	int16x4_t vqrdmulh_n_s16 (int16x4_t a, int16_t b) A32: VQRDMULH.S16 Dd, Dn, Dm[0] A64: SQRDMULH Vd.4H, Vn.4H, Vm.H[0]
             // MultiplyRoundedDoublingByScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>)	int32x2_t vqrdmulh_n_s32 (int32x2_t a, int32_t b) A32: VQRDMULH.S32 Dd, Dn, Dm[0] A64: SQRDMULH Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplyRoundedDoublingByScalarSaturateHigh(Vector128s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyRoundedDoublingByScalarSaturateHigh(Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingByScalarSaturateHigh(Vector128s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyRoundedDoublingByScalarSaturateHigh(Vector128s<int>.Demo, Vector64s<int>.V2));
+
+            // 10、Vector rounding saturating doubling multiply high by scalar:  
+            // vqrdmulh -> ri = sat(ai * b[c]); 
+            // multiplies the elements of the first vector by a scalar and doubles the results. 
+            // It then returns only the high half of the rounded results. 
+            // The scalar has index n in the second vector. If any of the results overflow,  
+            // they are saturated and the sticky QC flag is set.
+            // 将第一个向量的元素乘以一个标量并使结果加倍。
+            // 然后它只返回四舍五入结果的高一半。
+            // 标量在第二个向量上的下标是n。如果有任何结果溢出，
+            // 它们是饱和的，并且设置了粘性QC标志。
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vqrdmulhq_laneq_s16 (int16x8_t a, int16x8_t v, const int lane) A32: VQRDMULH.S16 Qd, Qn, Dm[lane] A64: SQRDMULH Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128<Int16>, Vector64<Int16>, Byte)	int16x8_t vqrdmulhq_lane_s16 (int16x8_t a, int16x4_t v, const int lane) A32: VQRDMULH.S16 Qd, Qn, Dm[lane] A64: SQRDMULH Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vqrdmulhq_laneq_s32 (int32x4_t a, int32x4_t v, const int lane) A32: VQRDMULH.S32 Qd, Qn, Dm[lane] A64: SQRDMULH Vd.4S, Vn.4S, Vm.S[lane]
@@ -1568,14 +2005,45 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>, Byte)	int16x4_t vqrdmulh_lane_s16 (int16x4_t a, int16x4_t v, const int lane) A32: VQRDMULH.S16 Dd, Dn, Dm[lane] A64: SQRDMULH Vd.4H, Vn.4H, Vm.H[lane]
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector128<Int32>, Byte)	int32x2_t vqrdmulh_laneq_s32 (int32x2_t a, int32x4_t v, const int lane) A32: VQRDMULH.S32 Dd, Dn, Dm[lane] A64: SQRDMULH Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqrdmulh_lane_s32 (int32x2_t a, int32x2_t v, const int lane) A32: VQRDMULH.S32 Dd, Dn, Dm[lane] A64: SQRDMULH Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.MultiplyRoundedDoublingBySelectedScalarSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 7、Vector saturating rounding doubling multiply high vqrdmulh -> ri = ai * bi:  
+            // doubles the results and returns only the high half of the rounded results.  
+            // The results are saturated if they overflow
+            // 将结果加倍，只返回四舍五入结果的高一半。
+            // 如果溢出，结果就是饱和的
             // MultiplyRoundedDoublingSaturateHigh(Vector128<Int16>, Vector128<Int16>)	int16x8_t vqrdmulhq_s16 (int16x8_t a, int16x8_t b) A32: VQRDMULH.S16 Qd, Qn, Qm A64: SQRDMULH Vd.8H, Vn.8H, Vm.8H
             // MultiplyRoundedDoublingSaturateHigh(Vector128<Int32>, Vector128<Int32>)	int32x4_t vqrdmulhq_s32 (int32x4_t a, int32x4_t b) A32: VQRDMULH.S32 Qd, Qn, Qm A64: SQRDMULH Vd.4S, Vn.4S, Vm.4S
             // MultiplyRoundedDoublingSaturateHigh(Vector64<Int16>, Vector64<Int16>)	int16x4_t vqrdmulh_s16 (int16x4_t a, int16x4_t b) A32: VQRDMULH.S16 Dd, Dn, Dm A64: SQRDMULH Vd.4H, Vn.4H, Vm.4H
             // MultiplyRoundedDoublingSaturateHigh(Vector64<Int32>, Vector64<Int32>)	int32x2_t vqrdmulh_s32 (int32x2_t a, int32x2_t b) A32: VQRDMULH.S32 Dd, Dn, Dm A64: SQRDMULH Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyRoundedDoublingSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyRoundedDoublingSaturateHigh(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyRoundedDoublingSaturateHigh(Vector128s<int>.Demo, Vector128s<int>.V2));
+
             // MultiplyScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmul_f64 (float64x1_t a, float64x1_t b); A32: VMUL.F64 Dd, Dn, Dm; A64: FMUL Dd, Dn, Dm
             // MultiplyScalar(Vector64<Single>, Vector64<Single>)	float32_t vmuls_f32 (float32_t a, float32_t b); A32: VMUL.F32 Sd, Sn, Sm; A64: FMUL Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "MultiplyScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.MultiplyScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MultiplyScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.MultiplyScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+
             // MultiplyScalarBySelectedScalar(Vector64<Single>, Vector128<Single>, Byte)	float32_t vmuls_laneq_f32 (float32_t a, float32x4_t v, const int lane); A32: VMUL.F32 Sd, Sn, Dm[lane]; A64: FMUL Sd, Sn, Vm.S[lane]
             // MultiplyScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32_t vmuls_lane_f32 (float32_t a, float32x2_t v, const int lane); A32: VMUL.F32 Sd, Sn, Dm[lane]; A64: FMUL Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.MultiplyScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 4、Vector multiply subtract: vmls -> ri = ai - bi * ci
             // MultiplySubtract(Vector128<Byte>, Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmlsq_u8 (uint8x16_t a, uint8x16_t b, uint8x16_t c); A32: VMLS.I8 Qd, Qn, Qm; A64: MLS Vd.16B, Vn.16B, Vm.16B
             // MultiplySubtract(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>)	int16x8_t vmlsq_s16 (int16x8_t a, int16x8_t b, int16x8_t c); A32: VMLS.I16 Qd, Qn, Qm; A64: MLS Vd.8H, Vn.8H, Vm.8H
             // MultiplySubtract(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>)	int32x4_t vmlsq_s32 (int32x4_t a, int32x4_t b, int32x4_t c); A32: VMLS.I32 Qd, Qn, Qm; A64: MLS Vd.4S, Vn.4S, Vm.4S
@@ -1588,6 +2056,16 @@ namespace IntrinsicsLib {
             // MultiplySubtract(Vector64<SByte>, Vector64<SByte>, Vector64<SByte>)	int8x8_t vmls_s8 (int8x8_t a, int8x8_t b, int8x8_t c); A32: VMLS.I8 Dd, Dn, Dm; A64: MLS Vd.8B, Vn.8B, Vm.8B
             // MultiplySubtract(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmls_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t c); A32: VMLS.I16 Dd, Dn, Dm; A64: MLS Vd.4H, Vn.4H, Vm.4H
             // MultiplySubtract(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmls_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t c); A32: VMLS.I32 Dd, Dn, Dm; A64: MLS Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<sbyte>.V4, Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<sbyte>.V4, Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<byte>.V4, Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<byte>.V4, Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MultiplySubtract(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.MultiplySubtract(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2));
+
+            // 17、Vector multiply subtract with scalar: vmls -> ri = ai - bi * c; 
+            // multiplies each element in a vector by a scalar, subtracts the results from the corresponding elements of the destination vector, and places the final results in the destination vector.
+            // 将向量中的每个元素乘以一个标量，从目标向量的相应元素中减去结果，并将最终结果放在目标向量中。
             // MultiplySubtractByScalar(Vector128<Int16>, Vector128<Int16>, Vector64<Int16>)	int16x8_t vmlsq_n_s16 (int16x8_t a, int16x8_t b, int16_t c); A32: VMLS.I16 Qd, Qn, Dm[0]; A64: MLS Vd.8H, Vn.8H, Vm.H[0]
             // MultiplySubtractByScalar(Vector128<Int32>, Vector128<Int32>, Vector64<Int32>)	int32x4_t vmlsq_n_s32 (int32x4_t a, int32x4_t b, int32_t c); A32: VMLS.I32 Qd, Qn, Dm[0]; A64: MLS Vd.4S, Vn.4S, Vm.S[0]
             // MultiplySubtractByScalar(Vector128<UInt16>, Vector128<UInt16>, Vector64<UInt16>)	uint16x8_t vmlsq_n_u16 (uint16x8_t a, uint16x8_t b, uint16_t c); A32: VMLS.I16 Qd, Qn, Dm[0]; A64: MLS Vd.8H, Vn.8H, Vm.H[0]
@@ -1596,6 +2074,18 @@ namespace IntrinsicsLib {
             // MultiplySubtractByScalar(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32x2_t vmls_n_s32 (int32x2_t a, int32x2_t b, int32_t c); A32: VMLS.I32 Dd, Dn, Dm[0]; A64: MLS Vd.2S, Vn.2S, Vm.S[0]
             // MultiplySubtractByScalar(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vmls_n_u16 (uint16x4_t a, uint16x4_t b, uint16_t c); A32: VMLS.I16 Dd, Dn, Dm[0]; A64: MLS Vd.4H, Vn.4H, Vm.H[0]
             // MultiplySubtractByScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vmls_n_u32 (uint32x2_t a, uint32x2_t b, uint32_t c); A32: VMLS.I32 Dd, Dn, Dm[0]; A64: MLS Vd.2S, Vn.2S, Vm.S[0]
+            WriteLine(writer, indent, "MultiplySubtractByScalar(Vector128s<short>.V4, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplySubtractByScalar(Vector128s<short>.V4, Vector128s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplySubtractByScalar(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.MultiplySubtractByScalar(Vector128s<ushort>.V4, Vector128s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplySubtractByScalar(Vector128s<int>.V4, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplySubtractByScalar(Vector128s<int>.V4, Vector128s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplySubtractByScalar(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.MultiplySubtractByScalar(Vector128s<uint>.V4, Vector128s<uint>.Demo, Vector64s<uint>.V2));
+
+            // 18、Vector multiply subtract by scalar: vmls -> ri = ai - bi * c[d]; 
+            // multiplies each element in the second vector by a scalar, and subtracts them from the 
+            // corresponding elements of the first vector. 
+            // The scalar has index d in the third vector.
+            // 向量中的每个元素乘以一个标量，然后从向量中减去
+            // 第一个向量的对应元素。
+            // 这个标量在第三个向量中有下标d。
             // MultiplySubtractBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>, Byte)	int16x8_t vmlsq_laneq_s16 (int16x8_t a, int16x8_t b, int16x8_t v, const int lane); A32: VMLS.I16 Qd, Qn, Dm[lane]; A64: MLS Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplySubtractBySelectedScalar(Vector128<Int16>, Vector128<Int16>, Vector64<Int16>, Byte)	int16x8_t vmlsq_lane_s16 (int16x8_t a, int16x8_t b, int16x4_t v, const int lane); A32: VMLS.I16 Qd, Qn, Dm[lane]; A64: MLS Vd.8H, Vn.8H, Vm.H[lane]
             // MultiplySubtractBySelectedScalar(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>, Byte)	int32x4_t vmlsq_laneq_s32 (int32x4_t a, int32x4_t b, int32x4_t v, const int lane); A32: VMLS.I32 Qd, Qn, Dm[lane]; A64: MLS Vd.4S, Vn.4S, Vm.S[lane]
@@ -1612,42 +2102,101 @@ namespace IntrinsicsLib {
             // MultiplySubtractBySelectedScalar(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>, Byte)	uint16x4_t vmls_lane_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t v, const int lane); A32: VMLS.I16 Dd, Dn, Dm[lane]; A64: MLS Vd.4H, Vn.4H, Vm.H[lane]
             // MultiplySubtractBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector128<UInt32>, Byte)	uint32x2_t vmls_laneq_u32 (uint32x2_t a, uint32x2_t b, uint32x4_t v, const int lane); A32: VMLS.I32 Dd, Dn, Dm[lane]; A64: MLS Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplySubtractBySelectedScalar(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>, Byte)	uint32x2_t vmls_lane_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t v, const int lane); A32: VMLS.I32 Dd, Dn, Dm[lane]; A64: MLS Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<short>.Demo, Vector128s<short>.V2, Vector128s<short>.V3, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, {1}):\t{0}", AdvSimd.MultiplySubtractBySelectedScalar(Vector128s<int>.Demo, Vector128s<int>.V2, Vector128s<int>.V3, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // 9、Vector saturating doubling multiply subtract long: vqdmlsl -> ri = ai - bi * ci; 
+            // multiplies the elements in the second and third vectors, doubles the results and subtracts the results from the elements in the first vector.  
+            // The results are saturated if they overflow
+            // 将第二个和第三个向量中的元素相乘，将结果加倍，并从第一个向量中的元素中减去结果。
+            // 如果溢出，结果就是饱和的
             // MultiplyWideningLower(Vector64<Byte>, Vector64<Byte>)	uint16x8_t vmull_u8 (uint8x8_t a, uint8x8_t b); A32: VMULL.U8 Qd, Dn, Dm; A64: UMULL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLower(Vector64<Int16>, Vector64<Int16>)	int32x4_t vmull_s16 (int16x4_t a, int16x4_t b); A32: VMULL.S16 Qd, Dn, Dm; A64: SMULL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLower(Vector64<Int32>, Vector64<Int32>)	int64x2_t vmull_s32 (int32x2_t a, int32x2_t b); A32: VMULL.S32 Qd, Dn, Dm; A64: SMULL Vd.2D, Vn.2S, Vm.2S
             // MultiplyWideningLower(Vector64<SByte>, Vector64<SByte>)	int16x8_t vmull_s8 (int8x8_t a, int8x8_t b); A32: VMULL.S8 Qd, Dn, Dm; A64: SMULL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLower(Vector64<UInt16>, Vector64<UInt16>)	uint32x4_t vmull_u16 (uint16x4_t a, uint16x4_t b); A32: VMULL.U16 Qd, Dn, Dm; A64: UMULL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLower(Vector64<UInt32>, Vector64<UInt32>)	uint64x2_t vmull_u32 (uint32x2_t a, uint32x2_t b); A32: VMULL.U32 Qd, Dn, Dm; A64: UMULL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<ushort>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<ushort>.Demo, Vector64s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<int>.Demo, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplyWideningLower(Vector64s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.MultiplyWideningLower(Vector64s<uint>.Demo, Vector64s<uint>.V2));
+
+            // 3、Vector multiply accumulate long: vmlal -> ri = ai + bi * ci
             // MultiplyWideningLowerAndAdd(Vector128<Int16>, Vector64<SByte>, Vector64<SByte>)	int16x8_t vmlal_s8 (int16x8_t a, int8x8_t b, int8x8_t c); A32: VMLAL.S8 Qd, Dn, Dm; A64: SMLAL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLowerAndAdd(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vmlal_s16 (int32x4_t a, int16x4_t b, int16x4_t c); A32: VMLAL.S16 Qd, Dn, Dm; A64: SMLAL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLowerAndAdd(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vmlal_s32 (int64x2_t a, int32x2_t b, int32x2_t c); A32: VMLAL.S32 Qd, Dn, Dm; A64: SMLAL Vd.2D, Vn.2S, Vm.2S
             // MultiplyWideningLowerAndAdd(Vector128<UInt16>, Vector64<Byte>, Vector64<Byte>)	uint16x8_t vmlal_u8 (uint16x8_t a, uint8x8_t b, uint8x8_t c); A32: VMLAL.U8 Qd, Dn, Dm; A64: UMLAL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLowerAndAdd(Vector128<UInt32>, Vector64<UInt16>, Vector64<UInt16>)	uint32x4_t vmlal_u16 (uint32x4_t a, uint16x4_t b, uint16x4_t c); A32: VMLAL.U16 Qd, Dn, Dm; A64: UMLAL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLowerAndAdd(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>)	uint64x2_t vmlal_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t c); A32: VMLAL.U32 Qd, Dn, Dm; A64: UMLAL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<short>.Demo, Vector64s<sbyte>.V2, Vector64s<sbyte>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<short>.Demo, Vector64s<sbyte>.V2, Vector64s<sbyte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<ushort>.Demo, Vector64s<byte>.V2, Vector64s<byte>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<ushort>.Demo, Vector64s<byte>.V2, Vector64s<byte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector64s<short>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<int>.Demo, Vector64s<short>.V2, Vector64s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<uint>.Demo, Vector64s<ushort>.V2, Vector64s<ushort>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<uint>.Demo, Vector64s<ushort>.V2, Vector64s<ushort>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector64s<int>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<long>.Demo, Vector64s<int>.V2, Vector64s<int>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndAdd(Vector128s<ulong>.Demo, Vector64s<uint>.V2, Vector64s<uint>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndAdd(Vector128s<ulong>.Demo, Vector64s<uint>.V2, Vector64s<uint>.Serial));
+
+            // 5、Vector multiply subtract long：vmlsl -> ri = ai - bi * ci
             // MultiplyWideningLowerAndSubtract(Vector128<Int16>, Vector64<SByte>, Vector64<SByte>)	int16x8_t vmlsl_s8 (int16x8_t a, int8x8_t b, int8x8_t c); A32: VMLSL.S8 Qd, Dn, Dm; A64: SMLSL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLowerAndSubtract(Vector128<Int32>, Vector64<Int16>, Vector64<Int16>)	int32x4_t vmlsl_s16 (int32x4_t a, int16x4_t b, int16x4_t c); A32: VMLSL.S16 Qd, Dn, Dm; A64: SMLSL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLowerAndSubtract(Vector128<Int64>, Vector64<Int32>, Vector64<Int32>)	int64x2_t vmlsl_s32 (int64x2_t a, int32x2_t b, int32x2_t c); A32: VMLSL.S32 Qd, Dn, Dm; A64: SMLSL Vd.2D, Vn.2S, Vm.2S
             // MultiplyWideningLowerAndSubtract(Vector128<UInt16>, Vector64<Byte>, Vector64<Byte>)	uint16x8_t vmlsl_u8 (uint16x8_t a, uint8x8_t b, uint8x8_t c); A32: VMLSL.U8 Qd, Dn, Dm; A64: UMLSL Vd.8H, Vn.8B, Vm.8B
             // MultiplyWideningLowerAndSubtract(Vector128<UInt32>, Vector64<UInt16>, Vector64<UInt16>)	uint32x4_t vmlsl_u16 (uint32x4_t a, uint16x4_t b, uint16x4_t c); A32: VMLSL.U16 Qd, Dn, Dm; A64: UMLSL Vd.4S, Vn.4H, Vm.4H
             // MultiplyWideningLowerAndSubtract(Vector128<UInt64>, Vector64<UInt32>, Vector64<UInt32>)	uint64x2_t vmlsl_u32 (uint64x2_t a, uint32x2_t b, uint32x2_t c); A32: VMLSL.U32 Qd, Dn, Dm; A64: UMLSL Vd.2D, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<short>.Demo, Vector64s<sbyte>.V2, Vector64s<sbyte>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<short>.Demo, Vector64s<sbyte>.V2, Vector64s<sbyte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<ushort>.Demo, Vector64s<byte>.V2, Vector64s<byte>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<ushort>.Demo, Vector64s<byte>.V2, Vector64s<byte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector64s<short>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<int>.Demo, Vector64s<short>.V2, Vector64s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<uint>.Demo, Vector64s<ushort>.V2, Vector64s<ushort>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<uint>.Demo, Vector64s<ushort>.V2, Vector64s<ushort>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector64s<int>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<long>.Demo, Vector64s<int>.V2, Vector64s<int>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningLowerAndSubtract(Vector128s<ulong>.Demo, Vector64s<uint>.V2, Vector64s<uint>.Serial):\t{0}", AdvSimd.MultiplyWideningLowerAndSubtract(Vector128s<ulong>.Demo, Vector64s<uint>.V2, Vector64s<uint>.Serial));
+
             // MultiplyWideningUpper(Vector128<Byte>, Vector128<Byte>)	uint16x8_t vmull_high_u8 (uint8x16_t a, uint8x16_t b); A32: VMULL.U8 Qd, Dn+1, Dm+1; A64: UMULL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpper(Vector128<Int16>, Vector128<Int16>)	int32x4_t vmull_high_s16 (int16x8_t a, int16x8_t b); A32: VMULL.S16 Qd, Dn+1, Dm+1; A64: SMULL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpper(Vector128<Int32>, Vector128<Int32>)	int64x2_t vmull_high_s32 (int32x4_t a, int32x4_t b); A32: VMULL.S32 Qd, Dn+1, Dm+1; A64: SMULL2 Vd.2D, Vn.4S, Vm.4S
             // MultiplyWideningUpper(Vector128<SByte>, Vector128<SByte>)	int16x8_t vmull_high_s8 (int8x16_t a, int8x16_t b); A32: VMULL.S8 Qd, Dn+1, Dm+1; A64: SMULL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpper(Vector128<UInt16>, Vector128<UInt16>)	uint32x4_t vmull_high_u16 (uint16x8_t a, uint16x8_t b); A32: VMULL.U16 Qd, Dn+1, Dm+1; A64: UMULL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpper(Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vmull_high_u32 (uint32x4_t a, uint32x4_t b); A32: VMULL.U32 Qd, Dn+1, Dm+1; A64: UMULL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MultiplyWideningUpper(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.MultiplyWideningUpper(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+
             // MultiplyWideningUpperAndAdd(Vector128<Int16>, Vector128<SByte>, Vector128<SByte>)	int16x8_t vmlal_high_s8 (int16x8_t a, int8x16_t b, int8x16_t c); A32: VMLAL.S8 Qd, Dn+1, Dm+1; A64: SMLAL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpperAndAdd(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	int32x4_t vmlal_high_s16 (int32x4_t a, int16x8_t b, int16x8_t c); A32: VMLAL.S16 Qd, Dn+1, Dm+1; A64: SMLAL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpperAndAdd(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>)	int64x2_t vmlal_high_s32 (int64x2_t a, int32x4_t b, int32x4_t c); A32: VMLAL.S32 Qd, Dn+1, Dm+1; A64: SMLAL2 Vd.2D, Vn.4S, Vm.4S
             // MultiplyWideningUpperAndAdd(Vector128<UInt16>, Vector128<Byte>, Vector128<Byte>)	uint16x8_t vmlal_high_u8 (uint16x8_t a, uint8x16_t b, uint8x16_t c); A32: VMLAL.U8 Qd, Dn+1, Dm+1; A64: UMLAL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpperAndAdd(Vector128<UInt32>, Vector128<UInt16>, Vector128<UInt16>)	uint32x4_t vmlal_high_u16 (uint32x4_t a, uint16x8_t b, uint16x8_t c); A32: VMLAL.U16 Qd, Dn+1, Dm+1; A64: UMLAL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpperAndAdd(Vector128<UInt64>, Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vmlal_high_u32 (uint64x2_t a, uint32x4_t b, uint32x4_t c); A32: VMLAL.U32 Qd, Dn+1, Dm+1; A64: UMLAL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<short>.Demo, Vector128s<sbyte>.V2, Vector128s<sbyte>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<short>.Demo, Vector128s<sbyte>.V2, Vector128s<sbyte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<ushort>.Demo, Vector128s<byte>.V2, Vector128s<byte>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<ushort>.Demo, Vector128s<byte>.V2, Vector128s<byte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<uint>.Demo, Vector128s<ushort>.V2, Vector128s<ushort>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<uint>.Demo, Vector128s<ushort>.V2, Vector128s<ushort>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndAdd(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial));
+
             // MultiplyWideningUpperAndSubtract(Vector128<Int16>, Vector128<SByte>, Vector128<SByte>)	int16x8_t vmlsl_high_s8 (int16x8_t a, int8x16_t b, int8x16_t c); A32: VMLSL.S8 Qd, Dn+1, Dm+1; A64: SMLSL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpperAndSubtract(Vector128<Int32>, Vector128<Int16>, Vector128<Int16>)	int32x4_t vmlsl_high_s16 (int32x4_t a, int16x8_t b, int16x8_t c); A32: VMLSL.S16 Qd, Dn+1, Dm+1; A64: SMLSL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpperAndSubtract(Vector128<Int64>, Vector128<Int32>, Vector128<Int32>)	int64x2_t vmlsl_high_s32 (int64x2_t a, int32x4_t b, int32x4_t c); A32: VMLSL.S32 Qd, Dn+1, Dm+1; A64: SMLSL2 Vd.2D, Vn.4S, Vm.4S
             // MultiplyWideningUpperAndSubtract(Vector128<UInt16>, Vector128<Byte>, Vector128<Byte>)	uint16x8_t vmlsl_high_u8 (uint16x8_t a, uint8x16_t b, uint8x16_t c); A32: VMLSL.U8 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.8H, Vn.16B, Vm.16B
             // MultiplyWideningUpperAndSubtract(Vector128<UInt32>, Vector128<UInt16>, Vector128<UInt16>)	uint32x4_t vmlsl_high_u16 (uint32x4_t a, uint16x8_t b, uint16x8_t c); A32: VMLSL.U16 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.4S, Vn.8H, Vm.8H
             // MultiplyWideningUpperAndSubtract(Vector128<UInt64>, Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vmlsl_high_u32 (uint64x2_t a, uint32x4_t b, uint32x4_t c); A32: VMLSL.U32 Qd, Dn+1, Dm+1; A64: UMLSL2 Vd.2D, Vn.4S, Vm.4S
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<short>.Demo, Vector128s<sbyte>.V2, Vector128s<sbyte>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<short>.Demo, Vector128s<sbyte>.V2, Vector128s<sbyte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<ushort>.Demo, Vector128s<byte>.V2, Vector128s<byte>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<ushort>.Demo, Vector128s<byte>.V2, Vector128s<byte>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<int>.Demo, Vector128s<short>.V2, Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<uint>.Demo, Vector128s<ushort>.V2, Vector128s<ushort>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<uint>.Demo, Vector128s<ushort>.V2, Vector128s<ushort>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<long>.Demo, Vector128s<int>.V2, Vector128s<int>.Serial));
+            WriteLine(writer, indent, "MultiplyWideningUpperAndSubtract(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial):\t{0}", AdvSimd.MultiplyWideningUpperAndSubtract(Vector128s<ulong>.Demo, Vector128s<uint>.V2, Vector128s<uint>.Serial));
         }
         public unsafe static void RunArm_AdvSimd_N(TextWriter writer, string indent) {
             // Negate(Vector128<Int16>)	int16x8_t vnegq_s16 (int16x8_t a); A32: VNEG.S16 Qd, Qm; A64: NEG Vd.8H, Vn.8H
@@ -4405,7 +4954,16 @@ namespace IntrinsicsLib {
             // Ignore
         }
         public unsafe static void RunArm_AdvSimd_64_M(TextWriter writer, string indent) {
+            // 正常指令, vmax -> ri = ai >= bi ? ai : bi; returns the larger of each pair
             // Max(Vector128<Double>, Vector128<Double>)	float64x2_t vmaxq_f64 (float64x2_t a, float64x2_t b); A64: FMAX Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "Max(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Max(Vector128s<double>.Demo, Vector128s<double>.V2));
+
+            // Unsigned Maximum across Vector. This instruction compares all the vector elements in the source SIMD&FP register, and writes the largest of the values as a scalar to the destination SIMD&FP register. All the values in this instruction are unsigned integer values.
+            // 跨向量的无符号最大值。这条指令比较源SIMD&FP寄存器中的所有向量元素，并将其中最大的值作为标量写入目标SIMD&FP寄存器。此指令中的所有值都是无符号整数值。
+            // maxmin = Int(Elem[operand, 0, esize], unsigned);
+            // for e = 1 to elements-1
+            //     element = Int(Elem[operand, e, esize], unsigned);
+            //     maxmin = if min then Min(maxmin, element) else Max(maxmin, element);
             // MaxAcross(Vector128<Byte>)	uint8_t vmaxvq_u8 (uint8x16_t a); A64: UMAXV Bd, Vn.16B
             // MaxAcross(Vector128<Int16>)	int16_t vmaxvq_s16 (int16x8_t a); A64: SMAXV Hd, Vn.8H
             // MaxAcross(Vector128<Int32>)	int32_t vmaxvq_s32 (int32x4_t a); A64: SMAXV Sd, Vn.4S
@@ -4417,13 +4975,38 @@ namespace IntrinsicsLib {
             // MaxAcross(Vector64<Int16>)	int16_t vmaxv_s16 (int16x4_t a); A64: SMAXV Hd, Vn.4H
             // MaxAcross(Vector64<SByte>)	int8_t vmaxv_s8 (int8x8_t a); A64: SMAXV Bd, Vn.8B
             // MaxAcross(Vector64<UInt16>)	uint16_t vmaxv_u16 (uint16x4_t a); A64: UMAXV Hd, Vn.4H
+            WriteLine(writer, indent, "MaxAcross(Vector128s<sbyte>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<sbyte>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<byte>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<byte>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<short>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<ushort>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<ushort>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<int>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<int>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<uint>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<uint>.Serial));
+            WriteLine(writer, indent, "MaxAcross(Vector128s<float>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<float>.Serial));
+
             // MaxNumber(Vector128<Double>, Vector128<Double>)	float64x2_t vmaxnmq_f64 (float64x2_t a, float64x2_t b); A64: FMAXNM Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "MaxNumber(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.MaxNumber(Vector128s<double>.Demo, Vector128s<double>.V2));
+
             // MaxNumberAcross(Vector128<Single>)	float32_t vmaxnmvq_f32 (float32x4_t a); A64: FMAXNMV Sd, Vn.4S
+            WriteLine(writer, indent, "MaxAcross(Vector128s<float>.Serial):\t{0}", AdvSimd.Arm64.MaxAcross(Vector128s<float>.Serial));
+
             // MaxNumberPairwise(Vector128<Double>, Vector128<Double>)	float64x2_t vpmaxnmq_f64 (float64x2_t a, float64x2_t b); A64: FMAXNMP Vd.2D, Vn.2D, Vm.2D
             // MaxNumberPairwise(Vector128<Single>, Vector128<Single>)	float32x4_t vpmaxnmq_f32 (float32x4_t a, float32x4_t b); A64: FMAXNMP Vd.4S, Vn.4S, Vm.4S
             // MaxNumberPairwise(Vector64<Single>, Vector64<Single>)	float32x2_t vpmaxnm_f32 (float32x2_t a, float32x2_t b); A64: FMAXNMP Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MaxNumberPairwise(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.MaxNumberPairwise(Vector128s<float>.Serial, Vector128s<float>.V2));
+            WriteLine(writer, indent, "MaxNumberPairwise(Vector128s<double>.Serial, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.MaxNumberPairwise(Vector128s<double>.Serial, Vector128s<double>.V2));
+
             // MaxNumberPairwiseScalar(Vector128<Double>)	float64_t vpmaxnmqd_f64 (float64x2_t a); A64: FMAXNMP Dd, Vn.2D
             // MaxNumberPairwiseScalar(Vector64<Single>)	float32_t vpmaxnms_f32 (float32x2_t a); A64: FMAXNMP Sd, Vn.2S
+            WriteLine(writer, indent, "MaxNumberPairwiseScalar(Vector64s<float>.Serial):\t{0}", AdvSimd.Arm64.MaxNumberPairwiseScalar(Vector64s<float>.Serial));
+            WriteLine(writer, indent, "MaxNumberPairwiseScalar(Vector128s<double>.Serial):\t{0}", AdvSimd.Arm64.MaxNumberPairwiseScalar(Vector128s<double>.Serial));
+
+            // 饱和指令, vpmax -> vpmax r0 = a0 >= a1 ? a0 : a1, ..., r4 = b0 >= b1 ? b0 : b1, ...; 
+            // compares adjacent pairs of elements, and copies the larger of each pair into the destination vector.
+            // The maximums from each pair of the first input vector are stored in the lower half of the destination vector.
+            // The maximums from each pair of the second input vector are stored in the higher half of the destination vector
+            // 比较相邻的元素对，并将每对中较大的元素复制到目标向量中。
+            // 第一个输入向量的每对最大值存储在目标向量的下半部分。
+            // 来自第二个输入向量的每对的最大值存储在目标向量的上半部分
             // MaxPairwise(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vpmaxq_u8 (uint8x16_t a, uint8x16_t b); A64: UMAXP Vd.16B, Vn.16B, Vm.16B
             // MaxPairwise(Vector128<Double>, Vector128<Double>)	float64x2_t vpmaxq_f64 (float64x2_t a, float64x2_t b); A64: FMAXP Vd.2D, Vn.2D, Vm.2D
             // MaxPairwise(Vector128<Int16>, Vector128<Int16>)	int16x8_t vpmaxq_s16 (int16x8_t a, int16x8_t b); A64: SMAXP Vd.8H, Vn.8H, Vm.8H
@@ -4434,9 +5017,24 @@ namespace IntrinsicsLib {
             // MaxPairwise(Vector128<UInt32>, Vector128<UInt32>)	uint32x4_t vpmaxq_u32 (uint32x4_t a, uint32x4_t b); A64: UMAXP Vd.4S, Vn.4S, Vm.4S
             // MaxPairwiseScalar(Vector128<Double>)	float64_t vpmaxqd_f64 (float64x2_t a); A64: FMAXP Dd, Vn.2D
             // MaxPairwiseScalar(Vector64<Single>)	float32_t vpmaxs_f32 (float32x2_t a); A64: FMAXP Sd, Vn.2S
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<byte>.Serial, Vector128s<byte>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<byte>.Serial, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<short>.Serial, Vector128s<short>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<short>.Serial, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<ushort>.Serial, Vector128s<ushort>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<ushort>.Serial, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<int>.Serial, Vector128s<int>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<int>.Serial, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<uint>.Serial, Vector128s<uint>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<uint>.Serial, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "MaxPairwise(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.MaxPairwise(Vector128s<float>.Serial, Vector128s<float>.V2));
+            WriteLine(writer, indent, "MaxPairwiseScalar(Vector128s<double>.Serial):\t{0}", AdvSimd.Arm64.MaxPairwiseScalar(Vector128s<double>.Serial));
+
             // MaxScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmax_f64 (float64x1_t a, float64x1_t b); A64: FMAX Dd, Dn, Dm
             // MaxScalar(Vector64<Single>, Vector64<Single>)	float32_t vmaxs_f32 (float32_t a, float32_t b); A64: FMAX Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "MaxScalar(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.MaxScalar(Vector64s<float>.Serial, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MaxScalar(Vector64s<double>.Serial, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.MaxScalar(Vector64s<double>.Serial, Vector64s<double>.V2));
+
+            // 正常指令, vmin -> ri = ai >= bi ? bi : ai; returns the smaller of each pair
             // Min(Vector128<Double>, Vector128<Double>)	float64x2_t vminq_f64 (float64x2_t a, float64x2_t b); A64: FMIN Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "Min(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Min(Vector128s<double>.Demo, Vector128s<double>.V2));
+
             // MinAcross(Vector128<Byte>)	uint8_t vminvq_u8 (uint8x16_t a); A64: UMINV Bd, Vn.16B
             // MinAcross(Vector128<Int16>)	int16_t vminvq_s16 (int16x8_t a); A64: SMINV Hd, Vn.8H
             // MinAcross(Vector128<Int32>)	int32_t vaddvq_s32 (int32x4_t a); A64: SMINV Sd, Vn.4S
@@ -4448,13 +5046,38 @@ namespace IntrinsicsLib {
             // MinAcross(Vector64<Int16>)	int16_t vminv_s16 (int16x4_t a); A64: SMINV Hd, Vn.4H
             // MinAcross(Vector64<SByte>)	int8_t vminv_s8 (int8x8_t a); A64: SMINV Bd, Vn.8B
             // MinAcross(Vector64<UInt16>)	uint16_t vminv_u16 (uint16x4_t a); A64: UMINV Hd, Vn.4H
+            WriteLine(writer, indent, "MinAcross(Vector128s<sbyte>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<sbyte>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<byte>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<byte>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<short>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<ushort>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<ushort>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<int>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<int>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<uint>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<uint>.Serial));
+            WriteLine(writer, indent, "MinAcross(Vector128s<float>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<float>.Serial));
+
             // MinNumber(Vector128<Double>, Vector128<Double>)	float64x2_t vminnmq_f64 (float64x2_t a, float64x2_t b); A64: FMINNM Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "MinNumber(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.MinNumber(Vector128s<double>.Demo, Vector128s<double>.V2));
+
             // MinNumberAcross(Vector128<Single>)	float32_t vminnmvq_f32 (float32x4_t a); A64: FMINNMV Sd, Vn.4S
+            WriteLine(writer, indent, "MinAcross(Vector128s<float>.Serial):\t{0}", AdvSimd.Arm64.MinAcross(Vector128s<float>.Serial));
+
             // MinNumberPairwise(Vector128<Double>, Vector128<Double>)	float64x2_t vpminnmq_f64 (float64x2_t a, float64x2_t b); A64: FMINNMP Vd.2D, Vn.2D, Vm.2D
             // MinNumberPairwise(Vector128<Single>, Vector128<Single>)	float32x4_t vpminnmq_f32 (float32x4_t a, float32x4_t b); A64: FMINNMP Vd.4S, Vn.4S, Vm.4S
             // MinNumberPairwise(Vector64<Single>, Vector64<Single>)	float32x2_t vpminnm_f32 (float32x2_t a, float32x2_t b); A64: FMINNMP Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "MinNumberPairwise(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.MinNumberPairwise(Vector128s<float>.Serial, Vector128s<float>.V2));
+            WriteLine(writer, indent, "MinNumberPairwise(Vector128s<double>.Serial, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.MinNumberPairwise(Vector128s<double>.Serial, Vector128s<double>.V2));
+
             // MinNumberPairwiseScalar(Vector128<Double>)	float64_t vpminnmqd_f64 (float64x2_t a); A64: FMINNMP Dd, Vn.2D
             // MinNumberPairwiseScalar(Vector64<Single>)	float32_t vpminnms_f32 (float32x2_t a); A64: FMINNMP Sd, Vn.2S
+            WriteLine(writer, indent, "MinNumberPairwiseScalar(Vector64s<float>.Serial):\t{0}", AdvSimd.Arm64.MinNumberPairwiseScalar(Vector64s<float>.Serial));
+            WriteLine(writer, indent, "MinNumberPairwiseScalar(Vector128s<double>.Serial):\t{0}", AdvSimd.Arm64.MinNumberPairwiseScalar(Vector128s<double>.Serial));
+
+            // 饱和指令, vpmin -> r0 = a0 >= a1 ? a1 : a0, ..., r4 = b0 >= b1 ? b1 : b0, ...; 
+            // compares adjacent pairs of elements, and copies the smaller of each pair into the destination vector.
+            // The minimums from each pair of the first input vector are stored in the lower half of the destination vector.
+            // The minimums from each pair of the second input vector are stored in the higher half of the destination vector.
+            // 比较相邻的元素对，并将每对中较小的元素复制到目标向量中。
+            // 第一个输入向量的每对的最小值存储在目标向量的下半部分。
+            // 来自第二个输入向量的每对的最小值存储在目标向量的上半部分。
             // MinPairwise(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vpminq_u8 (uint8x16_t a, uint8x16_t b); A64: UMINP Vd.16B, Vn.16B, Vm.16B
             // MinPairwise(Vector128<Double>, Vector128<Double>)	float64x2_t vpminq_f64 (float64x2_t a, float64x2_t b); A64: FMINP Vd.2D, Vn.2D, Vm.2D
             // MinPairwise(Vector128<Int16>, Vector128<Int16>)	int16x8_t vpminq_s16 (int16x8_t a, int16x8_t b); A64: SMINP Vd.8H, Vn.8H, Vm.8H
@@ -4465,56 +5088,200 @@ namespace IntrinsicsLib {
             // MinPairwise(Vector128<UInt32>, Vector128<UInt32>)	uint32x4_t vpminq_u32 (uint32x4_t a, uint32x4_t b); A64: UMINP Vd.4S, Vn.4S, Vm.4S
             // MinPairwiseScalar(Vector128<Double>)	float64_t vpminqd_f64 (float64x2_t a); A64: FMINP Dd, Vn.2D
             // MinPairwiseScalar(Vector64<Single>)	float32_t vpmins_f32 (float32x2_t a); A64: FMINP Sd, Vn.2S
+            WriteLine(writer, indent, "MinPairwise(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<byte>.Serial, Vector128s<byte>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<byte>.Serial, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<short>.Serial, Vector128s<short>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<short>.Serial, Vector128s<short>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<ushort>.Serial, Vector128s<ushort>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<ushort>.Serial, Vector128s<ushort>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<int>.Serial, Vector128s<int>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<int>.Serial, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<uint>.Serial, Vector128s<uint>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<uint>.Serial, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "MinPairwise(Vector128s<float>.Serial, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.MinPairwise(Vector128s<float>.Serial, Vector128s<float>.V2));
+            WriteLine(writer, indent, "MinPairwiseScalar(Vector128s<double>.Serial):\t{0}", AdvSimd.Arm64.MinPairwiseScalar(Vector128s<double>.Serial));
+
             // MinScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmin_f64 (float64x1_t a, float64x1_t b); A64: FMIN Dd, Dn, Dm
             // MinScalar(Vector64<Single>, Vector64<Single>)	float32_t vmins_f32 (float32_t a, float32_t b); A64: FMIN Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "MinScalar(Vector64s<float>.Serial, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.MinScalar(Vector64s<float>.Serial, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MinScalar(Vector64s<double>.Serial, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.MinScalar(Vector64s<double>.Serial, Vector64s<double>.V2));
+
+            // 1、Vector multiply(正常指令): vmul -> ri = ai * bi;
             // Multiply(Vector128<Double>, Vector128<Double>)	float64x2_t vmulq_f64 (float64x2_t a, float64x2_t b); A64: FMUL Vd.2D, Vn.2D, Vm.2D
+            WriteLine(writer, indent, "Multiply(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Multiply(Vector128s<double>.Demo, Vector128s<double>.V2));
+
+            // 1、Vector multiply by scalar: vmul -> ri = ai * b;  
+            // multiplies each element in a vector by a scalar, and places the results in the destination vector.
+            // 将向量中的每个元素乘以一个标量，并将结果放在目标向量中。
             // MultiplyByScalar(Vector128<Double>, Vector64<Double>)	float64x2_t vmulq_n_f64 (float64x2_t a, float64_t b); A64: FMUL Vd.2D, Vn.2D, Vm.D[0]
+            WriteLine(writer, indent, "MultiplyByScalar(Vector128s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.MultiplyByScalar(Vector128s<double>.Demo, Vector64s<double>.V2));
+
+            // 2、Vector multiply by scalar: -> ri = ai * b[c];  
+            // multiplies the first vector by a scalar.  
+            // The scalar is the element in the second vector with index c.
+            // 将第一个向量乘以一个标量。
+            // 标量是第二个向量中下标为c的元素。
             // MultiplyBySelectedScalar(Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vmulq_laneq_f64 (float64x2_t a, float64x2_t v, const int lane); A64: FMUL Vd.2D, Vn.2D, Vm.D[lane]
+            try {
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingSaturateHighScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqdmulhh_s16 (int16_t a, int16_t b) A64: SQDMULH Hd, Hn, Hm
             // MultiplyDoublingSaturateHighScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqdmulhs_s32 (int32_t a, int32_t b) A64: SQDMULH Sd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyDoublingSaturateHighScalar(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingSaturateHighScalar(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingSaturateHighScalar(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingSaturateHighScalar(Vector64s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int16>, Vector128<Int16>, Byte)	int16_t vqdmulhh_laneq_s16 (int16_t a, int16x8_t v, const int lane) A64: SQDMULH Hd, Hn, Vm.H[lane]
             // MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>, Byte)	int16_t vqdmulhh_lane_s16 (int16_t a, int16x4_t v, const int lane) A64: SQDMULH Hd, Hn, Vm.H[lane]
             // MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector128<Int32>, Byte)	int32_t vqdmulhs_laneq_s32 (int32_t a, int32x4_t v, const int lane) A64: SQDMULH Sd, Sn, Vm.S[lane]
             // MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqdmulhs_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQDMULH Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningAndAddSaturateScalar(Vector64<Int32>, Vector64<Int16>, Vector64<Int16>)	int32_t vqdmlalh_s16 (int32_t a, int16_t b, int16_t c) A64: SQDMLAL Sd, Hn, Hm
             // MultiplyDoublingWideningAndAddSaturateScalar(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>)	int64_t vqdmlals_s32 (int64_t a, int32_t b, int32_t c) A64: SQDMLAL Dd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyDoublingWideningAndAddSaturateScalar(Vector64s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningAndAddSaturateScalar(Vector64s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningAndAddSaturateScalar(Vector64s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningAndAddSaturateScalar(Vector64s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64<Int32>, Vector64<Int16>, Vector64<Int16>)	int32_t vqdmlslh_s16 (int32_t a, int16_t b, int16_t c) A64: SQDMLSL Sd, Hn, Hm
             // MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>)	int64_t vqdmlsls_s32 (int64_t a, int32_t b, int32_t c) A64: SQDMLSL Dd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64s<int>.V4, Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningAndSubtractSaturateScalar(Vector64s<long>.V4, Vector64s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyDoublingWideningSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int32_t vqdmullh_s16 (int16_t a, int16_t b) A64: SQDMULL Sd, Hn, Hm
             // MultiplyDoublingWideningSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int64_t vqdmulls_s32 (int32_t a, int32_t b) A64: SQDMULL Dd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalar(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalar(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalar(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalar(Vector64s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64<Int16>, Vector128<Int16>, Byte)	int32_t vqdmullh_laneq_s16 (int16_t a, int16x8_t v, const int lane) A64: SQDMULL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64<Int16>, Vector64<Int16>, Byte)	int32_t vqdmullh_lane_s16 (int16_t a, int16x4_t v, const int lane) A64: SQDMULL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64<Int32>, Vector128<Int32>, Byte)	int64_t vqdmulls_laneq_s32 (int32_t a, int32x4_t v, const int lane) A64: SQDMULL Dd, Sn, Vm.S[lane]
             // MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmulls_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQDMULL Dd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningSaturateScalarBySelectedScalar(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32_t vqdmlalh_laneq_s16 (int32_t a, int16_t b, int16x8_t v, const int lane) A64: SQDMLAL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32_t vqdmlalh_lane_s16 (int32_t a, int16_t b, int16x4_t v, const int lane) A64: SQDMLAL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64_t vqdmlals_laneq_s32 (int64_t a, int32_t b, int32x4_t v, const int lane) A64: SQDMLAL Dd, Sn, Vm.S[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmlals_lane_s32 (int64_t a, int32_t b, int32x2_t v, const int lane) A64: SQDMLAL Dd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndAddSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64<Int32>, Vector64<Int16>, Vector128<Int16>, Byte)	int32_t vqdmlslh_laneq_s16 (int32_t a, int16_t b, int16x8_t v, const int lane) A64: SQDMLSL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64<Int32>, Vector64<Int16>, Vector64<Int16>, Byte)	int32_t vqdmlslh_lane_s16 (int32_t a, int16_t b, int16x4_t v, const int lane) A64: SQDMLSL Sd, Hn, Vm.H[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64<Int64>, Vector64<Int32>, Vector128<Int32>, Byte)	int64_t vqdmlsls_laneq_s32 (int64_t a, int32_t b, int32x4_t v, const int lane) A64: SQDMLSL Dd, Sn, Vm.S[lane]
             // MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64<Int64>, Vector64<Int32>, Vector64<Int32>, Byte)	int64_t vqdmlsls_lane_s32 (int64_t a, int32_t b, int32x2_t v, const int lane) A64: SQDMLSL Dd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<int>.V4, Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyDoublingWideningScalarBySelectedScalarAndSubtractSaturate(Vector64s<long>.V4, Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
+            // Floating-point Multiply extended. This instruction multiplies corresponding floating-point values in the vectors of the two source SIMD&FP registers, places the resulting floating-point values in a vector, and writes the vector to the destination SIMD&FP register.
+            // 浮点乘法扩展。这条指令将两个源SIMD&FP寄存器的向量中对应的浮点值相乘，将结果浮点值放入一个向量中，并将该向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     element1 = Elem[operand1, e, esize];
+            //     element2 = Elem[operand2, e, esize];
+            //     Elem[result, e, esize] = FPMulX(element1, element2, fpcr);
             // MultiplyExtended(Vector128<Double>, Vector128<Double>)	float64x2_t vmulxq_f64 (float64x2_t a, float64x2_t b); A64: FMULX Vd.2D, Vn.2D, Vm.2D
             // MultiplyExtended(Vector128<Single>, Vector128<Single>)	float32x4_t vmulxq_f32 (float32x4_t a, float32x4_t b); A64: FMULX Vd.4S, Vn.4S, Vm.4S
             // MultiplyExtended(Vector64<Single>, Vector64<Single>)	float32x2_t vmulx_f32 (float32x2_t a, float32x2_t b); A64: FMULX Vd.2S, Vn.2S, Vm.2S
             // MultiplyExtendedByScalar(Vector128<Double>, Vector64<Double>)	float64x2_t vmulxq_lane_f64 (float64x2_t a, float64x1_t v, const int lane); A64: FMULX Vd.2D, Vn.2D, Vm.D[0]
+            WriteLine(writer, indent, "MultiplyExtended(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.MultiplyExtended(Vector128s<float>.Demo, Vector128s<float>.V2));
+            WriteLine(writer, indent, "MultiplyExtended(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.MultiplyExtended(Vector128s<double>.Demo, Vector128s<double>.V2));
+
             // MultiplyExtendedBySelectedScalar(Vector128<Double>, Vector128<Double>, Byte)	float64x2_t vmulxq_laneq_f64 (float64x2_t a, float64x2_t v, const int lane); A64: FMULX Vd.2D, Vn.2D, Vm.D[lane]
             // MultiplyExtendedBySelectedScalar(Vector128<Single>, Vector128<Single>, Byte)	float32x4_t vmulxq_laneq_f32 (float32x4_t a, float32x4_t v, const int lane); A64: FMULX Vd.4S, Vn.4S, Vm.S[lane]
             // MultiplyExtendedBySelectedScalar(Vector128<Single>, Vector64<Single>, Byte)	float32x4_t vmulxq_lane_f32 (float32x4_t a, float32x2_t v, const int lane); A64: FMULX Vd.4S, Vn.4S, Vm.S[lane]
             // MultiplyExtendedBySelectedScalar(Vector64<Single>, Vector128<Single>, Byte)	float32x2_t vmulx_laneq_f32 (float32x2_t a, float32x4_t v, const int lane); A64: FMULX Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyExtendedBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32x2_t vmulx_lane_f32 (float32x2_t a, float32x2_t v, const int lane); A64: FMULX Vd.2S, Vn.2S, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<float>.Demo, Vector128s<float>.V2, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedBySelectedScalar(Vector128s<double>.Demo, Vector128s<double>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyExtendedScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vmulx_f64 (float64x1_t a, float64x1_t b); A64: FMULX Dd, Dn, Dm
             // MultiplyExtendedScalar(Vector64<Single>, Vector64<Single>)	float32_t vmulxs_f32 (float32_t a, float32_t b); A64: FMULX Sd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyExtendedScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+            WriteLine(writer, indent, "MultiplyExtendedScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+
             // MultiplyExtendedScalarBySelectedScalar(Vector64<Double>, Vector128<Double>, Byte)	float64_t vmulxd_laneq_f64 (float64_t a, float64x2_t v, const int lane); A64: FMULX Dd, Dn, Vm.D[lane]
             // MultiplyExtendedScalarBySelectedScalar(Vector64<Single>, Vector128<Single>, Byte)	float32_t vmulxs_laneq_f32 (float32_t a, float32x4_t v, const int lane); A64: FMULX Sd, Sn, Vm.S[lane]
             // MultiplyExtendedScalarBySelectedScalar(Vector64<Single>, Vector64<Single>, Byte)	float32_t vmulxs_lane_f32 (float32_t a, float32x2_t v, const int lane); A64: FMULX Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<float>.Demo, Vector128s<float>.V2, i), i);
+                }
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyExtendedScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyRoundedDoublingSaturateHighScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqrdmulhh_s16 (int16_t a, int16_t b) A64: SQRDMULH Hd, Hn, Hm
             // MultiplyRoundedDoublingSaturateHighScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqrdmulhs_s32 (int32_t a, int32_t b) A64: SQRDMULH Sd, Sn, Sm
+            WriteLine(writer, indent, "MultiplyRoundedDoublingSaturateHighScalar(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingSaturateHighScalar(Vector64s<short>.Demo, Vector64s<short>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingSaturateHighScalar(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingSaturateHighScalar(Vector64s<int>.Demo, Vector64s<int>.V2));
+
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int16>, Vector128<Int16>, Byte)	int16_t vqrdmulhh_laneq_s16 (int16_t a, int16x8_t v, const int lane) A64: SQRDMULH Hd, Hn, Vm.H[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int16>, Vector64<Int16>, Byte)	int16_t vqrdmulhh_lane_s16 (int16_t a, int16x4_t v, const int lane) A64: SQRDMULH Hd, Hn, Vm.H[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector128<Int32>, Byte)	int32_t vqrdmulhs_laneq_s32 (int32_t a, int32x4_t v, const int lane) A64: SQRDMULH Sd, Sn, Vm.S[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqrdmulhs_lane_s32 (int32_t a, int32x2_t v, const int lane) A64: SQRDMULH Sd, Sn, Vm.S[lane]
+            try {
+                for (byte i = 0; i <= 7; ++i) {
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<short>.Demo, Vector128s<short>.V2, i), i);
+                }
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarSaturateHigh(Vector64s<int>.Demo, Vector128s<int>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
+
             // MultiplyScalarBySelectedScalar(Vector64<Double>, Vector128<Double>, Byte)	float64_t vmuld_laneq_f64 (float64_t a, float64x2_t v, const int lane); A64: FMUL Dd, Dn, Vm.D[lane]
+            try {
+                for (byte i = 0; i <= 1; ++i) {
+                    WriteLine(writer, indent, "MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, {1}):\t{0}", AdvSimd.Arm64.MultiplyScalarBySelectedScalar(Vector64s<double>.Demo, Vector128s<double>.V2, i), i);
+                }
+            } catch (Exception ex) {
+                writer.WriteLine(indent + ex.ToString());
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_N(TextWriter writer, string indent) {
             // Negate(Vector128<Double>)	float64x2_t vnegq_f64 (float64x2_t a); A64: FNEG Vd.2D, Vn.2D
