@@ -550,12 +550,12 @@ namespace IntrinsicsLib {
             // BitwiseSelect(Vector64<UInt16>, Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vbsl_u16 (uint16x4_t a, uint16x4_t b, uint16x4_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt32>, Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vbsl_u32 (uint32x2_t a, uint32x2_t b, uint32x2_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
             // BitwiseSelect(Vector64<UInt64>, Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vbsl_u64 (uint64x1_t a, uint64x1_t b, uint64x1_t c); A32: VBSL Dd, Dn, Dm; A64: BSL Vd.8B, Vn.8B, Vm.8B
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<byte>.SerialNegative, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<byte>.XyXMask, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<short>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<short>.XyXMask, Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<int>.SerialNegative, Vector128s<short>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<int>.XyXMask, Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<long>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<long>.XyXMask, Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<float>.SerialNegative, Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<float>.XyXMask, Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
-            WriteLine(writer, indent, "BitwiseSelect(Vector128s<double>.SerialNegative, Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<double>.XyXMask, Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<byte>.XyXMask, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<byte>.XyXMask, Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<short>.XyXMask, Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<short>.XyXMask, Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<int>.XyXMask, Vector128s<short>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<int>.XyXMask, Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<long>.XyXMask, Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<long>.XyXMask, Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<float>.XyXMask, Vector128s<float>.Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<float>.XyXMask, Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "BitwiseSelect(Vector128s<double>.XyXMask, Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.BitwiseSelect(Vector128s<double>.XyXMask, Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_C(TextWriter writer, string indent) {
             // 3、towards +Inf
@@ -688,13 +688,13 @@ namespace IntrinsicsLib {
             // CompareTest(Vector64<Single>, Vector64<Single>)	uint32x2_t vtst_f32 (float32x2_t a, float32x2_t b); A32: VTST.32 Dd, Dn, Dm; A64: CMTST Vd.2S, Vn.2S, Vm.2S The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // CompareTest(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vtst_u16 (uint16x4_t a, uint16x4_t b); A32: VTST.16 Dd, Dn, Dm; A64: CMTST Vd.4H, Vn.4H, Vm.4H
             // CompareTest(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vtst_u32 (uint32x2_t a, uint32x2_t b); A32: VTST.32 Dd, Dn, Dm; A64: CMTST Vd.2S, Vn.2S, Vm.2S
-            WriteLine(writer, indent, "CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<short>.Demo, Vector128s<short>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<short>.Demo, Vector128s<short>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<int>.Demo, Vector128s<int>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<int>.Demo, Vector128s<int>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V0));
-            WriteLine(writer, indent, "CompareTest(Vector128s<float>.Demo, Vector128s<float>.V0):\t{0}", AdvSimd.CompareTest(Vector128s<float>.Demo, Vector128s<float>.V0));
+            WriteLine(writer, indent, "CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<byte>.Demo, Vector128s<byte>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<short>.Demo, Vector128s<short>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<short>.Demo, Vector128s<short>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<ushort>.Demo, Vector128s<ushort>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<int>.Demo, Vector128s<int>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<int>.Demo, Vector128s<int>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<uint>.Demo, Vector128s<uint>.V1));
+            WriteLine(writer, indent, "CompareTest(Vector128s<float>.Demo, Vector128s<float>.V1):\t{0}", AdvSimd.CompareTest(Vector128s<float>.Demo, Vector128s<float>.V1));
 
             // 1、Convert from float: vcvt ->, convert from floating-point to integer.
             // ConvertToInt32RoundAwayFromZero(Vector128<Single>)	int32x4_t vcvtaq_s32_f32 (float32x4_t a); A32: VCVTA.S32.F32 Qd, Qm; A64: FCVTAS Vd.4S, Vn.4S
@@ -1183,12 +1183,22 @@ namespace IntrinsicsLib {
             }
         }
         public unsafe static void RunArm_AdvSimd_L(TextWriter writer, string indent) {
+            // 正常指令, vcls -> ;
+            // counts the number of consecutive bits, starting from the most significant bit,that are the same as the most significant bit, in each element in a vector, and places the count in the result vector.
+            // 计数向量中每个元素中与最高有效位相同的连续位数，从最高有效位开始，并将计数放在结果向量中。
             // LeadingSignCount(Vector128<Int16>)	int16x8_t vclsq_s16 (int16x8_t a); A32: VCLS.S16 Qd, Qm; A64: CLS Vd.8H, Vn.8H
             // LeadingSignCount(Vector128<Int32>)	int32x4_t vclsq_s32 (int32x4_t a); A32: VCLS.S32 Qd, Qm; A64: CLS Vd.4S, Vn.4S
             // LeadingSignCount(Vector128<SByte>)	int8x16_t vclsq_s8 (int8x16_t a); A32: VCLS.S8 Qd, Qm; A64: CLS Vd.16B, Vn.16B
             // LeadingSignCount(Vector64<Int16>)	int16x4_t vcls_s16 (int16x4_t a); A32: VCLS.S16 Dd, Dm; A64: CLS Vd.4H, Vn.4H
             // LeadingSignCount(Vector64<Int32>)	int32x2_t vcls_s32 (int32x2_t a); A32: VCLS.S32 Dd, Dm; A64: CLS Vd.2S, Vn.2S
             // LeadingSignCount(Vector64<SByte>)	int8x8_t vcls_s8 (int8x8_t a); A32: VCLS.S8 Dd, Dm; A64: CLS Vd.8B, Vn.8B
+            WriteLine(writer, indent, "LeadingSignCount(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.LeadingSignCount(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "LeadingSignCount(Vector128s<short>.Demo):\t{0}", AdvSimd.LeadingSignCount(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "LeadingSignCount(Vector128s<int>.Demo):\t{0}", AdvSimd.LeadingSignCount(Vector128s<int>.Demo));
+
+            // 正常指令, vclz -> ; 
+            // counts the number of consecutive zeros, starting from the most significant bit, in each element in a vector, and places the count in result vector.
+            // 计数向量中每个元素中连续0的个数，从最高有效位开始，并将计数放在结果向量中。
             // LeadingZeroCount(Vector128<Byte>)	uint8x16_t vclzq_u8 (uint8x16_t a); A32: VCLZ.I8 Qd, Qm; A64: CLZ Vd.16B, Vn.16B
             // LeadingZeroCount(Vector128<Int16>)	int16x8_t vclzq_s16 (int16x8_t a); A32: VCLZ.I16 Qd, Qm; A64: CLZ Vd.8H, Vn.8H
             // LeadingZeroCount(Vector128<Int32>)	int32x4_t vclzq_s32 (int32x4_t a); A32: VCLZ.I32 Qd, Qm; A64: CLZ Vd.4S, Vn.4S
@@ -1201,6 +1211,20 @@ namespace IntrinsicsLib {
             // LeadingZeroCount(Vector64<SByte>)	int8x8_t vclz_s8 (int8x8_t a); A32: VCLZ.I8 Dd, Dm; A64: CLZ Vd.8B, Vn.8B
             // LeadingZeroCount(Vector64<UInt16>)	uint16x4_t vclz_u16 (uint16x4_t a); A32: VCLZ.I16 Dd, Dm; A64: CLZ Vd.4H, Vn.4H
             // LeadingZeroCount(Vector64<UInt32>)	uint32x2_t vclz_u32 (uint32x2_t a); A32: VCLZ.I32 Dd, Dm; A64: CLZ Vd.2S, Vn.2S
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<byte>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<byte>.Demo));
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<short>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<ushort>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<int>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "LeadingZeroCount(Vector128s<uint>.Demo):\t{0}", AdvSimd.LeadingZeroCount(Vector128s<uint>.Demo));
+
+            // 2、Load a single lane from memory: vld1 -> 
+            // loads one element of the input vector from memory and returns this in the result vector.
+            // Elements of the vector that are not loaded are returned in the result vector unaltered.  
+            // c is the index of the element to load.
+            // 从内存中加载输入向量的一个元素，并在结果向量中返回该元素。
+            // vector中未加载的元素将原样返回到结果vector中。
+            // c是要加载的元素的索引。
             // LoadAndInsertScalar(Vector128<Byte>, Byte, Byte*)	uint8x16_t vld1q_lane_u8 (uint8_t const * ptr, uint8x16_t src, const int lane); A32: VLD1.8 { Dd[index] }, [Rn]; A64: LD1 { Vt.B }[index], [Xn]
             // LoadAndInsertScalar(Vector128<Double>, Byte, Double*)	float64x2_t vld1q_lane_f64 (float64_t const * ptr, float64x2_t src, const int lane); A32: VLDR.64 Dd, [Rn]; A64: LD1 { Vt.D }[index], [Xn]
             // LoadAndInsertScalar(Vector128<Int16>, Byte, Int16*)	int16x8_t vld1q_lane_s16 (int16_t const * ptr, int16x8_t src, const int lane); A32: VLD1.16 { Dd[index] }, [Rn]; A64: LD1 { Vt.H }[index], [Xn]
@@ -1218,6 +1242,36 @@ namespace IntrinsicsLib {
             // LoadAndInsertScalar(Vector64<Single>, Byte, Single*)	float32x2_t vld1_lane_f32 (float32_t const * ptr, float32x2_t src, const int lane); A32: VLD1.32 { Dd[index] }, [Rn]; A64: LD1 { Vt.S }[index], [Xn]
             // LoadAndInsertScalar(Vector64<UInt16>, Byte, UInt16*)	uint16x4_t vld1_lane_u16 (uint16_t const * ptr, uint16x4_t src, const int lane); A32: VLD1.16 { Dd[index] }, [Rn]; A64: LD1 { Vt.H }[index], [Xn]
             // LoadAndInsertScalar(Vector64<UInt32>, Byte, UInt32*)	uint32x2_t vld1_lane_u32 (uint32_t const * ptr, uint32x2_t src, const int lane); A32: VLD1.32 { Dd[index] }, [Rn]; A64: LD1 { Vt.S }[index], [Xn]
+            fixed(void* p0 = &Vector128s<byte>.SerialNegative) {
+                byte* p = (byte*)p0;
+                for (byte i = 1; i <= 3; ++i) {
+                    WriteLine(writer, indent, "LoadAndInsertScalar(Vector128s<byte>.Demo, {1}, p):\t{0}", AdvSimd.LoadAndInsertScalar(Vector128s<byte>.Demo, i, p), i);
+                }
+            }
+            fixed (void* p0 = &Vector128s<short>.SerialNegative) {
+                short* p = (short*)p0;
+                for (byte i = 1; i <= 3; ++i) {
+                    WriteLine(writer, indent, "LoadAndInsertScalar(Vector128s<short>.Demo, {1}, p):\t{0}", AdvSimd.LoadAndInsertScalar(Vector128s<short>.Demo, i, p), i);
+                }
+            }
+            fixed (void* p0 = &Vector128s<int>.SerialNegative) {
+                int* p = (int*)p0;
+                for (byte i = 1; i <= 3; ++i) {
+                    WriteLine(writer, indent, "LoadAndInsertScalar(Vector128s<int>.Demo, {1}, p):\t{0}", AdvSimd.LoadAndInsertScalar(Vector128s<int>.Demo, i, p), i);
+                }
+            }
+            fixed (void* p0 = &Vector128s<long>.SerialNegative) {
+                long* p = (long*)p0;
+                for (byte i = 1; i <= 3; ++i) {
+                    WriteLine(writer, indent, "LoadAndInsertScalar(Vector128s<long>.Demo, {1}, p):\t{0}", AdvSimd.LoadAndInsertScalar(Vector128s<long>.Demo, i, p), i);
+                }
+            }
+
+            // 3、Load all lanes of vector with same value from memory: vld1 ->  
+            // loads one element in a vector from memory.  
+            // The loaded element is copied to all other lanes of the vector.
+            // 从内存中加载向量中的一个元素。
+            // 加载的元素被复制到向量的所有其他车道上。
             // LoadAndReplicateToVector128(Byte*)	uint8x16_t vld1q_dup_u8 (uint8_t const * ptr); A32: VLD1.8 { Dd[], Dd+1[] }, [Rn]; A64: LD1R { Vt.16B }, [Xn]
             // LoadAndReplicateToVector128(Int16*)	int16x8_t vld1q_dup_s16 (int16_t const * ptr); A32: VLD1.16 { Dd[], Dd+1[] }, [Rn]; A64: LD1R { Vt.8H }, [Xn]
             // LoadAndReplicateToVector128(Int32*)	int32x4_t vld1q_dup_s32 (int32_t const * ptr); A32: VLD1.32 { Dd[], Dd+1[] }, [Rn]; A64: LD1R { Vt.4S }, [Xn]
@@ -1232,6 +1286,10 @@ namespace IntrinsicsLib {
             // LoadAndReplicateToVector64(Single*)	float32x2_t vld1_dup_f32 (float32_t const * ptr); A32: VLD1.32 { Dd[] }, [Rn]; A64: LD1R { Vt.2S }, [Xn]
             // LoadAndReplicateToVector64(UInt16*)	uint16x4_t vld1_dup_u16 (uint16_t const * ptr); A32: VLD1.16 { Dd[] }, [Rn]; A64: LD1R { Vt.4H }, [Xn]
             // LoadAndReplicateToVector64(UInt32*)	uint32x2_t vld1_dup_u32 (uint32_t const * ptr); A32: VLD1.32 { Dd[] }, [Rn]; A64: LD1R { Vt.2S }, [Xn]
+            // Ignore
+
+            // 1、Load a single vector from memory: vld1 -> loads a vector from memory.
+            // 从内存中加载一个向量。
             // LoadVector128(Byte*)	uint8x16_t vld1q_u8 (uint8_t const * ptr); A32: VLD1.8 Dd, Dd+1, [Rn]; A64: LD1 Vt.16B, [Xn]
             // LoadVector128(Double*)	float64x2_t vld1q_f64 (float64_t const * ptr); A32: VLD1.64 Dd, Dd+1, [Rn]; A64: LD1 Vt.2D, [Xn]
             // LoadVector128(Int16*)	int16x8_t vld1q_s16 (int16_t const * ptr); A32: VLD1.16 Dd, Dd+1, [Rn]; A64: LD1 Vt.8H, [Xn]
@@ -1252,6 +1310,7 @@ namespace IntrinsicsLib {
             // LoadVector64(UInt16*)	uint16x4_t vld1_u16 (uint16_t const * ptr); A32: VLD1.16 Dd, [Rn]; A64: LD1 Vt.4H, [Xn]
             // LoadVector64(UInt32*)	uint32x2_t vld1_u32 (uint32_t const * ptr); A32: VLD1.32 Dd, [Rn]; A64: LD1 Vt.2S, [Xn]
             // LoadVector64(UInt64*)	uint64x1_t vld1_u64 (uint64_t const * ptr); A32: VLD1.64 Dd, [Rn]; A64: LD1 Vt.1D, [Xn]
+            // Ignore
         }
         public unsafe static void RunArm_AdvSimd_M(TextWriter writer, string indent) {
             // Max(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vmaxq_u8 (uint8x16_t a, uint8x16_t b); A32: VMAX.U8 Qd, Qn, Qm; A64: UMAX Vd.16B, Vn.16B, Vm.16B
@@ -4269,15 +4328,27 @@ namespace IntrinsicsLib {
             }
         }
         public unsafe static void RunArm_AdvSimd_64_L(TextWriter writer, string indent) {
+            // 3、Load all lanes of vector with same value from memory: vld1 ->  
+            // loads one element in a vector from memory.  
+            // The loaded element is copied to all other lanes of the vector.
+            // 从内存中加载向量中的一个元素。
+            // 加载的元素被复制到向量的所有其他车道上。
             // LoadAndReplicateToVector128(Double*)	float64x2_t vld1q_dup_f64 (float64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
             // LoadAndReplicateToVector128(Int64*)	int64x2_t vld1q_dup_s64 (int64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
             // LoadAndReplicateToVector128(UInt64*)	uint64x2_t vld1q_dup_u64 (uint64_t const * ptr); A64: LD1R { Vt.2D }, [Xn]
+            // Ignore
+
             // LoadPairScalarVector64(Int32*)	A64: LDP St1, St2, [Xn]
             // LoadPairScalarVector64(Single*)	A64: LDP St1, St2, [Xn]
             // LoadPairScalarVector64(UInt32*)	A64: LDP St1, St2, [Xn]
             // LoadPairScalarVector64NonTemporal(Int32*)	A64: LDNP St1, St2, [Xn]
             // LoadPairScalarVector64NonTemporal(Single*)	A64: LDNP St1, St2, [Xn]
             // LoadPairScalarVector64NonTemporal(UInt32*)	A64: LDNP St1, St2, [Xn]
+            fixed (void* p0 = &Vector64s<int>.SerialNegative) {
+                int* p = (int*)p0;
+                WriteLine(writer, indent, "LoadPairScalarVector64(p):\t{0}", AdvSimd.Arm64.LoadPairScalarVector64(p));
+            }
+
             // LoadPairVector128(Byte*)	A64: LDP Qt1, Qt2, [Xn]
             // LoadPairVector128(Double*)	A64: LDP Qt1, Qt2, [Xn]
             // LoadPairVector128(Int16*)	A64: LDP Qt1, Qt2, [Xn]
@@ -4298,6 +4369,19 @@ namespace IntrinsicsLib {
             // LoadPairVector128NonTemporal(UInt16*)	A64: LDNP Qt1, Qt2, [Xn]
             // LoadPairVector128NonTemporal(UInt32*)	A64: LDNP Qt1, Qt2, [Xn]
             // LoadPairVector128NonTemporal(UInt64*)	A64: LDNP Qt1, Qt2, [Xn]
+            fixed (void* p0 = &Vector128s<byte>.SerialNegative) {
+                byte* p = (byte*)p0;
+                WriteLine(writer, indent, "LoadPairVector128(p):\t{0}", AdvSimd.Arm64.LoadPairVector128(p));
+            }
+            fixed (void* p0 = &Vector128s<short>.SerialNegative) {
+                short* p = (short*)p0;
+                WriteLine(writer, indent, "LoadPairVector128(p):\t{0}", AdvSimd.Arm64.LoadPairVector128(p));
+            }
+            fixed (void* p0 = &Vector128s<int>.SerialNegative) {
+                int* p = (int*)p0;
+                WriteLine(writer, indent, "LoadPairVector128(p):\t{0}", AdvSimd.Arm64.LoadPairVector128(p));
+            }
+
             // LoadPairVector64(Byte*)	A64: LDP Dt1, Dt2, [Xn]
             // LoadPairVector64(Double*)	A64: LDP Dt1, Dt2, [Xn]
             // LoadPairVector64(Int16*)	A64: LDP Dt1, Dt2, [Xn]
@@ -4318,6 +4402,7 @@ namespace IntrinsicsLib {
             // LoadPairVector64NonTemporal(UInt16*)	A64: LDNP Dt1, Dt2, [Xn]
             // LoadPairVector64NonTemporal(UInt32*)	A64: LDNP Dt1, Dt2, [Xn]
             // LoadPairVector64NonTemporal(UInt64*)	A64: LDNP Dt1, Dt2, [Xn]
+            // Ignore
         }
         public unsafe static void RunArm_AdvSimd_64_M(TextWriter writer, string indent) {
             // Max(Vector128<Double>, Vector128<Double>)	float64x2_t vmaxq_f64 (float64x2_t a, float64x2_t b); A64: FMAX Vd.2D, Vn.2D, Vm.2D
