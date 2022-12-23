@@ -2264,6 +2264,8 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "Not(Vector128s<float>.Demo):\t{0}", AdvSimd.Not(Vector128s<float>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_O(TextWriter writer, string indent) {
+            // 3、Bitwise or(正常指令): vorr -> ri = ai | bi;
+            // performs a bitwise OR between corresponding elements of the input vectors.
             // Or(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vorrq_u8 (uint8x16_t a, uint8x16_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B
             // Or(Vector128<Double>, Vector128<Double>)	float64x2_t vorrq_f64 (float64x2_t a, float64x2_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // Or(Vector128<Int16>, Vector128<Int16>)	int16x8_t vorrq_s16 (int16x8_t a, int16x8_t b); A32: VORR Qd, Qn, Qm; A64: ORR Vd.16B, Vn.16B, Vm.16B
@@ -2284,6 +2286,19 @@ namespace IntrinsicsLib {
             // Or(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vorr_u16 (uint16x4_t a, uint16x4_t b); A32: VORR Dd, Dn, Dm; A64: ORR Vd.8B, Vn.8B, Vm.8B
             // Or(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vorr_u32 (uint32x2_t a, uint32x2_t b); A32: VORR Dd, Dn, Dm; A64: ORR Vd.8B, Vn.8B, Vm.8B
             // Or(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vorr_u64 (uint64x1_t a, uint64x1_t b); A32: VORR Dd, Dn, Dm; A64: ORR Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "Or(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<float>Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "Or(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Or(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
+
+            // 6、Bitwise OR complement(正常指令): vorn -> ri = ai | (~bi);  
+            // performs a bitwise logical OR NOT operation between values in two registers, and places the results in the destination register.
             // OrNot(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vornq_u8 (uint8x16_t a, uint8x16_t b); A32: VORN Qd, Qn, Qm; A64: ORN Vd.16B, Vn.16B, Vm.16B
             // OrNot(Vector128<Double>, Vector128<Double>)	float64x2_t vornq_f64 (float64x2_t a, float64x2_t b); A32: VORN Qd, Qn, Qm; A64: ORN Vd.16B, Vn.16B, Vm.16B The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
             // OrNot(Vector128<Int16>, Vector128<Int16>)	int16x8_t vornq_s16 (int16x8_t a, int16x8_t b); A32: VORN Qd, Qn, Qm; A64: ORN Vd.16B, Vn.16B, Vm.16B
@@ -2304,20 +2319,55 @@ namespace IntrinsicsLib {
             // OrNot(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vorn_u16 (uint16x4_t a, uint16x4_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
             // OrNot(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vorn_u32 (uint32x2_t a, uint32x2_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
             // OrNot(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vorn_u64 (uint64x1_t a, uint64x1_t b); A32: VORN Dd, Dn, Dm; A64: ORN Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "OrNot(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<float>Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "OrNot(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.OrNot(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_P(TextWriter writer, string indent) {
+            // 1、Vector multiply(正常指令): vmul -> ri = ai * bi;
+            // Polynomial Multiply. This instruction multiplies corresponding elements in the vectors of the two source SIMD&FP registers, places the results in a vector, and writes the vector to the destination SIMD&FP register.
+            // 多项式相乘。这条指令将两个源SIMD&FP寄存器的向量中对应的元素相乘，将结果放入一个向量中，并将该向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     element1 = Elem[operand1, e, esize];
+            //     element2 = Elem[operand2, e, esize];
+            //     if poly then
+            //         product = PolynomialMult(element1, element2)<esize-1:0>;
+            //     else
+            //         product = (UInt(element1) * UInt(element2))<esize-1:0>;
+            //     Elem[result, e, esize] = product;
             // PolynomialMultiply(Vector128<Byte>, Vector128<Byte>)	poly8x16_t vmulq_p8 (poly8x16_t a, poly8x16_t b); A32: VMUL.P8 Qd, Qn, Qm; A64: PMUL Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiply(Vector128<SByte>, Vector128<SByte>)	poly8x16_t vmulq_p8 (poly8x16_t a, poly8x16_t b); A32: VMUL.P8 Qd, Qn, Qm; A64: PMUL Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiply(Vector64<Byte>, Vector64<Byte>)	poly8x8_t vmul_p8 (poly8x8_t a, poly8x8_t b); A32: VMUL.P8 Dd, Dn, Dm; A64: PMUL Vd.8B, Vn.8B, Vm.8B
             // PolynomialMultiply(Vector64<SByte>, Vector64<SByte>)	poly8x8_t vmul_p8 (poly8x8_t a, poly8x8_t b); A32: VMUL.P8 Dd, Dn, Dm; A64: PMUL Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+
+            // 10、Vector long multiply(长指令): vmull -> ri = ai * bi;
             // PolynomialMultiplyWideningLower(Vector64<Byte>, Vector64<Byte>)	poly16x8_t vmull_p8 (poly8x8_t a, poly8x8_t b); A32: VMULL.P8 Qd, Dn, Dm; A64: PMULL Vd.16B, Vn.8B, Vm.8B
             // PolynomialMultiplyWideningLower(Vector64<SByte>, Vector64<SByte>)	poly16x8_t vmull_p8 (poly8x8_t a, poly8x8_t b); A32: VMULL.P8 Qd, Dn, Dm; A64: PMULL Vd.16B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+
             // PolynomialMultiplyWideningUpper(Vector128<Byte>, Vector128<Byte>)	poly16x8_t vmull_high_p8 (poly8x16_t a, poly8x16_t b); A32: VMULL.P8 Qd, Dn+1, Dm+1; A64: PMULL2 Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiplyWideningUpper(Vector128<SByte>, Vector128<SByte>)	poly16x8_t vmull_high_p8 (poly8x16_t a, poly8x16_t b); A32: VMULL.P8 Qd, Dn+1, Dm+1; A64: PMULL2 Vd.16B, Vn.16B, Vm.16B
+            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+
+            // 正常指令, vcnt -> counts the number of bits that are one in each element in a vector,  
+            // and places the count in the result vector.
             // PopCount(Vector128<Byte>)	uint8x16_t vcntq_u8 (uint8x16_t a); A32: VCNT.I8 Qd, Qm; A64: CNT Vd.16B, Vn.16B
             // PopCount(Vector128<SByte>)	int8x16_t vcntq_s8 (int8x16_t a); A32: VCNT.I8 Qd, Qm; A64: CNT Vd.16B, Vn.16B
             // PopCount(Vector64<Byte>)	uint8x8_t vcnt_u8 (uint8x8_t a); A32: VCNT.I8 Dd, Dm; A64: CNT Vd.8B, Vn.8B
             // PopCount(Vector64<SByte>)	int8x8_t vcnt_s8 (int8x8_t a); A32: VCNT.I8 Dd, Dm; A64: CNT Vd.8B, Vn.8B
+            WriteLine(writer, indent, "PopCount(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.PopCount(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "PopCount(Vector128s<byte>.Demo):\t{0}", AdvSimd.PopCount(Vector128s<byte>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_R(TextWriter writer, string indent) {
             // ReciprocalEstimate(Vector128<Single>)	float32x4_t vrecpeq_f32 (float32x4_t a); A32: VRECPE.F32 Qd, Qm; A64: FRECPE Vd.4S, Vn.4S
