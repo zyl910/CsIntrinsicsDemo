@@ -2370,18 +2370,53 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "PopCount(Vector128s<byte>.Demo):\t{0}", AdvSimd.PopCount(Vector128s<byte>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_R(TextWriter writer, string indent) {
+            // 正常指令, vrecpe -> ; 
+            // finds an approximate reciprocal of each element in a vector, and places it in the result vector.
+            // 查找向量中每个元素的近似倒数，并将其放入结果向量中。
             // ReciprocalEstimate(Vector128<Single>)	float32x4_t vrecpeq_f32 (float32x4_t a); A32: VRECPE.F32 Qd, Qm; A64: FRECPE Vd.4S, Vn.4S
             // ReciprocalEstimate(Vector128<UInt32>)	uint32x4_t vrecpeq_u32 (uint32x4_t a); A32: VRECPE.U32 Qd, Qm; A64: URECPE Vd.4S, Vn.4S
             // ReciprocalEstimate(Vector64<Single>)	float32x2_t vrecpe_f32 (float32x2_t a); A32: VRECPE.F32 Dd, Dm; A64: FRECPE Vd.2S, Vn.2S
             // ReciprocalEstimate(Vector64<UInt32>)	uint32x2_t vrecpe_u32 (uint32x2_t a); A32: VRECPE.U32 Dd, Dm; A64: URECPE Vd.2S, Vn.2S
+            WriteLine(writer, indent, "ReciprocalEstimate(Vector128s<float>.Demo):\t{0}", AdvSimd.ReciprocalEstimate(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "ReciprocalEstimate(Vector128s<uint>.Demo):\t{0}", AdvSimd.ReciprocalEstimate(Vector128s<uint>.Demo));
+
+            // 正常指令, vrsqrte -> ; 
+            // finds an approximate reciprocal square root of each element in a vector, and places it in the return vector.
+            // 找出向量中每个元素的近似倒数平方根，并将其放入返回向量中。
             // ReciprocalSquareRootEstimate(Vector128<Single>)	float32x4_t vrsqrteq_f32 (float32x4_t a); A32: VRSQRTE.F32 Qd, Qm; A64: FRSQRTE Vd.4S, Vn.4S
             // ReciprocalSquareRootEstimate(Vector128<UInt32>)	uint32x4_t vrsqrteq_u32 (uint32x4_t a); A32: VRSQRTE.U32 Qd, Qm; A64: URSQRTE Vd.4S, Vn.4S
             // ReciprocalSquareRootEstimate(Vector64<Single>)	float32x2_t vrsqrte_f32 (float32x2_t a); A32: VRSQRTE.F32 Dd, Dm; A64: FRSQRTE Vd.2S, Vn.2S
             // ReciprocalSquareRootEstimate(Vector64<UInt32>)	uint32x2_t vrsqrte_u32 (uint32x2_t a); A32: VRSQRTE.U32 Dd, Dm; A64: URSQRTE Vd.2S, Vn.2S
+            WriteLine(writer, indent, "ReciprocalSquareRootEstimate(Vector128s<float>.Demo):\t{0}", AdvSimd.ReciprocalSquareRootEstimate(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "ReciprocalSquareRootEstimate(Vector128s<uint>.Demo):\t{0}", AdvSimd.ReciprocalSquareRootEstimate(Vector128s<uint>.Demo));
+
+            // 2、饱和指令,
+            // performs a Newton-Raphson step for finding the reciprocal square root.  
+            // It multiplies the elements of one vector by the corresponding elements of another vector, subtracts each of the results from 3, divides these results by two, and places the final results into the elements of the destination vector
+            // 执行牛顿-拉弗森步骤来寻找平方根的倒数。
+            // 它将一个向量的元素与另一个向量的相应元素相乘，将每个结果从3中减去，将这些结果除以2，并将最终结果放入目标向量的元素中
+            // Floating-point Reciprocal Square Root Step. This instruction multiplies corresponding floating-point values in the vectors of the two source SIMD&FP registers, subtracts each of the products from 3.0, divides these results by 2.0, places the results into a vector, and writes the vector to the destination SIMD&FP register.
+            // 浮点倒数平方根步骤。这条指令将两个源SIMD&FP寄存器的向量中对应的浮点值相乘，从3.0减去每个乘积，将这些结果除以2.0，将结果放入一个向量中，并将该向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     element1 = Elem[operand1, e, esize];
+            //     element2 = Elem[operand2, e, esize];
+            //     Elem[result, e, esize] = FPRSqrtStepFused(element1, element2);
+            // https://developer.arm.com/documentation/ddi0596/2021-03/Shared-Pseudocode/AArch64-Functions?lang=en#impl-aarch64.FPRSqrtStepFused.2
+            // FPRSqrtStepFused
             // ReciprocalSquareRootStep(Vector128<Single>, Vector128<Single>)	float32x4_t vrsqrtsq_f32 (float32x4_t a, float32x4_t b); A32: VRSQRTS.F32 Qd, Qn, Qm; A64: FRSQRTS Vd.4S, Vn.4S, Vm.4S
             // ReciprocalSquareRootStep(Vector64<Single>, Vector64<Single>)	float32x2_t vrsqrts_f32 (float32x2_t a, float32x2_t b); A32: VRSQRTS.F32 Dd, Dn, Dm; A64: FRSQRTS Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "ReciprocalSquareRootStep(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.ReciprocalSquareRootStep(Vector128s<float>.Demo, Vector128s<float>.V2));
+
+            // 1、饱和指令, Newton-Raphson iteration(牛顿 - 拉夫逊迭代) 
+            // performs a Newton-Raphson step for finding the reciprocal. It multiplies the elements of one vector by the corresponding elements of another vector, subtracts each of the results from 2, and places the final results into the elements of the destination vector
+            // 执行牛顿-拉弗森步骤求倒数。它将一个向量的元素与另一个向量的相应元素相乘，每个结果从2中减去，并将最终结果放入目标向量的元素中
             // ReciprocalStep(Vector128<Single>, Vector128<Single>)	float32x4_t vrecpsq_f32 (float32x4_t a, float32x4_t b); A32: VRECPS.F32 Qd, Qn, Qm; A64: FRECPS Vd.4S, Vn.4S, Vm.4S
             // ReciprocalStep(Vector64<Single>, Vector64<Single>)	float32x2_t vrecps_f32 (float32x2_t a, float32x2_t b); A32: VRECPS.F32 Dd, Dn, Dm; A64: FRECPS Vd.2S, Vn.2S, Vm.2S
+            WriteLine(writer, indent, "ReciprocalStep(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.ReciprocalStep(Vector128s<float>.Demo, Vector128s<float>.V2));
+
+            // 2、Reverse vector elements (swap endianness): vrev32 -> 
+            // reverses the order of 8-bit or 16-bit elements within each word of the vector, and places the result in the corresponding destination vector.
+            // 反转向量的每个单词中的8位或16位元素的顺序，并将结果放在相应的目标向量中。
             // ReverseElement16(Vector128<Int32>)	int16x8_t vrev32q_s16 (int16x8_t vec) A32: VREV32.16 Qd, Qm A64: REV32 Vd.8H, Vn.8H
             // ReverseElement16(Vector128<Int64>)	int16x8_t vrev64q_s16 (int16x8_t vec) A32: VREV64.16 Qd, Qm A64: REV64 Vd.8H, Vn.8H
             // ReverseElement16(Vector128<UInt32>)	uint16x8_t vrev32q_u16 (uint16x8_t vec) A32: VREV32.16 Qd, Qm A64: REV32 Vd.8H, Vn.8H
@@ -2390,10 +2425,24 @@ namespace IntrinsicsLib {
             // ReverseElement16(Vector64<Int64>)	int16x4_t vrev64_s16 (int16x4_t vec) A32: VREV64.16 Dd, Dm A64: REV64 Vd.4H, Vn.4H
             // ReverseElement16(Vector64<UInt32>)	uint16x4_t vrev32_u16 (uint16x4_t vec) A32: VREV32.16 Dd, Dm A64: REV32 Vd.4H, Vn.4H
             // ReverseElement16(Vector64<UInt64>)	uint16x4_t vrev64_u16 (uint16x4_t vec) A32: VREV64.16 Dd, Dm A64: REV64 Vd.4H, Vn.4H
+            WriteLine(writer, indent, "ReverseElement16(Vector128s<int>.Demo):\t{0}", AdvSimd.ReverseElement16(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ReverseElement16(Vector128s<uint>.Demo):\t{0}", AdvSimd.ReverseElement16(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ReverseElement16(Vector128s<long>.Demo):\t{0}", AdvSimd.ReverseElement16(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ReverseElement16(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ReverseElement16(Vector128s<ulong>.Demo));
+
+            // 1、Reverse vector elements (swap endianness): vrev64 -> 
+            // reverses the order of 8-bit, 16-bit, or 32-bit elements within each doubleword of the vector, and places the result in the corresponding destination vector.
+            // 反转向量的每个双字中的8位、16位或32位元素的顺序，并将结果放在相应的目标向量中。
             // ReverseElement32(Vector128<Int64>)	int32x4_t vrev64q_s32 (int32x4_t vec) A32: VREV64.32 Qd, Qm A64: REV64 Vd.4S, Vn.4S
             // ReverseElement32(Vector128<UInt64>)	uint32x4_t vrev64q_u32 (uint32x4_t vec) A32: VREV64.32 Qd, Qm A64: REV64 Vd.4S, Vn.4S
             // ReverseElement32(Vector64<Int64>)	int32x2_t vrev64_s32 (int32x2_t vec) A32: VREV64.32 Dd, Dm A64: REV64 Vd.2S, Vn.2S
             // ReverseElement32(Vector64<UInt64>)	uint32x2_t vrev64_u32 (uint32x2_t vec) A32: VREV64.32 Dd, Dm A64: REV64 Vd.2S, Vn.2S
+            WriteLine(writer, indent, "ReverseElement32(Vector128s<long>.Demo):\t{0}", AdvSimd.ReverseElement32(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ReverseElement32(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ReverseElement32(Vector128s<ulong>.Demo));
+
+            // 3、Reverse vector elements (swap endianness): vrev16 -> 
+            // reverses the order of 8-bit elements within each halfword of the vector, and places the result in the corresponding destination vector.
+            // 反转向量中每个半字中的8位元素的顺序，并将结果放在相应的目标向量中。
             // ReverseElement8(Vector128<Int16>)	int8x16_t vrev16q_s8 (int8x16_t vec) A32: VREV16.8 Qd, Qm A64: REV16 Vd.16B, Vn.16B
             // ReverseElement8(Vector128<Int32>)	int8x16_t vrev32q_s8 (int8x16_t vec) A32: VREV32.8 Qd, Qm A64: REV32 Vd.16B, Vn.16B
             // ReverseElement8(Vector128<Int64>)	int8x16_t vrev64q_s8 (int8x16_t vec) A32: VREV64.8 Qd, Qm A64: REV64 Vd.16B, Vn.16B
@@ -2406,26 +2455,57 @@ namespace IntrinsicsLib {
             // ReverseElement8(Vector64<UInt16>)	uint8x8_t vrev16_u8 (uint8x8_t vec) A32: VREV16.8 Dd, Dm A64: REV16 Vd.8B, Vn.8B
             // ReverseElement8(Vector64<UInt32>)	uint8x8_t vrev32_u8 (uint8x8_t vec) A32: VREV32.8 Dd, Dm A64: REV32 Vd.8B, Vn.8B
             // ReverseElement8(Vector64<UInt64>)	uint8x8_t vrev64_u8 (uint8x8_t vec) A32: VREV64.8 Dd, Dm A64: REV64 Vd.8B, Vn.8B
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<short>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<ushort>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<int>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<uint>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<long>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "ReverseElement8(Vector128s<ulong>.Demo):\t{0}", AdvSimd.ReverseElement8(Vector128s<ulong>.Demo));
+
+            // 2、to nearest, ties away from zero
             // RoundAwayFromZero(Vector128<Single>)	float32x4_t vrndaq_f32 (float32x4_t a); A32: VRINTA.F32 Qd, Qm; A64: FRINTA Vd.4S, Vn.4S
             // RoundAwayFromZero(Vector64<Single>)	float32x2_t vrnda_f32 (float32x2_t a); A32: VRINTA.F32 Dd, Dm; A64: FRINTA Vd.2S, Vn.2S
             // RoundAwayFromZeroScalar(Vector64<Double>)	float64x1_t vrnda_f64 (float64x1_t a); A32: VRINTA.F64 Dd, Dm; A64: FRINTA Dd, Dn
             // RoundAwayFromZeroScalar(Vector64<Single>)	float32_t vrndas_f32 (float32_t a); A32: VRINTA.F32 Sd, Sm; A64: FRINTA Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "RoundAwayFromZero(Vector128s<float>.Demo):\t{0}", AdvSimd.RoundAwayFromZero(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "RoundAwayFromZero(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundAwayFromZero(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "RoundAwayFromZeroScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundAwayFromZeroScalar(Vector64s<float>.Demo));
+
+            // 1、to nearest, ties to even
             // RoundToNearest(Vector128<Single>)	float32x4_t vrndnq_f32 (float32x4_t a); A32: VRINTN.F32 Qd, Qm; A64: FRINTN Vd.4S, Vn.4S
             // RoundToNearest(Vector64<Single>)	float32x2_t vrndn_f32 (float32x2_t a); A32: VRINTN.F32 Dd, Dm; A64: FRINTN Vd.2S, Vn.2S
             // RoundToNearestScalar(Vector64<Double>)	float64x1_t vrndn_f64 (float64x1_t a); A32: VRINTN.F64 Dd, Dm; A64: FRINTN Dd, Dn
             // RoundToNearestScalar(Vector64<Single>)	float32_t vrndns_f32 (float32_t a); A32: VRINTN.F32 Sd, Sm; A64: FRINTN Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "RoundToNearest(Vector128s<float>.Demo):\t{0}", AdvSimd.RoundToNearest(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "RoundToNearest(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToNearest(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "RoundToNearestScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToNearestScalar(Vector64s<float>.Demo));
+
+            // 4、towards -Inf
             // RoundToNegativeInfinity(Vector128<Single>)	float32x4_t vrndmq_f32 (float32x4_t a); A32: VRINTM.F32 Qd, Qm; A64: FRINTM Vd.4S, Vn.4S
             // RoundToNegativeInfinity(Vector64<Single>)	float32x2_t vrndm_f32 (float32x2_t a); A32: VRINTM.F32 Dd, Dm; A64: FRINTM Vd.2S, Vn.2S
             // RoundToNegativeInfinityScalar(Vector64<Double>)	float64x1_t vrndm_f64 (float64x1_t a); A32: VRINTM.F64 Dd, Dm; A64: FRINTM Dd, Dn
             // RoundToNegativeInfinityScalar(Vector64<Single>)	float32_t vrndms_f32 (float32_t a); A32: VRINTM.F32 Sd, Sm; A64: FRINTM Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "RoundToNegativeInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.RoundToNegativeInfinity(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "RoundToNegativeInfinity(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToNegativeInfinity(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "RoundToNegativeInfinityScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToNegativeInfinityScalar(Vector64s<float>.Demo));
+
+            // 3、towards +Inf
             // RoundToPositiveInfinity(Vector128<Single>)	float32x4_t vrndpq_f32 (float32x4_t a); A32: VRINTP.F32 Qd, Qm; A64: FRINTP Vd.4S, Vn.4S
             // RoundToPositiveInfinity(Vector64<Single>)	float32x2_t vrndp_f32 (float32x2_t a); A32: VRINTP.F32 Dd, Dm; A64: FRINTP Vd.2S, Vn.2S
             // RoundToPositiveInfinityScalar(Vector64<Double>)	float64x1_t vrndp_f64 (float64x1_t a); A32: VRINTP.F64 Dd, Dm; A64: FRINTP Dd, Dn
             // RoundToPositiveInfinityScalar(Vector64<Single>)	float32_t vrndps_f32 (float32_t a); A32: VRINTP.F32 Sd, Sm; A64: FRINTP Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "RoundToPositiveInfinity(Vector128s<float>.Demo):\t{0}", AdvSimd.RoundToPositiveInfinity(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "RoundToPositiveInfinity(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToPositiveInfinity(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "RoundToPositiveInfinityScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToPositiveInfinityScalar(Vector64s<float>.Demo));
+
+            // 5、towards 0
             // RoundToZero(Vector128<Single>)	float32x4_t vrndq_f32 (float32x4_t a); A32: VRINTZ.F32 Qd, Qm; A64: FRINTZ Vd.4S, Vn.4S
             // RoundToZero(Vector64<Single>)	float32x2_t vrnd_f32 (float32x2_t a); A32: VRINTZ.F32 Dd, Dm; A64: FRINTZ Vd.2S, Vn.2S
             // RoundToZeroScalar(Vector64<Double>)	float64x1_t vrnd_f64 (float64x1_t a); A32: VRINTZ.F64 Dd, Dm; A64: FRINTZ Dd, Dn
             // RoundToZeroScalar(Vector64<Single>)	float32_t vrnds_f32 (float32_t a); A32: VRINTZ.F32 Sd, Sm; A64: FRINTZ Sd, Sn The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+            WriteLine(writer, indent, "RoundToZero(Vector128s<float>.Demo):\t{0}", AdvSimd.RoundToZero(Vector128s<float>.Demo));
+            WriteLine(writer, indent, "RoundToZero(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToZero(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "RoundToZeroScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.RoundToZeroScalar(Vector64s<float>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_S(TextWriter writer, string indent) {
             string indentNext = indent + IndentNextSeparator;
@@ -5386,29 +5466,85 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "NegateScalar(Vector64s<long>.Demo):\t{0}", AdvSimd.Arm64.NegateScalar(Vector64s<long>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_64_R(TextWriter writer, string indent) {
+            // 正常指令, vrecpe -> ; 
+            // finds an approximate reciprocal of each element in a vector, and places it in the result vector.
+            // 查找向量中每个元素的近似倒数，并将其放入结果向量中。
             // ReciprocalEstimate(Vector128<Double>)	float64x2_t vrecpeq_f64 (float64x2_t a); A64: FRECPE Vd.2D, Vn.2D
             // ReciprocalEstimateScalar(Vector64<Double>)	float64x1_t vrecpe_f64 (float64x1_t a); A64: FRECPE Dd, Dn
             // ReciprocalEstimateScalar(Vector64<Single>)	float32_t vrecpes_f32 (float32_t a); A64: FRECPE Sd, Sn
+            WriteLine(writer, indent, "ReciprocalEstimate(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalEstimate(Vector128s<double>.Demo));
+            WriteLine(writer, indent, "ReciprocalEstimateScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalEstimateScalar(Vector64s<float>.Demo));
+
+            // Floating-point Reciprocal exponent (scalar). This instruction finds an approximate reciprocal exponent for each vector element in the source SIMD&FP register, places the result in a vector, and writes the vector to the destination SIMD&FP register.
+            // 浮点倒数指数(标量)。这条指令为源SIMD&FP寄存器中的每个向量元素找到一个近似的倒数指数，将结果放入一个向量中，并将该向量写入目标SIMD&FP寄存器。
+            // for e = 0 to elements-1
+            //     element = Elem[operand, e, esize];
+            //     Elem[result, e, esize] = FPRecpX(element, fpcr);
             // ReciprocalExponentScalar(Vector64<Double>)	float64_t vrecpxd_f64 (float64_t a); A64: FRECPX Dd, Dn
             // ReciprocalExponentScalar(Vector64<Single>)	float32_t vrecpxs_f32 (float32_t a); A64: FRECPX Sd, Sn
+            WriteLine(writer, indent, "ReciprocalExponentScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalExponentScalar(Vector64s<float>.Demo));
+            WriteLine(writer, indent, "ReciprocalExponentScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalExponentScalar(Vector64s<float>.Demo));
+
+            // 正常指令, vrsqrte -> ; 
+            // finds an approximate reciprocal square root of each element in a vector, and places it in the return vector.
+            // 找出向量中每个元素的近似倒数平方根，并将其放入返回向量中。
             // ReciprocalSquareRootEstimate(Vector128<Double>)	float64x2_t vrsqrteq_f64 (float64x2_t a); A64: FRSQRTE Vd.2D, Vn.2D
             // ReciprocalSquareRootEstimateScalar(Vector64<Double>)	float64x1_t vrsqrte_f64 (float64x1_t a); A64: FRSQRTE Dd, Dn
             // ReciprocalSquareRootEstimateScalar(Vector64<Single>)	float32_t vrsqrtes_f32 (float32_t a); A64: FRSQRTE Sd, Sn
+            WriteLine(writer, indent, "ReciprocalSquareRootEstimate(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalSquareRootEstimate(Vector128s<double>.Demo));
+            WriteLine(writer, indent, "ReciprocalSquareRootEstimateScalar(Vector64s<float>.Demo):\t{0}", AdvSimd.Arm64.ReciprocalSquareRootEstimateScalar(Vector64s<float>.Demo));
+
+            // 2、饱和指令,
+            // performs a Newton-Raphson step for finding the reciprocal square root.  
+            // It multiplies the elements of one vector by the corresponding elements of another vector, subtracts each of the results from 3, divides these results by two, and places the final results into the elements of the destination vector
+            // 执行牛顿-拉弗森步骤来寻找平方根的倒数。
+            // 它将一个向量的元素与另一个向量的相应元素相乘，将每个结果从3中减去，将这些结果除以2，并将最终结果放入目标向量的元素中
             // ReciprocalSquareRootStep(Vector128<Double>, Vector128<Double>)	float64x2_t vrsqrtsq_f64 (float64x2_t a, float64x2_t b); A64: FRSQRTS Vd.2D, Vn.2D, Vm.2D
             // ReciprocalSquareRootStepScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vrsqrts_f64 (float64x1_t a, float64x1_t b); A64: FRSQRTS Dd, Dn, Dm
             // ReciprocalSquareRootStepScalar(Vector64<Single>, Vector64<Single>)	float32_t vrsqrtss_f32 (float32_t a, float32_t b); A64: FRSQRTS Sd, Sn, Sm
+            WriteLine(writer, indent, "ReciprocalSquareRootStep(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.ReciprocalSquareRootStep(Vector128s<double>.Demo, Vector128s<double>.V2));
+            WriteLine(writer, indent, "ReciprocalSquareRootStepScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.ReciprocalSquareRootStepScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+            WriteLine(writer, indent, "ReciprocalSquareRootStepScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.ReciprocalSquareRootStepScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+
+            // 1、饱和指令, Newton-Raphson iteration(牛顿 - 拉夫逊迭代) 
+            // performs a Newton-Raphson step for finding the reciprocal. It multiplies the elements of one vector by the corresponding elements of another vector, subtracts each of the results from 2, and places the final results into the elements of the destination vector
+            // 执行牛顿-拉弗森步骤求倒数。它将一个向量的元素与另一个向量的相应元素相乘，每个结果从2中减去，并将最终结果放入目标向量的元素中
             // ReciprocalStep(Vector128<Double>, Vector128<Double>)	float64x2_t vrecpsq_f64 (float64x2_t a, float64x2_t b); A64: FRECPS Vd.2D, Vn.2D, Vm.2D
             // ReciprocalStepScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vrecps_f64 (float64x1_t a, float64x1_t b); A64: FRECPS Dd, Dn, Dm
             // ReciprocalStepScalar(Vector64<Single>, Vector64<Single>)	float32_t vrecpss_f32 (float32_t a, float32_t b); A64: FRECPS Sd, Sn, Sm
+            WriteLine(writer, indent, "ReciprocalStep(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.ReciprocalStep(Vector128s<double>.Demo, Vector128s<double>.V2));
+            WriteLine(writer, indent, "ReciprocalStepScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.Arm64.ReciprocalStepScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+            WriteLine(writer, indent, "ReciprocalStepScalar(Vector64s<float>.Demo, Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.ReciprocalStepScalar(Vector64s<float>.Demo, Vector64s<float>.V2));
+
+            // Reverse Bit order (vector). This instruction reads each vector element from the source SIMD&FP register, reverses the bits of the element, places the results into a vector, and writes the vector to the destination SIMD&FP register.
+            // 反向位序(向量)。这条指令从源SIMD&FP寄存器读取每个vector元素，反转元素的位，将结果放入一个向量，并将该向量写入目标SIMD&FP寄存器。
             // ReverseElementBits(Vector128<Byte>)	uint8x16_t vrbitq_u8 (uint8x16_t a); A64: RBIT Vd.16B, Vn.16B
             // ReverseElementBits(Vector128<SByte>)	int8x16_t vrbitq_s8 (int8x16_t a); A64: RBIT Vd.16B, Vn.16B
             // ReverseElementBits(Vector64<Byte>)	uint8x8_t vrbit_u8 (uint8x8_t a); A64: RBIT Vd.8B, Vn.8B
             // ReverseElementBits(Vector64<SByte>)	int8x8_t vrbit_s8 (int8x8_t a); A64: RBIT Vd.8B, Vn.8B
+            WriteLine(writer, indent, "ReverseElementBits(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.Arm64.ReverseElementBits(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "ReverseElementBits(Vector128s<byte>.Demo):\t{0}", AdvSimd.Arm64.ReverseElementBits(Vector128s<byte>.Demo));
+
+            // 2、to nearest, ties away from zero
             // RoundAwayFromZero(Vector128<Double>)	float64x2_t vrndaq_f64 (float64x2_t a); A64: FRINTA Vd.2D, Vn.2D
+            WriteLine(writer, indent, "RoundAwayFromZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.RoundAwayFromZero(Vector128s<double>.Demo));
+
+            // 1、to nearest, ties to even
             // RoundToNearest(Vector128<Double>)	float64x2_t vrndnq_f64 (float64x2_t a); A64: FRINTN Vd.2D, Vn.2D
+            WriteLine(writer, indent, "RoundToNearest(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.RoundToNearest(Vector128s<double>.Demo));
+
+            // 4、towards -Inf
             // RoundToNegativeInfinity(Vector128<Double>)	float64x2_t vrndmq_f64 (float64x2_t a); A64: FRINTM Vd.2D, Vn.2D
+            WriteLine(writer, indent, "RoundToNegativeInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.RoundToNegativeInfinity(Vector128s<double>.Demo));
+
+            // 3、towards +Inf
             // RoundToPositiveInfinity(Vector128<Double>)	float64x2_t vrndpq_f64 (float64x2_t a); A64: FRINTP Vd.2D, Vn.2D
+            WriteLine(writer, indent, "RoundToPositiveInfinity(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.RoundToPositiveInfinity(Vector128s<double>.Demo));
+
+            // 5、towards 0
             // RoundToZero(Vector128<Double>)	float64x2_t vrndq_f64 (float64x2_t a); A64: FRINTZ Vd.2D, Vn.2D
+            WriteLine(writer, indent, "RoundToZero(Vector128s<double>.Demo):\t{0}", AdvSimd.Arm64.RoundToZero(Vector128s<double>.Demo));
+
         }
         public unsafe static void RunArm_AdvSimd_64_S(TextWriter writer, string indent) {
             // ShiftArithmeticRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqrshlh_s16 (int16_t a, int16_t b); A64: SQRSHL Hd, Hn, Hm
