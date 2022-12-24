@@ -2346,19 +2346,19 @@ namespace IntrinsicsLib {
             // PolynomialMultiply(Vector128<SByte>, Vector128<SByte>)	poly8x16_t vmulq_p8 (poly8x16_t a, poly8x16_t b); A32: VMUL.P8 Qd, Qn, Qm; A64: PMUL Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiply(Vector64<Byte>, Vector64<Byte>)	poly8x8_t vmul_p8 (poly8x8_t a, poly8x8_t b); A32: VMUL.P8 Dd, Dn, Dm; A64: PMUL Vd.8B, Vn.8B, Vm.8B
             // PolynomialMultiply(Vector64<SByte>, Vector64<SByte>)	poly8x8_t vmul_p8 (poly8x8_t a, poly8x8_t b); A32: VMUL.P8 Dd, Dn, Dm; A64: PMUL Vd.8B, Vn.8B, Vm.8B
-            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
-            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiply(Vector128s<byte>.Serial, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiply(Vector128s<byte>.Serial, Vector128s<byte>.V2));
 
             // 10、Vector long multiply(长指令): vmull -> ri = ai * bi;
             // PolynomialMultiplyWideningLower(Vector64<Byte>, Vector64<Byte>)	poly16x8_t vmull_p8 (poly8x8_t a, poly8x8_t b); A32: VMULL.P8 Qd, Dn, Dm; A64: PMULL Vd.16B, Vn.8B, Vm.8B
             // PolynomialMultiplyWideningLower(Vector64<SByte>, Vector64<SByte>)	poly16x8_t vmull_p8 (poly8x8_t a, poly8x8_t b); A32: VMULL.P8 Qd, Dn, Dm; A64: PMULL Vd.16B, Vn.8B, Vm.8B
-            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
-            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<sbyte>.Serial, Vector64s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<sbyte>.Serial, Vector64s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningLower(Vector64s<byte>.Serial, Vector64s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningLower(Vector64s<byte>.Serial, Vector64s<byte>.V2));
 
             // PolynomialMultiplyWideningUpper(Vector128<Byte>, Vector128<Byte>)	poly16x8_t vmull_high_p8 (poly8x16_t a, poly8x16_t b); A32: VMULL.P8 Qd, Dn+1, Dm+1; A64: PMULL2 Vd.16B, Vn.16B, Vm.16B
             // PolynomialMultiplyWideningUpper(Vector128<SByte>, Vector128<SByte>)	poly16x8_t vmull_high_p8 (poly8x16_t a, poly8x16_t b); A32: VMULL.P8 Qd, Dn+1, Dm+1; A64: PMULL2 Vd.16B, Vn.16B, Vm.16B
-            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
-            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "PolynomialMultiplyWideningUpper(Vector128s<byte>.Serial, Vector128s<byte>.V2):\t{0}", AdvSimd.PolynomialMultiplyWideningUpper(Vector128s<byte>.Serial, Vector128s<byte>.V2));
 
             // 正常指令, vcnt -> counts the number of bits that are one in each element in a vector,  
             // and places the count in the result vector.
