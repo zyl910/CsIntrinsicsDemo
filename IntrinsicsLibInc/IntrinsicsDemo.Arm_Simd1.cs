@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Intrinsics;
 #if NET5_0_OR_GREATER
 using System.Runtime.Intrinsics.Arm;
 #endif // #if NET5_0_OR_GREATER
 using System.Text;
+using Zyl.VectorTraits;
 
 namespace IntrinsicsLib {
     partial class IntrinsicsDemo {
@@ -27,10 +29,42 @@ namespace IntrinsicsLib {
                 return;
             }
 
+            // Dot Product signed arithmetic (vector). This instruction performs the dot product of the four signed 8-bit elements in each 32-bit element of the first source register with the four signed 8-bit elements of the corresponding 32-bit element in the second source register, accumulating the result into the corresponding 32-bit element of the destination register.
+            // 点积符号算术(向量)。这条指令执行第一个源寄存器中每个32位元素中的4个带符号的8位元素与第二个源寄存器中相应32位元素的4个带符号的8位元素的点积，将结果累加到目标寄存器中相应的32位元素中。
+            // for e = 0 to elements-1 
+            //     integer res = 0;
+            //     integer element1, element2;
+            //     for i = 0 to 3 
+            //         if signed then
+            //             element1 = SInt(Elem[operand1, 4 * e + i, esize DIV 4]); 
+            //             element2 = SInt(Elem[operand2, 4 * e + i, esize DIV 4]);
+            //         else 
+            //             element1 = UInt(Elem[operand1, 4 * e + i, esize DIV 4]); 
+            //             element2 = UInt(Elem[operand2, 4 * e + i, esize DIV 4]);
+            //         res = res + element1 * element2; 
+            //     Elem[result, e, esize] = Elem[result, e, esize] + res;
             // DotProduct(Vector128<Int32>, Vector128<SByte>, Vector128<SByte>)	int32x4_t vdotq_s32 (int32x4_t r, int8x16_t a, int8x16_t b) A32: VSDOT.S8 Qd, Qn, Qm A64: SDOT Vd.4S, Vn.16B, Vm.16B
             // DotProduct(Vector128<UInt32>, Vector128<Byte>, Vector128<Byte>)	uint32x4_t vdotq_u32 (uint32x4_t r, uint8x16_t a, uint8x16_t b) A32: VUDOT.U8 Qd, Qn, Qm A64: UDOT Vd.4S, Vn.16B, Vm.16B
             // DotProduct(Vector64<Int32>, Vector64<SByte>, Vector64<SByte>)	int32x2_t vdot_s32 (int32x2_t r, int8x8_t a, int8x8_t b) A32: VSDOT.S8 Dd, Dn, Dm A64: SDOT Vd.2S, Vn.8B, Vm.8B
             // DotProduct(Vector64<UInt32>, Vector64<Byte>, Vector64<Byte>)	uint32x2_t vdot_u32 (uint32x2_t r, uint8x8_t a, uint8x8_t b) A32: VUDOT.U8 Dd, Dn, Dm A64: UDOT Vd.2S, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "DotProduct(Vector128s<int>.V1, Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2):\t{0}", Dp.DotProduct(Vector128s<int>.V1, Vector128s<sbyte>.Serial, Vector128s<sbyte>.V2));
+            WriteLine(writer, indent, "DotProduct(Vector128s<uint>.V1, Vector128s<byte>.Serial, Vector128s<byte>.V2):\t{0}", Dp.DotProduct(Vector128s<uint>.V1, Vector128s<byte>.Serial, Vector128s<byte>.V2));
+
+            // Dot Product signed arithmetic (vector). This instruction performs the dot product of the four signed 8-bit elements in each 32-bit element of the first source register with the four signed 8-bit elements of the corresponding 32-bit element in the second source register, accumulating the result into the corresponding 32-bit element of the destination register.
+            // 点积符号算术(向量)。这条指令执行第一个源寄存器中每个32位元素中的4个带符号的8位元素与第二个源寄存器中相应32位元素的4个带符号的8位元素的点积，将结果累加到目标寄存器中相应的32位元素中。
+            // lane  minimum: 0; maximum: 3
+            // for e = 0 to elements-1 
+            //     integer res = 0;
+            //     integer element1, element2;
+            //     for i = 0 to 3 
+            //         if signed then
+            //             element1 = SInt(Elem[operand1, 4 * e + i, esize DIV 4]); 
+            //             element2 = SInt(Elem[operand2, 4 * e + i, esize DIV 4]);
+            //         else 
+            //             element1 = UInt(Elem[operand1, 4 * e + i, esize DIV 4]); 
+            //             element2 = UInt(Elem[operand2, 4 * e + i, esize DIV 4]);
+            //         res = res + element1 * element2; 
+            //     Elem[result, e, esize] = Elem[result, e, esize] + res;
             // DotProductBySelectedQuadruplet(Vector128<Int32>, Vector128<SByte>, Vector128<SByte>, Byte)	int32x4_t vdotq_laneq_s32 (int32x4_t r, int8x16_t a, int8x16_t b, const int lane) A32: VSDOT.S8 Qd, Qn, Dm[lane] A64: SDOT Vd.4S, Vn.16B, Vm.4B[lane]
             // DotProductBySelectedQuadruplet(Vector128<Int32>, Vector128<SByte>, Vector64<SByte>, Byte)	int32x4_t vdotq_lane_s32 (int32x4_t r, int8x16_t a, int8x8_t b, const int lane) A32: VSDOT.S8 Qd, Qn, Dm[lane] A64: SDOT Vd.4S, Vn.16B, Vm.4B[lane]
             // DotProductBySelectedQuadruplet(Vector128<UInt32>, Vector128<Byte>, Vector128<Byte>, Byte)	uint32x4_t vdotq_laneq_u32 (uint32x4_t r, uint8x16_t a, uint8x16_t b, const int lane) A32: VUDOT.U8 Qd, Qn, Dm[lane] A64: UDOT Vd.4S, Vn.16B, Vm.4B[lane]
@@ -39,7 +73,24 @@ namespace IntrinsicsLib {
             // DotProductBySelectedQuadruplet(Vector64<Int32>, Vector64<SByte>, Vector64<SByte>, Byte)	int32x2_t vdot_lane_s32 (int32x2_t r, int8x8_t a, int8x8_t b, const int lane) A32: VSDOT.S8 Dd, Dn, Dm[lane] A64: SDOT Vd.2S, Vn.8B, Vm.4B[lane]
             // DotProductBySelectedQuadruplet(Vector64<UInt32>, Vector64<Byte>, Vector128<Byte>, Byte)	uint32x2_t vdot_laneq_u32 (uint32x2_t r, uint8x8_t a, uint8x16_t b, const int lane) A32: VUDOT.U8 Dd, Dn, Dm[lane] A64: UDOT Vd.2S, Vn.8B, Vm.4B[lane]
             // DotProductBySelectedQuadruplet(Vector64<UInt32>, Vector64<Byte>, Vector64<Byte>, Byte)	uint32x2_t vdot_lane_u32 (uint32x2_t r, uint8x8_t a, uint8x8_t b, const int lane) A32: VUDOT.U8 Dd, Dn, Dm[lane] A64: UDOT Vd.2S, Vn.8B, Vm.4B[lane]
-
+            if (true) {
+                Vector128<int> r = Vector128s<int>.V1;
+                Vector128<sbyte> a = Vector128s<sbyte>.Serial;
+                Vector128<sbyte> b = Vector128s<sbyte>.V2;
+                WriteLine(writer, indent, "DotProductBySelectedQuadruplet<sbyte>, r={0}, a={1}, b={2}", r, a, b);
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indentNext, "DotProductBySelectedQuadruplet(r, a, b, {1}):\t{0}", Dp.DotProductBySelectedQuadruplet(r, a, b, i), i);
+                }
+            }
+            if (true) {
+                Vector128<uint> r = Vector128s<uint>.V1;
+                Vector128<byte> a = Vector128s<byte>.Serial;
+                Vector128<byte> b = Vector128s<byte>.V2;
+                WriteLine(writer, indent, "DotProductBySelectedQuadruplet<byte>, r={0}, a={1}, b={2}", r, a, b);
+                for (byte i = 0; i <= 3; ++i) {
+                    WriteLine(writer, indentNext, "DotProductBySelectedQuadruplet(r, a, b, {1}):\t{0}", Dp.DotProductBySelectedQuadruplet(r, a, b, i), i);
+                }
+            }
         }
 
         /// <summary>
