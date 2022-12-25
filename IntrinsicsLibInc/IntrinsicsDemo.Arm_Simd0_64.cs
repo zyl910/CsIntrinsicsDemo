@@ -329,6 +329,7 @@ namespace IntrinsicsLib {
             // ConvertToDoubleScalar(Vector64<UInt64>)	float64x1_t vcvt_f64_u64 (uint64x1_t a); A64: UCVTF Dd, Dn
             WriteLine(writer, indent, "ConvertToDouble(Vector128s<long>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDouble(Vector128s<long>.Demo));
             WriteLine(writer, indent, "ConvertToDouble(Vector128s<ulong>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDouble(Vector128s<ulong>.Demo));
+            WriteLine(writer, indent, "ConvertToDouble(Vector64s<float>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDouble(Vector64s<float>.Demo));
 
             // ConvertToDoubleUpper(Vector128<Single>)	float64x2_t vcvt_high_f64_f32 (float32x4_t a); A64: FCVTL2 Vd.2D, Vn.4S
             WriteLine(writer, indent, "ConvertToDoubleUpper(Vector128s<float>.Demo):\t{0}", AdvSimd.Arm64.ConvertToDoubleUpper(Vector128s<float>.Demo));
@@ -1172,6 +1173,7 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "Sqrt(Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Sqrt(Vector128s<float>.V2));
                 WriteLine(writer, indent, "Sqrt(Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Sqrt(Vector128s<double>.V2));
 
+                // Mnemonic: `address[0] := left; address[1] := right`
                 // 3、Store 2 vectors into memory: vst2 ->  
                 // stores 2 vectors into memory. It interleaves the 2 vectors into memory.
                 // void vst2_s8 (int8_t * __a, int8x8x2_t __b);

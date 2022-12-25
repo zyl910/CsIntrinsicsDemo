@@ -29,6 +29,7 @@ namespace IntrinsicsLib {
                 return;
             }
 
+            // Mnemonic: `rt[i] := r[i] + (T)a[i2+0]*b[i2+0] + (T)a[i2+1]*b[i2+1] + (T)a[i2+2]*b[i2+2] + (T)a[i2+3]*b[i2+3]`, `i2 := i * 4` .
             // Dot Product signed arithmetic (vector). This instruction performs the dot product of the four signed 8-bit elements in each 32-bit element of the first source register with the four signed 8-bit elements of the corresponding 32-bit element in the second source register, accumulating the result into the corresponding 32-bit element of the destination register.
             // 点积符号算术(向量)。这条指令执行第一个源寄存器中每个32位元素中的4个带符号的8位元素与第二个源寄存器中相应32位元素的4个带符号的8位元素的点积，将结果累加到目标寄存器中相应的32位元素中。
             // for e = 0 to elements-1 
@@ -74,18 +75,18 @@ namespace IntrinsicsLib {
             // DotProductBySelectedQuadruplet(Vector64<UInt32>, Vector64<Byte>, Vector128<Byte>, Byte)	uint32x2_t vdot_laneq_u32 (uint32x2_t r, uint8x8_t a, uint8x16_t b, const int lane) A32: VUDOT.U8 Dd, Dn, Dm[lane] A64: UDOT Vd.2S, Vn.8B, Vm.4B[lane]
             // DotProductBySelectedQuadruplet(Vector64<UInt32>, Vector64<Byte>, Vector64<Byte>, Byte)	uint32x2_t vdot_lane_u32 (uint32x2_t r, uint8x8_t a, uint8x8_t b, const int lane) A32: VUDOT.U8 Dd, Dn, Dm[lane] A64: UDOT Vd.2S, Vn.8B, Vm.4B[lane]
             if (true) {
-                Vector128<int> r = Vector128s<int>.V1;
+                Vector128<int> r = Vector128s<int>.SerialNegative;
                 Vector128<sbyte> a = Vector128s<sbyte>.Serial;
-                Vector128<sbyte> b = Vector128s<sbyte>.V2;
+                Vector128<sbyte> b = Vector128s<sbyte>.Serial;
                 WriteLine(writer, indent, "DotProductBySelectedQuadruplet<sbyte>, r={0}, a={1}, b={2}", r, a, b);
                 for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "DotProductBySelectedQuadruplet(r, a, b, {1}):\t{0}", Dp.DotProductBySelectedQuadruplet(r, a, b, i), i);
                 }
             }
             if (true) {
-                Vector128<uint> r = Vector128s<uint>.V1;
+                Vector128<uint> r = Vector128s<uint>.SerialNegative;
                 Vector128<byte> a = Vector128s<byte>.Serial;
-                Vector128<byte> b = Vector128s<byte>.V2;
+                Vector128<byte> b = Vector128s<byte>.Serial;
                 WriteLine(writer, indent, "DotProductBySelectedQuadruplet<byte>, r={0}, a={1}, b={2}", r, a, b);
                 for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "DotProductBySelectedQuadruplet(r, a, b, {1}):\t{0}", Dp.DotProductBySelectedQuadruplet(r, a, b, i), i);
@@ -132,6 +133,7 @@ namespace IntrinsicsLib {
                 return;
             }
 
+            // Mnemonic: `rt[i] := (addend[i]<<esize + 2*left[i]*right[i] + rounding_const) >> esize` .
             // Signed Saturating Rounding Doubling Multiply Accumulate returning High Half (vector). This instruction multiplies the vector elements of the first source SIMD&FP register with the corresponding vector elements of the second source SIMD&FP register without saturating the multiply results, doubles the results, and accumulates the most significant half of the final results with the vector elements of the destination SIMD&FP register. The results are rounded.
             // 符号饱和四舍五入加倍乘累积返回高一半(矢量)。这条指令将第一个源SIMD&FP寄存器的向量元素与第二个源SIMD&FP寄存器的相应向量元素相乘，而不使相乘结果饱和，将结果加倍，并将最终结果的最有效的一半与目标SIMD&FP寄存器的向量元素累加。结果是四舍五入的。
             // integer rounding_const = if rounding then 1 << (esize - 1) else 0;
@@ -149,15 +151,16 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingAndAddSaturateHigh(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>)	int32x4_t vqrdmlahq_s32 (int32x4_t a, int32x4_t b, int32x4_t c) A32: VQRDMLAH.S32 Qd, Qn, Qm A64: SQRDMLAH Vd.4S, Vn.4S, Vm.4S
             // MultiplyRoundedDoublingAndAddSaturateHigh(Vector64<Int16>, Vector64<Int16>, Vector64<Int16>)	int16x4_t vqrdmlah_s16 (int16x4_t a, int16x4_t b, int16x4_t c) A32: VQRDMLAH.S16 Dd, Dn, Dm A64: SQRDMLAH Vd.4H, Vn.4H, Vm.4H
             // MultiplyRoundedDoublingAndAddSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32x2_t vqrdmlah_s32 (int32x2_t a, int32x2_t b, int32x2_t c) A32: VQRDMLAH.S32 Dd, Dn, Dm A64: SQRDMLAH Vd.2S, Vn.2S, Vm.2S
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<short>.V1, Vector128s<short>.Serial, Vector128s<short>.V2):\t{0}", Rdm.MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<short>.V1, Vector128s<short>.Serial, Vector128s<short>.V2));
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<int>.V1, Vector128s<int>.Serial, Vector128s<int>.V2):\t{0}", Rdm.MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<int>.V1, Vector128s<int>.Serial, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<short>.V1, Vector128s<short>.MaxValue, Vector128s<short>.Serial):\t{0}", Rdm.MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<short>.V1, Vector128s<short>.MaxValue, Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<int>.V1, Vector128s<int>.MaxValue, Vector128s<int>.Serial):\t{0}", Rdm.MultiplyRoundedDoublingAndAddSaturateHigh(Vector128s<int>.V1, Vector128s<int>.MaxValue, Vector128s<int>.Serial));
 
+            // Mnemonic: `rt[i] := (addend[i]<<esize - 2*left[i]*right[i] + rounding_const) >> esize` .
             // MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128<Int16>, Vector128<Int16>, Vector128<Int16>)	int16x8_t vqrdmlshq_s16 (int16x8_t a, int16x8_t b, int16x8_t c) A32: VQRDMLSH.S16 Qd, Qn, Qm A64: SQRDMLSH Vd.8H, Vn.8H, Vm.8H
             // MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128<Int32>, Vector128<Int32>, Vector128<Int32>)	int32x4_t vqrdmlshq_s32 (int32x4_t a, int32x4_t b, int32x4_t c) A32: VQRDMLSH.S32 Qd, Qn, Qm A64: SQRDMLSH Vd.4S, Vn.4S, Vm.4S
             // MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector64<Int16>, Vector64<Int16>, Vector64<Int16>)	int16x4_t vqrdmlsh_s16 (int16x4_t a, int16x4_t b, int16x4_t c) A32: VQRDMLSH.S16 Dd, Dn, Dm A64: SQRDMLSH Vd.4H, Vn.4H, Vm.4H
             // MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32x2_t vqrdmlsh_s32 (int32x2_t a, int32x2_t b, int32x2_t c) A32: VQRDMLSH.S32 Dd, Dn, Dm A64: SQRDMLSH Vd.2S, Vn.2S, Vm.2S
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<short>.V1, Vector128s<short>.Serial, Vector128s<short>.V2):\t{0}", Rdm.MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<short>.V1, Vector128s<short>.Serial, Vector128s<short>.V2));
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<int>.V1, Vector128s<int>.Serial, Vector128s<int>.V2):\t{0}", Rdm.MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<int>.V1, Vector128s<int>.Serial, Vector128s<int>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<short>.V1, Vector128s<short>.MaxValue, Vector128s<short>.Serial):\t{0}", Rdm.MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<short>.V1, Vector128s<short>.MaxValue, Vector128s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<int>.V1, Vector128s<int>.MaxValue, Vector128s<int>.Serial):\t{0}", Rdm.MultiplyRoundedDoublingAndSubtractSaturateHigh(Vector128s<int>.V1, Vector128s<int>.MaxValue, Vector128s<int>.Serial));
 
             // Signed Saturating Rounding Doubling Multiply Accumulate returning High Half (vector). This instruction multiplies the vector elements of the first source SIMD&FP register with the corresponding vector elements of the second source SIMD&FP register without saturating the multiply results, doubles the results, and accumulates the most significant half of the final results with the vector elements of the destination SIMD&FP register. The results are rounded.
             // 符号饱和四舍五入加倍乘累积返回高一半(矢量)。这条指令将第一个源SIMD&FP寄存器的向量元素与第二个源SIMD&FP寄存器的相应向量元素相乘，而不使相乘结果饱和，将结果加倍，并将最终结果的最有效的一半与目标SIMD&FP寄存器的向量元素累加。结果是四舍五入的。
@@ -182,18 +185,18 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector128<Int32>, Byte)	int32x2_t vqrdmlah_laneq_s32 (int32x2_t a, int32x2_t b, int32x4_t v, const int lane) A32: VQRDMLAH.S32 Dd, Dn, Dm[lane] A64: SQRDMLAH Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqrdmlah_lane_s32 (int32x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQRDMLAH.S32 Dd, Dn, Dm[lane] A64: SQRDMLAH Vd.2S, Vn.2S, Vm.S[lane]
             if (true) {
-                Vector128<short> addend = Vector128s<short>.V1;
-                Vector128<short> left = Vector128s<short>.Serial;
-                Vector128<short> right = Vector128s<short>.V2;
+                Vector128<short> addend = Vector128s<short>.SerialNegative;
+                Vector128<short> left = Vector128s<short>.MaxValue;
+                Vector128<short> right = Vector128s<short>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh<short>, addend={0}, left={1}, b={2}", addend, left, right);
                 for (byte i = 0; i <= 7; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(addend, left, right, i), i);
                 }
             }
             if (true) {
-                Vector128<int> addend = Vector128s<int>.V1;
-                Vector128<int> left = Vector128s<int>.Serial;
-                Vector128<int> right = Vector128s<int>.V2;
+                Vector128<int> addend = Vector128s<int>.SerialNegative;
+                Vector128<int> left = Vector128s<int>.MaxValue;
+                Vector128<int> right = Vector128s<int>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh<int>, addend={0}, left={1}, b={2}", addend, left, right);
                 for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.MultiplyRoundedDoublingBySelectedScalarAndAddSaturateHigh(addend, left, right, i), i);
@@ -209,18 +212,18 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector128<Int32>, Byte)	int32x2_t vqrdmlsh_laneq_s32 (int32x2_t a, int32x2_t b, int32x4_t v, const int lane) A32: VQRDMLSH.S32 Dd, Dn, Dm[lane] A64: SQRDMLSH Vd.2S, Vn.2S, Vm.S[lane]
             // MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>, Byte)	int32x2_t vqrdmlsh_lane_s32 (int32x2_t a, int32x2_t b, int32x2_t v, const int lane) A32: VQRDMLSH.S32 Dd, Dn, Dm[lane] A64: SQRDMLSH Vd.2S, Vn.2S, Vm.S[lane]
             if (true) {
-                Vector128<short> addend = Vector128s<short>.V1;
-                Vector128<short> left = Vector128s<short>.Serial;
-                Vector128<short> right = Vector128s<short>.V2;
+                Vector128<short> addend = Vector128s<short>.SerialNegative;
+                Vector128<short> left = Vector128s<short>.MaxValue;
+                Vector128<short> right = Vector128s<short>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh<short>, addend={0}, left={1}, b={2}", addend, left, right);
                 for (byte i = 0; i <= 7; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(addend, left, right, i), i);
                 }
             }
             if (true) {
-                Vector128<int> addend = Vector128s<int>.V1;
-                Vector128<int> left = Vector128s<int>.Serial;
-                Vector128<int> right = Vector128s<int>.V2;
+                Vector128<int> addend = Vector128s<int>.SerialNegative;
+                Vector128<int> left = Vector128s<int>.MaxValue;
+                Vector128<int> right = Vector128s<int>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh<int>, addend={0}, left={1}, b={2}", addend, left, right);
                 for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.MultiplyRoundedDoublingBySelectedScalarAndSubtractSaturateHigh(addend, left, right, i), i);
@@ -262,13 +265,13 @@ namespace IntrinsicsLib {
             //     if sat then FPSR.QC = '1';
             // MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64<Int16>, Vector64<Int16>, Vector64<Int16>)	int16_t vqrdmlahh_s16 (int16_t a, int16_t b, int16_t c) A64: SQRDMLAH Hd, Hn, Hm
             // MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32_t vqrdmlahs_s32 (int32_t a, int32_t b, int32_t c) A64: SQRDMLAH Sd, Sn, Sm
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.Serial, Vector64s<short>.V2):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.Serial, Vector64s<short>.V2));
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.Serial, Vector64s<int>.V2):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.Serial, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.MaxValue, Vector64s<short>.Serial):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.MaxValue, Vector64s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.MaxValue, Vector64s<int>.Serial):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndAddSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.MaxValue, Vector64s<int>.Serial));
 
             // MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64<Int16>, Vector64<Int16>, Vector64<Int16>)	int16_t vqrdmlshh_s16 (int16_t a, int16_t b, int16_t c) A64: SQRDMLSH Hd, Hn, Hm
             // MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>)	int32_t vqrdmlshs_s32 (int32_t a, int32_t b, int32_t c) A64: SQRDMLSH Sd, Sn, Sm
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.Serial, Vector64s<short>.V2):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.Serial, Vector64s<short>.V2));
-            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.Serial, Vector64s<int>.V2):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.Serial, Vector64s<int>.V2));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.MaxValue, Vector64s<short>.Serial):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<short>.V1, Vector64s<short>.MaxValue, Vector64s<short>.Serial));
+            WriteLine(writer, indent, "MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.MaxValue, Vector64s<int>.Serial):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingAndSubtractSaturateHighScalar(Vector64s<int>.V1, Vector64s<int>.MaxValue, Vector64s<int>.Serial));
 
             // Signed Saturating Rounding Doubling Multiply Accumulate returning High Half (vector). This instruction multiplies the vector elements of the first source SIMD&FP register with the corresponding vector elements of the second source SIMD&FP register without saturating the multiply results, doubles the results, and accumulates the most significant half of the final results with the vector elements of the destination SIMD&FP register. The results are rounded.
             // 符号饱和四舍五入加倍乘累积返回高一半(矢量)。这条指令将第一个源SIMD&FP寄存器的向量元素与第二个源SIMD&FP寄存器的相应向量元素相乘，而不使相乘结果饱和，将结果加倍，并将最终结果的最有效的一半与目标SIMD&FP寄存器的向量元素累加。结果是四舍五入的。
@@ -289,20 +292,20 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector128<Int32>, Byte)	int32_t vqrdmlahs_laneq_s32 (int32_t a, int32_t b, int32x4_t v, const int lane) A64: SQRDMLAH Sd, Sn, Vm.S[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqrdmlahs_lane_s32 (int32_t a, int32_t b, int32x2_t v, const int lane) A64: SQRDMLAH Sd, Sn, Vm.S[lane]
             if (true) {
-                Vector64<short> addend = Vector64s<short>.V1;
-                Vector64<short> left = Vector64s<short>.Serial;
-                Vector64<short> right = Vector64s<short>.V2;
+                Vector64<short> addend = Vector64s<short>.SerialNegative;
+                Vector64<short> left = Vector64s<short>.MaxValue;
+                Vector64<short> right = Vector64s<short>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh<short>, addend={0}, left={1}, b={2}", addend, left, right);
-                for (byte i = 0; i <= 7; ++i) {
+                for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(addend, left, right, i), i);
                 }
             }
             if (true) {
-                Vector64<int> addend = Vector64s<int>.V1;
-                Vector64<int> left = Vector64s<int>.Serial;
-                Vector64<int> right = Vector64s<int>.V2;
+                Vector64<int> addend = Vector64s<int>.SerialNegative;
+                Vector64<int> left = Vector64s<int>.MaxValue;
+                Vector64<int> right = Vector64s<int>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh<int>, addend={0}, left={1}, b={2}", addend, left, right);
-                for (byte i = 0; i <= 3; ++i) {
+                for (byte i = 0; i <= 1; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarAndAddSaturateHigh(addend, left, right, i), i);
                 }
             }
@@ -312,20 +315,20 @@ namespace IntrinsicsLib {
             // MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector128<Int32>, Byte)	int32_t vqrdmlshs_laneq_s32 (int32_t a, int32_t b, int32x4_t v, const int lane) A64: SQRDMLSH Sd, Sn, Vm.S[lane]
             // MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(Vector64<Int32>, Vector64<Int32>, Vector64<Int32>, Byte)	int32_t vqrdmlshs_lane_s32 (int32_t a, int32_t b, int32x2_t v, const int lane) A64: SQRDMLSH Sd, Sn, Vm.S[lane]
             if (true) {
-                Vector64<short> addend = Vector64s<short>.V1;
-                Vector64<short> left = Vector64s<short>.Serial;
-                Vector64<short> right = Vector64s<short>.V2;
+                Vector64<short> addend = Vector64s<short>.SerialNegative;
+                Vector64<short> left = Vector64s<short>.MaxValue;
+                Vector64<short> right = Vector64s<short>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh<short>, addend={0}, left={1}, b={2}", addend, left, right);
-                for (byte i = 0; i <= 7; ++i) {
+                for (byte i = 0; i <= 3; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(addend, left, right, i), i);
                 }
             }
             if (true) {
-                Vector64<int> addend = Vector64s<int>.V1;
-                Vector64<int> left = Vector64s<int>.Serial;
-                Vector64<int> right = Vector64s<int>.V2;
+                Vector64<int> addend = Vector64s<int>.SerialNegative;
+                Vector64<int> left = Vector64s<int>.MaxValue;
+                Vector64<int> right = Vector64s<int>.Serial;
                 WriteLine(writer, indent, "MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh<int>, addend={0}, left={1}, b={2}", addend, left, right);
-                for (byte i = 0; i <= 3; ++i) {
+                for (byte i = 0; i <= 1; ++i) {
                     WriteLine(writer, indentNext, "MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(addend, left, right, {1}):\t{0}", Rdm.Arm64.MultiplyRoundedDoublingScalarBySelectedScalarAndSubtractSaturateHigh(addend, left, right, i), i);
                 }
             }
