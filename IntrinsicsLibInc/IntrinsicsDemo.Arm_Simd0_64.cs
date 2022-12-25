@@ -1110,113 +1110,148 @@ namespace IntrinsicsLib {
 
         }
         public unsafe static void RunArm_AdvSimd_64_S(TextWriter writer, string indent) {
-            // ShiftArithmeticRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqrshlh_s16 (int16_t a, int16_t b); A64: SQRSHL Hd, Hn, Hm
-            // ShiftArithmeticRoundedSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqrshls_s32 (int32_t a, int32_t b); A64: SQRSHL Sd, Sn, Sm
-            // ShiftArithmeticRoundedSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqrshlb_s8 (int8_t a, int8_t b); A64: SQRSHL Bd, Bn, Bm
-            // ShiftArithmeticSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqshlh_s16 (int16_t a, int16_t b); A64: SQSHL Hd, Hn, Hm
-            // ShiftArithmeticSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqshls_s32 (int32_t a, int32_t b); A64: SQSHL Sd, Sn, Sm
-            // ShiftArithmeticSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqshlb_s8 (int8_t a, int8_t b); A64: SQSHL Bd, Bn, Bm
-            // ShiftLeftLogicalSaturateScalar(Vector64<Byte>, Byte)	uint8_t vqshlb_n_u8 (uint8_t a, const int n); A64: UQSHL Bd, Bn, #n
-            // ShiftLeftLogicalSaturateScalar(Vector64<Int16>, Byte)	int16_t vqshlh_n_s16 (int16_t a, const int n); A64: SQSHL Hd, Hn, #n
-            // ShiftLeftLogicalSaturateScalar(Vector64<Int32>, Byte)	int32_t vqshls_n_s32 (int32_t a, const int n); A64: SQSHL Sd, Sn, #n
-            // ShiftLeftLogicalSaturateScalar(Vector64<SByte>, Byte)	int8_t vqshlb_n_s8 (int8_t a, const int n); A64: SQSHL Bd, Bn, #n
-            // ShiftLeftLogicalSaturateScalar(Vector64<UInt16>, Byte)	uint16_t vqshlh_n_u16 (uint16_t a, const int n); A64: UQSHL Hd, Hn, #n
-            // ShiftLeftLogicalSaturateScalar(Vector64<UInt32>, Byte)	uint32_t vqshls_n_u32 (uint32_t a, const int n); A64: UQSHL Sd, Sn, #n
-            // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint16_t vqshluh_n_s16 (int16_t a, const int n); A64: SQSHLU Hd, Hn, #n
-            // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint32_t vqshlus_n_s32 (int32_t a, const int n); A64: SQSHLU Sd, Sn, #n
-            // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<SByte>, Byte)	uint8_t vqshlub_n_s8 (int8_t a, const int n); A64: SQSHLU Bd, Bn, #n
-            // ShiftLogicalRoundedSaturateScalar(Vector64<Byte>, Vector64<SByte>)	uint8_t vqrshlb_u8 (uint8_t a, int8_t b); A64: UQRSHL Bd, Bn, Bm
-            // ShiftLogicalRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	uint16_t vqrshlh_u16 (uint16_t a, int16_t b); A64: UQRSHL Hd, Hn, Hm
-            // ShiftLogicalRoundedSaturateScalar(Vector64<Int32>, Vector64<Int32>)	uint32_t vqrshls_u32 (uint32_t a, int32_t b); A64: UQRSHL Sd, Sn, Sm
-            // ShiftLogicalRoundedSaturateScalar(Vector64<SByte>, Vector64<SByte>)	uint8_t vqrshlb_u8 (uint8_t a, int8_t b); A64: UQRSHL Bd, Bn, Bm
-            // ShiftLogicalRoundedSaturateScalar(Vector64<UInt16>, Vector64<Int16>)	uint16_t vqrshlh_u16 (uint16_t a, int16_t b); A64: UQRSHL Hd, Hn, Hm
-            // ShiftLogicalRoundedSaturateScalar(Vector64<UInt32>, Vector64<Int32>)	uint32_t vqrshls_u32 (uint32_t a, int32_t b); A64: UQRSHL Sd, Sn, Sm
-            // ShiftLogicalSaturateScalar(Vector64<Byte>, Vector64<SByte>)	uint8_t vqshlb_u8 (uint8_t a, int8_t b); A64: UQSHL Bd, Bn, Bm
-            // ShiftLogicalSaturateScalar(Vector64<Int16>, Vector64<Int16>)	uint16_t vqshlh_u16 (uint16_t a, int16_t b); A64: UQSHL Hd, Hn, Hm
-            // ShiftLogicalSaturateScalar(Vector64<Int32>, Vector64<Int32>)	uint32_t vqshls_u32 (uint32_t a, int32_t b); A64: UQSHL Sd, Sn, Sm
-            // ShiftLogicalSaturateScalar(Vector64<SByte>, Vector64<SByte>)	uint8_t vqshlb_u8 (uint8_t a, int8_t b); A64: UQSHL Bd, Bn, Bm
-            // ShiftLogicalSaturateScalar(Vector64<UInt16>, Vector64<Int16>)	uint16_t vqshlh_u16 (uint16_t a, int16_t b); A64: UQSHL Hd, Hn, Hm
-            // ShiftLogicalSaturateScalar(Vector64<UInt32>, Vector64<Int32>)	uint32_t vqshls_u32 (uint32_t a, int32_t b); A64: UQSHL Sd, Sn, Sm
-            // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int16>, Byte)	int8_t vqshrnh_n_s16 (int16_t a, const int n); A64: SQSHRN Bd, Hn, #n
-            // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int32>, Byte)	int16_t vqshrns_n_s32 (int32_t a, const int n); A64: SQSHRN Hd, Sn, #n
-            // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int64>, Byte)	int32_t vqshrnd_n_s64 (int64_t a, const int n); A64: SQSHRN Sd, Dn, #n
-            // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint8_t vqshrunh_n_s16 (int16_t a, const int n); A64: SQSHRUN Bd, Hn, #n
-            // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint16_t vqshruns_n_s32 (int32_t a, const int n); A64: SQSHRUN Hd, Sn, #n
-            // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int64>, Byte)	uint32_t vqshrund_n_s64 (int64_t a, const int n); A64: SQSHRUN Sd, Dn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int16>, Byte)	int8_t vqrshrnh_n_s16 (int16_t a, const int n); A64: SQRSHRN Bd, Hn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int32>, Byte)	int16_t vqrshrns_n_s32 (int32_t a, const int n); A64: SQRSHRN Hd, Sn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int64>, Byte)	int32_t vqrshrnd_n_s64 (int64_t a, const int n); A64: SQRSHRN Sd, Dn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint8_t vqrshrunh_n_s16 (int16_t a, const int n); A64: SQRSHRUN Bd, Hn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint16_t vqrshruns_n_s32 (int32_t a, const int n); A64: SQRSHRUN Hd, Sn, #n
-            // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int64>, Byte)	uint32_t vqrshrund_n_s64 (int64_t a, const int n); A64: SQRSHRUN Sd, Dn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int16>, Byte)	uint8_t vqshrnh_n_u16 (uint16_t a, const int n); A64: UQSHRN Bd, Hn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int32>, Byte)	uint16_t vqshrns_n_u32 (uint32_t a, const int n); A64: UQSHRN Hd, Sn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int64>, Byte)	uint32_t vqshrnd_n_u64 (uint64_t a, const int n); A64: UQSHRN Sd, Dn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt16>, Byte)	uint8_t vqshrnh_n_u16 (uint16_t a, const int n); A64: UQSHRN Bd, Hn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt32>, Byte)	uint16_t vqshrns_n_u32 (uint32_t a, const int n); A64: UQSHRN Hd, Sn, #n
-            // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt64>, Byte)	uint32_t vqshrnd_n_u64 (uint64_t a, const int n); A64: UQSHRN Sd, Dn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int16>, Byte)	uint8_t vqrshrnh_n_u16 (uint16_t a, const int n); A64: UQRSHRN Bd, Hn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int32>, Byte)	uint16_t vqrshrns_n_u32 (uint32_t a, const int n); A64: UQRSHRN Hd, Sn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int64>, Byte)	uint32_t vqrshrnd_n_u64 (uint64_t a, const int n); A64: UQRSHRN Sd, Dn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt16>, Byte)	uint8_t vqrshrnh_n_u16 (uint16_t a, const int n); A64: UQRSHRN Bd, Hn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt32>, Byte)	uint16_t vqrshrns_n_u32 (uint32_t a, const int n); A64: UQRSHRN Hd, Sn, #n
-            // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt64>, Byte)	uint32_t vqrshrnd_n_u64 (uint64_t a, const int n); A64: UQRSHRN Sd, Dn, #n
-            // Sqrt(Vector128<Double>)	float64x2_t vsqrtq_f64 (float64x2_t a); A64: FSQRT Vd.2D, Vn.2D
-            // Sqrt(Vector128<Single>)	float32x4_t vsqrtq_f32 (float32x4_t a); A64: FSQRT Vd.4S, Vn.4S
-            // Sqrt(Vector64<Single>)	float32x2_t vsqrt_f32 (float32x2_t a); A64: FSQRT Vd.2S, Vn.2S
-            // StorePair(Byte*, Vector128<Byte>, Vector128<Byte>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Byte*, Vector64<Byte>, Vector64<Byte>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(Double*, Vector128<Double>, Vector128<Double>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Double*, Vector64<Double>, Vector64<Double>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(Int16*, Vector128<Int16>, Vector128<Int16>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Int16*, Vector64<Int16>, Vector64<Int16>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(Int32*, Vector128<Int32>, Vector128<Int32>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(Int64*, Vector128<Int64>, Vector128<Int64>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Int64*, Vector64<Int64>, Vector64<Int64>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(SByte*, Vector128<SByte>, Vector128<SByte>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(SByte*, Vector64<SByte>, Vector64<SByte>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(Single*, Vector128<Single>, Vector128<Single>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(Single*, Vector64<Single>, Vector64<Single>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(UInt16*, Vector128<UInt16>, Vector128<UInt16>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(UInt16*, Vector64<UInt16>, Vector64<UInt16>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(UInt32*, Vector128<UInt32>, Vector128<UInt32>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePair(UInt64*, Vector128<UInt64>, Vector128<UInt64>)	A64: STP Qt1, Qt2, [Xn]
-            // StorePair(UInt64*, Vector64<UInt64>, Vector64<UInt64>)	A64: STP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Byte*, Vector128<Byte>, Vector128<Byte>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Byte*, Vector64<Byte>, Vector64<Byte>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Double*, Vector128<Double>, Vector128<Double>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Double*, Vector64<Double>, Vector64<Double>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Int16*, Vector128<Int16>, Vector128<Int16>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Int16*, Vector64<Int16>, Vector64<Int16>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Int32*, Vector128<Int32>, Vector128<Int32>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Int64*, Vector128<Int64>, Vector128<Int64>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Int64*, Vector64<Int64>, Vector64<Int64>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(SByte*, Vector128<SByte>, Vector128<SByte>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(SByte*, Vector64<SByte>, Vector64<SByte>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(Single*, Vector128<Single>, Vector128<Single>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(Single*, Vector64<Single>, Vector64<Single>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(UInt16*, Vector128<UInt16>, Vector128<UInt16>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(UInt16*, Vector64<UInt16>, Vector64<UInt16>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(UInt32*, Vector128<UInt32>, Vector128<UInt32>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairNonTemporal(UInt64*, Vector128<UInt64>, Vector128<UInt64>)	A64: STNP Qt1, Qt2, [Xn]
-            // StorePairNonTemporal(UInt64*, Vector64<UInt64>, Vector64<UInt64>)	A64: STNP Dt1, Dt2, [Xn]
-            // StorePairScalar(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STP St1, St2, [Xn]
-            // StorePairScalar(Single*, Vector64<Single>, Vector64<Single>)	A64: STP St1, St2, [Xn]
-            // StorePairScalar(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STP St1, St2, [Xn]
-            // StorePairScalarNonTemporal(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STNP St1, St2, [Xn]
-            // StorePairScalarNonTemporal(Single*, Vector64<Single>, Vector64<Single>)	A64: STNP St1, St2, [Xn]
-            // StorePairScalarNonTemporal(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STNP St1, St2, [Xn]
-            // Subtract(Vector128<Double>, Vector128<Double>)	float64x2_t vsubq_f64 (float64x2_t a, float64x2_t b); A64: FSUB Vd.2D, Vn.2D, Vm.2D
-            // SubtractSaturateScalar(Vector64<Byte>, Vector64<Byte>)	uint8_t vqsubb_u8 (uint8_t a, uint8_t b); A64: UQSUB Bd, Bn, Bm
-            // SubtractSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqsubh_s16 (int16_t a, int16_t b); A64: SQSUB Hd, Hn, Hm
-            // SubtractSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqsubs_s32 (int32_t a, int32_t b); A64: SQSUB Sd, Sn, Sm
-            // SubtractSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqsubb_s8 (int8_t a, int8_t b); A64: SQSUB Bd, Bn, Bm
-            // SubtractSaturateScalar(Vector64<UInt16>, Vector64<UInt16>)	uint16_t vqsubh_u16 (uint16_t a, uint16_t b); A64: UQSUB Hd, Hn, Hm
-            // SubtractSaturateScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32_t vqsubs_u32 (uint32_t a, uint32_t b); A64: UQSUB Sd, Sn, Sm
+            string indentNext = indent + IndentNextSeparator;
+            unchecked {
+                // ShiftArithmeticRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqrshlh_s16 (int16_t a, int16_t b); A64: SQRSHL Hd, Hn, Hm
+                // ShiftArithmeticRoundedSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqrshls_s32 (int32_t a, int32_t b); A64: SQRSHL Sd, Sn, Sm
+                // ShiftArithmeticRoundedSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqrshlb_s8 (int8_t a, int8_t b); A64: SQRSHL Bd, Bn, Bm
+                // ShiftArithmeticSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqshlh_s16 (int16_t a, int16_t b); A64: SQSHL Hd, Hn, Hm
+                // ShiftArithmeticSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqshls_s32 (int32_t a, int32_t b); A64: SQSHL Sd, Sn, Sm
+                // ShiftArithmeticSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqshlb_s8 (int8_t a, int8_t b); A64: SQSHL Bd, Bn, Bm
+                // ShiftLeftLogicalSaturateScalar(Vector64<Byte>, Byte)	uint8_t vqshlb_n_u8 (uint8_t a, const int n); A64: UQSHL Bd, Bn, #n
+                // ShiftLeftLogicalSaturateScalar(Vector64<Int16>, Byte)	int16_t vqshlh_n_s16 (int16_t a, const int n); A64: SQSHL Hd, Hn, #n
+                // ShiftLeftLogicalSaturateScalar(Vector64<Int32>, Byte)	int32_t vqshls_n_s32 (int32_t a, const int n); A64: SQSHL Sd, Sn, #n
+                // ShiftLeftLogicalSaturateScalar(Vector64<SByte>, Byte)	int8_t vqshlb_n_s8 (int8_t a, const int n); A64: SQSHL Bd, Bn, #n
+                // ShiftLeftLogicalSaturateScalar(Vector64<UInt16>, Byte)	uint16_t vqshlh_n_u16 (uint16_t a, const int n); A64: UQSHL Hd, Hn, #n
+                // ShiftLeftLogicalSaturateScalar(Vector64<UInt32>, Byte)	uint32_t vqshls_n_u32 (uint32_t a, const int n); A64: UQSHL Sd, Sn, #n
+                // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint16_t vqshluh_n_s16 (int16_t a, const int n); A64: SQSHLU Hd, Hn, #n
+                // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint32_t vqshlus_n_s32 (int32_t a, const int n); A64: SQSHLU Sd, Sn, #n
+                // ShiftLeftLogicalSaturateUnsignedScalar(Vector64<SByte>, Byte)	uint8_t vqshlub_n_s8 (int8_t a, const int n); A64: SQSHLU Bd, Bn, #n
+                // ShiftLogicalRoundedSaturateScalar(Vector64<Byte>, Vector64<SByte>)	uint8_t vqrshlb_u8 (uint8_t a, int8_t b); A64: UQRSHL Bd, Bn, Bm
+                // ShiftLogicalRoundedSaturateScalar(Vector64<Int16>, Vector64<Int16>)	uint16_t vqrshlh_u16 (uint16_t a, int16_t b); A64: UQRSHL Hd, Hn, Hm
+                // ShiftLogicalRoundedSaturateScalar(Vector64<Int32>, Vector64<Int32>)	uint32_t vqrshls_u32 (uint32_t a, int32_t b); A64: UQRSHL Sd, Sn, Sm
+                // ShiftLogicalRoundedSaturateScalar(Vector64<SByte>, Vector64<SByte>)	uint8_t vqrshlb_u8 (uint8_t a, int8_t b); A64: UQRSHL Bd, Bn, Bm
+                // ShiftLogicalRoundedSaturateScalar(Vector64<UInt16>, Vector64<Int16>)	uint16_t vqrshlh_u16 (uint16_t a, int16_t b); A64: UQRSHL Hd, Hn, Hm
+                // ShiftLogicalRoundedSaturateScalar(Vector64<UInt32>, Vector64<Int32>)	uint32_t vqrshls_u32 (uint32_t a, int32_t b); A64: UQRSHL Sd, Sn, Sm
+                // ShiftLogicalSaturateScalar(Vector64<Byte>, Vector64<SByte>)	uint8_t vqshlb_u8 (uint8_t a, int8_t b); A64: UQSHL Bd, Bn, Bm
+                // ShiftLogicalSaturateScalar(Vector64<Int16>, Vector64<Int16>)	uint16_t vqshlh_u16 (uint16_t a, int16_t b); A64: UQSHL Hd, Hn, Hm
+                // ShiftLogicalSaturateScalar(Vector64<Int32>, Vector64<Int32>)	uint32_t vqshls_u32 (uint32_t a, int32_t b); A64: UQSHL Sd, Sn, Sm
+                // ShiftLogicalSaturateScalar(Vector64<SByte>, Vector64<SByte>)	uint8_t vqshlb_u8 (uint8_t a, int8_t b); A64: UQSHL Bd, Bn, Bm
+                // ShiftLogicalSaturateScalar(Vector64<UInt16>, Vector64<Int16>)	uint16_t vqshlh_u16 (uint16_t a, int16_t b); A64: UQSHL Hd, Hn, Hm
+                // ShiftLogicalSaturateScalar(Vector64<UInt32>, Vector64<Int32>)	uint32_t vqshls_u32 (uint32_t a, int32_t b); A64: UQSHL Sd, Sn, Sm
+                // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int16>, Byte)	int8_t vqshrnh_n_s16 (int16_t a, const int n); A64: SQSHRN Bd, Hn, #n
+                // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int32>, Byte)	int16_t vqshrns_n_s32 (int32_t a, const int n); A64: SQSHRN Hd, Sn, #n
+                // ShiftRightArithmeticNarrowingSaturateScalar(Vector64<Int64>, Byte)	int32_t vqshrnd_n_s64 (int64_t a, const int n); A64: SQSHRN Sd, Dn, #n
+                // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint8_t vqshrunh_n_s16 (int16_t a, const int n); A64: SQSHRUN Bd, Hn, #n
+                // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint16_t vqshruns_n_s32 (int32_t a, const int n); A64: SQSHRUN Hd, Sn, #n
+                // ShiftRightArithmeticNarrowingSaturateUnsignedScalar(Vector64<Int64>, Byte)	uint32_t vqshrund_n_s64 (int64_t a, const int n); A64: SQSHRUN Sd, Dn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int16>, Byte)	int8_t vqrshrnh_n_s16 (int16_t a, const int n); A64: SQRSHRN Bd, Hn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int32>, Byte)	int16_t vqrshrns_n_s32 (int32_t a, const int n); A64: SQRSHRN Hd, Sn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateScalar(Vector64<Int64>, Byte)	int32_t vqrshrnd_n_s64 (int64_t a, const int n); A64: SQRSHRN Sd, Dn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int16>, Byte)	uint8_t vqrshrunh_n_s16 (int16_t a, const int n); A64: SQRSHRUN Bd, Hn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int32>, Byte)	uint16_t vqrshruns_n_s32 (int32_t a, const int n); A64: SQRSHRUN Hd, Sn, #n
+                // ShiftRightArithmeticRoundedNarrowingSaturateUnsignedScalar(Vector64<Int64>, Byte)	uint32_t vqrshrund_n_s64 (int64_t a, const int n); A64: SQRSHRUN Sd, Dn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int16>, Byte)	uint8_t vqshrnh_n_u16 (uint16_t a, const int n); A64: UQSHRN Bd, Hn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int32>, Byte)	uint16_t vqshrns_n_u32 (uint32_t a, const int n); A64: UQSHRN Hd, Sn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<Int64>, Byte)	uint32_t vqshrnd_n_u64 (uint64_t a, const int n); A64: UQSHRN Sd, Dn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt16>, Byte)	uint8_t vqshrnh_n_u16 (uint16_t a, const int n); A64: UQSHRN Bd, Hn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt32>, Byte)	uint16_t vqshrns_n_u32 (uint32_t a, const int n); A64: UQSHRN Hd, Sn, #n
+                // ShiftRightLogicalNarrowingSaturateScalar(Vector64<UInt64>, Byte)	uint32_t vqshrnd_n_u64 (uint64_t a, const int n); A64: UQSHRN Sd, Dn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int16>, Byte)	uint8_t vqrshrnh_n_u16 (uint16_t a, const int n); A64: UQRSHRN Bd, Hn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int32>, Byte)	uint16_t vqrshrns_n_u32 (uint32_t a, const int n); A64: UQRSHRN Hd, Sn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<Int64>, Byte)	uint32_t vqrshrnd_n_u64 (uint64_t a, const int n); A64: UQRSHRN Sd, Dn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt16>, Byte)	uint8_t vqrshrnh_n_u16 (uint16_t a, const int n); A64: UQRSHRN Bd, Hn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt32>, Byte)	uint16_t vqrshrns_n_u32 (uint32_t a, const int n); A64: UQRSHRN Hd, Sn, #n
+                // ShiftRightLogicalRoundedNarrowingSaturateScalar(Vector64<UInt64>, Byte)	uint32_t vqrshrnd_n_u64 (uint64_t a, const int n); A64: UQRSHRN Sd, Dn, #n
+                // Ignore
+
+                // Sqrt(Vector128<Double>)	float64x2_t vsqrtq_f64 (float64x2_t a); A64: FSQRT Vd.2D, Vn.2D
+                // Sqrt(Vector128<Single>)	float32x4_t vsqrtq_f32 (float32x4_t a); A64: FSQRT Vd.4S, Vn.4S
+                // Sqrt(Vector64<Single>)	float32x2_t vsqrt_f32 (float32x2_t a); A64: FSQRT Vd.2S, Vn.2S
+                WriteLine(writer, indent, "Sqrt(Vector64s<float>.V2):\t{0}", AdvSimd.Arm64.Sqrt(Vector64s<float>.V2));
+                WriteLine(writer, indent, "Sqrt(Vector128s<float>.V2):\t{0}", AdvSimd.Arm64.Sqrt(Vector128s<float>.V2));
+                WriteLine(writer, indent, "Sqrt(Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Sqrt(Vector128s<double>.V2));
+
+                // 3、Store 2 vectors into memory: vst2 ->  
+                // stores 2 vectors into memory. It interleaves the 2 vectors into memory.
+                // void vst2_s8 (int8_t * __a, int8x8x2_t __b);
+                // StorePair(Byte*, Vector128<Byte>, Vector128<Byte>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Byte*, Vector64<Byte>, Vector64<Byte>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(Double*, Vector128<Double>, Vector128<Double>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Double*, Vector64<Double>, Vector64<Double>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(Int16*, Vector128<Int16>, Vector128<Int16>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Int16*, Vector64<Int16>, Vector64<Int16>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(Int32*, Vector128<Int32>, Vector128<Int32>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(Int64*, Vector128<Int64>, Vector128<Int64>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Int64*, Vector64<Int64>, Vector64<Int64>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(SByte*, Vector128<SByte>, Vector128<SByte>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(SByte*, Vector64<SByte>, Vector64<SByte>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(Single*, Vector128<Single>, Vector128<Single>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(Single*, Vector64<Single>, Vector64<Single>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(UInt16*, Vector128<UInt16>, Vector128<UInt16>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(UInt16*, Vector64<UInt16>, Vector64<UInt16>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(UInt32*, Vector128<UInt32>, Vector128<UInt32>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STP Dt1, Dt2, [Xn]
+                // StorePair(UInt64*, Vector128<UInt64>, Vector128<UInt64>)	A64: STP Qt1, Qt2, [Xn]
+                // StorePair(UInt64*, Vector64<UInt64>, Vector64<UInt64>)	A64: STP Dt1, Dt2, [Xn]
+                if (true) {
+                    Vector64<sbyte> a = Vector64s<sbyte>.Demo;
+                    Vector64<sbyte> b = Vector64s<sbyte>.SerialNegative;
+                    Vector128<sbyte> dst = default;
+                    AdvSimd.Arm64.StorePair((sbyte*)&dst, a, b);
+                    WriteLine(writer, indent, "StorePair<sbyte>(&dst, a, b), a={0}, b={1}", a, b);
+                    WriteLine(writer, indentNext, "dst:\t{0}", dst);
+                }
+
+                // StorePairNonTemporal(Byte*, Vector128<Byte>, Vector128<Byte>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Byte*, Vector64<Byte>, Vector64<Byte>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(Double*, Vector128<Double>, Vector128<Double>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Double*, Vector64<Double>, Vector64<Double>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(Int16*, Vector128<Int16>, Vector128<Int16>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Int16*, Vector64<Int16>, Vector64<Int16>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(Int32*, Vector128<Int32>, Vector128<Int32>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(Int64*, Vector128<Int64>, Vector128<Int64>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Int64*, Vector64<Int64>, Vector64<Int64>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(SByte*, Vector128<SByte>, Vector128<SByte>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(SByte*, Vector64<SByte>, Vector64<SByte>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(Single*, Vector128<Single>, Vector128<Single>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(Single*, Vector64<Single>, Vector64<Single>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(UInt16*, Vector128<UInt16>, Vector128<UInt16>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(UInt16*, Vector64<UInt16>, Vector64<UInt16>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(UInt32*, Vector128<UInt32>, Vector128<UInt32>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairNonTemporal(UInt64*, Vector128<UInt64>, Vector128<UInt64>)	A64: STNP Qt1, Qt2, [Xn]
+                // StorePairNonTemporal(UInt64*, Vector64<UInt64>, Vector64<UInt64>)	A64: STNP Dt1, Dt2, [Xn]
+                // StorePairScalar(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STP St1, St2, [Xn]
+                // StorePairScalar(Single*, Vector64<Single>, Vector64<Single>)	A64: STP St1, St2, [Xn]
+                // StorePairScalar(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STP St1, St2, [Xn]
+                // StorePairScalarNonTemporal(Int32*, Vector64<Int32>, Vector64<Int32>)	A64: STNP St1, St2, [Xn]
+                // StorePairScalarNonTemporal(Single*, Vector64<Single>, Vector64<Single>)	A64: STNP St1, St2, [Xn]
+                // StorePairScalarNonTemporal(UInt32*, Vector64<UInt32>, Vector64<UInt32>)	A64: STNP St1, St2, [Xn]
+                // Ignore
+
+                // 1、Vector subtract(正常指令):vsub -> ri = ai - bi;
+                // Subtract(Vector128<Double>, Vector128<Double>)	float64x2_t vsubq_f64 (float64x2_t a, float64x2_t b); A64: FSUB Vd.2D, Vn.2D, Vm.2D
+                WriteLine(writer, indent, "Subtract(Vector128s<double>.Demo, Vector128s<double>.V2):\t{0}", AdvSimd.Arm64.Subtract(Vector128s<double>.Demo, Vector128s<double>.V2));
+
+                // 4、Vector saturating subtract(饱和指令): vqsub -> ri = sat(ai - bi); 
+                // If any of the results overflow, they are saturated
+                // 如果有任何结果溢出，则它们是饱和的
+                // SubtractSaturateScalar(Vector64<Byte>, Vector64<Byte>)	uint8_t vqsubb_u8 (uint8_t a, uint8_t b); A64: UQSUB Bd, Bn, Bm
+                // SubtractSaturateScalar(Vector64<Int16>, Vector64<Int16>)	int16_t vqsubh_s16 (int16_t a, int16_t b); A64: SQSUB Hd, Hn, Hm
+                // SubtractSaturateScalar(Vector64<Int32>, Vector64<Int32>)	int32_t vqsubs_s32 (int32_t a, int32_t b); A64: SQSUB Sd, Sn, Sm
+                // SubtractSaturateScalar(Vector64<SByte>, Vector64<SByte>)	int8_t vqsubb_s8 (int8_t a, int8_t b); A64: SQSUB Bd, Bn, Bm
+                // SubtractSaturateScalar(Vector64<UInt16>, Vector64<UInt16>)	uint16_t vqsubh_u16 (uint16_t a, uint16_t b); A64: UQSUB Hd, Hn, Hm
+                // SubtractSaturateScalar(Vector64<UInt32>, Vector64<UInt32>)	uint32_t vqsubs_u32 (uint32_t a, uint32_t b); A64: UQSUB Sd, Sn, Sm
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<sbyte>.Demo, Vector64s<sbyte>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<byte>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<byte>.Demo, Vector64s<byte>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<short>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<short>.Demo, Vector64s<short>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<ushort>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<ushort>.Demo, Vector64s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<int>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<int>.Demo, Vector64s<int>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<uint>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.Arm64.SubtractSaturateScalar(Vector64s<uint>.Demo, Vector64s<uint>.V2));
+            }
         }
         public unsafe static void RunArm_AdvSimd_64_T(TextWriter writer, string indent) {
             // https://developer.arm.com/documentation/dui0472/k/Using-NEON-Support/NEON-intrinsics-for-transposition-operations

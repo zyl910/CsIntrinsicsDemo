@@ -255,6 +255,8 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "Add(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.Add(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
             WriteLine(writer, indent, "Add(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.Add(Vector128s<int>.Demo, Vector128s<int>.V2));
             WriteLine(writer, indent, "Add(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.Add(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+            WriteLine(writer, indent, "Add(Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.Add(Vector128s<long>.Demo, Vector128s<long>.V2));
+            WriteLine(writer, indent, "Add(Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.Add(Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
             WriteLine(writer, indent, "Add(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Add(Vector128s<float>.Demo, Vector128s<float>.V2));
             WriteLine(writer, indent, "AddScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.AddScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
 
@@ -4207,6 +4209,7 @@ namespace IntrinsicsLib {
                 WriteLine(writer, indent, "SqrtScalar(Vector64s<float>.V2):\t{0}", AdvSimd.SqrtScalar(Vector64s<float>.V2));
                 WriteLine(writer, indent, "SqrtScalar(Vector64s<double>.V2):\t{0}", AdvSimd.SqrtScalar(Vector64s<double>.V2));
 
+                // 1、Store a single vector into memory: vst1 -> stores a vector into memory.
                 // Store(Byte*, Vector128<Byte>)	void vst1q_u8 (uint8_t * ptr, uint8x16_t val); A32: VST1.8 { Dd, Dd+1 }, [Rn]; A64: ST1 { Vt.16B }, [Xn]
                 // Store(Byte*, Vector64<Byte>)	void vst1_u8 (uint8_t * ptr, uint8x8_t val); A32: VST1.8 { Dd }, [Rn]; A64: ST1 { Vt.8B }, [Xn]
                 // Store(Double*, Vector128<Double>)	void vst1q_f64 (float64_t * ptr, float64x2_t val); A32: VST1.64 { Dd, Dd+1 }, [Rn]; A64: ST1 { Vt.2D }, [Xn]
@@ -4227,6 +4230,7 @@ namespace IntrinsicsLib {
                 // Store(UInt32*, Vector64<UInt32>)	void vst1_u32 (uint32_t * ptr, uint32x2_t val); A32: VST1.32 { Dd }, [Rn]; A64: ST1 { Vt.2S }, [Xn]
                 // Store(UInt64*, Vector128<UInt64>)	void vst1q_u64 (uint64_t * ptr, uint64x2_t val); A32: VST1.64 { Dd, Dd+1 }, [Rn]; A64: ST1 { Vt.2D }, [Xn]
                 // Store(UInt64*, Vector64<UInt64>)	void vst1_u64 (uint64_t * ptr, uint64x1_t val); A32: VST1.64 { Dd }, [Rn]; A64: ST1 { Vt.1D }, [Xn]
+                // 2、Store a single lane into memory: vst1 -> stores one element of the vector into memory. c is the index in the vector to be stored.
                 // StoreSelectedScalar(Byte*, Vector128<Byte>, Byte)	void vst1q_lane_u8 (uint8_t * ptr, uint8x16_t val, const int lane); A32: VST1.8 { Dd[index] }, [Rn]; A64: ST1 { Vt.B }[index], [Xn]
                 // StoreSelectedScalar(Byte*, Vector64<Byte>, Byte)	void vst1_lane_u8 (uint8_t * ptr, uint8x8_t val, const int lane); A32: VST1.8 { Dd[index] }, [Rn]; A64: ST1 { Vt.B }[index], [Xn]
                 // StoreSelectedScalar(Double*, Vector128<Double>, Byte)	void vst1q_lane_f64 (float64_t * ptr, float64x2_t val, const int lane); A32: VSTR.64 Dd, [Rn]; A64: ST1 { Vt.D }[index], [Xn]
@@ -4244,6 +4248,9 @@ namespace IntrinsicsLib {
                 // StoreSelectedScalar(UInt32*, Vector128<UInt32>, Byte)	void vst1q_lane_u32 (uint32_t * ptr, uint32x4_t val, const int lane); A32: VST1.32 { Dd[index] }, [Rn]; A64: ST1 { Vt.S }[index], [Xn]
                 // StoreSelectedScalar(UInt32*, Vector64<UInt32>, Byte)	void vst1_lane_u32 (uint32_t * ptr, uint32x2_t val, const int lane); A32: VST1.32 { Dd[index] }, [Rn]; A64: ST1 { Vt.S }[index], [Xn]
                 // StoreSelectedScalar(UInt64*, Vector128<UInt64>, Byte)	void vst1q_lane_u64 (uint64_t * ptr, uint64x2_t val, const int lane); A32: VSTR.64 Dd, [Rn]; A64: ST1 { Vt.D }[index], [Xn]
+                // Ignore
+
+                // 1、Vector subtract(正常指令):vsub -> ri = ai - bi;
                 // Subtract(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vsubq_u8 (uint8x16_t a, uint8x16_t b); A32: VSUB.I8 Qd, Qn, Qm; A64: SUB Vd.16B, Vn.16B, Vm.16B
                 // Subtract(Vector128<Int16>, Vector128<Int16>)	int16x8_t vsubq_s16 (int16x8_t a, int16x8_t b); A32: VSUB.I16 Qd, Qn, Qm; A64: SUB Vd.8H, Vn.8H, Vm.8H
                 // Subtract(Vector128<Int32>, Vector128<Int32>)	int32x4_t vsubq_s32 (int32x4_t a, int32x4_t b); A32: VSUB.I32 Qd, Qn, Qm; A64: SUB Vd.4S, Vn.4S, Vm.4S
@@ -4260,30 +4267,82 @@ namespace IntrinsicsLib {
                 // Subtract(Vector64<Single>, Vector64<Single>)	float32x2_t vsub_f32 (float32x2_t a, float32x2_t b); A32: VSUB.F32 Dd, Dn, Dm; A64: FSUB Vd.2S, Vn.2S, Vm.2S
                 // Subtract(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t vsub_u16 (uint16x4_t a, uint16x4_t b); A32: VSUB.I16 Dd, Dn, Dm; A64: SUB Vd.4H, Vn.4H, Vm.4H
                 // Subtract(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vsub_u32 (uint32x2_t a, uint32x2_t b); A32: VSUB.I32 Dd, Dn, Dm; A64: SUB Vd.2S, Vn.2S, Vm.2S
+                // SubtractScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vsub_f64 (float64x1_t a, float64x1_t b); A32: VSUB.F64 Dd, Dn, Dm; A64: FSUB Dd, Dn, Dm
+                // SubtractScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vsub_s64 (int64x1_t a, int64x1_t b); A32: VSUB.I64 Dd, Dn, Dm; A64: SUB Dd, Dn, Dm
+                // SubtractScalar(Vector64<Single>, Vector64<Single>)	float32_t vsubs_f32 (float32_t a, float32_t b); A32: VSUB.F32 Sd, Sn, Sm; A64: FSUB Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
+                // SubtractScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vsub_u64 (uint64x1_t a, uint64x1_t b); A32: VSUB.I64 Dd, Dn, Dm; A64: SUB Dd, Dn, Dm
+                WriteLine(writer, indent, "Subtract(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.Subtract(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.Subtract(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.Subtract(Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.Subtract(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.Subtract(Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.Subtract(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.Subtract(Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.Subtract(Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+                WriteLine(writer, indent, "Subtract(Vector128s<float>.Demo, Vector128s<float>.V2):\t{0}", AdvSimd.Subtract(Vector128s<float>.Demo, Vector128s<float>.V2));
+                WriteLine(writer, indent, "SubtractScalar(Vector64s<double>.Demo, Vector64s<double>.V2):\t{0}", AdvSimd.SubtractScalar(Vector64s<double>.Demo, Vector64s<double>.V2));
+
+                // 6、Vector subtract high half(窄指令): vsubhn -> ri = ai - bi; 
+                // It returns the most significant halves of the results. The results are truncated
+                // 它返回结果中最重要的一半。结果被截断
                 // SubtractHighNarrowingLower(Vector128<Int16>, Vector128<Int16>)	int8x8_t vsubhn_s16 (int16x8_t a, int16x8_t b); A32: VSUBHN.I16 Dd, Qn, Qm; A64: SUBHN Vd.8B, Vn.8H, Vm.8H
                 // SubtractHighNarrowingLower(Vector128<Int32>, Vector128<Int32>)	int16x4_t vsubhn_s32 (int32x4_t a, int32x4_t b); A32: VSUBHN.I32 Dd, Qn, Qm; A64: SUBHN Vd.4H, Vn.4S, Vm.4S
                 // SubtractHighNarrowingLower(Vector128<Int64>, Vector128<Int64>)	int32x2_t vsubhn_s64 (int64x2_t a, int64x2_t b); A32: VSUBHN.I64 Dd, Qn, Qm; A64: SUBHN Vd.2S, Vn.2D, Vm.2D
                 // SubtractHighNarrowingLower(Vector128<UInt16>, Vector128<UInt16>)	uint8x8_t vsubhn_u16 (uint16x8_t a, uint16x8_t b); A32: VSUBHN.I16 Dd, Qn, Qm; A64: SUBHN Vd.8B, Vn.8H, Vm.8H
                 // SubtractHighNarrowingLower(Vector128<UInt32>, Vector128<UInt32>)	uint16x4_t vsubhn_u32 (uint32x4_t a, uint32x4_t b); A32: VSUBHN.I32 Dd, Qn, Qm; A64: SUBHN Vd.4H, Vn.4S, Vm.4S
                 // SubtractHighNarrowingLower(Vector128<UInt64>, Vector128<UInt64>)	uint32x2_t vsubhn_u64 (uint64x2_t a, uint64x2_t b); A32: VSUBHN.I64 Dd, Qn, Qm; A64: SUBHN Vd.2S, Vn.2D, Vm.2D
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingLower(Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.SubtractHighNarrowingLower(Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+
                 // SubtractHighNarrowingUpper(Vector64<Byte>, Vector128<UInt16>, Vector128<UInt16>)	uint8x16_t vsubhn_high_u16 (uint8x8_t r, uint16x8_t a, uint16x8_t b); A32: VSUBHN.I16 Dd+1, Qn, Qm; A64: SUBHN2 Vd.16B, Vn.8H, Vm.8H
                 // SubtractHighNarrowingUpper(Vector64<Int16>, Vector128<Int32>, Vector128<Int32>)	int16x8_t vsubhn_high_s32 (int16x4_t r, int32x4_t a, int32x4_t b); A32: VSUBHN.I32 Dd+1, Qn, Qm; A64: SUBHN2 Vd.8H, Vn.4S, Vm.4S
                 // SubtractHighNarrowingUpper(Vector64<Int32>, Vector128<Int64>, Vector128<Int64>)	int32x4_t vsubhn_high_s64 (int32x2_t r, int64x2_t a, int64x2_t b); A32: VSUBHN.I64 Dd+1, Qn, Qm; A64: SUBHN2 Vd.4S, Vn.2D, Vm.2D
                 // SubtractHighNarrowingUpper(Vector64<SByte>, Vector128<Int16>, Vector128<Int16>)	int8x16_t vsubhn_high_s16 (int8x8_t r, int16x8_t a, int16x8_t b); A32: VSUBHN.I16 Dd+1, Qn, Qm; A64: SUBHN2 Vd.16B, Vn.8H, Vm.8H
                 // SubtractHighNarrowingUpper(Vector64<UInt16>, Vector128<UInt32>, Vector128<UInt32>)	uint16x8_t vsubhn_high_u32 (uint16x4_t r, uint32x4_t a, uint32x4_t b); A32: VSUBHN.I32 Dd+1, Qn, Qm; A64: SUBHN2 Vd.8H, Vn.4S, Vm.4S
                 // SubtractHighNarrowingUpper(Vector64<UInt32>, Vector128<UInt64>, Vector128<UInt64>)	uint32x4_t vsubhn_high_u64 (uint32x2_t r, uint64x2_t a, uint64x2_t b); A32: VSUBHN.I64 Dd+1, Qn, Qm; A64: SUBHN2 Vd.4S, Vn.2D, Vm.2D
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "SubtractHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.SubtractHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+
+                // 7、Vector rounding subtract high half(窄指令): vrsubhn -> ai - bi;  
+                // It returns the most significant halves of the results. The results are rounded
+                // 它返回结果中最重要的一半。结果四舍五入
                 // SubtractRoundedHighNarrowingLower(Vector128<Int16>, Vector128<Int16>)	int8x8_t vrsubhn_s16 (int16x8_t a, int16x8_t b); A32: VRSUBHN.I16 Dd, Qn, Qm; A64: RSUBHN Vd.8B, Vn.8H, Vm.8H
                 // SubtractRoundedHighNarrowingLower(Vector128<Int32>, Vector128<Int32>)	int16x4_t vrsubhn_s32 (int32x4_t a, int32x4_t b); A32: VRSUBHN.I32 Dd, Qn, Qm; A64: RSUBHN Vd.4H, Vn.4S, Vm.4S
                 // SubtractRoundedHighNarrowingLower(Vector128<Int64>, Vector128<Int64>)	int32x2_t vrsubhn_s64 (int64x2_t a, int64x2_t b); A32: VRSUBHN.I64 Dd, Qn, Qm; A64: RSUBHN Vd.2S, Vn.2D, Vm.2D
                 // SubtractRoundedHighNarrowingLower(Vector128<UInt16>, Vector128<UInt16>)	uint8x8_t vrsubhn_u16 (uint16x8_t a, uint16x8_t b); A32: VRSUBHN.I16 Dd, Qn, Qm; A64: RSUBHN Vd.8B, Vn.8H, Vm.8H
                 // SubtractRoundedHighNarrowingLower(Vector128<UInt32>, Vector128<UInt32>)	uint16x4_t vrsubhn_u32 (uint32x4_t a, uint32x4_t b); A32: VRSUBHN.I32 Dd, Qn, Qm; A64: RSUBHN Vd.4H, Vn.4S, Vm.4S
                 // SubtractRoundedHighNarrowingLower(Vector128<UInt64>, Vector128<UInt64>)	uint32x2_t vrsubhn_u64 (uint64x2_t a, uint64x2_t b); A32: VRSUBHN.I64 Dd, Qn, Qm; A64: RSUBHN Vd.2S, Vn.2D, Vm.2D
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingLower(Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingLower(Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+
                 // SubtractRoundedHighNarrowingUpper(Vector64<Byte>, Vector128<UInt16>, Vector128<UInt16>)	uint8x16_t vrsubhn_high_u16 (uint8x8_t r, uint16x8_t a, uint16x8_t b); A32: VRSUBHN.I16 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.16B, Vn.8H, Vm.8H
                 // SubtractRoundedHighNarrowingUpper(Vector64<Int16>, Vector128<Int32>, Vector128<Int32>)	int16x8_t vrsubhn_high_s32 (int16x4_t r, int32x4_t a, int32x4_t b); A32: VRSUBHN.I32 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.8H, Vn.4S, Vm.4S
                 // SubtractRoundedHighNarrowingUpper(Vector64<Int32>, Vector128<Int64>, Vector128<Int64>)	int32x4_t vrsubhn_high_s64 (int32x2_t r, int64x2_t a, int64x2_t b); A32: VRSUBHN.I64 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.4S, Vn.2D, Vm.2D
                 // SubtractRoundedHighNarrowingUpper(Vector64<SByte>, Vector128<Int16>, Vector128<Int16>)	int8x16_t vrsubhn_high_s16 (int8x8_t r, int16x8_t a, int16x8_t b); A32: VRSUBHN.I16 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.16B, Vn.8H, Vm.8H
                 // SubtractRoundedHighNarrowingUpper(Vector64<UInt16>, Vector128<UInt32>, Vector128<UInt32>)	uint16x8_t vrsubhn_high_u32 (uint16x4_t r, uint32x4_t a, uint32x4_t b); A32: VRSUBHN.I32 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.8H, Vn.4S, Vm.4S
                 // SubtractRoundedHighNarrowingUpper(Vector64<UInt32>, Vector128<UInt64>, Vector128<UInt64>)	uint32x4_t vrsubhn_high_u64 (uint32x2_t r, uint64x2_t a, uint64x2_t b); A32: VRSUBHN.I64 Dd+1, Qn, Qm; A64: RSUBHN2 Vd.4S, Vn.2D, Vm.2D
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<sbyte>.SerialNegative, Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<byte>.SerialNegative, Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<short>.SerialNegative, Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<ushort>.SerialNegative, Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<int>.SerialNegative, Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "SubtractRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.SubtractRoundedHighNarrowingUpper(Vector64s<uint>.SerialNegative, Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+
+                // 4、Vector saturating subtract(饱和指令): vqsub -> ri = sat(ai - bi); 
+                // If any of the results overflow, they are saturated
+                // 如果有任何结果溢出，则它们是饱和的
                 // SubtractSaturate(Vector128<Byte>, Vector128<Byte>)	uint8x16_t vqsubq_u8 (uint8x16_t a, uint8x16_t b); A32: VQSUB.U8 Qd, Qn, Qm; A64: UQSUB Vd.16B, Vn.16B, Vm.16B
                 // SubtractSaturate(Vector128<Int16>, Vector128<Int16>)	int16x8_t vqsubq_s16 (int16x8_t a, int16x8_t b); A32: VQSUB.S16 Qd, Qn, Qm; A64: SQSUB Vd.8H, Vn.8H, Vm.8H
                 // SubtractSaturate(Vector128<Int32>, Vector128<Int32>)	int32x4_t vqsubq_s32 (int32x4_t a, int32x4_t b); A32: VQSUB.S32 Qd, Qn, Qm; A64: SQSUB Vd.4S, Vn.4S, Vm.4S
@@ -4300,10 +4359,17 @@ namespace IntrinsicsLib {
                 // SubtractSaturate(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t vqsub_u32 (uint32x2_t a, uint32x2_t b); A32: VQSUB.U32 Dd, Dn, Dm; A64: UQSUB Vd.2S, Vn.2S, Vm.2S
                 // SubtractSaturateScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vqsub_s64 (int64x1_t a, int64x1_t b); A32: VQSUB.S64 Dd, Dn, Dm; A64: SQSUB Dd, Dn, Dm
                 // SubtractSaturateScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vqsub_u64 (uint64x1_t a, uint64x1_t b); A32: VQSUB.U64 Dd, Dn, Dm; A64: UQSUB Dd, Dn, Dm
-                // SubtractScalar(Vector64<Double>, Vector64<Double>)	float64x1_t vsub_f64 (float64x1_t a, float64x1_t b); A32: VSUB.F64 Dd, Dn, Dm; A64: FSUB Dd, Dn, Dm
-                // SubtractScalar(Vector64<Int64>, Vector64<Int64>)	int64x1_t vsub_s64 (int64x1_t a, int64x1_t b); A32: VSUB.I64 Dd, Dn, Dm; A64: SUB Dd, Dn, Dm
-                // SubtractScalar(Vector64<Single>, Vector64<Single>)	float32_t vsubs_f32 (float32_t a, float32_t b); A32: VSUB.F32 Sd, Sn, Sm; A64: FSUB Sd, Sn, Sm The above native signature does not exist. We provide this additional overload for consistency with the other scalar APIs.
-                // SubtractScalar(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t vsub_u64 (uint64x1_t a, uint64x1_t b); A32: VSUB.I64 Dd, Dn, Dm; A64: SUB Dd, Dn, Dm
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<long>.Demo, Vector128s<long>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<long>.Demo, Vector128s<long>.V2));
+                WriteLine(writer, indent, "SubtractSaturate(Vector128s<ulong>.Demo, Vector128s<ulong>.V2):\t{0}", AdvSimd.SubtractSaturate(Vector128s<ulong>.Demo, Vector128s<ulong>.V2));
+                WriteLine(writer, indent, "SubtractSaturateScalar(Vector64s<long>.Demo, Vector64s<long>.V2):\t{0}", AdvSimd.SubtractSaturateScalar(Vector64s<long>.Demo, Vector64s<long>.V2));
+
+                // 3、Vector wide subtract(宽指令): vsubw -> ri = ai - bi;
                 // SubtractWideningLower(Vector128<Int16>, Vector64<SByte>)	int16x8_t vsubw_s8 (int16x8_t a, int8x8_t b); A32: VSUBW.S8 Qd, Qn, Dm; A64: SSUBW Vd.8H, Vn.8H, Vm.8B
                 // SubtractWideningLower(Vector128<Int32>, Vector64<Int16>)	int32x4_t vsubw_s16 (int32x4_t a, int16x4_t b); A32: VSUBW.S16 Qd, Qn, Dm; A64: SSUBW Vd.4S, Vn.4S, Vm.4H
                 // SubtractWideningLower(Vector128<Int64>, Vector64<Int32>)	int64x2_t vsubw_s32 (int64x2_t a, int32x2_t b); A32: VSUBW.S32 Qd, Qn, Dm; A64: SSUBW Vd.2D, Vn.2D, Vm.2S
@@ -4316,6 +4382,13 @@ namespace IntrinsicsLib {
                 // SubtractWideningLower(Vector64<SByte>, Vector64<SByte>)	int16x8_t vsubl_s8 (int8x8_t a, int8x8_t b); A32: VSUBL.S8 Qd, Dn, Dm; A64: SSUBL Vd.8H, Vn.8B, Vm.8B
                 // SubtractWideningLower(Vector64<UInt16>, Vector64<UInt16>)	uint32x4_t vsubl_u16 (uint16x4_t a, uint16x4_t b); A32: VSUBL.U16 Qd, Dn, Dm; A64: USUBL Vd.4S, Vn.4H, Vm.4H
                 // SubtractWideningLower(Vector64<UInt32>, Vector64<UInt32>)	uint64x2_t vsubl_u32 (uint32x2_t a, uint32x2_t b); A32: VSUBL.U32 Qd, Dn, Dm; A64: USUBL Vd.2D, Vn.2S, Vm.2S
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<short>.Demo, Vector64s<sbyte>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<short>.Demo, Vector64s<sbyte>.V2));
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<ushort>.Demo, Vector64s<byte>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<ushort>.Demo, Vector64s<byte>.V2));
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<int>.Demo, Vector64s<short>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<int>.Demo, Vector64s<short>.V2));
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<uint>.Demo, Vector64s<ushort>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<uint>.Demo, Vector64s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<long>.Demo, Vector64s<int>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<long>.Demo, Vector64s<int>.V2));
+                WriteLine(writer, indent, "SubtractWideningLower(Vector128s<ulong>.Demo, Vector64s<uint>.V2):\t{0}", AdvSimd.SubtractWideningLower(Vector128s<ulong>.Demo, Vector64s<uint>.V2));
+
                 // SubtractWideningUpper(Vector128<Byte>, Vector128<Byte>)	uint16x8_t vsubl_high_u8 (uint8x16_t a, uint8x16_t b); A32: VSUBL.U8 Qd, Dn+1, Dm+1; A64: USUBL2 Vd.8H, Vn.16B, Vm.16B
                 // SubtractWideningUpper(Vector128<Int16>, Vector128<Int16>)	int32x4_t vsubl_high_s16 (int16x8_t a, int16x8_t b); A32: VSUBL.S16 Qd, Dn+1, Dm+1; A64: SSUBL2 Vd.4S, Vn.8H, Vm.8H
                 // SubtractWideningUpper(Vector128<Int16>, Vector128<SByte>)	int16x8_t vsubw_high_s8 (int16x8_t a, int8x16_t b); A32: VSUBW.S8 Qd, Qn, Dm+1; A64: SSUBW2 Vd.8H, Vn.8H, Vm.16B
@@ -4328,6 +4401,14 @@ namespace IntrinsicsLib {
                 // SubtractWideningUpper(Vector128<UInt32>, Vector128<UInt16>)	uint32x4_t vsubw_high_u16 (uint32x4_t a, uint16x8_t b); A32: VSUBW.U16 Qd, Qn, Dm+1; A64: USUBW2 Vd.4S, Vn.4S, Vm.8H
                 // SubtractWideningUpper(Vector128<UInt32>, Vector128<UInt32>)	uint64x2_t vsubl_high_u32 (uint32x4_t a, uint32x4_t b); A32: VSUBL.U32 Qd, Dn+1, Dm+1; A64: USUBL2 Vd.2D, Vn.4S, Vm.4S
                 // SubtractWideningUpper(Vector128<UInt64>, Vector128<UInt32>)	uint64x2_t vsubw_high_u32 (uint64x2_t a, uint32x4_t b); A32: VSUBW.U32 Qd, Qn, Dm+1; A64: USUBW2 Vd.2D, Vn.2D, Vm.4S
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<sbyte>.Demo, Vector128s<sbyte>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<byte>.Demo, Vector128s<byte>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<short>.Demo, Vector128s<short>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<ushort>.Demo, Vector128s<ushort>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<ushort>.Demo, Vector128s<ushort>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<int>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<uint>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<uint>.Demo, Vector128s<uint>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<long>.Demo, Vector128s<int>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<long>.Demo, Vector128s<int>.V2));
+                WriteLine(writer, indent, "SubtractWideningUpper(Vector128s<ulong>.Demo, Vector128s<uint>.V2):\t{0}", AdvSimd.SubtractWideningUpper(Vector128s<ulong>.Demo, Vector128s<uint>.V2));
             }
         }
         public unsafe static void RunArm_AdvSimd_V(TextWriter writer, string indent) {
