@@ -2263,6 +2263,8 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "Not(Vector128s<ushort>.Demo):\t{0}", AdvSimd.Not(Vector128s<ushort>.Demo));
             WriteLine(writer, indent, "Not(Vector128s<int>.Demo):\t{0}", AdvSimd.Not(Vector128s<int>.Demo));
             WriteLine(writer, indent, "Not(Vector128s<uint>.Demo):\t{0}", AdvSimd.Not(Vector128s<uint>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<long>.Demo):\t{0}", AdvSimd.Not(Vector128s<long>.Demo));
+            WriteLine(writer, indent, "Not(Vector128s<ulong>.Demo):\t{0}", AdvSimd.Not(Vector128s<ulong>.Demo));
             WriteLine(writer, indent, "Not(Vector128s<float>.Demo):\t{0}", AdvSimd.Not(Vector128s<float>.Demo));
         }
         public unsafe static void RunArm_AdvSimd_O(TextWriter writer, string indent) {
@@ -4512,6 +4514,16 @@ namespace IntrinsicsLib {
             // Xor(Vector64<UInt16>, Vector64<UInt16>)	uint16x4_t veor_u16 (uint16x4_t a, uint16x4_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
             // Xor(Vector64<UInt32>, Vector64<UInt32>)	uint32x2_t veor_u32 (uint32x2_t a, uint32x2_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
             // Xor(Vector64<UInt64>, Vector64<UInt64>)	uint64x1_t veor_u64 (uint64x1_t a, uint64x1_t b); A32: VEOR Dd, Dn, Dm; A64: EOR Vd.8B, Vn.8B, Vm.8B
+            WriteLine(writer, indent, "Xor(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<sbyte>.Demo, Vector128s<sbyte>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<byte>.Demo, Vector128s<byte>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<short>.Demo, Vector128s<short>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<short>.Demo, Vector128s<short>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<ushort>.Demo, Vector128s<ushort>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<int>.Demo, Vector128s<int>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<int>.Demo, Vector128s<int>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<uint>.Demo, Vector128s<uint>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<long>.Demo, Vector128s<long>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<long>.Demo, Vector128s<long>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<ulong>.Demo, Vector128s<ulong>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<float>Demo, Vector128s<float>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<float>.Demo, Vector128s<float>.SerialNegative));
+            WriteLine(writer, indent, "Xor(Vector128s<double>.Demo, Vector128s<double>.SerialNegative):\t{0}", AdvSimd.Xor(Vector128s<double>.Demo, Vector128s<double>.SerialNegative));
         }
         public unsafe static void RunArm_AdvSimd_Z(TextWriter writer, string indent) {
             // ZeroExtendWideningLower(Vector64<Byte>)	uint16x8_t vmovl_u8 (uint8x8_t a); A32: VMOVL.U8 Qd, Dm; A64: UXTL Vd.8H, Vn.8B
@@ -4520,13 +4532,25 @@ namespace IntrinsicsLib {
             // ZeroExtendWideningLower(Vector64<SByte>)	uint16x8_t vmovl_u8 (uint8x8_t a); A32: VMOVL.U8 Qd, Dm; A64: UXTL Vd.8H, Vn.8B
             // ZeroExtendWideningLower(Vector64<UInt16>)	uint32x4_t vmovl_u16 (uint16x4_t a); A32: VMOVL.U16 Qd, Dm; A64: UXTL Vd.4S, Vn.4H
             // ZeroExtendWideningLower(Vector64<UInt32>)	uint64x2_t vmovl_u32 (uint32x2_t a); A32: VMOVL.U32 Qd, Dm; A64: UXTL Vd.2D, Vn.2S
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<sbyte>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<sbyte>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<byte>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<byte>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<short>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<short>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<ushort>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<ushort>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<int>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<int>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningLower(Vector64s<uint>.Demo):\t{0}", AdvSimd.ZeroExtendWideningLower(Vector64s<uint>.Demo));
+
             // ZeroExtendWideningUpper(Vector128<Byte>)	uint16x8_t vmovl_high_u8 (uint8x16_t a); A32: VMOVL.U8 Qd, Dm+1; A64: UXTL2 Vd.8H, Vn.16B
             // ZeroExtendWideningUpper(Vector128<Int16>)	uint32x4_t vmovl_high_u16 (uint16x8_t a); A32: VMOVL.U16 Qd, Dm+1; A64: UXTL2 Vd.4S, Vn.8H
             // ZeroExtendWideningUpper(Vector128<Int32>)	uint64x2_t vmovl_high_u32 (uint32x4_t a); A32: VMOVL.U32 Qd, Dm+1; A64: UXTL2 Vd.2D, Vn.4S
             // ZeroExtendWideningUpper(Vector128<SByte>)	uint16x8_t vmovl_high_u8 (uint8x16_t a); A32: VMOVL.U8 Qd, Dm+1; A64: UXTL2 Vd.8H, Vn.16B
             // ZeroExtendWideningUpper(Vector128<UInt16>)	uint32x4_t vmovl_high_u16 (uint16x8_t a); A32: VMOVL.U16 Qd, Dm+1; A64: UXTL2 Vd.4S, Vn.8H
             // ZeroExtendWideningUpper(Vector128<UInt32>)	uint64x2_t vmovl_high_u32 (uint32x4_t a); A32: VMOVL.U32 Qd, Dm+1; A64: UXTL2 Vd.2D, Vn.4S
-
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<sbyte>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<sbyte>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<byte>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<byte>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<short>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<short>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<ushort>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<ushort>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<int>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<int>.Demo));
+            WriteLine(writer, indent, "ZeroExtendWideningUpper(Vector128s<uint>.Demo):\t{0}", AdvSimd.ZeroExtendWideningUpper(Vector128s<uint>.Demo));
         }
 
     }
