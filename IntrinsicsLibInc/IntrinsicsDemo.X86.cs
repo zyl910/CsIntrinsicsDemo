@@ -28,6 +28,7 @@ namespace IntrinsicsLib {
             //RunX86Fma(writer, indent);
             //RunX86AvxVnni(writer, indent);
             Action<TextWriter, string>[] list = {
+                RunX86Demo,
                 // Sse
                 // Avx
                 RunX86Avx,
@@ -90,6 +91,42 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "X86Serialize.IsSupported:\t{0}", X86Serialize.IsSupported);
             WriteLine(writer, indent, "X86Serialize.X64.IsSupported:\t{0}", X86Serialize.X64.IsSupported);
 #endif // NET7_0_OR_GREATER
+        }
+
+        /// <summary>
+        /// Run x86 Fma. https://docs.microsoft.com/zh-cn/dotnet/api/system.runtime.intrinsics.x86.fma?view=net-7.0
+        /// </summary>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        /// <param name="indent">The indent.</param>
+        public static void RunX86Demo(TextWriter writer, string indent) {
+            if (null == writer) return;
+            if (null == indent) indent = "";
+            string indentNext = indent + IndentNextSeparator;
+            bool isSupported = true; // Sse2.IsSupported;
+            if (isSupported) {
+                writer.WriteLine();
+            }
+            writer.WriteLine(indent + "-- X86Demo");
+            if (!isSupported) {
+                return;
+            }
+
+            // ToInt.
+            if (true) {
+                var source = Vector128.Create(0.5f, 0.9f, 1.5f, 2.5f);
+                WriteLine(writer, indent, "Vector128 source:\t{0}", source);
+#if NET7_0_OR_GREATER
+                WriteLine(writer, indent, "ConvertToInt32:\t{0}", Vector128.ConvertToInt32(source));
+#endif // NET7_0_OR_GREATER
+                if (Sse2.IsSupported) {
+                    WriteLine(writer, indent, "Sse2.ConvertToVector128Int32:\t{0}", Sse2.ConvertToVector128Int32(source));
+                    WriteLine(writer, indent, "Sse2.ConvertToVector128Int32WithTruncation:\t{0}", Sse2.ConvertToVector128Int32WithTruncation(source));
+                }
+            }
+            // Bcl
+
+            // Sse
+
         }
     }
 }
