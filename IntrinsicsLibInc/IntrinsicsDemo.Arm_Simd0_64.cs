@@ -614,10 +614,12 @@ namespace IntrinsicsLib {
             // LoadPairScalarVector64NonTemporal(Int32*)	A64: LDNP St1, St2, [Xn]
             // LoadPairScalarVector64NonTemporal(Single*)	A64: LDNP St1, St2, [Xn]
             // LoadPairScalarVector64NonTemporal(UInt32*)	A64: LDNP St1, St2, [Xn]
+#if NET7_0_OR_GREATER
             fixed (void* p0 = &Vector64s<int>.SerialNegative) {
                 int* p = (int*)p0;
                 WriteLine(writer, indent, "LoadPairScalarVector64(p):\t{0}", AdvSimd.Arm64.LoadPairScalarVector64(p));
             }
+#endif
 
             // LoadPairVector128(Byte*)	A64: LDP Qt1, Qt2, [Xn]
             // LoadPairVector128(Double*)	A64: LDP Qt1, Qt2, [Xn]
@@ -639,6 +641,7 @@ namespace IntrinsicsLib {
             // LoadPairVector128NonTemporal(UInt16*)	A64: LDNP Qt1, Qt2, [Xn]
             // LoadPairVector128NonTemporal(UInt32*)	A64: LDNP Qt1, Qt2, [Xn]
             // LoadPairVector128NonTemporal(UInt64*)	A64: LDNP Qt1, Qt2, [Xn]
+#if NET7_0_OR_GREATER
             fixed (void* p0 = &Vector128s<byte>.SerialNegative) {
                 byte* p = (byte*)p0;
                 WriteLine(writer, indent, "LoadPairVector128(p):\t{0}", AdvSimd.Arm64.LoadPairVector128(p));
@@ -651,6 +654,7 @@ namespace IntrinsicsLib {
                 int* p = (int*)p0;
                 WriteLine(writer, indent, "LoadPairVector128(p):\t{0}", AdvSimd.Arm64.LoadPairVector128(p));
             }
+#endif
 
             // LoadPairVector64(Byte*)	A64: LDP Dt1, Dt2, [Xn]
             // LoadPairVector64(Double*)	A64: LDP Dt1, Dt2, [Xn]
