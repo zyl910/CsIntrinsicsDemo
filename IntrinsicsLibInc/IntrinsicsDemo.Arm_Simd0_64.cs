@@ -17,6 +17,7 @@ namespace IntrinsicsLib {
         /// <param name="writer">Output <see cref="TextWriter"/>.</param>
         /// <param name="indent">The indent.</param>
         public unsafe static void RunArm_AdvSimd_64(TextWriter writer, string indent) {
+#if NET5_0_OR_GREATER
             if (null == writer) return;
             if (null == indent) indent = "";
             string indentNext = indent + IndentNextSeparator;
@@ -62,7 +63,10 @@ namespace IntrinsicsLib {
             };
             TraitsUtil.InvokeArray(writer, indent, list);
 
+#endif // #if NET5_0_OR_GREATER
         }
+
+#if NET5_0_OR_GREATER
         public unsafe static void RunArm_AdvSimd_64_A(TextWriter writer, string indent) {
             // 1、Absolute(正常指令): vabs -> ri = |ai|; 
             // returns the absolute value of each element in a vector.
@@ -1615,5 +1619,6 @@ namespace IntrinsicsLib {
 
         }
 
+#endif // #if NET5_0_OR_GREATER
     }
 }

@@ -11,6 +11,7 @@ using Zyl.VectorTraits;
 namespace IntrinsicsLib {
     partial class IntrinsicsDemo {
 
+#if NET5_0_OR_GREATER
         /// <summary>
         /// Run Arm Dp . https://learn.microsoft.com/en-us/dotnet/api/system.runtime.intrinsics.arm.dp?view=net-7.0
         /// </summary>
@@ -333,7 +334,8 @@ namespace IntrinsicsLib {
                 }
             }
 
-        }
+       }
+#endif // #if NET5_0_OR_GREATER
     }
 
 }
