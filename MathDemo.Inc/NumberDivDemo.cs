@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using static MathDemo.StringUtil;
 
 namespace MathDemo {
@@ -16,7 +17,8 @@ namespace MathDemo {
         /// </summary>
         /// <param name="writer">Output <see cref="TextWriter"/>.</param>
         public static void Run(TextWriter writer) {
-            Run_Int16(writer);
+            //Run_Int16(writer);
+            Run_Int16_Trun(writer);
         }
 
         /// <summary>
@@ -75,6 +77,61 @@ namespace MathDemo {
             // totalOkY0:      3140785119      // 73.1316%
             // totalOkY1:      3793748365      // 88.3355%
             // totalOkY01:     4080388111      // 95.0097%
+        }
+
+        /// <summary>
+        /// Run - Int16 - trun.
+        /// </summary>
+        /// <param name="writer">Output <see cref="TextWriter"/>.</param>
+        public static void Run_Int16_Trun(TextWriter writer) {
+            int showCount = 0;
+            long total = 0;
+            long totalErrorYF = 0;
+            long totalErrorY0 = 0;
+            int diffMin = int.MaxValue;
+            int diffMax = int.MinValue;
+            int diff0Min = int.MaxValue;
+            int diff0Max = int.MinValue;
+            writer.WriteLine("## NumberDivDemo.Run_Int16_Trun");
+            writer.WriteLine(StringUtil.JoinTab("x", "b", "yInt", "yFloat", "y0", "yFInt", "y0Int", "yFDiff", "y0Diff"));
+            for (int i = 1; i < 0xFFFF; ++i) {
+                for (int j = 1; j < 0xFFFF; ++j) {
+                    ++total;
+                    // y = x/b = i/j
+                    int yInt = i / j;
+                    float x = (float)(i);
+                    float b = (float)(j);
+                    float d = 1.0f / b; 
+                    float yFloat = Volatile.Read(ref x) / Volatile.Read(ref b); // y = x/b = x*(1/b) = x*d
+                    int yFInt = (int)Math.Truncate(Volatile.Read(ref yFloat));
+                    int yFDiff = yInt - yFInt;
+                    float y0 = Volatile.Read(ref x) * Volatile.Read(ref d);
+                    int y0Int = (int)Math.Truncate(Volatile.Read(ref y0));
+                    int y0Diff = yInt - y0Int;
+                    if (diffMin > yFDiff) diffMin = yFDiff;
+                    if (diffMax < yFDiff) diffMax = yFDiff;
+                    if (diff0Min > y0Diff) diff0Min = y0Diff;
+                    if (diff0Max < y0Diff) diff0Max = y0Diff;
+                    // Show.
+                    if (0 != yFDiff) ++totalErrorYF;
+                    if (0 != y0Diff) ++totalErrorY0;
+                    bool allowShow = true;
+                    allowShow = !(yInt == yFInt);
+                    if (allowShow) {
+                        if (showCount < StringUtil.MaxShowCount) {
+                            ++showCount;
+                            string msg = StringUtil.JoinTab(x, b, yInt, ToStringWithHex(yFloat), ToStringWithHex(y0), yFInt, y0Int, yFDiff, y0Diff);
+                            writer.WriteLine(msg);
+                        }
+                    }
+                }
+            }
+            writer.WriteLine(string.Format("total:\t{0}", total));
+            writer.WriteLine(string.Format("totalErrorYF:\t{0}\t// {1:0.0000}%", totalErrorYF, (double)(100.0 * totalErrorYF) / total));
+            writer.WriteLine(string.Format("totalErrorY0:\t{0}\t// {1:0.0000}%", totalErrorY0, (double)(100.0 * totalErrorY0) / total));
+            writer.WriteLine(string.Format("diff:\t{0}~{1}", diffMin, diffMax));
+            writer.WriteLine(string.Format("diff0:\t{0}~{1}", diff0Min, diff0Max));
+            writer.WriteLine();
         }
 
     }
