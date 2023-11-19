@@ -68,6 +68,13 @@ namespace IntrinsicsLib {
             writer.WriteLine(indent + string.Format("BitConverter.IsLittleEndian:\t{0}", BitConverter.IsLittleEndian));
             writer.WriteLine(indent + string.Format("IntPtr.Size:\t{0}", IntPtr.Size));
             writer.WriteLine(indent + string.Format("Vector.IsHardwareAccelerated:\t{0}", Vector.IsHardwareAccelerated));
+#if NETCOREAPP3_0_OR_GREATER
+            writer.WriteLine(indent + string.Format("Vector128.IsHardwareAccelerated:\t{0}", Vector128.IsHardwareAccelerated));
+            writer.WriteLine(indent + string.Format("Vector256.IsHardwareAccelerated:\t{0}", Vector256.IsHardwareAccelerated));
+#endif // NETCOREAPP3_0_OR_GREATER
+#if NET8_0_OR_GREATER
+            writer.WriteLine(indent + string.Format("Vector512.IsHardwareAccelerated:\t{0}", Vector512.IsHardwareAccelerated));
+#endif // NET8_0_OR_GREATER
             writer.WriteLine(indent + string.Format("Vector<byte>.Count:\t{0}\t# {1}bit", Vector<byte>.Count, Vector<byte>.Count * sizeof(byte) * 8));
             writer.WriteLine(indent + string.Format("Vector<float>.Count:\t{0}\t# {1}bit", Vector<float>.Count, Vector<float>.Count * sizeof(float) * 8));
             //writer.WriteLine(indent + string.Format("Vector<double>.Count:\t{0}\t# {1}bit", Vector<double>.Count, Vector<double>.Count * sizeof(double) * 8));
@@ -80,6 +87,10 @@ namespace IntrinsicsLib {
             writer.WriteLine(string.Format("Vector<T>.Assembly.CodeBase:\t{0}", assembly.CodeBase));
             assembly = typeof(Vector128<float>).GetTypeInfo().Assembly;
             writer.WriteLine(string.Format("Vector128<T>.Assembly.CodeBase:\t{0}", assembly.CodeBase));
+#if NET8_0_OR_GREATER
+            assembly = typeof(Vector512<byte>).GetTypeInfo().Assembly;
+            writer.WriteLine(string.Format("Vector512<T>.Assembly.CodeBase:\t{0}", assembly.CodeBase));
+#endif // NET8_0_OR_GREATER
 #pragma warning restore SYSLIB0012 // Type or member is obsolete
         }
 
