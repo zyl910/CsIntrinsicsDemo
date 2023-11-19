@@ -35,6 +35,7 @@ namespace IntrinsicsLib {
                 RunX86Avx2,
                 RunX86Fma,
                 RunX86AvxVnni,
+                RunX86Avx512F,
             };
             TraitsUtil.InvokeArray(writer, indent, list);
         }
@@ -55,6 +56,23 @@ namespace IntrinsicsLib {
             WriteLine(writer, indent, "Avx.X64.IsSupported:\t{0}", Avx.X64.IsSupported);
             WriteLine(writer, indent, "Avx2.IsSupported:\t{0}", Avx2.IsSupported);
             WriteLine(writer, indent, "Avx2.X64.IsSupported:\t{0}", Avx2.X64.IsSupported);
+#if NET8_0_OR_GREATER
+            WriteLine(writer, indent, "Avx512BW.IsSupported:\t{0}", Avx512BW.IsSupported);
+            WriteLine(writer, indent, "Avx512BW.VL.IsSupported:\t{0}", Avx512BW.VL.IsSupported);
+            WriteLine(writer, indent, "Avx512BW.X64.IsSupported:\t{0}", Avx512BW.X64.IsSupported);
+            WriteLine(writer, indent, "Avx512CD.IsSupported:\t{0}", Avx512CD.IsSupported);
+            WriteLine(writer, indent, "Avx512CD.VL.IsSupported:\t{0}", Avx512CD.VL.IsSupported);
+            WriteLine(writer, indent, "Avx512CD.X64.IsSupported:\t{0}", Avx512CD.X64.IsSupported);
+            WriteLine(writer, indent, "Avx512DQ.IsSupported:\t{0}", Avx512DQ.IsSupported);
+            WriteLine(writer, indent, "Avx512DQ.VL.IsSupported:\t{0}", Avx512DQ.VL.IsSupported);
+            WriteLine(writer, indent, "Avx512DQ.X64.IsSupported:\t{0}", Avx512DQ.X64.IsSupported);
+            WriteLine(writer, indent, "Avx512F.IsSupported:\t{0}", Avx512F.IsSupported);
+            WriteLine(writer, indent, "Avx512F.VL.IsSupported:\t{0}", Avx512F.VL.IsSupported);
+            WriteLine(writer, indent, "Avx512F.X64.IsSupported:\t{0}", Avx512F.X64.IsSupported);
+            WriteLine(writer, indent, "Avx512Vbmi.IsSupported:\t{0}", Avx512Vbmi.IsSupported);
+            WriteLine(writer, indent, "Avx512Vbmi.VL.IsSupported:\t{0}", Avx512Vbmi.VL.IsSupported);
+            WriteLine(writer, indent, "Avx512Vbmi.X64.IsSupported:\t{0}", Avx512Vbmi.X64.IsSupported);
+#endif
 #if NET6_0_OR_GREATER
             WriteLine(writer, indent, "AvxVnni.IsSupported:\t{0}", AvxVnni.IsSupported);
             WriteLine(writer, indent, "AvxVnni.X64.IsSupported:\t{0}", AvxVnni.X64.IsSupported);

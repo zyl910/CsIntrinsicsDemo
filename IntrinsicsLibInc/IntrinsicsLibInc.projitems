@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm_Simd0.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm_Simd0_64.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm_Simd1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Avx512.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\AbstractVectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
@@ -23,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\TraitsUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector128s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector256s.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)vectortraits\Vector512s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vector64s.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\Vectors.cs" />
   </ItemGroup>
