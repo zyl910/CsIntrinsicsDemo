@@ -30,6 +30,7 @@ namespace IntrinsicsLib {
             Action<TextWriter, string>[] list = {
                 RunX86Demo,
                 // Sse
+                RunX86Sse,
                 // Avx
                 RunX86Avx,
                 RunX86Avx2,

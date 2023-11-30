@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm_Simd0_64.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm_Simd1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Avx512.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.X86_Sse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VectorTraits\AbstractVectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.Arm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IntrinsicsDemo.cs" />
