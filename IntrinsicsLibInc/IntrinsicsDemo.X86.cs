@@ -36,7 +36,22 @@ namespace IntrinsicsLib {
                 RunX86Avx2,
                 RunX86Fma,
                 RunX86AvxVnni,
+                // Avx512
+                RunX86Avx512BW,
+                RunX86Avx512BW_VL,
+                RunX86Avx512BW_X64,
+                RunX86Avx512CD,
+                RunX86Avx512CD_VL,
+                RunX86Avx512CD_X64,
+                RunX86Avx512DQ,
+                RunX86Avx512DQ_VL,
+                RunX86Avx512DQ_X64,
                 RunX86Avx512F,
+                RunX86Avx512F_VL,
+                RunX86Avx512F_X64,
+                RunX86Avx512Vbmi,
+                RunX86Avx512Vbmi_VL,
+                RunX86Avx512Vbmi_X64,
             };
             TraitsUtil.InvokeArray(writer, indent, list);
         }
