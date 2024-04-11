@@ -1,18 +1,38 @@
 ﻿@page "/showDemo"
+@using IntrinsicsLib
+@using System.Text
 
 <PageTitle>ShowDemo</PageTitle>
 
 <h1>ShowDemo</h1>
 
-<p role="status">Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="OnTest">Test</button>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<br />
+<br />
+<InputTextArea @bind-Value="resultText" rows="30" style="width: 95%" />
 
 @code {
-    private int currentCount = 0;
+    private string resultText = "";
 
-    private void IncrementCount()
-    {
-        currentCount++;
+
+    private void OnTest() {
+        string indent = "";
+        var writer = new StringWriter();
+        writer.WriteLine("IntrinsicsDemo30");
+        writer.WriteLine();
+        IntrinsicsDemo.OutputEnvironment(writer, indent);
+        writer.WriteLine();
+        IntrinsicsDemo.Run(writer, indent);
+        // Show.
+        resultText = writer.ToString();
     }
+
+    private void AppendLine(string str) {
+        if (resultText.Length > 0x10000) {
+            resultText = "";
+        }
+        resultText += str + Environment.NewLine;
+    }
+
 }

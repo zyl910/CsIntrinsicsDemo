@@ -9,7 +9,7 @@ using System.Runtime.Intrinsics;
 #endif
 using System.Text;
 
-[assembly: CLSCompliant(true)]
+//[assembly: CLSCompliant(true)]
 
 namespace Zyl.VectorTraits {
     /// <summary>

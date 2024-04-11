@@ -81,6 +81,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		MathDemo.Inc\MathDemo.Inc.projitems*{8dfafbe0-46d9-4d19-8a57-9fdc9d27ee4e}*SharedItemsImports = 5
 		IntrinsicsLibInc\IntrinsicsLibInc.projitems*{a33dd5a5-2a8a-46ff-97be-bf3fb23154c2}*SharedItemsImports = 13
+		IntrinsicsLibInc\IntrinsicsLibInc.projitems*{ba555146-e0d7-470a-8efb-322f30ce71f7}*SharedItemsImports = 5
 		MathDemo.Inc\MathDemo.Inc.projitems*{c9de9493-feb4-4f92-8725-5a11cf3796d9}*SharedItemsImports = 13
 		IntrinsicsLibInc\IntrinsicsLibInc.projitems*{cb992d89-1da2-4a40-9459-497269acb442}*SharedItemsImports = 5
 	EndGlobalSection
