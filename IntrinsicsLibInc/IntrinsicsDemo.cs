@@ -104,6 +104,9 @@ namespace IntrinsicsLib {
                 RunCommon(writer, indent);
                 RunX86(writer, indent);
                 RunArm(writer, indent);
+#if NET8_0_OR_GREATER
+                RunWasm(writer, indent);
+#endif // NET8_0_OR_GREATER
             } catch (Exception ex) {
                 writer.WriteLine(ex);
             }
