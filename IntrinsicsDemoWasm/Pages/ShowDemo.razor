@@ -6,26 +6,39 @@
 
 <h1>ShowDemo</h1>
 
-<button class="btn btn-primary" @onclick="OnTest">Test</button>
+<button class="btn btn-primary" @onclick="OnTest" disabled=@IsTaskRunning>Test</button>
 
 <br />
 <br />
 <InputTextArea @bind-Value="resultText" rows="30" style="width: 95%" />
 
 @code {
+    bool IsTaskRunning = false;
     private string resultText = "";
 
-
-    private void OnTest() {
-        string indent = "";
+    private async void OnTest() {
         var writer = new StringWriter();
-        writer.WriteLine("IntrinsicsDemo30");
+        writer.WriteLine("IntrinsicsDemoWasm");
         writer.WriteLine();
+        IsTaskRunning = true;
+        try {
+            await Task.Run(() => OnTestCore(writer));
+        } catch (Exception ex) {
+            System.Diagnostics.Debug.WriteLine(ex);
+            writer.WriteLine(ex);
+        } finally {
+            IsTaskRunning = false;
+        }
+        // Show.
+        resultText = writer.ToString();
+        StateHasChanged();
+    }
+
+    private void OnTestCore(TextWriter writer) {
+        string indent = "";
         IntrinsicsDemo.OutputEnvironment(writer, indent);
         writer.WriteLine();
         IntrinsicsDemo.Run(writer, indent);
-        // Show.
-        resultText = writer.ToString();
     }
 
     private void AppendLine(string str) {
